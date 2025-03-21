@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>LongWei Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="415 序列化&amp;反序列化
+将Object转为字节流，或反之
+
+普通：实现serializable接口 ˈsɪərɪəlaɪzəbl
+使用Jackon，Obj =&gt; json格式
+
+416 Java中的不可变类
+final 修饰，例如String类">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/jobs/java%E5%85%AB%E8%82%A1-java%E5%9F%BA%E7%A1%80/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/jobs/java%E5%85%AB%E8%82%A1-java%E5%9F%BA%E7%A1%80/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+ <script type="text/javascript"
+         async
+         src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+ MathJax.Hub.Config({
+   tex2jax: {
+     inlineMath: [['$','$'], ['\\(','\\)']],
+     displayMath: [['$$','$$'], ['\[\[','\]\]']],
+     processEscapes: true,
+     processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="LongWei Blog (Alt + H)">LongWei Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="LongWei Blog">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="Categories">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">主页</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      
+    </h1>
+    <div class="post-meta">
+
+</div>
+  </header> 
+  <div class="post-content"><h3 id="415-序列化反序列化">415 序列化&amp;反序列化<a hidden class="anchor" aria-hidden="true" href="#415-序列化反序列化">#</a></h3>
+<p>将Object转为字节流，或反之</p>
+<ul>
+<li>普通：实现serializable接口 ˈsɪərɪəlaɪzəbl</li>
+<li>使用Jackon，Obj =&gt; json格式</li>
+</ul>
+<h3 id="416-java中的不可变类">416 Java中的不可变类<a hidden class="anchor" aria-hidden="true" href="#416-java中的不可变类">#</a></h3>
+<p>final 修饰，例如String类</p>
+<p>🎉优点：</p>
+<ul>
+<li>线程安全</li>
+<li>缓存友好</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>性能问题，因为不能修改，所有每次状态变化，都需要生成新的对象。</li>
+</ul>
+<h3 id="411-多态特性">411 多态特性<a hidden class="anchor" aria-hidden="true" href="#411-多态特性">#</a></h3>
+<ul>
+<li>继承</li>
+<li>方法重载，函数名相同，但是函数签名需要有差异(参数类型&amp;数量)</li>
+<li>重写，子类重写父类方法，通过父类调用方法时，调用的是子类重写后的函数。</li>
+</ul>
+<h3 id="412-java参数传值是副本还是引用呢">412 Java参数传值是副本还是引用呢？<a hidden class="anchor" aria-hidden="true" href="#412-java参数传值是副本还是引用呢">#</a></h3>
+<ul>
+<li>基本类型是传<strong>值副本</strong>，int&hellip;</li>
+<li>引用数据类型是传<strong>引用副本</strong>。 including：obj，array</li>
+</ul>
+<h3 id="425-java中-包装类型和基本类型">425 Java中 包装类型和基本类型<a hidden class="anchor" aria-hidden="true" href="#425-java中-包装类型和基本类型">#</a></h3>
+<p>🏷️基本类型 =&gt; int long float double  &hellip;  位于栈上(局部变量的话) ，性能好，但<strong>不支持为null</strong></p>
+<p>（局部变量在栈上，成员变量在堆上，静态字段在方法区）</p>
+<p>🏷️包装类型 =&gt; 每一个基本类型都对应一个包装类型。<strong>包装类型是类，在堆中，支持null</strong></p>
+<p><strong>JVM内存模型</strong>  ❗❗❗内存堆和数据结构堆不是同一个东西(不是堆的结构)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">+--------------------------------------------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w">               </span><span class="n">方法区</span><span class="err">（</span><span class="n">Method</span><span class="w"> </span><span class="n">Area</span><span class="err">）</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="err">←</span><span class="w"> </span><span class="n">线程共享</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">类元数据</span><span class="err">（</span><span class="n">Class</span><span class="w"> </span><span class="n">信息</span><span class="err">）</span><span class="w">                   </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">静态变量</span><span class="err">（</span><span class="kd">static</span><span class="w"> </span><span class="n">变量</span><span class="err">）</span><span class="w">                  </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">常量池</span><span class="err">（</span><span class="n">字符串常量等</span><span class="err">）</span><span class="w">                   </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+--------------------------------------------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="err">↑</span><span class="w">              </span><span class="err">↑</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+----------------+</span><span class="w">    </span><span class="o">+-----------------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w">  </span><span class="n">栈</span><span class="err">（</span><span class="n">Stack</span><span class="err">）</span><span class="w">   </span><span class="o">|</span><span class="w">    </span><span class="o">|</span><span class="w">   </span><span class="n">堆</span><span class="err">（</span><span class="n">Heap</span><span class="err">）</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="err">←</span><span class="w"> </span><span class="n">线程共享</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">局部变量</span><span class="w">    </span><span class="o">|</span><span class="w">    </span><span class="o">|</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">Java</span><span class="w"> </span><span class="n">对象实例</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">方法调用栈</span><span class="w">  </span><span class="o">|</span><span class="w">    </span><span class="o">|</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">数组</span><span class="w">         </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+----------------+</span><span class="w">    </span><span class="o">+-----------------+</span><span class="w">
+</span></span></span></code></pre></div><h3 id="413-interface--abstract-class">413 interface &amp; abstract class<a hidden class="anchor" aria-hidden="true" href="#413-interface--abstract-class">#</a></h3>
+<ul>
+<li>interface(自上而下) 知晓某一种行为，基于这些行为约束定义的接口， 一些类需要有这些行为的话，需要实现这些接口</li>
+<li>abstract class(自下而上): 有许多类，它们有共同点，很多代码可以复用，因此将公共逻辑封装为抽象对象。</li>
+</ul>
+<h3 id="100-hashcode--equals--">100 hashCode &amp; equals &amp; ==<a hidden class="anchor" aria-hidden="true" href="#100-hashcode--equals--">#</a></h3>
+<ul>
+<li>
+<p>hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置；</p>
+</li>
+<li>
+<p>equals比较对象内容是否相等，默认是==。 可能需要重写equals方法逻辑，实现对象成员变量的比较；</p>
+</li>
+<li>
+<p>== 引用类型比较两个引用是否指向同一个对象(内存地址)，基本类型则比较值。</p>
+</li>
+</ul>
+<h3 id="431-java注解">431 Java注解<a hidden class="anchor" aria-hidden="true" href="#431-java注解">#</a></h3>
+<p>注解就是一个标记，提供元数据机制，给予代码添加说明信息。可以在类，方法，成员变量&hellip;上标记，标记本身可以设置一些值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w"> </span><span class="nd">@Target</span><span class="p">(</span><span class="n">Class</span><span class="p">,...)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span><span class="w"> </span><span class="c1">// 注解保留时间</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="nd">@interface</span><span class="w"> </span><span class="n">MyInterface</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">value</span><span class="p">();</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 运行时，通过反射机制拿到对应的注解 -- 结合AOP做事情</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">...</span><span class="na">Obj</span><span class="p">.</span><span class="na">getAnnotation</span><span class="p">(</span><span class="s">&#34;MyInterface&#34;</span><span class="p">)...</span><span class="w">
+</span></span></span></code></pre></div><h3 id="432-java反射">432 Java反射<a hidden class="anchor" aria-hidden="true" href="#432-java反射">#</a></h3>
+<p>运行时获取类的信息，并操作对象</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Person</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Person</span><span class="p">(</span><span class="s">&#34;Emma&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">28</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">cls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="na">getClass</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 调用无参方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Method</span><span class="w"> </span><span class="n">greetMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="na">getDeclaredMethod</span><span class="p">(</span><span class="s">&#34;greet&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">greetMethod</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">person</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 调用有参方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Method</span><span class="w"> </span><span class="n">setAgeMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="na">getDeclaredMethod</span><span class="p">(</span><span class="s">&#34;setAge&#34;</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">setAgeMethod</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">35</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">person</span><span class="p">);</span><span class="w"> </span><span class="c1">// Person{name=&#39;Emma&#39;, age=35}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="434-java泛型">434 Java泛型<a hidden class="anchor" aria-hidden="true" href="#434-java泛型">#</a></h3>
+<p>通过在编译时检查类型安全，使得代码更加通用和灵活，避免运行时发生类型转换错误。 简单理解=&gt; 将运行时的类型转换异常上升到编译时候</p>
+<ul>
+<li>类型安全</li>
+<li>代码重用</li>
+<li>消除显示类型转换，一开始指定好</li>
+</ul>
+<p>🏷️泛型类</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Box</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Box</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="nf">getValue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 这样的话  getValue()就不需要(Type)getValue()了， 直接告诉调用者返回类型  =&gt; 避免类型转换,且提高代码复用性</span><span class="w">
+</span></span></span></code></pre></div><p>🏷️泛型方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 泛型方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="nf">getFirst</span><span class="p">(</span><span class="n">T</span><span class="o">[]</span><span class="w"> </span><span class="n">array</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">array</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// &lt;T&gt; 是申明T是泛型哦， 不然谁知道它是不是一个类的名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 🎉更加灵活</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#34;Hello&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;World&#34;</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Integer</span><span class="o">[]</span><span class="w"> </span><span class="n">numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">getFirst</span><span class="p">(</span><span class="n">words</span><span class="p">));</span><span class="w">  </span><span class="c1">// Hello</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">getFirst</span><span class="p">(</span><span class="n">numbers</span><span class="p">));</span><span class="w"> </span><span class="c1">// 1</span><span class="w">
+</span></span></span></code></pre></div><p>🏷️限制参数类型 防止非法类型使用</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Calculator</span><span class="o">&lt;</span><span class="n">T</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Number</span><span class="o">&gt;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="6306-java泛型擦除">6306 Java泛型擦除<a hidden class="anchor" aria-hidden="true" href="#6306-java泛型擦除">#</a></h3>
+<p>Java编译器在编译代码的时候，将所有泛型信息删除的过程。 擦除是为了确保与旧版本兼容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Class</span><span class="w"> </span><span class="n">Box</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{}</span><span class="w">      </span><span class="o">=&gt;</span><span class="w">      </span><span class="kd">class</span> <span class="nc">Box</span><span class="w"> </span><span class="p">{}</span><span class="w">  </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Object</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Class</span><span class="w"> </span><span class="n">Box</span><span class="o">&lt;</span><span class="n">T</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Number</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{}</span><span class="w">      </span><span class="o">=&gt;</span><span class="w">      </span><span class="kd">class</span> <span class="nc">Box</span><span class="w"> </span><span class="p">{}</span><span class="w">  </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Number</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>泛型类型上界  ? extends T</p>
+<p>泛型类型下届  ? super T</p>
+<p>限制类型</p>
+<hr>
+<h3 id="436-java深拷贝浅拷贝">436 Java深拷贝&amp;浅拷贝<a hidden class="anchor" aria-hidden="true" href="#436-java深拷贝浅拷贝">#</a></h3>
+<ul>
+<li>深拷贝：不仅复制当前对象本身，而且递归的复制对象内的引用。 重写clone方法，或许序列化和反序列化生成新的对象；</li>
+<li>浅拷贝：只复制对象的本身和基本类型的成员变量，而不复制引用类型的对象。 <strong>Object.clone()</strong>；</li>
+<li>引用拷贝：仅复制对应引用  **Object o1 = o2; ** 。</li>
+</ul>
+<!-- raw HTML omitted -->
+<h3 id="438-java类加载过程">438 Java类加载过程<a hidden class="anchor" aria-hidden="true" href="#438-java类加载过程">#</a></h3>
+<p>类加载过程：</p>
+<ul>
+<li>加载：二进制流读入内存，生成Class对象</li>
+<li>连接
+<ul>
+<li>验证：格式是否规范</li>
+<li>准备：为静态变量设置初始值，为它们在方法区开辟。</li>
+<li>解析：将常量池的符号引用转化为直接引用。</li>
+</ul>
+</li>
+<li>初始化：执行静态代码块，为静态变量赋值(代码逻辑里面的)。</li>
+</ul>
+<h3 id="440-bigdecimal">440 BigDecimal<a hidden class="anchor" aria-hidden="true" href="#440-bigdecimal">#</a></h3>
+<p>高精度的计算类，处理任意精度的数值。  涉及到钱，用这个</p>
+<h3 id="442-java中的finalfinally">442 Java中的final、finally<a hidden class="anchor" aria-hidden="true" href="#442-java中的finalfinally">#</a></h3>
+<p>final修饰符，指类和变量不能再修改。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">final</span><span class="w"> </span><span class="n">MyClass</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>不论是否异常，都会执行finally代码块</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">try</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="k">catch</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="825-java调用外部可执行程序">825 Java调用外部可执行程序<a hidden class="anchor" aria-hidden="true" href="#825-java调用外部可执行程序">#</a></h3>
+<p>使用Runtime.exec()</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 执行命令</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Process</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Runtime</span><span class="p">.</span><span class="na">getRuntime</span><span class="p">().</span><span class="na">exec</span><span class="p">(</span><span class="s">&#34;notepad.exe&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 等待外部进程结束</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">exitCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">process</span><span class="p">.</span><span class="na">waitFor</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 检查执行情况</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>使用ProcessBuilder</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 配置程序信息</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ProcessBuilder</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProcessBuilder</span><span class="p">(</span><span class="s">&#34;cmd.exe&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;/c&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;dir&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// builder.xxx() ... 配置信息</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 启动进程</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Process</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">builder</span><span class="p">.</span><span class="na">start</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 获取进程输出</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">process</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// ... </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 等待结束</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">process</span><span class="p">.</span><span class="na">waitFor</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 检查执行情况    </span><span class="w">
+</span></span></span></code></pre></div><h3 id="938-如果一个线程在java中被两次调用start方法会发生什么">938 如果一个线程在Java中被两次调用start方法，会发生什么？<a hidden class="anchor" aria-hidden="true" href="#938-如果一个线程在java中被两次调用start方法会发生什么">#</a></h3>
+<p>报错 =&gt; Java中，一个线程只能被启动一次。</p>
+<h3 id="943-io流">943 IO流<a hidden class="anchor" aria-hidden="true" href="#943-io流">#</a></h3>
+<p>读取数据和输出数据</p>
+<ul>
+<li>字节流，用于处理二进制文件, InputStream&amp;OutputStream;
+<ul>
+<li>InputStream 子类如下：
+<ul>
+<li>FileInputStream</li>
+<li>BufferedInputStream // 提供缓冲区，提高性能</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>字符流，用于处理文本。 Reader&amp;Writer；
+<ul>
+<li>Reader 子类如下：
+<ul>
+<li>FileReader</li>
+<li>BufferedReader</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="945-java网络编程">945 Java网络编程<a hidden class="anchor" aria-hidden="true" href="#945-java网络编程">#</a></h3>
+<p>🏷️用于网络通信，网络编程基本概念</p>
+<ul>
+<li>IP地址</li>
+<li>端口号</li>
+<li>socket(ip:port)</li>
+<li>协议，TCP &amp; UDP 等等</li>
+</ul>
+<p>TCP实践</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 服务器代码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">ServerThread</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Thread</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Socket</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ServerSocket</span><span class="p">(</span><span class="s">&#34;localhost&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">8080</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@overwrite</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">PrintWriter</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PrintWriter</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">()</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedReader</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InputStreamReader</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">()));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="na">readLine</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Hello, client!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Client</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Socket</span><span class="w"> </span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Socket</span><span class="p">(</span><span class="s">&#34;localhost&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">8080</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// ServerSocket &amp; Socket    </span><span class="w">
+</span></span></span></code></pre></div><h3 id="949-java中的自动装箱和拆箱">949 Java中的自动装箱和拆箱<a hidden class="anchor" aria-hidden="true" href="#949-java中的自动装箱和拆箱">#</a></h3>
+<p><strong>自动装箱/拆箱让 Java 更加易用，减少了手动转换的冗余代码，同时保持了类型安全</strong></p>
+<ul>
+<li>自动拆箱和装箱 ,  解决泛型不支持基本类型</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">  </span><span class="c1">// ✅ 使用包装类 Integer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 手动装箱和拆箱</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">Integer</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">10</span><span class="p">));</span><span class="w"> </span><span class="c1">// int =&gt; Integer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">0</span><span class="p">).</span><span class="na">intValue</span><span class="p">();</span><span class="w"> </span><span class="c1">// Integer =&gt; int 手动实现</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 自动装箱和拆箱</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">10</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">0</span><span class="p">)</span><span class="w">    
+</span></span></span></code></pre></div><ul>
+<li>基本类型当作对象使用</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="p">,</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;One&#34;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">自动装箱</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">自动装箱</span><span class="w">    
+</span></span></span></code></pre></div><ul>
+<li>简化基本类型和包装类型</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// 这里的 a 和 b 需要自动拆箱</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 手动拆箱</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">Integer</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">intValue</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="na">intValue</span><span class="p">();</span><span class="w">  </span><span class="c1">// 这里的 a 和 b 需要自动拆箱</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="988-java中的迭代器-iterator-ɪtəˈreɪtə">988 Java中的迭代器 Iterator ɪtəˈreɪtə<a hidden class="anchor" aria-hidden="true" href="#988-java中的迭代器-iterator-ɪtəˈreɪtə">#</a></h3>
+<p>作用用于遍历集合</p>
+<ul>
+<li>hasNext(): 返回是否存在下一个元素</li>
+<li>next(): 返回下一个元素</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Iterator</span><span class="w"> </span><span class="n">iterator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">iterator</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">while</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="na">hasNext</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iterator</span><span class="p">.</span><span class="na">next</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">    
+</span></span></span></code></pre></div><h3 id="993-java特性">993 Java特性<a hidden class="anchor" aria-hidden="true" href="#993-java特性">#</a></h3>
+<ul>
+<li>
+<p>封装：将对象的状态和行为封装在一个类内部，并通过公开的接口与外部进行交互。只暴露必要功能。</p>
+</li>
+<li>
+<p>继承：子类继承父类，可以继承它的属性和方法，提高代码重用和扩展。</p>
+</li>
+<li>
+<p>多态：重写&amp;重载</p>
+</li>
+</ul>
+<h3 id="994-java中访问修饰符">994 Java中访问修饰符<a hidden class="anchor" aria-hidden="true" href="#994-java中访问修饰符">#</a></h3>
+<ul>
+<li>public：All</li>
+<li>private：当前类</li>
+<li>protected：当前类，同一包(package声明一致)，子类</li>
+<li>default，当前类，同一包</li>
+</ul>
+<h3 id="995-静态方法实例方法">995 静态方法&amp;实例方法<a hidden class="anchor" aria-hidden="true" href="#995-静态方法实例方法">#</a></h3>
+<ul>
+<li>
+<p>静态方法 static声明：属于类而非具体的实例，通过类名调用。</p>
+<ul>
+<li>工厂方法，工具类</li>
+<li>当类的字节码文件加载到内存，类方法的入口地址就会被分配完成，所以类方法不仅仅被该类的对象调用，也可以直接通过类名称完成调用，类方法的入口地址只有程序退出才消失。</li>
+</ul>
+</li>
+<li>
+<p>实例方法：属于实例，通过实例调用；</p>
+<ul>
+<li>当类的字节码加载到内存中的时候，类的实例方法并没有被分配到入口地址，只有当类的对象创建之后，实例方法才分配了入口地址，从而实例方法可以被类创建的所有的对象所调用，还有一点要注意，当我们创建第一个类的对象时，实例方法的入口地址会完成分配，当后续在创建对象时，不会被分配新的入口地址，该类的所有的对象共享实例方法的入口地址，当该类的所有的对象被销毁，入口的地址才会消失。</li>
+</ul>
+</li>
+</ul>
+<h3 id="990-java中for和for-each">990 java中for和for-each<a hidden class="anchor" aria-hidden="true" href="#990-java中for和for-each">#</a></h3>
+<ul>
+<li>for，下标遍历</li>
+<li>for-each，遍历集合，不提供下标，且不能修改集合，否则报错</li>
+</ul>
+<h3 id="5900-wait和sleep">5900 wait()和sleep()<a hidden class="anchor" aria-hidden="true" href="#5900-wait和sleep">#</a></h3>
+<p>wait() 需要和 notify()搭配使用。 用于在同步代码块同，阻塞和唤醒</p>
+<p>sleep() 使线程进行休眠状态，让出CPU使用权，时间到了自动恢复为就绪态等待系统分配CPU</p>
+<h3 id="5908-java-object类有什么方法及对应作用">5908 Java Object类有什么方法及对应作用<a hidden class="anchor" aria-hidden="true" href="#5908-java-object类有什么方法及对应作用">#</a></h3>
+<ul>
+<li>
+<p>hashCode() 计算哈希值</p>
+</li>
+<li>
+<p>equals() 默认引用是否一致</p>
+<ul>
+<li>根据需求重写这个，实现指定对象属性比较</li>
+</ul>
+</li>
+<li>
+<p>toString()  默认返回对象的类名+hashCode的16进制表示</p>
+<ul>
+<li>重写使其更有描述意义。</li>
+</ul>
+</li>
+<li>
+<p>getClass() 返回对象的Class类对象</p>
+</li>
+<li>
+<p>wait() 挂起当前线程，使其变为等待状态。</p>
+</li>
+<li>
+<p>notify&amp;notifyAll() 唤醒在对象监视器上等待的一个or全部线程</p>
+</li>
+<li>
+<p>clone() 浅拷贝对象，其中引用属性不拷贝</p>
+<ul>
+<li>重写实现深拷贝，保证完整性</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5909-java字节码是什么">5909 Java字节码是什么？❌<a hidden class="anchor" aria-hidden="true" href="#5909-java字节码是什么">#</a></h3>
+<p>处于 源代码.java 和 JVM.bin 执行的机器代码.exe(windows)之间的中间表示。</p>
+<p>.class 文件 可以被JVM解释器编译为机器码</p>
+<p>🎉通过Java反射Api，可以在运行时动态生成或者修改字节码，从而创建代理对象或实现动态方法调用</p>
+<hr>
+<h3 id="166-bionioaio">166 BIO、NIO、AIO<a hidden class="anchor" aria-hidden="true" href="#166-bionioaio">#</a></h3>
+<p>BIO:人一直盯着水烧开，水烧开之后亲自关火
+NIO:人在烧水的时候去干别的事情，时不时看着水烧没烧开，烧开之后亲自关火
+AIO:人找了一个帮手，帮手在烧水的时候一直盯着，水烧开之后帮手关火，然后提醒人水烧开了。人全程不管烧水的事情</p>
+<ul>
+<li>BIO：Blocking IO。传统阻塞式IO模式，调用方调用BIO会被阻塞，直到IO服务完成才被唤醒。
+<ul>
+<li>场景：同步、阻塞，适合并发连接较少的场景，小型服务。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 客户端</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 1. 创建服务器 socket，监听端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">serverSocket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">ServerSocket</span><span class="p">(</span><span class="n">端口</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 2. 服务器循环等待客户端连接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 3. 阻塞等待客户端连接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serverSocket</span><span class="p">.</span><span class="na">accept</span><span class="p">();</span><span class="w"> </span><span class="err">⭐</span><span class="n">这里会卡住</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 4. 每个连接创建新线程</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">启动新线程</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">inputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">outputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 5. 读取数据（阻塞）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">读取数据</span><span class="p">(</span><span class="n">inputStream</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 6. 处理数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">处理数据</span><span class="p">(</span><span class="n">data</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 7. 响应客户端（阻塞）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">outputStream</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">响应数据</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 8. 关闭连接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">socket</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 客户端</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 1. 创建 Socket 连接服务器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">Socket</span><span class="p">(</span><span class="n">服务器IP</span><span class="p">,</span><span class="w"> </span><span class="n">端口</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 2. 获取输入输出流</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">inputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">outputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 3. 发送数据（阻塞）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">outputStream</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">请求数据</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">outputStream</span><span class="p">.</span><span class="na">flush</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 4. 读取服务器响应（阻塞）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">读取数据</span><span class="p">(</span><span class="n">inputStream</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 5. 处理响应</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">处理数据</span><span class="p">(</span><span class="n">response</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 6. 关闭连接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">socket</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><p>一连接一线程</p>
+<ul>
+<li>NIO：Non-blocking IO。非阻塞IO模式，调用方发起IO操作即返回，不论任务是否完成。通常结合IO多路复用技术，使得一个线程可以同时管理多个连接。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 1. 创建 Selector（事件选择器）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">Selector</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 2. 创建非阻塞 ServerSocketChannel，绑定端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">serverChannel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="err">⭐</span><span class="n">ServerSocketChannel</span><span class="p">(</span><span class="n">端口</span><span class="p">)</span><span class="err">⭐</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">serverChannel</span><span class="p">.</span><span class="na">configureBlocking</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 3. 注册到 Selector，监听 &#34;accept&#34; 事件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">serverChannel</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">selector</span><span class="p">,</span><span class="w"> </span><span class="n">OP_ACCEPT</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 4. 服务器循环监听事件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 5. 轮询监听已准备好的 I/O 事件， 监视多个Channel</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">selector</span><span class="p">.</span><span class="na">select</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 6. 遍历所有发生事件的通道</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">selector</span><span class="p">.</span><span class="na">selectedKeys</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">isAcceptable</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 7. 处理新连接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">socketChannel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serverChannel</span><span class="p">.</span><span class="na">accept</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">configureBlocking</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">selector</span><span class="p">,</span><span class="w"> </span><span class="n">OP_READ</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">OP_WRITE</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">isReadable</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 8. 读取数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">socketChannel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">key</span><span class="p">.</span><span class="na">channel</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">ByteBuffer</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">bytesRead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bytesRead</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">处理数据</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">isWritable</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 9. 响应客户端</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">socketChannel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">key</span><span class="p">.</span><span class="na">channel</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">ByteBuffer</span><span class="p">(</span><span class="n">响应数据</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 客户端</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 1. 创建 Selector（事件管理器）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">Selector</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 2. 创建非阻塞 SocketChannel</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">socketChannel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="err">⭐</span><span class="n">SocketChannel</span><span class="p">()</span><span class="err">⭐</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">socketChannel</span><span class="p">.</span><span class="na">configureBlocking</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 3. 连接服务器（非阻塞）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">socketChannel</span><span class="p">.</span><span class="na">connect</span><span class="p">(</span><span class="n">服务器IP</span><span class="p">,</span><span class="w"> </span><span class="n">端口</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 4. 注册到 Selector，监听 &#34;连接完成&#34; 事件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">socketChannel</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">selector</span><span class="p">,</span><span class="w"> </span><span class="n">OP_CONNECT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">OP_READ</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">OP_WRITE</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 5. 轮询 Selector 监听事件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">selector</span><span class="p">.</span><span class="na">select</span><span class="p">();</span><span class="w"> </span><span class="c1">// 轮询等待事件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">selector</span><span class="p">.</span><span class="na">selectedKeys</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">isConnectable</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 6. 处理连接完成事件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">socketChannel</span><span class="p">.</span><span class="na">finishConnect</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">selector</span><span class="p">,</span><span class="w"> </span><span class="n">OP_READ</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">OP_WRITE</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">isWritable</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 7. 发送数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">ByteBuffer</span><span class="p">(</span><span class="n">请求数据</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">isReadable</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 8. 读取服务器响应</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">ByteBuffer</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">bytesRead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bytesRead</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">处理数据</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">  
+</span></span></span></code></pre></div><p>​</p>
+<ul>
+<li>AIO：Asynchronous IO 异步IO
+<ul>
+<li>利用回调or通知的方式告知调用方</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 1. 创建异步 ServerSocketChannel</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">serverChannel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">AsynchronousServerSocketChannel</span><span class="p">(</span><span class="n">端口</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">serverChannel</span><span class="p">.</span><span class="na">bind</span><span class="p">(</span><span class="n">端口</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 2. 监听客户端连接（异步回调）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">serverChannel</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CompletionHandler</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 3. 处理新连接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">completed</span><span class="p">(</span><span class="n">socketChannel</span><span class="p">,</span><span class="w"> </span><span class="n">attachment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 4. 继续监听新的客户端</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">serverChannel</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 5. 读取数据（异步回调）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">ByteBuffer</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CompletionHandler</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 6. 读取完成，处理数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">completed</span><span class="p">(</span><span class="n">bytesRead</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bytesRead</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">处理数据</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="c1">// 7. 响应客户端（异步回调）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">ByteBuffer</span><span class="p">.</span><span class="na">wrap</span><span class="p">(</span><span class="n">响应数据</span><span class="p">),</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CompletionHandler</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="n">completed</span><span class="p">(</span><span class="n">bytesWritten</span><span class="p">,</span><span class="w"> </span><span class="n">attachment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                            </span><span class="c1">// 响应完成</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 客户端</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 1. 创建异步 SocketChannel</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">socketChannel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">AsynchronousSocketChannel</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 2. 连接服务器（异步回调）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">socketChannel</span><span class="p">.</span><span class="na">connect</span><span class="p">(</span><span class="n">服务器IP</span><span class="p">,</span><span class="w"> </span><span class="n">端口</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CompletionHandler</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 3. 连接成功回调</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">completed</span><span class="p">(</span><span class="n">attachment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 4. 发送数据（异步）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">创建</span><span class="w"> </span><span class="nf">ByteBuffer</span><span class="p">(</span><span class="n">请求数据</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CompletionHandler</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">completed</span><span class="p">(</span><span class="n">bytesWritten</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">// 5. 继续读取服务器响应（异步）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">buffer</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CompletionHandler</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">completed</span><span class="p">(</span><span class="n">bytesRead</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="n">处理数据</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">});</span><span class="w">
+</span></span></span></code></pre></div><h3 id="439-java双亲委派模型-">439 Java双亲委派模型 ❌❌❌<a hidden class="anchor" aria-hidden="true" href="#439-java双亲委派模型-">#</a></h3>
+<p>Java类加载机制的设计模式之一。 核心思想：类加载器在加载某个类时，先委派父类去加载，父类无法加载时，才由当前类加载器加载。 自定义ClassLoader继承系统的&amp;重写findClass即可</p>
+<p>GPT: <strong>双亲委派模型（Parent Delegation Model）</strong> 是 Java <strong>类加载机制</strong> 的一个规则。
+<strong>当一个类加载器要加载某个类时，先让父类加载器尝试加载，只有当父类加载器无法加载该类时，才由自身加载</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="err">【</span><span class="n">Bootstrap</span><span class="w"> </span><span class="n">ClassLoader</span><span class="err">】（</span><span class="n">引导类加载器</span><span class="err">）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="err">↑</span><span class="w">         </span><span class="n">加载</span><span class="o">-</span><span class="n">1</span><span class="err">，</span><span class="n">不行的话到2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">【</span><span class="n">ExtClassLoader</span><span class="err">】（</span><span class="n">扩展类加载器</span><span class="err">）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="err">↑</span><span class="w">         </span><span class="n">加载</span><span class="o">-</span><span class="n">2</span><span class="err">，</span><span class="n">不行的话到3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">【</span><span class="n">AppClassLoader</span><span class="err">】（</span><span class="n">应用类加载器</span><span class="err">）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="err">↑</span><span class="w">         </span><span class="n">加载</span><span class="o">-</span><span class="n">3</span><span class="err">，</span><span class="n">不行的话到4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">【</span><span class="n">自定义</span><span class="w"> </span><span class="n">ClassLoader</span><span class="err">】（</span><span class="n">用户自定义加载器</span><span class="err">）</span><span class="w">  </span><span class="n">加载</span><span class="o">-</span><span class="n">4</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 倒着的U字形</span><span class="w">
+</span></span></span></code></pre></div><p>它解决的问题</p>
+<ul>
+<li>避免类重复加载，如果没有该机制 =&gt; 每个类加载器都可以<strong>自行加载同一个类</strong>，可能导致 <strong>ClassCastException</strong>（类转换异常）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ClassLoader</span><span class="w"> </span><span class="n">cl1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyClassLoader</span><span class="p">();</span><span class="w"> </span><span class="c1">// 自定义类加载器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ClassLoader</span><span class="w"> </span><span class="n">cl2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyClassLoader</span><span class="p">();</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">class1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cl1</span><span class="p">.</span><span class="na">loadClass</span><span class="p">(</span><span class="s">&#34;com.example.MyClass&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">class2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cl2</span><span class="p">.</span><span class="na">loadClass</span><span class="p">(</span><span class="s">&#34;com.example.MyClass&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// class1 和 class2 虽然名字相同，但是两个不同的类</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">class1</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">MyClass</span><span class="w"> </span><span class="n">myObj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MyClass</span><span class="p">)</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span><span class="w"> </span><span class="c1">// 可能抛出 ClassCastException</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 每个类加载器都有自己独立的类加载空间。如果你使用多个类加载器加载同一个类，它们会认为这是两个不同的类，尽管类的名字和内容完全相同。</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>保证Java核心类的安全</li>
+</ul>
+<p>因为委托父类加载</p>
+<p>例如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">java.lang</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">String</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">hack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Java 被黑了！&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>如果没有双亲委派，那么加载的是自定义的类，可能导致安全漏洞。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/jobs/collection/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span></span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/jobs/java%E5%85%AB%E8%82%A1-jvm/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span></span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">LongWei Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

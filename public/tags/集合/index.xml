@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>集合 on LongWei Blog</title>
+    <link>http://localhost:1313/tags/%E9%9B%86%E5%90%88/</link>
+    <description>Recent content in 集合 on LongWei Blog</description>
+    <generator>Hugo -- 0.145.0</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 13 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E9%9B%86%E5%90%88/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>集合面试题笔记</title>
+      <link>http://localhost:1313/posts/jobs/collection/</link>
+      <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jobs/collection/</guid>
+      <description>&lt;h3 id=&#34;6319-hashmap-原理&#34;&gt;6319 HashMap 原理&lt;/h3&gt;
+&lt;p&gt;数据结构：数组 + 链表  （JAVA8之后：数组+链表+红黑树）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;数据结构&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;jdk1.7：数组+链表，数组每个元素是一个链表的表头，当发生冲突，将新元素添加在头部(头插法)
+&lt;ul&gt;
+&lt;li&gt;hash冲突：头插法，❗扩容时可能造成环形链表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;jdk1.8：
+&lt;ul&gt;
+&lt;li&gt;引入红黑树，当链表节点超过8个，那么这个链表会转换为红黑树。查询时间由 O(n) 优化为 O(logn)。当节点小于6个，再转换为链表。&lt;/li&gt;
+&lt;li&gt;hash冲突：尾插法，避免环形链表❗&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;扩容机制
+&lt;ul&gt;
+&lt;li&gt;jdk1.7
+&lt;ul&gt;
+&lt;li&gt;扩容，元素会重新计算hash值，并分配到新的扩容数组中。⭐比较耗时&lt;/li&gt;
+&lt;li&gt;扩容时，头插法，在多线程情况下，可能造成环形链表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;jdk1.8
+&lt;ul&gt;
+&lt;li&gt;扩容时，利用了元素哈希值和旧数组容量关系，减少了重新计算的哈希次数&lt;/li&gt;
+&lt;li&gt;扩容时，尾插法，避免环形链表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;使用键的&lt;code&gt;hashcode()&lt;/code&gt;计算hash值，然后(n-1) &amp;amp; hash确定数组中的位置。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

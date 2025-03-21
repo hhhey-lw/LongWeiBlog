@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>集合面试题笔记 | LongCoding&#39;s Blog</title>
+<meta name="keywords" content="Collection">
+<meta name="description" content="6319 HashMap 原理
+数据结构：数组 &#43; 链表  （JAVA8之后：数组&#43;链表&#43;红黑树）
+
+
+数据结构
+
+jdk1.7：数组&#43;链表，数组每个元素是一个链表的表头，当发生冲突，将新元素添加在头部(头插法)
+
+hash冲突：头插法，❗扩容时可能造成环形链表
+
+
+jdk1.8：
+
+引入红黑树，当链表节点超过8个，那么这个链表会转换为红黑树。查询时间由 O(n) 优化为 O(logn)。当节点小于6个，再转换为链表。
+hash冲突：尾插法，避免环形链表❗
+
+
+扩容机制
+
+jdk1.7
+
+扩容，元素会重新计算hash值，并分配到新的扩容数组中。⭐比较耗时
+扩容时，头插法，在多线程情况下，可能造成环形链表
+
+
+jdk1.8
+
+扩容时，利用了元素哈希值和旧数组容量关系，减少了重新计算的哈希次数
+扩容时，尾插法，避免环形链表
+
+
+
+
+
+
+
+使用键的hashcode()计算hash值，然后(n-1) &amp; hash确定数组中的位置。">
+<meta name="author" content="LongWei">
+<link rel="canonical" href="http://localhost:1313/posts/jobs/collection/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/jobs/collection/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+ <script type="text/javascript"
+         async
+         src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+ MathJax.Hub.Config({
+   tex2jax: {
+     inlineMath: [['$','$'], ['\\(','\\)']],
+     displayMath: [['$$','$$'], ['\[\[','\]\]']],
+     processEscapes: true,
+     processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+<meta property="og:url" content="http://localhost:1313/posts/jobs/collection/">
+  <meta property="og:site_name" content="LongCoding&#39;s Blog">
+  <meta property="og:title" content="集合面试题笔记">
+  <meta property="og:description" content="6319 HashMap 原理 数据结构：数组 &#43; 链表 （JAVA8之后：数组&#43;链表&#43;红黑树）
+数据结构
+jdk1.7：数组&#43;链表，数组每个元素是一个链表的表头，当发生冲突，将新元素添加在头部(头插法) hash冲突：头插法，❗扩容时可能造成环形链表 jdk1.8： 引入红黑树，当链表节点超过8个，那么这个链表会转换为红黑树。查询时间由 O(n) 优化为 O(logn)。当节点小于6个，再转换为链表。 hash冲突：尾插法，避免环形链表❗ 扩容机制 jdk1.7 扩容，元素会重新计算hash值，并分配到新的扩容数组中。⭐比较耗时 扩容时，头插法，在多线程情况下，可能造成环形链表 jdk1.8 扩容时，利用了元素哈希值和旧数组容量关系，减少了重新计算的哈希次数 扩容时，尾插法，避免环形链表 使用键的hashcode()计算hash值，然后(n-1) &amp; hash确定数组中的位置。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-13T00:00:00+00:00">
+    <meta property="article:tag" content="Collection">
+      <meta property="og:see_also" content="http://localhost:1313/posts/jobs/jvm/">
+      <meta property="og:see_also" content="http://localhost:1313/posts/jobs/concurrent/">
+      <meta property="og:see_also" content="http://localhost:1313/posts/jobs/mysql/">
+      <meta property="og:see_also" content="http://localhost:1313/posts/jobs/redis/">
+      <meta property="og:see_also" content="http://localhost:1313/posts/jobs/java/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="集合面试题笔记">
+<meta name="twitter:description" content="6319 HashMap 原理
+数据结构：数组 &#43; 链表  （JAVA8之后：数组&#43;链表&#43;红黑树）
+
+
+数据结构
+
+jdk1.7：数组&#43;链表，数组每个元素是一个链表的表头，当发生冲突，将新元素添加在头部(头插法)
+
+hash冲突：头插法，❗扩容时可能造成环形链表
+
+
+jdk1.8：
+
+引入红黑树，当链表节点超过8个，那么这个链表会转换为红黑树。查询时间由 O(n) 优化为 O(logn)。当节点小于6个，再转换为链表。
+hash冲突：尾插法，避免环形链表❗
+
+
+扩容机制
+
+jdk1.7
+
+扩容，元素会重新计算hash值，并分配到新的扩容数组中。⭐比较耗时
+扩容时，头插法，在多线程情况下，可能造成环形链表
+
+
+jdk1.8
+
+扩容时，利用了元素哈希值和旧数组容量关系，减少了重新计算的哈希次数
+扩容时，尾插法，避免环形链表
+
+
+
+
+
+
+
+使用键的hashcode()计算hash值，然后(n-1) &amp; hash确定数组中的位置。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "集合面试题笔记",
+      "item": "http://localhost:1313/posts/jobs/collection/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "集合面试题笔记",
+  "name": "集合面试题笔记",
+  "description": "6319 HashMap 原理 数据结构：数组 + 链表 （JAVA8之后：数组+链表+红黑树）\n数据结构\njdk1.7：数组+链表，数组每个元素是一个链表的表头，当发生冲突，将新元素添加在头部(头插法) hash冲突：头插法，❗扩容时可能造成环形链表 jdk1.8： 引入红黑树，当链表节点超过8个，那么这个链表会转换为红黑树。查询时间由 O(n) 优化为 O(logn)。当节点小于6个，再转换为链表。 hash冲突：尾插法，避免环形链表❗ 扩容机制 jdk1.7 扩容，元素会重新计算hash值，并分配到新的扩容数组中。⭐比较耗时 扩容时，头插法，在多线程情况下，可能造成环形链表 jdk1.8 扩容时，利用了元素哈希值和旧数组容量关系，减少了重新计算的哈希次数 扩容时，尾插法，避免环形链表 使用键的hashcode()计算hash值，然后(n-1) \u0026amp; hash确定数组中的位置。\n",
+  "keywords": [
+    "Collection"
+  ],
+  "articleBody": "6319 HashMap 原理 数据结构：数组 + 链表 （JAVA8之后：数组+链表+红黑树）\n数据结构\njdk1.7：数组+链表，数组每个元素是一个链表的表头，当发生冲突，将新元素添加在头部(头插法) hash冲突：头插法，❗扩容时可能造成环形链表 jdk1.8： 引入红黑树，当链表节点超过8个，那么这个链表会转换为红黑树。查询时间由 O(n) 优化为 O(logn)。当节点小于6个，再转换为链表。 hash冲突：尾插法，避免环形链表❗ 扩容机制 jdk1.7 扩容，元素会重新计算hash值，并分配到新的扩容数组中。⭐比较耗时 扩容时，头插法，在多线程情况下，可能造成环形链表 jdk1.8 扩容时，利用了元素哈希值和旧数组容量关系，减少了重新计算的哈希次数 扩容时，尾插法，避免环形链表 使用键的hashcode()计算hash值，然后(n-1) \u0026 hash确定数组中的位置。\nn-1 =\u003e 10000 - 1 = 01111 HashMap的初始默认容量为16，负载因子为0.75。当存储的元素达到75%时，进行扩容，扩容为原来的2倍空间\n扩展知识：\nhashmap的红黑树优化：\nJAVA8开始，为了优化hash冲突时的查找性能。但链表的长度超过8时，链表会转变为红黑树。红黑树是一种自平衡的二叉搜索树 查找时间 O(n) =\u003e O(logn)。 当元素少于6个，切换为链表 hashCode() 和 equals()的重要性：\nhashCode计算hash值，决定键的存储位置。 而hashCode相同=\u003e冲突。 equals()比较的值 // HashMap Node class static class Entry\u003cK,V\u003e { final K key; // 键 V value; // 值 final int hash; // 计算后的哈希值 Entry\u003cK,V\u003e next; // 指向下一个元素的指针（形成链表） } 为什么头插法\u0026多线程\u0026扩容会造成环形链表?\nvoid transfer(Entry[] newTable) { Entry[] src = table; int newCapacity = newTable.length; for (int j = 0; j \u003c src.length; j++) { // 遍历旧表 Entry\u003cK,V\u003e e = src[j]; // 取出当前桶的头结点 if (e != null) { // 旧桶不为空 src[j] = null; // 释放旧桶的引用（防止 GC 误回收） do { Entry\u003cK,V\u003e next = e.next; // 记录下一个节点 int i = indexFor(e.hash, newCapacity); // 计算新索引（线程1暂停） e.next = newTable[i]; // 头插法：将 e 连接到 newTable[i] 上 newTable[i] = e; // 将 e 作为 newTable[i] 的新头 e = next; // 继续处理下一个节点 } while (e != null); // 直到旧链表遍历完 } } } old: [ ][ ][ ] old: [ ][ ][ ] [1] [2] [2] =\u003e new: [ ][ ][ ] new: [ ][ ][ ] // 头插法，将节点进行转移 [1] // 环的情况，HashMap多个线程共享 Thread1: e -\u003e [1][ ][ ] Thread2: [3][ ][ ] next-\u003e [2] 扩容成功 [2] [3] [1] 执行 { e.next = newTable[i]; newTable[i] = e; e = next; } newTabel[0] =\u003e [1]-\u003e[3]-\u003e[2]-\u003e[1] ⬆️ ⬅️ ⬅️ 4948 HashMap，有哪些提升性能的技巧？ 合理设置初始容量，减少resize，减少扩容操作。默认16\n调整负载因子，查找多的设置小一点，减少冲突情况，冲突少了(查询效率就高了)，但会提高内存占用情况，反之亦然。默认0.75\n确保hashCode(), 均匀的是均匀分布的，以减少hash冲突。\n扩展：\n当元素数量 \u003e 装填因子 * 数组大小 =\u003e 进行扩容，新数组为当前的2倍，并把当前hash中的数据重新分配到新的hashmap中； LinkedHashMap，拉链法，能够保存插入顺序 保存有序 =\u003e TreeMap. 需要线程安全 =\u003e ConcurrentHashMap 4947 Hash碰撞 \u0026 解决 不同key使用hashcode()\u0026n-1得到相同的坑，然后冲突\n链地址法(拉链法) 开放地址法，顺序往下or左右横跳 线性探测 平方探测 再hash法(双重hash) 出现碰撞后，使用第二个hash函数计算新的索引位置，减少碰撞的概率。 4946 CopyOnWriteArrayList \u0026 Collections.synchronizeddList 区别 CopyOnWriteArrayList 是线程安全的List实现，特性是写时复制\n每次对List的修改操作(add, remove, set)都会创建一个新的底层数组。 读操作不需要加锁，而写操作需要加锁\n优点：\n读操作无锁，写操作会创建数组副本 =\u003e 读写不冲突 ⭐读操作在当前数组上执行； 写操作(add,set,remove)会创建一个新数组，新数组上修改再替换旧的(加锁)。 缺点：\n写操作开销大：每次写操作都会创建并复制新数组，并且将数据复制到新的数组中，写频繁的场景下性能会比较低 内存消耗大 🎉适合读多写少的场景\nCollections.synchronizeddList 包装方法，将任何数组转换为线程安全的版本，会对每个访问方法(get, set, add, remove)进行同步(加锁)，线程安全。\n优点：\n方便 缺点：\n并发效率低 🎉适用于简单的将List转为线程安全的版本使用。\n444 Java中有哪些集合类？ List接口\nArrayList LinkedList Vector 基于动态数组实现，且线程安全，所有方法都添加了synchronized Set接口\nHashSet // 冲突的链表元素无序 LinkedHashSet // 继承HashSet，底层由双向链表实现，保证插入顺序 TreeSet // 基于红黑树, 自动排序，提供排序功能 Queue接口\nPriorityQueue， 优先队列，内部元素按级别排序。只能比较器 LinkedList，可以作为队列使用，FIFO Map接口\nHashMap LinkedHashMap TreeMap HashTable不推荐使用，线程安全的哈希表。**早期线程安全的HashMap，锁的粒度为整个表，这样并发能力不高。**底层使用synchronized关键字实现 ConcurrentHashMap，线程安全的hashmap。 高性能的线程安全HashMap 提供更细粒度的锁 分段锁和CAS操作 读操作不加锁 写操作 =\u003e CAS + synchronized细粒度锁 9179 ArrayList的扩容机制是什么？ 默认容量10，当元素数量超过其当前容量，会触发扩容机制。 扩容大小为原数组的1.5倍\n449 HashSet \u0026 HashMap HashSet存储不重复元素 =\u003e 不能冲突的HashMap\nHashMap，K=\u003eV, 键唯一，但不同键的值可以相同\n451 HashMap的扩容机制 负载因子默认0.75, 但比例超过负载因子，进行扩容，扩容为原来的2倍。\n当前hashmap中的元素在新hashmap的位置怎么计算？ 就是hashCode() \u0026 (n-1) =\u003e hashCode() \u0026 (2n-1)\n优化过程\n// example: n:16= 1,0000 n-1: 0,1111 2^4 2n:32=10,0000 2n-1:01,1111 2^5 // 通过hash值 \u0026 2n-1: // 只要判断最高位是否即可 if 第5位== 0：then 位置不变； else 位置偏移16位 452 为什么HashMap扩容采用2的n次方？ 计算散列位置决定=\u003e hashcode \u0026 (n-1) 其中 n-1=01111.. 可以将位置映射到数组的每个元素上，分布均匀。 位运算比取余效率高\n457 Java中的LinkedhashMap 基于HashMap \u0026 双向链表 \u0026 额外的顺序指针\n🏷️作用：保持插入顺序or访问顺序\n💠定义如下：\nstatic class Entry\u003cK,V\u003e extends HashMap.Node\u003cK,V\u003e { Entry\u003cK,V\u003e before, after; Ectry(){...} // constructor } 🏷️图示：\n构想=\u003e 由于可以根据插入时间排序，因此可以模拟LRU(least recently used)算法，进行淘汰最不常用的节点。\n461 ConcurrentHashMap 🏷️背景：在多线程并发条件下，普通的共享HashMap会存在线程安全问题，因为没有加锁，导致数据被覆盖…；\n🏷️作用：通过同步机制加锁，使得HashMap在背景下是线程安全的，且还需要保证效率；\n🏷️定义：\nJDK1.7之前，采用分段锁，即每个Segment是独立的，将锁的粒度下方，提高线程并发度 利用数组+链表实现 =\u003e 锁的粒度是segment；\n缺点：segment不能扩容，而HashMap会扩容\nJDK1.8后，移除Segment，锁的粒度更加细化，锁只在链表or红黑树节点级别上竞争锁。通过CAS进行插入操作，只有在更新链表or红黑树时才使用synchronized关键字加锁，并且只锁住链表的头节点。 同步HashMap，数组+链表+红黑树实现； 🏷️添加节点过程\n计算key的hash后的下标，如果没有元素 =\u003e 利用CAS添加元素； 冲突 =\u003e 给这个节点上锁使用synchronized。这样其他线程就无法访问该节点以及之后的节点了 🏷️额外扩展（为什么分为CAS\u0026Synchronized呢？）\n无锁机制CAS，能进一步提高并发性能； 因此首次添加节点时，利用CAS很OK，判断\u0026插入 而后续对链表的修改，很难原子化操作orCAS比较交换。因此使用Synchronized，实现互斥，且该锁的粒度很小。 // 自旋：如果 CAS 失败就重试 while (true) { currentNode = bucket.get(); if (currentNode == null) { // 如果桶位置为空，尝试通过 CAS 插入新节点 if (bucket.compareAndSet(null, newNode)) { return null; // 插入成功 } } else { // 如果当前位置有节点，进行链表遍历，寻找合适位置插入 synchronized (currentNode) { // 在访问链表节点时加锁，防止并发修改 Node\u003cK, V\u003e prev = null; while (currentNode != null) { if (currentNode.key.equals(key)) { // 如果找到相同的 key，更新 value currentNode.value = value; return currentNode.value; } prev = currentNode; currentNode = currentNode.next; } // 如果没有找到相同的 key，在链表末尾添加新的节点 prev.next = newNode; return null; // 插入成功 } } } 464 CopyOnwriteArrayList 线程安全的动态数组，通过写时复制机制，保证数据最终一致性和隔离性，并不保证强一致性。\n写操作和读操作(Volatile修饰)分离，读完全ok(可能读到旧版本)；写需要加锁且复制数组，再修改旧数组的引用。 线程安全问题：\n竞争条件 多个线程对共享变量进行累加，可以导致统计不对 死锁 多个线程操作数据时，没有正确的请求资源和释放顺序，相互等待 可见性问题 某个线程对共享变量的修改，其他线程不一定及时可见 =\u003e volatile 强制从内存中修改\u0026读取 原子性问题 逻辑由多个操作步骤组成，其中CPU时间片到期了，中途其他线程修改了共享变量，导致不一致。 线程饥饿 多线程争抢CPU，非公平，有些永远抢不到 不一致视图 多个线程同时修改一个共享对象，导致一部分数据不一致 强制视图一致，就是我第一次拿到的数据，和最终的数据要一致，其他线程别给我改了一部分啊 =\u003e 加synchronized ",
+  "wordCount" : "3583",
+  "inLanguage": "en",
+  "datePublished": "2025-03-13T00:00:00Z",
+  "dateModified": "2025-03-13T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "LongWei"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/jobs/collection/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LongCoding's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="LongCoding&#39;s Blog (Alt + H)">LongCoding&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="LongCoding&#39;s Blog">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="Timeline">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="Categories">
+                    <span>Category</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="About Me">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      集合面试题笔记
+    </h1>
+    <div class="post-meta"><span title='2025-03-13 00:00:00 +0000 UTC'>March 13, 2025</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;LongWei
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#6319-hashmap-%e5%8e%9f%e7%90%86" aria-label="6319 HashMap 原理">6319 HashMap 原理</a></li>
+                <li>
+                    <a href="#4948-hashmap%e6%9c%89%e5%93%aa%e4%ba%9b%e6%8f%90%e5%8d%87%e6%80%a7%e8%83%bd%e7%9a%84%e6%8a%80%e5%b7%a7" aria-label="4948 HashMap，有哪些提升性能的技巧？">4948 HashMap，有哪些提升性能的技巧？</a></li>
+                <li>
+                    <a href="#4947-hash%e7%a2%b0%e6%92%9e--%e8%a7%a3%e5%86%b3" aria-label="4947 Hash碰撞 &amp; 解决">4947 Hash碰撞 &amp; 解决</a></li>
+                <li>
+                    <a href="#4946-copyonwritearraylist--collectionssynchronizeddlist-%e5%8c%ba%e5%88%ab" aria-label="4946 CopyOnWriteArrayList &amp; Collections.synchronizeddList 区别">4946 CopyOnWriteArrayList &amp; Collections.synchronizeddList 区别</a></li>
+                <li>
+                    <a href="#444-java%e4%b8%ad%e6%9c%89%e5%93%aa%e4%ba%9b%e9%9b%86%e5%90%88%e7%b1%bb" aria-label="444 Java中有哪些集合类？">444 Java中有哪些集合类？</a></li>
+                <li>
+                    <a href="#9179-arraylist%e7%9a%84%e6%89%a9%e5%ae%b9%e6%9c%ba%e5%88%b6%e6%98%af%e4%bb%80%e4%b9%88" aria-label="9179 ArrayList的扩容机制是什么？">9179 ArrayList的扩容机制是什么？</a></li>
+                <li>
+                    <a href="#449-hashset--hashmap" aria-label="449 HashSet &amp; HashMap">449 HashSet &amp; HashMap</a></li>
+                <li>
+                    <a href="#451-hashmap%e7%9a%84%e6%89%a9%e5%ae%b9%e6%9c%ba%e5%88%b6" aria-label="451 HashMap的扩容机制">451 HashMap的扩容机制</a></li>
+                <li>
+                    <a href="#452-%e4%b8%ba%e4%bb%80%e4%b9%88hashmap%e6%89%a9%e5%ae%b9%e9%87%87%e7%94%a82%e7%9a%84n%e6%ac%a1%e6%96%b9" aria-label="452 为什么HashMap扩容采用2的n次方？">452 为什么HashMap扩容采用2的n次方？</a></li>
+                <li>
+                    <a href="#457-java%e4%b8%ad%e7%9a%84linkedhashmap" aria-label="457 Java中的LinkedhashMap">457 Java中的LinkedhashMap</a></li>
+                <li>
+                    <a href="#461-concurrenthashmap" aria-label="461 ConcurrentHashMap">461 ConcurrentHashMap</a></li>
+                <li>
+                    <a href="#464-copyonwritearraylist" aria-label="464 CopyOnwriteArrayList">464 CopyOnwriteArrayList</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h3 id="6319-hashmap-原理">6319 HashMap 原理<a hidden class="anchor" aria-hidden="true" href="#6319-hashmap-原理">#</a></h3>
+<p>数据结构：数组 + 链表  （JAVA8之后：数组+链表+红黑树）</p>
+<ul>
+<li>
+<p>数据结构</p>
+<ul>
+<li>jdk1.7：数组+链表，数组每个元素是一个链表的表头，当发生冲突，将新元素添加在头部(头插法)
+<ul>
+<li>hash冲突：头插法，❗扩容时可能造成环形链表</li>
+</ul>
+</li>
+<li>jdk1.8：
+<ul>
+<li>引入红黑树，当链表节点超过8个，那么这个链表会转换为红黑树。查询时间由 O(n) 优化为 O(logn)。当节点小于6个，再转换为链表。</li>
+<li>hash冲突：尾插法，避免环形链表❗</li>
+</ul>
+</li>
+<li>扩容机制
+<ul>
+<li>jdk1.7
+<ul>
+<li>扩容，元素会重新计算hash值，并分配到新的扩容数组中。⭐比较耗时</li>
+<li>扩容时，头插法，在多线程情况下，可能造成环形链表</li>
+</ul>
+</li>
+<li>jdk1.8
+<ul>
+<li>扩容时，利用了元素哈希值和旧数组容量关系，减少了重新计算的哈希次数</li>
+<li>扩容时，尾插法，避免环形链表</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>使用键的<code>hashcode()</code>计算hash值，然后(n-1) &amp; hash确定数组中的位置。</p>
+<ul>
+<li>n-1 =&gt; 10000 - 1 = 01111</li>
+</ul>
+</li>
+<li>
+<p>HashMap的初始默认容量为16，负载因子为0.75。当存储的元素达到75%时，进行扩容，扩容为原来的2倍空间</p>
+</li>
+</ul>
+<p><strong>扩展知识：</strong></p>
+<ul>
+<li>
+<p>hashmap的红黑树优化：</p>
+<ul>
+<li>JAVA8开始，为了优化hash冲突时的查找性能。但链表的长度<strong>超过8</strong>时，链表会转变为红黑树。红黑树是一种自平衡的二叉搜索树 查找时间 O(n) =&gt; O(logn)。 当元素少于6个，切换为链表</li>
+</ul>
+</li>
+<li>
+<p>hashCode() 和 equals()的重要性：</p>
+<ul>
+<li>hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突。 equals()比较的值</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// HashMap Node class</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">static</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="n">key</span><span class="p">;</span><span class="w">    </span><span class="c1">// 键</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">V</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">        </span><span class="c1">// 值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">hash</span><span class="p">;</span><span class="w"> </span><span class="c1">// 计算后的哈希值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">next</span><span class="p">;</span><span class="w"> </span><span class="c1">// 指向下一个元素的指针（形成链表）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p><strong>为什么头插法&amp;多线程&amp;扩容会造成环形链表?</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">transfer</span><span class="p">(</span><span class="n">Entry</span><span class="o">[]</span><span class="w"> </span><span class="n">newTable</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">Entry</span><span class="o">[]</span><span class="w"> </span><span class="n">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table</span><span class="p">;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">newCapacity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newTable</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">src</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 遍历旧表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">src</span><span class="o">[</span><span class="n">j</span><span class="o">]</span><span class="p">;</span><span class="w">              </span><span class="c1">// 取出当前桶的头结点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                     </span><span class="c1">// 旧桶不为空</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">src</span><span class="o">[</span><span class="n">j</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">                   </span><span class="c1">// 释放旧桶的引用（防止 GC 误回收）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="k">do</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">next</span><span class="p">;</span><span class="w">      </span><span class="c1">// 记录下一个节点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">indexFor</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="na">hash</span><span class="p">,</span><span class="w"> </span><span class="n">newCapacity</span><span class="p">);</span><span class="w">  </span><span class="c1">// 计算新索引（线程1暂停）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="n">e</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newTable</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w">          </span><span class="c1">// 头插法：将 e 连接到 newTable[i] 上</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="n">newTable</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w">               </span><span class="c1">// 将 e 作为 newTable[i] 的新头</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span><span class="w">                      </span><span class="c1">// 继续处理下一个节点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span><span class="w">               </span><span class="c1">// 直到旧链表遍历完</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">old</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">]</span><span class="w">     </span><span class="n">old</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="w">                </span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="w">        </span><span class="o">=&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">new</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">]</span><span class="w">     </span><span class="k">new</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">]</span><span class="w">   </span><span class="c1">// 头插法，将节点进行转移</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 环的情况，HashMap多个线程共享 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">Thread1</span><span class="p">:</span><span class="w">   </span><span class="n">e</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">  </span><span class="o">[</span><span class="n">1</span><span class="o">][</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">]</span><span class="w">             </span><span class="n">Thread2</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">3</span><span class="o">][</span><span class="w"> </span><span class="o">][</span><span class="w"> </span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">next</span><span class="o">-&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="w">                   </span><span class="n">扩容成功</span><span class="w">  </span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                 </span><span class="o">[</span><span class="n">3</span><span class="o">]</span><span class="w">                            </span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">执行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newTable</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">newTable</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">              
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">newTabel</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">1</span><span class="o">]-&gt;[</span><span class="n">3</span><span class="o">]-&gt;[</span><span class="n">2</span><span class="o">]-&gt;[</span><span class="n">1</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="err">⬆</span><span class="n">️</span><span class="w">  </span><span class="err">⬅</span><span class="n">️</span><span class="w">      </span><span class="err">⬅</span><span class="n">️</span><span class="w">
+</span></span></span></code></pre></div><img src="http://sthda9dn6.hd-bkt.clouddn.com/FmtTH6S92haO65uNpE51bzyvFmy0" alt="image-20250308200751105" style="zoom:70%;" />
+<h3 id="4948-hashmap有哪些提升性能的技巧">4948 HashMap，有哪些提升性能的技巧？<a hidden class="anchor" aria-hidden="true" href="#4948-hashmap有哪些提升性能的技巧">#</a></h3>
+<ul>
+<li>
+<p>合理设置初始容量，减少resize，减少扩容操作。默认16</p>
+</li>
+<li>
+<p>调整负载因子，查找多的设置小一点，减少冲突情况，冲突少了(查询效率就高了)，但会提高内存占用情况，反之亦然。默认0.75</p>
+</li>
+<li>
+<p>确保hashCode(), 均匀的是均匀分布的，以减少hash冲突。</p>
+</li>
+</ul>
+<p>扩展：</p>
+<ul>
+<li>当元素数量 &gt; 装填因子 * 数组大小 =&gt; 进行扩容，新数组为当前的2倍，并把当前hash中的数据重新分配到新的hashmap中；</li>
+<li>LinkedHashMap，拉链法，能够保存插入顺序</li>
+<li>保存有序 =&gt; TreeMap.</li>
+<li>需要线程安全 =&gt; ConcurrentHashMap</li>
+</ul>
+<h3 id="4947-hash碰撞--解决">4947 Hash碰撞 &amp; 解决<a hidden class="anchor" aria-hidden="true" href="#4947-hash碰撞--解决">#</a></h3>
+<p>不同key使用hashcode()&amp;n-1得到相同的坑，然后冲突</p>
+<ul>
+<li>链地址法(拉链法)</li>
+<li>开放地址法，顺序往下or左右横跳
+<ul>
+<li>线性探测</li>
+<li>平方探测</li>
+</ul>
+</li>
+<li>再hash法(双重hash)
+<ul>
+<li>出现碰撞后，使用第二个hash函数计算新的索引位置，减少碰撞的概率。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4946-copyonwritearraylist--collectionssynchronizeddlist-区别">4946 CopyOnWriteArrayList &amp; Collections.synchronizeddList 区别<a hidden class="anchor" aria-hidden="true" href="#4946-copyonwritearraylist--collectionssynchronizeddlist-区别">#</a></h3>
+<p><strong>CopyOnWriteArrayList</strong> 是线程安全的List实现，特性是写时复制</p>
+<p>每次对List的修改操作(add, remove, set)都会创建一个新的底层数组。 读操作不需要加锁，而写操作需要加锁</p>
+<p><em>优点</em>：</p>
+<ul>
+<li>读操作无锁，写操作会创建数组副本 =&gt; 读写不冲突</li>
+<li>⭐读操作在当前数组上执行； 写操作(add,set,remove)会创建一个新数组，新数组上修改再替换旧的(加锁)。</li>
+</ul>
+<p><em>缺点</em>：</p>
+<ul>
+<li>写操作开销大：每次写操作都会创建并复制新数组，并且将数据复制到新的数组中，<strong>写频繁的场景下性能会比较低</strong></li>
+<li>内存消耗大</li>
+</ul>
+<p>🎉<strong>适合读多写少的场景</strong></p>
+<p><strong>Collections.synchronizeddList</strong> 包装方法，将任何数组转换为线程安全的版本，会对每个访问方法(get, set, add, remove)进行同步(加锁)，线程安全。</p>
+<p>优点：</p>
+<ul>
+<li>方便</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>并发效率低</li>
+</ul>
+<p>🎉<strong>适用于简单的将List转为线程安全的版本使用。</strong></p>
+<hr>
+<h3 id="444-java中有哪些集合类">444 Java中有哪些集合类？<a hidden class="anchor" aria-hidden="true" href="#444-java中有哪些集合类">#</a></h3>
+<ul>
+<li>
+<p>List接口</p>
+<ul>
+<li>ArrayList</li>
+<li>LinkedList</li>
+<li>Vector
+<ul>
+<li>基于动态数组实现，且线程安全，所有方法都添加了synchronized</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Set接口</p>
+<ul>
+<li>HashSet // 冲突的链表元素无序</li>
+<li>LinkedHashSet // 继承HashSet，底层由双向链表实现，保证<strong>插入顺序</strong></li>
+<li>TreeSet // 基于红黑树, <strong>自动排序</strong>，提供排序功能</li>
+</ul>
+</li>
+<li>
+<p>Queue接口</p>
+<ul>
+<li>PriorityQueue， 优先队列，内部元素按级别排序。只能比较器</li>
+<li>LinkedList，可以作为队列使用，FIFO</li>
+</ul>
+</li>
+<li>
+<p>Map接口</p>
+<ul>
+<li>HashMap</li>
+<li>LinkedHashMap</li>
+<li>TreeMap</li>
+<li>HashTable<span style="color:red;">不推荐使用</span>，线程安全的哈希表。**早期线程安全的HashMap，锁的粒度为整个表，这样并发能力不高。**底层使用synchronized关键字实现</li>
+<li>ConcurrentHashMap，线程安全的hashmap。
+<ul>
+<li>高性能的线程安全HashMap</li>
+<li>提供更细粒度的锁 <strong>分段锁和CAS操作</strong></li>
+<li>读操作不加锁</li>
+<li>写操作 =&gt; CAS + synchronized细粒度锁</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="9179-arraylist的扩容机制是什么">9179 ArrayList的扩容机制是什么？<a hidden class="anchor" aria-hidden="true" href="#9179-arraylist的扩容机制是什么">#</a></h3>
+<p>默认容量10，当元素数量超过其当前容量，会触发扩容机制。  扩容大小为原数组的1.5倍</p>
+<h3 id="449-hashset--hashmap">449 HashSet &amp; HashMap<a hidden class="anchor" aria-hidden="true" href="#449-hashset--hashmap">#</a></h3>
+<p>HashSet存储不重复元素 =&gt; 不能冲突的HashMap</p>
+<p>HashMap，K=&gt;V, 键唯一，但不同键的值可以相同</p>
+<h3 id="451-hashmap的扩容机制">451 HashMap的扩容机制<a hidden class="anchor" aria-hidden="true" href="#451-hashmap的扩容机制">#</a></h3>
+<p>负载因子默认0.75, 但比例超过负载因子，进行扩容，扩容为原来的2倍。</p>
+<p>当前hashmap中的元素在新hashmap的位置怎么计算？ 就是hashCode() &amp; (n-1) =&gt; hashCode() &amp; (2n-1)</p>
+<p>优化过程</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// example:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">n</span><span class="p">:</span><span class="n">16</span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="p">,</span><span class="n">0000</span><span class="w">    </span><span class="n">n</span><span class="o">-</span><span class="n">1</span><span class="p">:</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="n">1111</span><span class="w">      </span><span class="n">2</span><span class="o">^</span><span class="n">4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">2n</span><span class="p">:</span><span class="n">32</span><span class="o">=</span><span class="n">10</span><span class="p">,</span><span class="n">0000</span><span class="w">   </span><span class="n">2n</span><span class="o">-</span><span class="n">1</span><span class="p">:</span><span class="n">01</span><span class="p">,</span><span class="n">1111</span><span class="w">      </span><span class="n">2</span><span class="o">^</span><span class="n">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 通过hash值 &amp; 2n-1:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 只要判断最高位是否即可</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">if</span><span class="w"> </span><span class="n">第5位</span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="err">：</span><span class="n">then</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">位置不变</span><span class="err">；</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">else</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">位置偏移16位</span><span class="w">
+</span></span></span></code></pre></div><h3 id="452-为什么hashmap扩容采用2的n次方">452 为什么HashMap扩容采用2的n次方？<a hidden class="anchor" aria-hidden="true" href="#452-为什么hashmap扩容采用2的n次方">#</a></h3>
+<ul>
+<li>计算散列位置决定=&gt; hashcode &amp; (n-1)   其中 n-1=01111.. 可以将位置映射到数组的每个元素上，分布均匀。</li>
+</ul>
+<p><strong>位运算比取余效率高</strong></p>
+<h3 id="457-java中的linkedhashmap">457 Java中的LinkedhashMap<a hidden class="anchor" aria-hidden="true" href="#457-java中的linkedhashmap">#</a></h3>
+<p>基于HashMap &amp; 双向链表 &amp; 额外的顺序指针</p>
+<p>🏷️作用：保持插入顺序or访问顺序</p>
+<p>💠定义如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HashMap</span><span class="p">.</span><span class="na">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">before</span><span class="p">,</span><span class="w"> </span><span class="n">after</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Ectry</span><span class="p">(){...}</span><span class="w"> </span><span class="c1">// constructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>🏷️图示：</p>
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FgiN-yE6NKTgTyTo8lwgP6bAlHwY" alt="image-20250308215346671" style="zoom:50%;" />
+<p>构想=&gt; 由于可以根据插入时间排序，因此可以模拟LRU(least recently used)算法，进行淘汰最不常用的节点。</p>
+<hr>
+<h3 id="461-concurrenthashmap">461 ConcurrentHashMap<a hidden class="anchor" aria-hidden="true" href="#461-concurrenthashmap">#</a></h3>
+<p>🏷️背景：在多线程并发条件下，普通的共享HashMap会存在线程安全问题，因为没有加锁，导致数据被覆盖&hellip;；</p>
+<p>🏷️作用：通过同步机制加锁，使得HashMap在背景下是线程安全的，且还需要保证效率；</p>
+<p>🏷️定义：</p>
+<ul>
+<li>JDK1.7之前，采用<strong>分段锁</strong>，即每个<strong>Segment</strong>是独立的，将锁的粒度下方，提高线程并发度
+<ul>
+<li>利用数组+链表实现</li>
+</ul>
+</li>
+</ul>
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpkreN_HAJJZ5eBpsILirxXMj-Lx" alt="image-20250308220417373" style="zoom: 33%;" />
+<p>=&gt; 锁的粒度是segment；</p>
+<p>缺点：segment不能扩容，而HashMap会扩容</p>
+<ul>
+<li>JDK1.8后，移除Segment，锁的粒度更加细化，锁只在链表or红黑树<strong>节点级别</strong>上竞争锁。通过CAS进行插入操作，只有在更新链表or红黑树时才使用synchronized关键字加锁，并且只锁住链表的头节点。
+<ul>
+<li>同步HashMap，数组+链表+红黑树实现；</li>
+</ul>
+</li>
+</ul>
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FlB1SjHxwwX53SerODlPwBfEXLjP" alt="image-20250308220632518" style="zoom:33%;" />
+<p>🏷️添加节点过程</p>
+<ul>
+<li>计算key的hash后的下标，如果没有元素 =&gt; 利用CAS添加元素；</li>
+<li>冲突 =&gt; 给这个节点上锁使用synchronized。这样其他线程就无法访问该节点以及之后的节点了</li>
+</ul>
+<p>🏷️额外扩展（为什么分为CAS&amp;Synchronized呢？）</p>
+<ul>
+<li>无锁机制CAS，能进一步提高并发性能； 因此首次添加节点时，利用CAS很OK，判断&amp;插入</li>
+<li>而后续对链表的修改，很难原子化操作orCAS比较交换。因此使用Synchronized，实现互斥，且该锁的粒度很小。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 自旋：如果 CAS 失败就重试</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">currentNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bucket</span><span class="p">.</span><span class="na">get</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currentNode</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 如果桶位置为空，尝试通过 CAS 插入新节点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bucket</span><span class="p">.</span><span class="na">compareAndSet</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="n">newNode</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"> </span><span class="c1">// 插入成功</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 如果当前位置有节点，进行链表遍历，寻找合适位置插入</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">synchronized</span><span class="w"> </span><span class="p">(</span><span class="n">currentNode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 在访问链表节点时加锁，防止并发修改</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">currentNode</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currentNode</span><span class="p">.</span><span class="na">key</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">key</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="c1">// 如果找到相同的 key，更新 value</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">currentNode</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="n">currentNode</span><span class="p">.</span><span class="na">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currentNode</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">currentNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currentNode</span><span class="p">.</span><span class="na">next</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 如果没有找到相同的 key，在链表末尾添加新的节点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">prev</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newNode</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"> </span><span class="c1">// 插入成功</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<h3 id="464-copyonwritearraylist">464 CopyOnwriteArrayList<a hidden class="anchor" aria-hidden="true" href="#464-copyonwritearraylist">#</a></h3>
+<p><strong>线程安全的动态数组</strong>，通过<strong>写时复制机制</strong>，保证数据最终一致性和隔离性，并不保证强一致性。</p>
+<ul>
+<li>写操作和读操作(Volatile修饰)分离，读完全ok(可能读到旧版本)；写需要加锁且复制数组，再修改旧数组的引用。</li>
+</ul>
+<p><em><strong>线程安全问题：</strong></em></p>
+<ul>
+<li>竞争条件
+<ul>
+<li>多个线程对共享变量进行累加，可以导致统计不对</li>
+</ul>
+</li>
+<li>死锁
+<ul>
+<li>多个线程操作数据时，没有正确的请求资源和释放顺序，相互等待</li>
+</ul>
+</li>
+<li><strong>可见性</strong>问题
+<ul>
+<li>某个线程对共享变量的修改，其他线程不一定及时可见
+<ul>
+<li>=&gt; volatile 强制从内存中修改&amp;读取</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>原子性</strong>问题
+<ul>
+<li>逻辑由多个操作步骤组成，其中CPU时间片到期了，中途其他线程修改了共享变量，导致不一致。</li>
+</ul>
+</li>
+<li>线程饥饿
+<ul>
+<li>多线程争抢CPU，非公平，有些永远抢不到</li>
+</ul>
+</li>
+<li><strong>不一致</strong>视图
+<ul>
+<li>多个线程同时修改一个共享对象，导致一部分数据不一致
+<ul>
+<li>强制视图一致，就是我第一次拿到的数据，和最终的数据要一致，其他线程别给我改了一部分啊 =&gt; 加synchronized</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/collection/">Collection</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/learning/common_commands/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Linux&amp;Docker&amp;Shell命令</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/jobs/jvm/">
+    <span class="title">Next »</span>
+    <br>
+    <span>JVM面试题笔记</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">LongCoding&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
