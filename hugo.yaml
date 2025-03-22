@@ -68,15 +68,15 @@ params:
   ShowRssButtonInSectionTermList: false
   comments: true
   assets:
-        disableFingerprinting: true  # CSS Integrity 设置一致性
+        disableHLJS: true
+        favicon: favicon.ico
+        favicon16x16: favicon-16x16.png
+        # disableFingerprinting: true  # CSS Integrity 设置一致性
   profileMode:
         enabled: true
-        title: 𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰
+        title: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰"
         imageUrl: "images/avatar.png"
-        imageTitle: LongWei image
-        # imageWidth: 120
-        # imageHeight: 120
-        # subtitle: "☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive"
+        imageTitle: "LongWei image"
         buttons:
           - name: 🗒️ Posts
             url: posts
@@ -85,7 +85,7 @@ params:
   # 主页 - 信息模式（默认）
   homeInfoParams:
     Title: "Hi there ⛳"
-    Content: Welcome to my blog
+    Content: "Welcome to my blog"
   #  主页 - 信息模式 图标展示
   socialIcons:
     - name: github
