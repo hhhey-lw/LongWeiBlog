@@ -1,4 +1,4 @@
-baseURL: ./
+baseURL: http://121.40.252.207/
 languageCode: en 
 title: LongCoding's Blog
 theme: ["PaperMod"]
