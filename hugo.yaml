@@ -67,8 +67,8 @@ params:
   ShowWordCount: true
   ShowRssButtonInSectionTermList: false
   comments: true
-  # assets:
-        # enableFontAwesome: true
+  assets:
+        disableFingerprinting: true  # CSS Integrity 设置一致性
   profileMode:
         enabled: true
         title: 𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰
