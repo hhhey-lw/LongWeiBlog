@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Linux&amp;Docker&amp;Shell命令 | LongCoding&#39;s Blog</title>
+<meta name="keywords" content="Commands">
+<meta name="description" content="docker
+ 1service docker start
+ 2
+ 3docker pull &lt;镜像名称&gt;:&lt;标签&gt;
+ 4
+ 5docker rmi &lt;镜像名称或ID&gt;
+ 6
+ 7docker images
+ 8
+ 9docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt;
+10
+11docker start &lt;容器名称或ID&gt;
+12
+13docker ps
+14
+15docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端
+Linux
+文件和目录
+1ls -l # -l:详细信息
+2cd
+3pwd # 当前目录
+4mkdir/vim
+5rm/rmdir
+6cp mv
+文件权限
+1chmod  # Change Mode  # chmod u&#43;rwx file.txt x:Execute
+2chown
+系统命令
+1ps -ef  # e:all -f full info
+2ps -u $USER
+3ps -ef | grep &lt;info&gt;  # global regular expression print
+4
+5htop  # 显示系统资源使用情况
+网络管理">
+<meta name="author" content="LongWei">
+<link rel="canonical" href="http://121.40.252.207/posts/common_commands/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://121.40.252.207/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://121.40.252.207/apple-touch-icon.png">
+<link rel="mask-icon" href="http://121.40.252.207/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://121.40.252.207/posts/common_commands/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="http://121.40.252.207/posts/common_commands/">
+  <meta property="og:site_name" content="LongCoding&#39;s Blog">
+  <meta property="og:title" content="Linux&Docker&Shell命令">
+  <meta property="og:description" content="docker 1service docker start 2 3docker pull &lt;镜像名称&gt;:&lt;标签&gt; 4 5docker rmi &lt;镜像名称或ID&gt; 6 7docker images 8 9docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt; 10 11docker start &lt;容器名称或ID&gt; 12 13docker ps 14 15docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端 Linux 文件和目录
+1ls -l # -l:详细信息 2cd 3pwd # 当前目录 4mkdir/vim 5rm/rmdir 6cp mv 文件权限
+1chmod # Change Mode # chmod u&#43;rwx file.txt x:Execute 2chown 系统命令
+1ps -ef # e:all -f full info 2ps -u $USER 3ps -ef | grep &lt;info&gt; # global regular expression print 4 5htop # 显示系统资源使用情况 网络管理">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-16T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-16T00:00:00+00:00">
+    <meta property="article:tag" content="Commands">
+      <meta property="og:image" content="http://121.40.252.207/papermod-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://121.40.252.207/papermod-cover.png">
+<meta name="twitter:title" content="Linux&amp;Docker&amp;Shell命令">
+<meta name="twitter:description" content="docker
+ 1service docker start
+ 2
+ 3docker pull &lt;镜像名称&gt;:&lt;标签&gt;
+ 4
+ 5docker rmi &lt;镜像名称或ID&gt;
+ 6
+ 7docker images
+ 8
+ 9docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt;
+10
+11docker start &lt;容器名称或ID&gt;
+12
+13docker ps
+14
+15docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端
+Linux
+文件和目录
+1ls -l # -l:详细信息
+2cd
+3pwd # 当前目录
+4mkdir/vim
+5rm/rmdir
+6cp mv
+文件权限
+1chmod  # Change Mode  # chmod u&#43;rwx file.txt x:Execute
+2chown
+系统命令
+1ps -ef  # e:all -f full info
+2ps -u $USER
+3ps -ef | grep &lt;info&gt;  # global regular expression print
+4
+5htop  # 显示系统资源使用情况
+网络管理">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://121.40.252.207/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Linux\u0026Docker\u0026Shell命令",
+      "item": "http://121.40.252.207/posts/common_commands/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Linux\u0026Docker\u0026Shell命令",
+  "name": "Linux\u0026Docker\u0026Shell命令",
+  "description": "docker 1service docker start 2 3docker pull \u0026lt;镜像名称\u0026gt;:\u0026lt;标签\u0026gt; 4 5docker rmi \u0026lt;镜像名称或ID\u0026gt; 6 7docker images 8 9docker run [选项] \u0026lt;镜像名称\u0026gt;:\u0026lt;标签\u0026gt; 10 11docker start \u0026lt;容器名称或ID\u0026gt; 12 13docker ps 14 15docker exec -it \u0026lt;容器名称或ID\u0026gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式\u0026amp;伪终端 Linux 文件和目录\n1ls -l # -l:详细信息 2cd 3pwd # 当前目录 4mkdir/vim 5rm/rmdir 6cp mv 文件权限\n1chmod # Change Mode # chmod u+rwx file.txt x:Execute 2chown 系统命令\n1ps -ef # e:all -f full info 2ps -u $USER 3ps -ef | grep \u0026lt;info\u0026gt; # global regular expression print 4 5htop # 显示系统资源使用情况 网络管理\n",
+  "keywords": [
+    "Commands"
+  ],
+  "articleBody": "docker 1service docker start 2 3docker pull \u003c镜像名称\u003e:\u003c标签\u003e 4 5docker rmi \u003c镜像名称或ID\u003e 6 7docker images 8 9docker run [选项] \u003c镜像名称\u003e:\u003c标签\u003e 10 11docker start \u003c容器名称或ID\u003e 12 13docker ps 14 15docker exec -it \u003c容器名称或ID\u003e /bin/bash # execute -it:Interactive and Teletypewriter 交互式\u0026伪终端 Linux 文件和目录\n1ls -l # -l:详细信息 2cd 3pwd # 当前目录 4mkdir/vim 5rm/rmdir 6cp mv 文件权限\n1chmod # Change Mode # chmod u+rwx file.txt x:Execute 2chown 系统命令\n1ps -ef # e:all -f full info 2ps -u $USER 3ps -ef | grep # global regular expression print 4 5htop # 显示系统资源使用情况 网络管理\n1ping 2ifconfig 3netstat # 网络连接信息 压缩解压\n1tar -czvf archive.tar.gz folder_name # 压缩 2tar -xzvf archive.tar.gz # 解压 3 4-c: # create 创建 5-x: # extract解压 6-z: # 使用gzip压缩 7-v: # verbose显示[详细]信息 8-f：# file 指定文件名 杂项\n1history 2echo 3clear Git Git 是一个分布式版本控制系统，支持多人协作开发。\n1git init 2git clone --link 3git status 4添加文件：git add file 或者 git add . 5提交文件：git commit -m \"commit msg\" 6git push 7git pull 8git log 9 10// branch 分支 11git branch \u003c分支名\u003e 12git checkout \u003c分支名\u003e // 切换分支 13git merge \u003c分支名\u003e 14-- 手动编辑冲突文件，然后使用 git add 标记冲突已解决，最后提交更改。 Shell 条件判断\n1#!/bin/bash 2if [ -f \"file.txt\" ]; then 3 echo \"file.txt exists.\" 4else 5 echo \"file.txt not exists.\" 6fi 7 8# -f 检查文件是否存在 9 10#!/bin/bash 11num=10 12if [ $num -gt 5 ]; then 13 echo \"$num is greater than 5.\" 14fi 15 16-gt # greater than 循环\n1#!/bin/bash 2num=(1 2 3 4 5) 3for i in \"${num[@]}\"; do # 是用于引用数组 num 中所有元素的方式 4 echo \"number: $i\" 5done 6------------------------ 7#!/bin/bash 8if [ $# -eq 0 ]; then 9 echo \"Usage: $0 \" 10 exit 1 11fi 12 13for i in \"$@\"; do 14 echo \"number: $i\" 15done 16 17# $# 表示传递给脚本或函数的命令行参数的数量 $@ 所有参数 18=\u003e ./script.sh 1 2 3 Where\n1#!/bin/bash 2count=1 3while [ $count -le 5 ]; do 4 echo \"Count: $count\" 5 count=$((count + 1)) 6done 函数\n1#!/bin/bash 2greet() { 3 echo \"Hello, $1!\" 4} 5greet \"Alice\" 6greet \"Bob\" 读写文件\n1echo \"Hello, File!\" \u003e output.txt # write：\u003e 覆盖 \u003e\u003e 追加 2 3while read line; do 4 echo \"Line: $line\" 5done \u003c file.txt # 读文件 读取输入\n1echo \"Enter your name:\" 2read name # 类似scanf 控制台阻塞等待 3echo \"Hello, $name!\" 4 5read -s -p \"Enter your password: \" password 6echo \"Password entered.\" 7 8# s 静默，不显示信息 p显示提示信息 ",
+  "wordCount" : "372",
+  "inLanguage": "en",
+  "image": "http://121.40.252.207/papermod-cover.png","datePublished": "2025-03-16T00:00:00Z",
+  "dateModified": "2025-03-16T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "LongWei"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://121.40.252.207/posts/common_commands/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LongCoding's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://121.40.252.207/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://121.40.252.207/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
+                <img src="http://121.40.252.207/android-icon-48x48.png" alt="" aria-label="logo"
+                    height="30">𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://121.40.252.207/index.html" title="🏡 Home">
+                    <span>🏡 Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/archives/" title="📃 Archive">
+                    <span>📃 Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/tags/" title="📑 Tags">
+                    <span>📑 Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/categories/" title="🗒️ Categories">
+                    <span>🗒️ Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/search/" title="🔍 Search">
+                    <span>🔍 Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/about/" title="👨🏻‍🎓 About Me">
+                    <span>👨🏻‍🎓 About Me</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Linux&amp;Docker&amp;Shell命令
+    </h1>
+    <div class="post-meta"><span title='2025-03-16 00:00:00 +0000 UTC'>March 16, 2025</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;372 words&nbsp;·&nbsp;LongWei
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#docker" aria-label="docker">docker</a></li>
+                <li>
+                    <a href="#linux" aria-label="Linux">Linux</a></li>
+                <li>
+                    <a href="#git" aria-label="Git">Git</a></li>
+                <li>
+                    <a href="#shell" aria-label="Shell">Shell</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h3 id="docker">docker<a hidden class="anchor" aria-hidden="true" href="#docker">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">service docker start
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">docker pull &lt;镜像名称&gt;:&lt;标签&gt;
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">docker rmi &lt;镜像名称或ID&gt;
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">docker images
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">docker run <span class="o">[</span>选项<span class="o">]</span> &lt;镜像名称&gt;:&lt;标签&gt;
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">docker start &lt;容器名称或ID&gt;
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl">docker ps
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl">docker <span class="nb">exec</span> -it &lt;容器名称或ID&gt; /bin/bash <span class="c1"># execute -it:Interactive and Teletypewriter 交互式&amp;伪终端</span>
+</span></span></code></pre></div><h3 id="linux"><strong>Linux</strong><a hidden class="anchor" aria-hidden="true" href="#linux">#</a></h3>
+<p>文件和目录</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">ls -l <span class="c1"># -l:详细信息</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">cd</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nb">pwd</span> <span class="c1"># 当前目录</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">mkdir/vim
+</span></span><span class="line"><span class="ln">5</span><span class="cl">rm/rmdir
+</span></span><span class="line"><span class="ln">6</span><span class="cl">cp mv
+</span></span></code></pre></div><p>文件权限</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">chmod  <span class="c1"># Change Mode  # chmod u+rwx file.txt x:Execute</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">chown
+</span></span></code></pre></div><p>系统命令</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">ps -ef  <span class="c1"># e:all -f full info</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">ps -u <span class="nv">$USER</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">ps -ef <span class="p">|</span> grep &lt;info&gt;  <span class="c1"># global regular expression print</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl">htop  <span class="c1"># 显示系统资源使用情况</span>
+</span></span></code></pre></div><p>网络管理</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">ping
+</span></span><span class="line"><span class="ln">2</span><span class="cl">ifconfig
+</span></span><span class="line"><span class="ln">3</span><span class="cl">netstat  <span class="c1"># 网络连接信息</span>
+</span></span></code></pre></div><p>压缩解压</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">tar -czvf archive.tar.gz folder_name  <span class="c1"># 压缩 </span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">tar -xzvf archive.tar.gz  <span class="c1"># 解压</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl">-c: <span class="c1"># create 创建</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">-x: <span class="c1"># extract解压</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">-z: <span class="c1"># 使用gzip压缩</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">-v: <span class="c1"># verbose显示[详细]信息</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">-f：# file 指定文件名
+</span></span></code></pre></div><p>杂项</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">history</span> 
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">clear
+</span></span></code></pre></div><h3 id="git"><strong>Git</strong><a hidden class="anchor" aria-hidden="true" href="#git">#</a></h3>
+<p>Git 是一个分布式版本控制系统，支持多人协作开发。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">git init
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">git clone --link
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">git status
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">添加文件：git add file  或者 git add .
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">提交文件：git commit -m <span class="s2">&#34;commit msg&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">git push 
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">git pull
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">git log
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">// branch 分支
+</span></span><span class="line"><span class="ln">11</span><span class="cl">git branch &lt;分支名&gt;
+</span></span><span class="line"><span class="ln">12</span><span class="cl">git checkout &lt;分支名&gt;  // 切换分支
+</span></span><span class="line"><span class="ln">13</span><span class="cl">git merge &lt;分支名&gt;
+</span></span><span class="line"><span class="ln">14</span><span class="cl">-- 手动编辑冲突文件，然后使用 git add 标记冲突已解决，最后提交更改。
+</span></span></code></pre></div><h3 id="shell"><strong>Shell</strong><a hidden class="anchor" aria-hidden="true" href="#shell">#</a></h3>
+<p>条件判断</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cp"></span><span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;file.txt&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;file.txt exists.&#34;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;file.txt not exists.&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"># -f 检查文件是否存在</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1">#!/bin/bash</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="nv">num</span><span class="o">=</span><span class="m">10</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$num</span> -gt <span class="m">5</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$num</span><span class="s2"> is greater than 5.&#34;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl">-gt <span class="c1"># greater than</span>
+</span></span></code></pre></div><p>循环</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cp"></span><span class="nv">num</span><span class="o">=(</span><span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> 5<span class="o">)</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="k">for</span> i in <span class="s2">&#34;</span><span class="si">${</span><span class="nv">num</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>  <span class="c1"># 是用于引用数组 num 中所有元素的方式</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;number: </span><span class="nv">$i</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">------------------------
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1">#!/bin/bash</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;Usage: </span><span class="nv">$0</span><span class="s2"> &lt;n1&gt; &lt;n2&gt;&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="k">for</span> i in <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;number: </span><span class="nv">$i</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="k">done</span>    
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="c1"># $# 表示传递给脚本或函数的命令行参数的数量  $@ 所有参数</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="o">=</span>&gt; ./script.sh <span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+</span></span></code></pre></div><p>Where</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span><span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">while</span> <span class="o">[</span> <span class="nv">$count</span> -le <span class="m">5</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Count: </span><span class="nv">$count</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="nv">count</span><span class="o">=</span><span class="k">$((</span>count <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><p>函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span>greet<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Hello, </span><span class="nv">$1</span><span class="s2">!&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">greet <span class="s2">&#34;Alice&#34;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">greet <span class="s2">&#34;Bob&#34;</span>
+</span></span></code></pre></div><p>读写文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Hello, File!&#34;</span> &gt; output.txt  <span class="c1"># write：&gt; 覆盖 &gt;&gt; 追加</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">while</span> <span class="nb">read</span> line<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Line: </span><span class="nv">$line</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="k">done</span> &lt; file.txt     <span class="c1"># 读文件</span>
+</span></span></code></pre></div><p>读取输入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Enter your name:&#34;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">read</span> name  <span class="c1"># 类似scanf 控制台阻塞等待</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Hello, </span><span class="nv">$name</span><span class="s2">!&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nb">read</span> -s -p <span class="s2">&#34;Enter your password: &#34;</span> password
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Password entered.&#34;</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="c1"># s 静默，不显示信息  p显示提示信息</span>
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://121.40.252.207/tags/commands/">Commands</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://121.40.252.207/posts/jobs/collection/">
+    <span class="title">Next »</span>
+    <br>
+    <span>集合面试题笔记</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://121.40.252.207/">LongCoding&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
