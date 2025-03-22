@@ -35,7 +35,7 @@ languages:
         - name: Archive
           pageRef: archives/
           weight: 5
-        - name: Category
+        - name: Categories
           pageRef: categories/
           weight: 10
         - name: Tags

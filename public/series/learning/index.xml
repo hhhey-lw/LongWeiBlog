@@ -89,7 +89,7 @@
 &lt;p&gt;&lt;strong&gt;1. 动态加载类&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
-      <title>深度恶习论文汇总1</title>
+      <title>深度学习论文汇总1</title>
       <link>http://localhost:1313/posts/learning/paper_reading1/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/learning/paper_reading1/</guid>
@@ -113,7 +113,7 @@ Loss = −\sum_{i}^{c}(y_ilog(p(x_i)+(1−y_i)log(1−p(x_i)) \
 where \ y_i \in [0, 1] \&lt;/p&gt;</description>
     </item>
     <item>
-      <title>深度恶习论文汇总2</title>
+      <title>深度学习论文汇总2</title>
       <link>http://localhost:1313/posts/learning/paper_reading2/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/learning/paper_reading2/</guid>
