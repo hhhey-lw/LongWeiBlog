@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Java on LongCoding&#39;s Blog</title>
-    <link>http://localhost:1313/tags/java/</link>
+    <link>http://121.40.252.207/tags/java/</link>
     <description>Recent content in Java on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Wed, 19 Feb 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://121.40.252.207/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java面试题笔记</title>
-      <link>http://localhost:1313/posts/jobs/java/</link>
+      <link>http://121.40.252.207/posts/jobs/java/</link>
       <pubDate>Wed, 19 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/jobs/java/</guid>
+      <guid>http://121.40.252.207/posts/jobs/java/</guid>
       <description>&lt;h3 id=&#34;415-序列化反序列化&#34;&gt;415 序列化&amp;amp;反序列化&lt;/h3&gt;
 &lt;p&gt;将Object转为字节流，或反之&lt;/p&gt;
 &lt;ul&gt;
@@ -24,9 +24,9 @@
     </item>
     <item>
       <title>Java学习笔记</title>
-      <link>http://localhost:1313/posts/learning/java_learning/</link>
+      <link>http://121.40.252.207/posts/learning/java_learning/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/learning/java_learning/</guid>
+      <guid>http://121.40.252.207/posts/learning/java_learning/</guid>
       <description>&lt;h3 id=&#34;java-反射&#34;&gt;Java 反射&lt;/h3&gt;
 &lt;p&gt;它提供了动态性和灵活性，使得程序可以在运行时动态地加载类、调用方法、访问字段等，而不需要在编译时确定这些操作。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1. 动态加载类&lt;/strong&gt;&lt;/p&gt;</description>
