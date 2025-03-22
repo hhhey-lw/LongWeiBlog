@@ -1,4 +1,4 @@
-baseURL: "http://127.0.0.1:1313"
+baseURL: "http://127.0.0.1/"
 title: "LongCoding's Blog"
 pagination.pagerSize: "5"
 theme: PaperMod
