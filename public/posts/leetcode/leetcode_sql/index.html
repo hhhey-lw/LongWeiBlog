@@ -47,16 +47,16 @@ Where&amp;GroupBy&amp;HAVING
 计算特殊奖金
 编写解决方案，计算每个雇员的奖金。如果一个雇员的 id 是 奇数 并且他的名字不是以 &#39;M&#39; 开头，那么他的奖金是他工资的 100% ，否则奖金为 0 。">
 <meta name="author" content="LongWei">
-<link rel="canonical" href="http://127.0.0.1:1313/posts/leetcode/leetcode_sql/">
+<link rel="canonical" href="http://127.0.0.1/posts/leetcode/leetcode_sql/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.6da9a63d25a9608bca2f7f907a030e887a7dd3c3f3918e4cc113129361414bda.css" integrity="sha256-bammPSWpYIvKL3&#43;QegMOiHp908PzkY5MwRMSk2FBS9o=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://127.0.0.1:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://127.0.0.1:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://127.0.0.1:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://127.0.0.1:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://127.0.0.1:1313/safari-pinned-tab.svg">
+<link rel="icon" href="http://127.0.0.1/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://127.0.0.1/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://127.0.0.1/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://127.0.0.1/apple-touch-icon.png">
+<link rel="mask-icon" href="http://127.0.0.1/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://127.0.0.1:1313/posts/leetcode/leetcode_sql/">
+<link rel="alternate" hreflang="en" href="http://127.0.0.1/posts/leetcode/leetcode_sql/">
 <noscript>
     <style>
         #theme-toggle,
@@ -93,7 +93,7 @@ Where&amp;GroupBy&amp;HAVING
         }
 
     </style>
-</noscript><meta property="og:url" content="http://127.0.0.1:1313/posts/leetcode/leetcode_sql/">
+</noscript><meta property="og:url" content="http://127.0.0.1/posts/leetcode/leetcode_sql/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
   <meta property="og:title" content="高频SQL50题刷题笔记">
   <meta property="og:description" content="高频SQL50题 查询 Where&amp;GroupBy&amp;HAVING 1SELECT id, revenue # 某个用户2021年可能有多项记录 2FROM users 3Where year = 2021 4 5SELECT id, SUM(revenue) 6FROM users 7Where year = 2021 # 1. 先筛选出此年份所有记录 8Group By id # 2. 再根据id分组 3. 必须结合SUM() 或者其他聚合函数，因此这个有多列，需要处理为单值。 9 10SELECT id 11FROM users 12Where year = 2021 # 1. 先筛选记录 13Group By id # 2. 分组 14HAVING SUM(revenue) &gt; 1000 # 3. 聚合分组字段记录 并 判断 查找没买过东西的顾客 1# 1. NOT EXISTS 2SELECT `name` AS `Customers` 3FROM `Customers` AS c 4WHERE NOT EXISTS ( 5 SELECT `customerId` 6 FROM `Orders` AS o 7 Where o.customerId = c.id 8) 1# 2. Left Join 2# example 3SELECT c.id AS id, c.name, o.id AS oid 4FROM customers AS c LEFT JOIN orders AS o 5on c.id = o.customerId 6 7SELECT `name` as `Customers` 8FROM customers AS c LEFT JOIN orders AS o 9on c.id = o.customerId 10WHERE o.id is NULL 计算特殊奖金 编写解决方案，计算每个雇员的奖金。如果一个雇员的 id 是 奇数 并且他的名字不是以 &#39;M&#39; 开头，那么他的奖金是他工资的 100% ，否则奖金为 0 。">
@@ -103,7 +103,7 @@ Where&amp;GroupBy&amp;HAVING
     <meta property="article:published_time" content="2024-11-24T00:00:00+00:00">
     <meta property="article:modified_time" content="2024-11-24T00:00:00+00:00">
     <meta property="article:tag" content="SQL">
-      <meta property="og:see_also" content="http://127.0.0.1:1313/posts/leetcode/leetcode_hot100/">
+      <meta property="og:see_also" content="http://127.0.0.1/posts/leetcode/leetcode_hot100/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高频SQL50题刷题笔记">
 <meta name="twitter:description" content="高频SQL50题
@@ -156,13 +156,13 @@ Where&amp;GroupBy&amp;HAVING
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://127.0.0.1:1313/posts/"
+      "item": "http://127.0.0.1/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "高频SQL50题刷题笔记",
-      "item": "http://127.0.0.1:1313/posts/leetcode/leetcode_sql/"
+      "item": "http://127.0.0.1/posts/leetcode/leetcode_sql/"
     }
   ]
 }
@@ -188,14 +188,14 @@ Where&amp;GroupBy&amp;HAVING
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://127.0.0.1:1313/posts/leetcode/leetcode_sql/"
+    "@id": "http://127.0.0.1/posts/leetcode/leetcode_sql/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "LongCoding's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://127.0.0.1:1313/favicon.ico"
+      "url": "http://127.0.0.1/favicon.ico"
     }
   }
 }
@@ -217,8 +217,8 @@ Where&amp;GroupBy&amp;HAVING
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://127.0.0.1:1313/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
-                <img src="http://127.0.0.1:1313/android-icon-48x48.png" alt="" aria-label="logo"
+            <a href="http://127.0.0.1/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
+                <img src="http://127.0.0.1/android-icon-48x48.png" alt="" aria-label="logo"
                     height="30">𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
@@ -245,32 +245,32 @@ Where&amp;GroupBy&amp;HAVING
         </div>
         <ul id="menu">
             <li>
-                <a href="http://127.0.0.1:1313/index.html" title="🏡 Home">
+                <a href="http://127.0.0.1/index.html" title="🏡 Home">
                     <span>🏡 Home</span>
                 </a>
             </li>
             <li>
-                <a href="http://127.0.0.1:1313/archives/" title="📃 Archive">
+                <a href="http://127.0.0.1/archives/" title="📃 Archive">
                     <span>📃 Archive</span>
                 </a>
             </li>
             <li>
-                <a href="http://127.0.0.1:1313/tags/" title="📑 Tags">
+                <a href="http://127.0.0.1/tags/" title="📑 Tags">
                     <span>📑 Tags</span>
                 </a>
             </li>
             <li>
-                <a href="http://127.0.0.1:1313/categories/" title="🗒️ Categories">
+                <a href="http://127.0.0.1/categories/" title="🗒️ Categories">
                     <span>🗒️ Categories</span>
                 </a>
             </li>
             <li>
-                <a href="http://127.0.0.1:1313/search/" title="🔍 Search">
+                <a href="http://127.0.0.1/search/" title="🔍 Search">
                     <span>🔍 Search</span>
                 </a>
             </li>
             <li>
-                <a href="http://127.0.0.1:1313/about/" title="👨🏻‍🎓 About Me">
+                <a href="http://127.0.0.1/about/" title="👨🏻‍🎓 About Me">
                     <span>👨🏻‍🎓 About Me</span>
                 </a>
             </li>
@@ -281,7 +281,7 @@ Where&amp;GroupBy&amp;HAVING
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://127.0.0.1:1313/">Home</a>&nbsp;»&nbsp;<a href="http://127.0.0.1:1313/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="http://127.0.0.1/">Home</a>&nbsp;»&nbsp;<a href="http://127.0.0.1/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       高频SQL50题刷题笔记
     </h1>
@@ -1181,7 +1181,7 @@ Championships 表：
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://127.0.0.1:1313/tags/sql/">SQL</a></li>
+      <li><a href="http://127.0.0.1/tags/sql/">SQL</a></li>
     </ul>
   </footer> <div id="tw-comment"></div>
  <script>
@@ -1237,7 +1237,7 @@ Championships 表：
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://127.0.0.1:1313/">LongCoding&#39;s Blog</a></span> · 
+        <span>&copy; 2025 <a href="http://127.0.0.1/">LongCoding&#39;s Blog</a></span> · 
 
     <span>
         Powered by

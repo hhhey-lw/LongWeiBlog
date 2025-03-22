@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Series on LongCoding&#39;s Blog</title>
-    <link>http://127.0.0.1:1313/series/</link>
+    <link>http://127.0.0.1/series/</link>
     <description>Recent content in Series on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Sun, 16 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://127.0.0.1:1313/series/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://127.0.0.1/series/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learning</title>
-      <link>http://127.0.0.1:1313/series/learning/</link>
+      <link>http://127.0.0.1/series/learning/</link>
       <pubDate>Sun, 16 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1:1313/series/learning/</guid>
+      <guid>http://127.0.0.1/series/learning/</guid>
       <description></description>
     </item>
     <item>
       <title>JobLearning</title>
-      <link>http://127.0.0.1:1313/series/joblearning/</link>
+      <link>http://127.0.0.1/series/joblearning/</link>
       <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1:1313/series/joblearning/</guid>
+      <guid>http://127.0.0.1/series/joblearning/</guid>
       <description></description>
     </item>
     <item>
       <title>LeetCode</title>
-      <link>http://127.0.0.1:1313/series/leetcode/</link>
+      <link>http://127.0.0.1/series/leetcode/</link>
       <pubDate>Sun, 24 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1:1313/series/leetcode/</guid>
+      <guid>http://127.0.0.1/series/leetcode/</guid>
       <description></description>
     </item>
     <item>
       <title>Java</title>
-      <link>http://127.0.0.1:1313/series/java/</link>
+      <link>http://127.0.0.1/series/java/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1:1313/series/java/</guid>
+      <guid>http://127.0.0.1/series/java/</guid>
       <description></description>
     </item>
   </channel>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Java on LongCoding&#39;s Blog</title>
-    <link>http://127.0.0.1:1313/series/java/</link>
+    <link>http://127.0.0.1/series/java/</link>
     <description>Recent content in Java on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Fri, 19 Apr 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://127.0.0.1:1313/series/java/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://127.0.0.1/series/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java学习笔记</title>
-      <link>http://127.0.0.1:1313/posts/learning/java_learning/</link>
+      <link>http://127.0.0.1/posts/learning/java_learning/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1:1313/posts/learning/java_learning/</guid>
+      <guid>http://127.0.0.1/posts/learning/java_learning/</guid>
       <description>&lt;hr&gt;
 &lt;h3 id=&#34;java-反射&#34;&gt;Java 反射&lt;/h3&gt;
 &lt;p&gt;它提供了动态性和灵活性，使得程序可以在运行时动态地加载类、调用方法、访问字段等，而不需要在编译时确定这些操作。&lt;/p&gt;
