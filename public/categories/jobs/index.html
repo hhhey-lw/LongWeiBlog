@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="👨🏻‍🎓 LongWei">
 <link rel="canonical" href="http://121.40.252.207/categories/jobs/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://121.40.252.207/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
@@ -146,6 +146,14 @@
 <header class="page-header"><div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/categories/">Categories</a></div>
   <h1>
     Jobs
+    <a href="/categories/jobs/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
   </h1>
 </header>
 
@@ -158,9 +166,14 @@
     <p>6319 HashMap 原理 数据结构：数组 &#43; 链表 （JAVA8之后：数组&#43;链表&#43;红黑树）
 数据结构
 jdk1.7：数组&#43;链表，数组每个元素是一个链表的表头，当发生冲突，将新元素添加在头部(头插法) hash冲突：头插法，❗扩容时可能造成环形链表 jdk1.8： 引入红黑树，当链表节点超过8个，那么这个链表会转换为红黑树。查询时间由 O(n) 优化为 O(logn)。当节点小于6个，再转换为链表。 hash冲突：尾插法，避免环形链表❗ 扩容机制 jdk1.7 扩容，元素会重新计算hash值，并分配到新的扩容数组中。⭐比较耗时 扩容时，头插法，在多线程情况下，可能造成环形链表 jdk1.8 扩容时，利用了元素哈希值和旧数组容量关系，减少了重新计算的哈希次数 扩容时，尾插法，避免环形链表 使用键的hashcode()计算hash值，然后(n-1) &amp; hash确定数组中的位置。
+n-1 =&gt; 10000 - 1 = 01111 HashMap的初始默认容量为16，负载因子为0.75。当存储的元素达到75%时，进行扩容，扩容为原来的2倍空间
+扩展知识：
+hashmap的红黑树优化：
+JAVA8开始，为了优化hash冲突时的查找性能。但链表的长度超过8时，链表会转变为红黑树。红黑树是一种自平衡的二叉搜索树 查找时间 O(n) =&gt; O(logn)。 当元素少于6个，切换为链表 hashCode() 和 equals()的重要性：
+hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突。 equals()比较的值 1// HashMap Node class 2static class Entry&lt;K,V&gt; { 3 final K key; // 键 4 V value; // 值 5 final int hash; // 计算后的哈希值 6 Entry&lt;K,V&gt; next; // 指向下一个元素的指针（形成链表） 7} 为什么头插法&amp;多线程&amp;扩容会造成环形链表?
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-13 00:00:00 +0000 UTC'>March 13, 2025</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;3650 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-13 00:00:00 +0000 UTC'>March 13, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;608 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 集合面试题笔记" href="http://121.40.252.207/posts/jobs/collection/"></a>
 </article>
 
@@ -172,9 +185,22 @@ jdk1.7：数组&#43;链表，数组每个元素是一个链表的表头，当发
   <div class="entry-content">
     <p>521. Java如何实现跨平台的？ Java编译生成的是字节码文件.class文件，而不是特定于某个操作系统的机器码。
 不同操作系统上都有各自实现的JVM，负责将字节码翻译成特定平台的机器代码并执行。使得JAVA文件可以被不同操作系统上的JVM运行。包装了一层。
+9807. JVM的组成部分 主要组成部分：
+编译好的JAVA字节码（.class文件）准备就绪。
+类加载器子系统：将class文件加载到内存中(运行时的数据区)。 运行时数据区。 执行引擎(命令解释器)：将字节码文件翻译成机器码，并交给CPU执行； 本地方法接口：过程中会调用不同语言提供的接口，比如驱动和..，调用本地方法接口，例如操作系统级别的功能或者高性能库。 522. 编译执行和解释执行 编译执行：先将源代码编译为机器代码，再在CPU上运行。例如：C，C&#43;&#43;；
+​	啊
+优点：编译后运行速度快，并且运行时，不需要再进行翻译。 解释执行：运行时，解释器逐行翻译并执行例如Python。
+跨平台性好， 每个代码都是在每个平台上通过相应平台的解释器运行。 速度慢，每次执行都需要动态翻译。 =&gt; Java采样编译执行和解释执行相结合的方式：
+解释执行：JVM将.JAVA文件=&gt;.class字节码。 有助于程序的跨平台性； 即时编译：将经常执行的代码编译为本地机器码，避免反复解释 523. JVM的内存区域如何划分的❗? JVM运行时的数据区分为：1. 方法区 2. 堆 3. 虚拟机栈 4. 本地方法栈 5. 程序计数器。
+方法区 - 存储类&amp;共享信息
+存储类信息、常量、静态变量 这些信息属于线程共享区域 Java堆 - 与JVM共存亡
+存放所有线程共享的对象实例 和 数组 (垃圾回收主要战地) 虚拟机栈
+每个线程创建一个栈：用来保存局部变量、操作数栈、方法出口信息。 局部变量：基本数据类型；以及对象引用； 栈与线程共存亡 本地方法栈
+为本地方法服务。。。 程序计数器
+保存当前线程执行的字节码指令地址或行号。 总结：Java程序与线程在JVM内存中的流程 程序启动：JVM初始化内存区域，加载类信息到方法区。 线程创建：为线程分配程序计数器、Java虚拟机栈和本地方法栈。 方法调用：线程执行方法时，创建栈帧并压入Java虚拟机栈。 对象创建：对象实例存储在Java堆中，元数据存储在方法区。 垃圾回收：JVM清理不再使用的对象和类信息。 线程结束：线程的栈和程序计数器被销毁。 程序结束：JVM释放所有内存区域并退出。 524. JVM中堆和栈的区别是什么？ 栈：主要用于存储局部变量(基本类型&#43;对象引用)和方法的调用信息(返回地址、参数等)。线程执行时，会创建该线程的栈帧，被压入Java虚拟机栈中。 执行结束，线程栈帧被弹出(销毁)
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-08 00:00:00 +0000 UTC'>March 8, 2025</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;2322 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-08 00:00:00 +0000 UTC'>March 8, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;163 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to JVM面试题笔记" href="http://121.40.252.207/posts/jobs/jvm/"></a>
 </article>
 
@@ -187,9 +213,14 @@ jdk1.7：数组&#43;链表，数组每个元素是一个链表的表头，当发
     <p>1 如何创建多线程 1） 实现Runnable接口
 实现run()方法 1new Thread(MyRunnable()).start(); 2）继承Thread类
 重写run()方法 3）Callable接口&amp;&amp;FutureTask
+实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动 1FutrueTask&lt;ReturnType&gt; task = new FutrueTask&lt;&gt;(MyCallable()); 2Thread(task).start 3 4ResultType res = task.get(); // 这里阻塞 4）使用线程池
+通过ExecutorService提交Runnable或者Callable任务 不同方法对比
+1Runnable vs Callable 2Callable:可以返回结果，可以抛出异常 3 4线程池的优势：避免重复创建和销毁线程，减少这部分重复带来的开销； 5ThreadPool =&gt; (FixedThreadPool, CachedThreadPool, ScheduledThreadPool) 6 7虚拟线程：虚拟线程创建和切换开销更低 8Thread.startVirtualThread() ThreadPool实践
+XXXThreadPool.submit(task…)
+1FixedThreadPool: 固定池中线程数量 =&gt; 适合1.执行较长任务；2.控制并发度 2 3CachedThreadPool：池中线程数量不固定，根据需要动态创建线程，空的被回收，少了多创建； 4⭐适用于任务执行时间短且任务数量不确定的场景； 5 6ScheduledThreadPool：适用于需要定时执行或周期性执行任务的场景。 1// 定时任务线程池 2ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5); 3// For 延迟任务 4scheduledThreadPool.schedule(() -&gt; { 5 // 任务逻辑 6}, 10, TimeUnit.SECONDS); // 延迟10秒执行 7 8// For周期执行任务 9scheduledThreadPool.scheduleAtFixedRate(() -&gt; { 10 // 任务逻辑 11}, 0, 1, TimeUnit.SECONDS); // 每隔1秒执行一次 Thread.sleep(0) &lt;= 主动让出CPU控制权
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-05 00:00:00 +0000 UTC'>March 5, 2025</span>&nbsp;·&nbsp;17 min&nbsp;·&nbsp;8355 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-05 00:00:00 +0000 UTC'>March 5, 2025</span>&nbsp;·&nbsp;9 min&nbsp;·&nbsp;1850 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 并发面试题笔记" href="http://121.40.252.207/posts/jobs/juc/"></a>
 </article>
 
@@ -200,9 +231,21 @@ jdk1.7：数组&#43;链表，数组每个元素是一个链表的表头，当发
   </header>
   <div class="entry-content">
     <p>617 MySQL 数据排序 实现？ Order By 命中索引(包括索引字段)，使用索引排序(有序)，效率最高效 否则使用文件排序，文件少=&gt; 内存排序 sort_buffer 文件大=&gt;外部排序，归并排序 内部排序细节：
+双路排序(待排序的列数据太大了)：使用row_id(回查表) &#43; sort_field
+​	排好序后，使用row_id将完整的记录取出来
+单路排序(待排序数据大小能接受)
+​	直接拍，不会查表，直接把拍好的结果返回
+外部排序：
+拆分小的，外部多路归并排序，小=&gt;大
+外部归并排序 =&gt; 先分段排序，每一段调入内存执行快排
+​ =&gt; 归并阶段，因为每子段都是有序的 =&gt; 多路归并排序
+589 一条SQL的执行过程 先通过连接器校验权限 利用分析器进行SQL语句词法分析和语法分析，构建解析树 利用优化器选择合适的索引和表连接顺序，最终选择一条最佳的执行计划 利用执行器，调用引擎层查询数据，返回结果集 具体：Select * from user where id = 1;
+SQL =&gt; Server层连接器，权限校验，账号是否有资格获取。无=&gt; Access denied for user。 连接成功后，空闲一段时间会断开
+分析器(查询解析) =&gt;
+语法分析：SQL : Select类型✔️ user表✔️ id列 ✔️拆分成词，再组装为解析树。 语义分析：语法是否有误 =&gt; you have an error in your SQL syntax (字段、表|存在？) 分析解析树语法正确性 优化器(查询优化)=&gt;
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-04 00:00:00 +0000 UTC'>March 4, 2025</span>&nbsp;·&nbsp;18 min&nbsp;·&nbsp;8603 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-04 00:00:00 +0000 UTC'>March 4, 2025</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;994 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to MySQL面试题笔记" href="http://121.40.252.207/posts/jobs/mysql/"></a>
 </article>
 
@@ -217,9 +260,26 @@ HyperLogLog =&gt; 用户访问的独立用户数量
 GEO =&gt; 地理
 应用场景：
 缓存 实时系统 消息队列 分布式锁 计数器：页面访问量、点赞数、评论数 651 Redis 主从复制的实现原理 ➡️主节点-从节点 的数据同步
-...</p>
+Why 需要主和从
+数据冗余&amp;故障恢复，某个节点宕机了，但是其他节点还活着； 提供负载均衡，配合读写分离策略，主节点写操作，从节点提供读操作； 高可用：主从复制是Redis的高可用的基础，也是哨兵和集群实施的基础。 复制流程： 全量 &amp; 增量
+主节点发送SYNC命令与从节点进行连接，开始同步， 主从之间建立联系；
+全量复制(第一次连接)： 主节点把全部数据复制到从节点，主节点将当前数据生成RDB文件，发送给从节点；
+发送的期间，主节点缓存(Replication backlog buffer-复制积压缓冲区)所有写命令。
+发送缓存的写命令给从节点。
+持续同步，持续把写命令同步给从节点。
+保持连接与断线重连
+Redis中，主节点会和从节点保持长连接，以确保数据的持续同步；
+当连接断开后，重连，请求增量复制，避免全量复制带来的大量开销。
+数据一致性和复制延迟
+由于网络延迟，主从之间会存在短暂的数据不一致。 ⭐对于数据一致性严格的任务，要求访问主节点。
+652 Redis集群实现的原理 ➡️通过多个Redis实例实现，每个实例存储部分数据，且这些数据是不重复的。类似于将数据库分库，按业务功能
+➡️具体为采用Hash Slot哈希槽，将键的空间划分为16384个槽。每个Redis实例只负责一部分槽。
+客户端 =&gt; 任意Redis实例 =&gt; 数据是否在本机上，在返回，否则返回目标节点信息，客户端再路由到其他Redis中。
+&lt;= 将单个Redis的压力，分摊到多台Redis实例上，提高并发性能。
+特性
+实现数据分布式存储，对数据进行分片，将不同数据储存在不同节点中 去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。 内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能) ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;15 min&nbsp;·&nbsp;7492 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1592 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to Redis面试题笔记" href="http://121.40.252.207/posts/jobs/redis/"></a>
 </article>
 
@@ -231,9 +291,16 @@ GEO =&gt; 地理
   <div class="entry-content">
     <p>415 序列化&amp;反序列化 将Object转为字节流，或反之
 普通：实现serializable接口 ˈsɪərɪəlaɪzəbl 使用Jackon，Obj =&gt; json格式 416 Java中的不可变类 final 修饰，例如String类
+🎉优点：
+线程安全 缓存友好 缺点
+性能问题，因为不能修改，所有每次状态变化，都需要生成新的对象。 411 多态特性 继承 方法重载，函数名相同，但是函数签名需要有差异(参数类型&amp;数量) 重写，子类重写父类方法，通过父类调用方法时，调用的是子类重写后的函数。 412 Java参数传值是副本还是引用呢？ 基本类型是传值副本，int… 引用数据类型是传引用副本。 including：obj，array 425 Java中 包装类型和基本类型 🏷️基本类型 =&gt; int long float double … 位于栈上(局部变量的话) ，性能好，但不支持为null
+（局部变量在栈上，成员变量在堆上，静态字段在方法区）
+🏷️包装类型 =&gt; 每一个基本类型都对应一个包装类型。包装类型是类，在堆中，支持null
+JVM内存模型 ❗❗❗内存堆和数据结构堆不是同一个东西(不是堆的结构)
+1&#43;--------------------------------------------&#43; 2| 方法区（Method Area） | ← 线程共享 3| - 类元数据（Class 信息） | 4| - 静态变量（static 变量） | 5| - 常量池（字符串常量等） | 6&#43;--------------------------------------------&#43; 7 ↑ ↑ 8 | | 9&#43;----------------&#43; &#43;-----------------&#43; 10| 栈（Stack） | | 堆（Heap） | ← 线程共享 11| - 局部变量 | | - Java 对象实例 | 12| - 方法调用栈 | | - 数组 | 13&#43;----------------&#43; &#43;-----------------&#43; 413 interface &amp; abstract class interface(自上而下) 知晓某一种行为，基于这些行为约束定义的接口， 一些类需要有这些行为的话，需要实现这些接口 abstract class(自下而上): 有许多类，它们有共同点，很多代码可以复用，因此将公共逻辑封装为抽象对象。 100 hashCode &amp; equals &amp; == hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置；
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-02-19 00:00:00 +0000 UTC'>February 19, 2025</span>&nbsp;·&nbsp;12 min&nbsp;·&nbsp;5770 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-02-19 00:00:00 +0000 UTC'>February 19, 2025</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;1389 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to Java面试题笔记" href="http://121.40.252.207/posts/jobs/java/"></a>
 </article>
     </main>

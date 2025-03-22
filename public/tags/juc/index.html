@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="👨🏻‍🎓 LongWei">
 <link rel="canonical" href="http://121.40.252.207/tags/juc/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://121.40.252.207/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
@@ -146,6 +146,14 @@
 <header class="page-header"><div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/tags/">Tags</a></div>
   <h1>
     JUC
+    <a href="/tags/juc/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
   </h1>
 </header>
 
@@ -158,9 +166,14 @@
     <p>1 如何创建多线程 1） 实现Runnable接口
 实现run()方法 1new Thread(MyRunnable()).start(); 2）继承Thread类
 重写run()方法 3）Callable接口&amp;&amp;FutureTask
+实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动 1FutrueTask&lt;ReturnType&gt; task = new FutrueTask&lt;&gt;(MyCallable()); 2Thread(task).start 3 4ResultType res = task.get(); // 这里阻塞 4）使用线程池
+通过ExecutorService提交Runnable或者Callable任务 不同方法对比
+1Runnable vs Callable 2Callable:可以返回结果，可以抛出异常 3 4线程池的优势：避免重复创建和销毁线程，减少这部分重复带来的开销； 5ThreadPool =&gt; (FixedThreadPool, CachedThreadPool, ScheduledThreadPool) 6 7虚拟线程：虚拟线程创建和切换开销更低 8Thread.startVirtualThread() ThreadPool实践
+XXXThreadPool.submit(task…)
+1FixedThreadPool: 固定池中线程数量 =&gt; 适合1.执行较长任务；2.控制并发度 2 3CachedThreadPool：池中线程数量不固定，根据需要动态创建线程，空的被回收，少了多创建； 4⭐适用于任务执行时间短且任务数量不确定的场景； 5 6ScheduledThreadPool：适用于需要定时执行或周期性执行任务的场景。 1// 定时任务线程池 2ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5); 3// For 延迟任务 4scheduledThreadPool.schedule(() -&gt; { 5 // 任务逻辑 6}, 10, TimeUnit.SECONDS); // 延迟10秒执行 7 8// For周期执行任务 9scheduledThreadPool.scheduleAtFixedRate(() -&gt; { 10 // 任务逻辑 11}, 0, 1, TimeUnit.SECONDS); // 每隔1秒执行一次 Thread.sleep(0) &lt;= 主动让出CPU控制权
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-05 00:00:00 +0000 UTC'>March 5, 2025</span>&nbsp;·&nbsp;17 min&nbsp;·&nbsp;8355 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-05 00:00:00 +0000 UTC'>March 5, 2025</span>&nbsp;·&nbsp;9 min&nbsp;·&nbsp;1850 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 并发面试题笔记" href="http://121.40.252.207/posts/jobs/juc/"></a>
 </article>
     </main>

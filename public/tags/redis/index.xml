@@ -33,7 +33,55 @@
 &lt;li&gt;计数器：页面访问量、点赞数、评论数&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;651-redis-主从复制的实现原理&#34;&gt;651 Redis 主从复制的实现原理&lt;/h3&gt;
-&lt;p&gt;➡️主节点-从节点 的数据同步&lt;/p&gt;</description>
+&lt;p&gt;➡️主节点-从节点 的数据同步&lt;/p&gt;
+&lt;p&gt;Why 需要主和从&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据冗余&amp;amp;故障恢复，某个节点宕机了，但是其他节点还活着；&lt;/li&gt;
+&lt;li&gt;提供负载均衡，配合读写分离策略，主节点写操作，从节点提供读操作；&lt;/li&gt;
+&lt;li&gt;高可用：主从复制是Redis的高可用的基础，也是哨兵和集群实施的基础。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;复制流程： 全量 &amp;amp; 增量&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;主节点发送SYNC命令与从节点进行连接，开始同步， 主从之间建立联系；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;全量复制(第一次连接)： 主节点把全部数据复制到从节点，主节点将当前数据生成RDB文件，发送给从节点；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;发送的期间，主节点缓存(Replication backlog buffer-复制积压缓冲区)所有写命令。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;发送缓存的写命令给从节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;持续同步，持续把写命令同步给从节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;保持连接与断线重连&lt;/p&gt;
+&lt;p&gt;Redis中，主节点会和从节点保持长连接，以确保数据的持续同步；&lt;/p&gt;
+&lt;p&gt;当连接断开后，重连，请求增量复制，避免全量复制带来的大量开销。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据一致性和复制延迟&lt;/p&gt;
+&lt;p&gt;由于网络延迟，主从之间会存在短暂的数据不一致。 ⭐对于数据一致性严格的任务，要求访问主节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;652-redis集群实现的原理&#34;&gt;652 Redis集群实现的原理&lt;/h3&gt;
+&lt;p&gt;➡️通过多个Redis实例实现，每个实例存储部分数据，且这些数据是不重复的。&lt;strong&gt;类似于将数据库分库，按业务功能&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;➡️具体为采用Hash Slot哈希槽，将键的空间划分为16384个槽。每个Redis实例只负责一部分槽。&lt;/p&gt;
+&lt;p&gt;客户端 =&amp;gt; 任意Redis实例 =&amp;gt; 数据是否在本机上，在返回，否则返回目标节点信息，客户端再路由到其他Redis中。&lt;/p&gt;
+&lt;p&gt;&amp;lt;= 将单个Redis的压力，分摊到多台Redis实例上，提高并发性能。&lt;/p&gt;
+&lt;p&gt;特性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实现数据分布式存储，对数据进行分片，将不同数据储存在不同节点中&lt;/li&gt;
+&lt;li&gt;去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。&lt;/li&gt;
+&lt;li&gt;内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20250307175456538&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/Fo9jCIPyRQ866mnZdasVsUwqao1j&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

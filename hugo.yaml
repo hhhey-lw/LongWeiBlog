@@ -2,10 +2,10 @@ baseURL: "http://121.40.252.207/"
 languageCode: en 
 title: "LongCoding's Blog"
 theme: ["PaperMod"]
-mainsections: ["posts"]
+# mainsections: ["posts"]
 
 enableInlineShortcodes: true # shortcode，类似于模板变量，可以在写 markdown 的时候便捷地插入，官方文档中有一个视频讲的很通俗
-hasCJKLanguage: true # 是否有 CJK 的字符
+# hasCJKLanguage: true # 是否有 CJK 的字符
 enableRobotsTXT: true # 允许生成 robots.txt
 buildDrafts: false # 构建时是否包括草稿
 buildFuture: false # 构建未来发布的内容
@@ -65,13 +65,13 @@ params:
   # 是否启用阅读时间展示
   ShowReadingTime: true
   ShowWordCount: true
-  ShowRssButtonInSectionTermList: false
-  comments: true
+  # ShowRssButtonInSectionTermList: false
+  # comments: true
   assets:
-        # disableFingerprinting: true  # CSS
+        disableFingerprinting: true  # CSS
         disableHLJS: true
-        # favicon: favicon.ico
-        # favicon16x16: favicon-16x16.png
+        favicon: favicon.ico
+        favicon16x16: favicon-16x16.png
         # disableFingerprinting: true  # CSS Integrity 设置一致性
   profileMode:
         enabled: true

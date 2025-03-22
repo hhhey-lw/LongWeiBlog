@@ -19,7 +19,37 @@
 &lt;li&gt;否则使用文件排序，文件少=&amp;gt; 内存排序 sort_buffer&lt;/li&gt;
 &lt;li&gt;文件大=&amp;gt;外部排序，归并排序&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;内部排序细节：&lt;/p&gt;</description>
+&lt;p&gt;内部排序细节：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;双路排序(待排序的列数据太大了)&lt;/strong&gt;：使用row_id(回查表) + sort_field&lt;/p&gt;
+&lt;p&gt;​		排好序后，使用row_id将完整的记录取出来&lt;/p&gt;
+&lt;p&gt;单路排序(待排序数据大小能接受)&lt;/p&gt;
+&lt;p&gt;​	直接拍，不会查表，直接把拍好的结果返回&lt;/p&gt;
+&lt;p&gt;外部排序：&lt;/p&gt;
+&lt;p&gt;拆分小的，外部多路归并排序，小=&amp;gt;大&lt;/p&gt;
+&lt;p&gt;外部归并排序 =&amp;gt; 先分段排序，每一段调入内存执行快排&lt;/p&gt;
+&lt;p&gt;​                        =&amp;gt; 归并阶段，因为每子段都是有序的 =&amp;gt; 多路归并排序&lt;/p&gt;
+&lt;h3 id=&#34;589-一条sql的执行过程&#34;&gt;589 一条SQL的执行过程&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;先通过&lt;strong&gt;连接器&lt;/strong&gt;校验权限&lt;/li&gt;
+&lt;li&gt;利用&lt;strong&gt;分析器&lt;/strong&gt;进行SQL语句词法分析和语法分析，构建解析树&lt;/li&gt;
+&lt;li&gt;利用&lt;strong&gt;优化器&lt;/strong&gt;选择合适的索引和表连接顺序，最终选择一条最佳的执行计划&lt;/li&gt;
+&lt;li&gt;利用&lt;strong&gt;执行器&lt;/strong&gt;，调用引擎层查询数据，返回结果集&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;具体：Select * from user where id = 1;&lt;/p&gt;
+&lt;img src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FssKKPCKzeVJv4TEPdMldct1M8z4&#34; alt=&#34;image-20250305222939319&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;SQL =&amp;gt; Server层&lt;strong&gt;连接器&lt;/strong&gt;，权限校验，账号是否有资格获取。无=&amp;gt; Access denied for user。  连接成功后，空闲一段时间会断开&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;分析器(查询解析)&lt;/strong&gt; =&amp;gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;语法分析：SQL  : Select类型✔️ user表✔️ id列 ✔️拆分成词，再组装为解析树。&lt;/li&gt;
+&lt;li&gt;语义分析：语法是否有误 =&amp;gt; you have an error in your SQL syntax (字段、表|存在？)   分析解析树语法正确性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;优化器&lt;/strong&gt;(查询优化)=&amp;gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="👨🏻‍🎓 LongWei">
 <link rel="canonical" href="http://121.40.252.207/tags/redis/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://121.40.252.207/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
@@ -146,6 +146,14 @@
 <header class="page-header"><div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/tags/">Tags</a></div>
   <h1>
     Redis
+    <a href="/tags/redis/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
   </h1>
 </header>
 
@@ -160,9 +168,26 @@ HyperLogLog =&gt; 用户访问的独立用户数量
 GEO =&gt; 地理
 应用场景：
 缓存 实时系统 消息队列 分布式锁 计数器：页面访问量、点赞数、评论数 651 Redis 主从复制的实现原理 ➡️主节点-从节点 的数据同步
-...</p>
+Why 需要主和从
+数据冗余&amp;故障恢复，某个节点宕机了，但是其他节点还活着； 提供负载均衡，配合读写分离策略，主节点写操作，从节点提供读操作； 高可用：主从复制是Redis的高可用的基础，也是哨兵和集群实施的基础。 复制流程： 全量 &amp; 增量
+主节点发送SYNC命令与从节点进行连接，开始同步， 主从之间建立联系；
+全量复制(第一次连接)： 主节点把全部数据复制到从节点，主节点将当前数据生成RDB文件，发送给从节点；
+发送的期间，主节点缓存(Replication backlog buffer-复制积压缓冲区)所有写命令。
+发送缓存的写命令给从节点。
+持续同步，持续把写命令同步给从节点。
+保持连接与断线重连
+Redis中，主节点会和从节点保持长连接，以确保数据的持续同步；
+当连接断开后，重连，请求增量复制，避免全量复制带来的大量开销。
+数据一致性和复制延迟
+由于网络延迟，主从之间会存在短暂的数据不一致。 ⭐对于数据一致性严格的任务，要求访问主节点。
+652 Redis集群实现的原理 ➡️通过多个Redis实例实现，每个实例存储部分数据，且这些数据是不重复的。类似于将数据库分库，按业务功能
+➡️具体为采用Hash Slot哈希槽，将键的空间划分为16384个槽。每个Redis实例只负责一部分槽。
+客户端 =&gt; 任意Redis实例 =&gt; 数据是否在本机上，在返回，否则返回目标节点信息，客户端再路由到其他Redis中。
+&lt;= 将单个Redis的压力，分摊到多台Redis实例上，提高并发性能。
+特性
+实现数据分布式存储，对数据进行分片，将不同数据储存在不同节点中 去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。 内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能) ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;15 min&nbsp;·&nbsp;7492 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1592 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to Redis面试题笔记" href="http://121.40.252.207/posts/jobs/redis/"></a>
 </article>
     </main>

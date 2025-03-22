@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="👨🏻‍🎓 LongWei">
 <link rel="canonical" href="http://121.40.252.207/tags/sql/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://121.40.252.207/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
@@ -146,6 +146,14 @@
 <header class="page-header"><div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/tags/">Tags</a></div>
   <h1>
     SQL
+    <a href="/tags/sql/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
   </h1>
 </header>
 
@@ -158,7 +166,7 @@
     <p>高频SQL50题 查询 Where&amp;GroupBy&amp;HAVING 1SELECT id, revenue # 某个用户2021年可能有多项记录 2FROM users 3Where year = 2021 4 5SELECT id, SUM(revenue) 6FROM users 7Where year = 2021 # 1. 先筛选出此年份所有记录 8Group By id # 2. 再根据id分组 3. 必须结合SUM() 或者其他聚合函数，因此这个有多列，需要处理为单值。 9 10SELECT id 11FROM users 12Where year = 2021 # 1. 先筛选记录 13Group By id # 2. 分组 14HAVING SUM(revenue) &gt; 1000 # 3. 聚合分组字段记录 并 判断 查找没买过东西的顾客 1# 1. NOT EXISTS 2SELECT `name` AS `Customers` 3FROM `Customers` AS c 4WHERE NOT EXISTS ( 5 SELECT `customerId` 6 FROM `Orders` AS o 7 Where o.customerId = c.id 8) 1# 2. Left Join 2# example 3SELECT c.id AS id, c.name, o.id AS oid 4FROM customers AS c LEFT JOIN orders AS o 5on c.id = o.customerId 6 7SELECT `name` as `Customers` 8FROM customers AS c LEFT JOIN orders AS o 9on c.id = o.customerId 10WHERE o.id is NULL 计算特殊奖金 编写解决方案，计算每个雇员的奖金。如果一个雇员的 id 是 奇数 并且他的名字不是以 &#39;M&#39; 开头，那么他的奖金是他工资的 100% ，否则奖金为 0 。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-11-24 00:00:00 +0000 UTC'>November 24, 2024</span>&nbsp;·&nbsp;10 min&nbsp;·&nbsp;4716 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2024-11-24 00:00:00 +0000 UTC'>November 24, 2024</span>&nbsp;·&nbsp;14 min&nbsp;·&nbsp;2965 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 高频SQL50题刷题笔记" href="http://121.40.252.207/posts/leetcode/leetcode_sql/"></a>
 </article>
     </main>

@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="👨🏻‍🎓 LongWei">
 <link rel="canonical" href="http://121.40.252.207/tags/mysql/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://121.40.252.207/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
@@ -146,6 +146,14 @@
 <header class="page-header"><div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/tags/">Tags</a></div>
   <h1>
     MySQL
+    <a href="/tags/mysql/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
   </h1>
 </header>
 
@@ -156,9 +164,21 @@
   </header>
   <div class="entry-content">
     <p>617 MySQL 数据排序 实现？ Order By 命中索引(包括索引字段)，使用索引排序(有序)，效率最高效 否则使用文件排序，文件少=&gt; 内存排序 sort_buffer 文件大=&gt;外部排序，归并排序 内部排序细节：
+双路排序(待排序的列数据太大了)：使用row_id(回查表) &#43; sort_field
+​	排好序后，使用row_id将完整的记录取出来
+单路排序(待排序数据大小能接受)
+​	直接拍，不会查表，直接把拍好的结果返回
+外部排序：
+拆分小的，外部多路归并排序，小=&gt;大
+外部归并排序 =&gt; 先分段排序，每一段调入内存执行快排
+​ =&gt; 归并阶段，因为每子段都是有序的 =&gt; 多路归并排序
+589 一条SQL的执行过程 先通过连接器校验权限 利用分析器进行SQL语句词法分析和语法分析，构建解析树 利用优化器选择合适的索引和表连接顺序，最终选择一条最佳的执行计划 利用执行器，调用引擎层查询数据，返回结果集 具体：Select * from user where id = 1;
+SQL =&gt; Server层连接器，权限校验，账号是否有资格获取。无=&gt; Access denied for user。 连接成功后，空闲一段时间会断开
+分析器(查询解析) =&gt;
+语法分析：SQL : Select类型✔️ user表✔️ id列 ✔️拆分成词，再组装为解析树。 语义分析：语法是否有误 =&gt; you have an error in your SQL syntax (字段、表|存在？) 分析解析树语法正确性 优化器(查询优化)=&gt;
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-04 00:00:00 +0000 UTC'>March 4, 2025</span>&nbsp;·&nbsp;18 min&nbsp;·&nbsp;8603 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-04 00:00:00 +0000 UTC'>March 4, 2025</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;994 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to MySQL面试题笔记" href="http://121.40.252.207/posts/jobs/mysql/"></a>
 </article>
     </main>

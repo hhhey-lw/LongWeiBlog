@@ -30,7 +30,23 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; -it &amp;lt;容器名称或ID&amp;gt; /bin/bash &lt;span class=&#34;c1&#34;&gt;# execute -it:Interactive and Teletypewriter 交互式&amp;amp;伪终端&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;linux&#34;&gt;&lt;strong&gt;Linux&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;文件和目录&lt;/p&gt;</description>
+&lt;p&gt;文件和目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;ls -l &lt;span class=&#34;c1&#34;&gt;# -l:详细信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 当前目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;mkdir/vim
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;rm/rmdir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;cp mv
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;文件权限&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;chmod  &lt;span class=&#34;c1&#34;&gt;# Change Mode  # chmod u+rwx file.txt x:Execute&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;chown
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;系统命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;ps -ef  &lt;span class=&#34;c1&#34;&gt;# e:all -f full info&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;ps -u &lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;ps -ef &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &amp;lt;info&amp;gt;  &lt;span class=&#34;c1&#34;&gt;# global regular expression print&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;htop  &lt;span class=&#34;c1&#34;&gt;# 显示系统资源使用情况&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;网络管理&lt;/p&gt;</description>
     </item>
     <item>
       <title>集合面试题笔记</title>
@@ -73,7 +89,38 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;使用键的&lt;code&gt;hashcode()&lt;/code&gt;计算hash值，然后(n-1) &amp;amp; hash确定数组中的位置。&lt;/p&gt;</description>
+&lt;p&gt;使用键的&lt;code&gt;hashcode()&lt;/code&gt;计算hash值，然后(n-1) &amp;amp; hash确定数组中的位置。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;n-1 =&amp;gt; 10000 - 1 = 01111&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HashMap的初始默认容量为16，负载因子为0.75。当存储的元素达到75%时，进行扩容，扩容为原来的2倍空间&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;扩展知识：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;hashmap的红黑树优化：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JAVA8开始，为了优化hash冲突时的查找性能。但链表的长度&lt;strong&gt;超过8&lt;/strong&gt;时，链表会转变为红黑树。红黑树是一种自平衡的二叉搜索树 查找时间 O(n) =&amp;gt; O(logn)。 当元素少于6个，切换为链表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;hashCode() 和 equals()的重要性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;hashCode计算hash值，决定键的存储位置。 而hashCode相同=&amp;gt;冲突。 equals()比较的值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// HashMap Node class&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 键&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 值&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 计算后的哈希值&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 指向下一个元素的指针（形成链表）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;为什么头插法&amp;amp;多线程&amp;amp;扩容会造成环形链表?&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>JVM面试题笔记</title>
@@ -82,7 +129,84 @@
       <guid>http://121.40.252.207/posts/jobs/jvm/</guid>
       <description>&lt;h3 id=&#34;521-java如何实现跨平台的&#34;&gt;521. Java如何实现跨平台的？&lt;/h3&gt;
 &lt;p&gt;Java编译生成的是字节码文件.class文件，而不是特定于某个操作系统的机器码。&lt;/p&gt;
-&lt;p&gt;不同操作系统上都有各自实现的JVM，负责将字节码翻译成特定平台的机器代码并执行。使得JAVA文件可以被不同操作系统上的JVM运行。包装了一层。&lt;/p&gt;</description>
+&lt;p&gt;不同操作系统上都有各自实现的JVM，负责将字节码翻译成特定平台的机器代码并执行。使得JAVA文件可以被不同操作系统上的JVM运行。包装了一层。&lt;/p&gt;
+&lt;h3 id=&#34;9807-jvm的组成部分&#34;&gt;9807. JVM的组成部分&lt;/h3&gt;
+&lt;p&gt;主要组成部分：&lt;/p&gt;
+&lt;p&gt;编译好的JAVA字节码（.class文件）准备就绪。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;类加载器子系统：将class文件加载到内存中(运行时的数据区)。&lt;/li&gt;
+&lt;li&gt;运行时数据区。&lt;/li&gt;
+&lt;li&gt;执行引擎(命令解释器)：将字节码文件翻译成机器码，并交给CPU执行；&lt;/li&gt;
+&lt;li&gt;本地方法接口：过程中会调用不同语言提供的接口，比如驱动和..，调用本地方法接口，例如操作系统级别的功能或者高性能库。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FtrSjvLjXEixufKxk9avjPMmQNpg&#34; alt=&#34;image-20250314162756632&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;h3 id=&#34;522-编译执行和解释执行&#34;&gt;522. 编译执行和解释执行&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;编译执行&lt;/strong&gt;&lt;/em&gt;：先将源代码编译为机器代码，再在CPU上运行。例如：C，C++；&lt;/p&gt;
+&lt;p&gt;​	啊&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;优点：编译后运行速度快，并且运行时，不需要再进行翻译。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;解释执行&lt;/strong&gt;&lt;/em&gt;：运行时，解释器逐行翻译并执行例如Python。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;跨平台性好， 每个代码都是在每个平台上通过相应平台的解释器运行。&lt;/li&gt;
+&lt;li&gt;速度慢，每次执行都需要动态翻译。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;=&amp;gt; Java采样编译执行和解释执行相结合的方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;解释执行：JVM将.JAVA文件=&amp;gt;.class字节码。 有助于程序的跨平台性；&lt;/li&gt;
+&lt;li&gt;即时编译：将经常执行的代码编译为本地机器码，避免反复解释&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;523-jvm的内存区域如何划分的&#34;&gt;523. JVM的内存区域如何划分的❗?&lt;/h3&gt;
+&lt;p&gt;JVM运行时的数据区分为：1. &lt;strong&gt;方法区&lt;/strong&gt; 2. &lt;strong&gt;堆&lt;/strong&gt; 3. &lt;strong&gt;虚拟机栈&lt;/strong&gt; 4. &lt;strong&gt;本地方法栈&lt;/strong&gt; 5. 程序计数器。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;方法区&lt;/strong&gt; - 存储类&amp;amp;共享信息&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;存储类信息、常量、静态变量&lt;/li&gt;
+&lt;li&gt;这些信息属于线程共享区域&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java&lt;strong&gt;堆&lt;/strong&gt; - 与JVM共存亡&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;存放所有线程共享的对象实例 和 数组 (垃圾回收主要战地)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;虚拟机&lt;strong&gt;栈&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;每个线程&lt;/strong&gt;创建一个栈：用来保存&lt;strong&gt;局部变量&lt;/strong&gt;、&lt;strong&gt;操作数栈&lt;/strong&gt;、方法出口信息。&lt;/li&gt;
+&lt;li&gt;局部变量：基本数据类型；以及对象引用；&lt;/li&gt;
+&lt;li&gt;栈与线程共存亡&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;本地方法栈&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为本地方法服务。。。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;程序计数器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;保存&lt;strong&gt;当前线程&lt;/strong&gt;执行的字节码指令地址或行号。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20250314165936676&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FirLgeEVeLb4N108rU7mpuX1BdPY&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;总结java程序与线程在jvm内存中的流程&#34;&gt;总结：Java程序与线程在JVM内存中的流程&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;程序启动&lt;/strong&gt;：JVM初始化内存区域，加载&lt;strong&gt;类信息&lt;/strong&gt;到&lt;strong&gt;方法区&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;线程创建&lt;/strong&gt;：为&lt;strong&gt;线程&lt;/strong&gt;分配&lt;strong&gt;程序计数器&lt;/strong&gt;、Java虚拟机&lt;strong&gt;栈&lt;/strong&gt;和本地方法&lt;strong&gt;栈&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;方法调用&lt;/strong&gt;：&lt;strong&gt;线程&lt;/strong&gt;执行方法时，&lt;strong&gt;创建栈帧并压入Java虚拟机栈&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对象创建&lt;/strong&gt;：&lt;strong&gt;对象实例存储在Java堆中&lt;/strong&gt;，元数据存储在方法区。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;垃圾回收&lt;/strong&gt;：JVM清理不再使用的对象和类信息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;线程结束&lt;/strong&gt;：线程的栈和程序计数器被销毁。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;程序结束&lt;/strong&gt;：JVM释放所有内存区域并退出。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;524-jvm中堆和栈的区别是什么&#34;&gt;524. JVM中堆和栈的区别是什么？&lt;/h3&gt;
+&lt;p&gt;栈：主要用于&lt;strong&gt;存储局部变量(基本类型+对象引用)和方法的调用信息(返回地址、参数等)&lt;/strong&gt;。线程执行时，会创建该线程的栈帧，被压入Java虚拟机栈中。 执行结束，线程栈帧被弹出(销毁)&lt;/p&gt;</description>
     </item>
     <item>
       <title>并发面试题笔记</title>
@@ -99,7 +223,47 @@
 &lt;ul&gt;
 &lt;li&gt;重写run()方法&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;3）Callable接口&amp;amp;&amp;amp;FutureTask&lt;/p&gt;</description>
+&lt;p&gt;3）Callable接口&amp;amp;&amp;amp;FutureTask&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;FutrueTask&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ReturnType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FutrueTask&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MyCallable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ResultType&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 这里阻塞&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;4）使用线程池&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过ExecutorService提交Runnable或者Callable任务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不同方法对比&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Runnable&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vs&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Callable&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;Callable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;可以返回结果&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;可以抛出异常&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;线程池的优势&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;避免重复创建和销毁线程&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;减少这部分重复带来的开销&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ThreadPool&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FixedThreadPool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CachedThreadPool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ScheduledThreadPool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;   
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;虚拟线程&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;虚拟线程创建和切换开销更低&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startVirtualThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;ThreadPool实践&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;XXXThreadPool.submit(task&amp;hellip;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nl&#34;&gt;FixedThreadPool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;固定池中线程数量&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;适合1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;执行较长任务&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;控制并发度&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CachedThreadPool&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;池中线程数量不固定&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;根据需要动态创建线程&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;空的被回收&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;少了多创建&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;⭐&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;适用于任务执行时间短且任务数量不确定的场景&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ScheduledThreadPool&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;适用于需要定时执行或周期性执行任务的场景&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 定时任务线程池&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ScheduledExecutorService&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;scheduledThreadPool&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Executors&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newScheduledThreadPool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// For 延迟任务&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;scheduledThreadPool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;schedule&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 任务逻辑&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TimeUnit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;SECONDS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 延迟10秒执行&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// For周期执行任务&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;scheduledThreadPool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;scheduleAtFixedRate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 任务逻辑&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TimeUnit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;SECONDS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 每隔1秒执行一次&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Thread.sleep(0) &amp;lt;= 主动让出CPU控制权&lt;/p&gt;</description>
     </item>
     <item>
       <title>MySQL面试题笔记</title>
@@ -112,7 +276,37 @@
 &lt;li&gt;否则使用文件排序，文件少=&amp;gt; 内存排序 sort_buffer&lt;/li&gt;
 &lt;li&gt;文件大=&amp;gt;外部排序，归并排序&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;内部排序细节：&lt;/p&gt;</description>
+&lt;p&gt;内部排序细节：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;双路排序(待排序的列数据太大了)&lt;/strong&gt;：使用row_id(回查表) + sort_field&lt;/p&gt;
+&lt;p&gt;​		排好序后，使用row_id将完整的记录取出来&lt;/p&gt;
+&lt;p&gt;单路排序(待排序数据大小能接受)&lt;/p&gt;
+&lt;p&gt;​	直接拍，不会查表，直接把拍好的结果返回&lt;/p&gt;
+&lt;p&gt;外部排序：&lt;/p&gt;
+&lt;p&gt;拆分小的，外部多路归并排序，小=&amp;gt;大&lt;/p&gt;
+&lt;p&gt;外部归并排序 =&amp;gt; 先分段排序，每一段调入内存执行快排&lt;/p&gt;
+&lt;p&gt;​                        =&amp;gt; 归并阶段，因为每子段都是有序的 =&amp;gt; 多路归并排序&lt;/p&gt;
+&lt;h3 id=&#34;589-一条sql的执行过程&#34;&gt;589 一条SQL的执行过程&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;先通过&lt;strong&gt;连接器&lt;/strong&gt;校验权限&lt;/li&gt;
+&lt;li&gt;利用&lt;strong&gt;分析器&lt;/strong&gt;进行SQL语句词法分析和语法分析，构建解析树&lt;/li&gt;
+&lt;li&gt;利用&lt;strong&gt;优化器&lt;/strong&gt;选择合适的索引和表连接顺序，最终选择一条最佳的执行计划&lt;/li&gt;
+&lt;li&gt;利用&lt;strong&gt;执行器&lt;/strong&gt;，调用引擎层查询数据，返回结果集&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;具体：Select * from user where id = 1;&lt;/p&gt;
+&lt;img src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FssKKPCKzeVJv4TEPdMldct1M8z4&#34; alt=&#34;image-20250305222939319&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;SQL =&amp;gt; Server层&lt;strong&gt;连接器&lt;/strong&gt;，权限校验，账号是否有资格获取。无=&amp;gt; Access denied for user。  连接成功后，空闲一段时间会断开&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;分析器(查询解析)&lt;/strong&gt; =&amp;gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;语法分析：SQL  : Select类型✔️ user表✔️ id列 ✔️拆分成词，再组装为解析树。&lt;/li&gt;
+&lt;li&gt;语义分析：语法是否有误 =&amp;gt; you have an error in your SQL syntax (字段、表|存在？)   分析解析树语法正确性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;优化器&lt;/strong&gt;(查询优化)=&amp;gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Redis面试题笔记</title>
@@ -139,7 +333,55 @@
 &lt;li&gt;计数器：页面访问量、点赞数、评论数&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;651-redis-主从复制的实现原理&#34;&gt;651 Redis 主从复制的实现原理&lt;/h3&gt;
-&lt;p&gt;➡️主节点-从节点 的数据同步&lt;/p&gt;</description>
+&lt;p&gt;➡️主节点-从节点 的数据同步&lt;/p&gt;
+&lt;p&gt;Why 需要主和从&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据冗余&amp;amp;故障恢复，某个节点宕机了，但是其他节点还活着；&lt;/li&gt;
+&lt;li&gt;提供负载均衡，配合读写分离策略，主节点写操作，从节点提供读操作；&lt;/li&gt;
+&lt;li&gt;高可用：主从复制是Redis的高可用的基础，也是哨兵和集群实施的基础。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;复制流程： 全量 &amp;amp; 增量&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;主节点发送SYNC命令与从节点进行连接，开始同步， 主从之间建立联系；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;全量复制(第一次连接)： 主节点把全部数据复制到从节点，主节点将当前数据生成RDB文件，发送给从节点；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;发送的期间，主节点缓存(Replication backlog buffer-复制积压缓冲区)所有写命令。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;发送缓存的写命令给从节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;持续同步，持续把写命令同步给从节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;保持连接与断线重连&lt;/p&gt;
+&lt;p&gt;Redis中，主节点会和从节点保持长连接，以确保数据的持续同步；&lt;/p&gt;
+&lt;p&gt;当连接断开后，重连，请求增量复制，避免全量复制带来的大量开销。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据一致性和复制延迟&lt;/p&gt;
+&lt;p&gt;由于网络延迟，主从之间会存在短暂的数据不一致。 ⭐对于数据一致性严格的任务，要求访问主节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;652-redis集群实现的原理&#34;&gt;652 Redis集群实现的原理&lt;/h3&gt;
+&lt;p&gt;➡️通过多个Redis实例实现，每个实例存储部分数据，且这些数据是不重复的。&lt;strong&gt;类似于将数据库分库，按业务功能&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;➡️具体为采用Hash Slot哈希槽，将键的空间划分为16384个槽。每个Redis实例只负责一部分槽。&lt;/p&gt;
+&lt;p&gt;客户端 =&amp;gt; 任意Redis实例 =&amp;gt; 数据是否在本机上，在返回，否则返回目标节点信息，客户端再路由到其他Redis中。&lt;/p&gt;
+&lt;p&gt;&amp;lt;= 将单个Redis的压力，分摊到多台Redis实例上，提高并发性能。&lt;/p&gt;
+&lt;p&gt;特性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实现数据分布式存储，对数据进行分片，将不同数据储存在不同节点中&lt;/li&gt;
+&lt;li&gt;去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。&lt;/li&gt;
+&lt;li&gt;内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20250307175456538&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/Fo9jCIPyRQ866mnZdasVsUwqao1j&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java面试题笔记</title>
@@ -153,7 +395,54 @@
 &lt;li&gt;使用Jackon，Obj =&amp;gt; json格式&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;416-java中的不可变类&#34;&gt;416 Java中的不可变类&lt;/h3&gt;
-&lt;p&gt;final 修饰，例如String类&lt;/p&gt;</description>
+&lt;p&gt;final 修饰，例如String类&lt;/p&gt;
+&lt;p&gt;🎉优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;线程安全&lt;/li&gt;
+&lt;li&gt;缓存友好&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;缺点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;性能问题，因为不能修改，所有每次状态变化，都需要生成新的对象。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;411-多态特性&#34;&gt;411 多态特性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;继承&lt;/li&gt;
+&lt;li&gt;方法重载，函数名相同，但是函数签名需要有差异(参数类型&amp;amp;数量)&lt;/li&gt;
+&lt;li&gt;重写，子类重写父类方法，通过父类调用方法时，调用的是子类重写后的函数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;412-java参数传值是副本还是引用呢&#34;&gt;412 Java参数传值是副本还是引用呢？&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;基本类型是传&lt;strong&gt;值副本&lt;/strong&gt;，int&amp;hellip;&lt;/li&gt;
+&lt;li&gt;引用数据类型是传&lt;strong&gt;引用副本&lt;/strong&gt;。 including：obj，array&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;425-java中-包装类型和基本类型&#34;&gt;425 Java中 包装类型和基本类型&lt;/h3&gt;
+&lt;p&gt;🏷️基本类型 =&amp;gt; int long float double  &amp;hellip;  位于栈上(局部变量的话) ，性能好，但&lt;strong&gt;不支持为null&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;（局部变量在栈上，成员变量在堆上，静态字段在方法区）&lt;/p&gt;
+&lt;p&gt;🏷️包装类型 =&amp;gt; 每一个基本类型都对应一个包装类型。&lt;strong&gt;包装类型是类，在堆中，支持null&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JVM内存模型&lt;/strong&gt;  ❗❗❗内存堆和数据结构堆不是同一个东西(不是堆的结构)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;+--------------------------------------------+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;               &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;方法区&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;（&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Area&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;←&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;线程共享&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;类元数据&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;（&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;信息&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                   &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;静态变量&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;（&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;变量&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;常量池&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;（&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;字符串常量等&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                   &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+--------------------------------------------+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;↑&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;↑&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+----------------+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+-----------------+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;栈&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;（&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Stack&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;堆&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;（&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Heap&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;←&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;线程共享&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;局部变量&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Java&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;对象实例&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;方法调用栈&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;数组&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+----------------+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+-----------------+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;413-interface--abstract-class&#34;&gt;413 interface &amp;amp; abstract class&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;interface(自上而下) 知晓某一种行为，基于这些行为约束定义的接口， 一些类需要有这些行为的话，需要实现这些接口&lt;/li&gt;
+&lt;li&gt;abstract class(自下而上): 有许多类，它们有共同点，很多代码可以复用，因此将公共逻辑封装为抽象对象。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;100-hashcode--equals--&#34;&gt;100 hashCode &amp;amp; equals &amp;amp; ==&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置；&lt;/p&gt;</description>
     </item>
     <item>
       <title>高频SQL50题刷题笔记</title>
@@ -263,7 +552,74 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt; 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# O(n^2)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;题解：&lt;/p&gt;
-&lt;p&gt;问题分解 =&amp;gt;  给定x 寻找 target-x(这是复杂度的主要部分)&lt;/p&gt;</description>
+&lt;p&gt;问题分解 =&amp;gt;  给定x 寻找 target-x(这是复杂度的主要部分)&lt;/p&gt;
+&lt;p&gt;用额外结构记录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;hashtable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;dict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hashtable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hashtable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;hashtable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 保存遍历过的元素，参考过去&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;49-字母异位词分组&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/group-anagrams/&#34;&gt;49. 字母异位词分组&lt;/a&gt;&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;输入: strs = [&amp;#34;eat&amp;#34;, &amp;#34;tea&amp;#34;, &amp;#34;tan&amp;#34;, &amp;#34;ate&amp;#34;, &amp;#34;nat&amp;#34;, &amp;#34;bat&amp;#34;]
+输出: [[&amp;#34;bat&amp;#34;],[&amp;#34;nat&amp;#34;,&amp;#34;tan&amp;#34;],[&amp;#34;ate&amp;#34;,&amp;#34;eat&amp;#34;,&amp;#34;tea&amp;#34;]]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;思路：condition =&amp;gt; [&amp;hellip;]&lt;/p&gt;
+&lt;p&gt;HashTable,  Key=排序后的Str, Value=List&amp;lt;String&amp;gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashTable&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;strs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;charArray&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toCharArray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 将字符串转换为字符数组&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;charArray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 对字符数组进行排序&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderStr&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;charArray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashTable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;containsKey&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderStr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashTable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderStr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashTable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderStr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashTable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;orderStr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashTable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;entrySet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getValue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;128-最长连续序列&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/longest-consecutive-sequence/&#34;&gt;128. 最长连续序列&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;HashSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashSet&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HashSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 去重复，并且查询O(1)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashSet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start_nums&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 找所有为起点的数&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;it&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashSet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;it&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;hasNext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;it&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashSet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;contains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start_nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 遍历起点x, 遍历 x+1, x+2, ...&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longest_length&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start_nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;current_length&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start_i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hashSet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;contains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start_i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;23&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;current_length&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start_i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;26&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;current_length&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longest_length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;27&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longest_length&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;current_length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;28&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;29&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longest_length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;双指针&#34;&gt;双指针&lt;/h3&gt;
+&lt;h5 id=&#34;283-移动零&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/move-zeroes/&#34;&gt;283. 移动零&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;给定一个数组 &lt;code&gt;nums&lt;/code&gt;，编写一个函数将所有 &lt;code&gt;0&lt;/code&gt; 移动到数组的末尾，同时保持非零元素的&lt;strong&gt;相对顺序&lt;/strong&gt;(原始数组位置，非不是重新排序)。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Java学习笔记</title>
@@ -272,7 +628,67 @@
       <guid>http://121.40.252.207/posts/learning/java_learning/</guid>
       <description>&lt;h3 id=&#34;java-反射&#34;&gt;Java 反射&lt;/h3&gt;
 &lt;p&gt;它提供了动态性和灵活性，使得程序可以在运行时动态地加载类、调用方法、访问字段等，而不需要在编译时确定这些操作。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1. 动态加载类&lt;/strong&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;strong&gt;1. 动态加载类&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在运行时根据类名动态加载类，而不是在编译时硬编码类名。 &amp;ndash; 插件化架构：根据配置文件或用户输入动态加载类。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 创建对象&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过反射可以在运行时动态创建对象，即使类的构造函数是私有的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;工厂模式：根据配置动态创建对象。&lt;/li&gt;
+&lt;li&gt;依赖注入框架：Spring 通过反射创建 Bean 实例。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;3. 调用方法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过反射可以在运行时动态调用对象的方法，即使方法是私有的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;测试框架：JUnit 通过反射调用测试方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;4. 访问字段&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过反射可以在运行时动态访问对象的字段，即使字段是私有的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;序列化和反序列化：通过反射访问对象的字段。&lt;/li&gt;
+&lt;li&gt;对象关系映射（ORM）：Hibernate 通过反射访问实体类的字段。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;7. 注解处理&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过反射可以获取类、方法、字段上的注解，并根据注解执行相应的逻辑。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;24/4/14&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;1️⃣ &lt;strong&gt;反射的作用&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;获取类中的所有信息(e.g.持久化、IDE的代码提示)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cls&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredFields&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAccessible&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// String name = fields[i].getName();  // 属性名 第一次先生成列名&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bw&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bw&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bw&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newLine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;结合配置文件动态创建对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Properties&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prop&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Properties&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filename&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;prop.properties&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileInputStream&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filename&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;load&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;classname&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;classname&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;method&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cls&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;classname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constructor&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;con&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cls&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredConstructor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;con&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newInstance&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;setName&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cls&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMethod&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;setName&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;setName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;met&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cls&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredMethod&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;met&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2️⃣ &lt;strong&gt;获取Class的三种方式&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>深度学习论文汇总1</title>
@@ -296,7 +712,21 @@ $$&lt;/p&gt;
 &lt;h4 id=&#34;bce-loss&#34;&gt;BCE Loss&lt;/h4&gt;
 &lt;p&gt;$$
 Loss = −\sum_{i}^{c}(y_ilog(p(x_i)+(1−y_i)log(1−p(x_i)) \
-where \ y_i \in [0, 1] \&lt;/p&gt;</description>
+where \ y_i \in [0, 1] \&lt;/p&gt;
+&lt;p&gt;pos_partition = -log(p(x_i))\
+neg_partition = -log(1-p(x_i))
+$$&lt;/p&gt;
+&lt;h4 id=&#34;focal-loss&#34;&gt;Focal Loss&lt;/h4&gt;
+&lt;p&gt;$$
+Loss = -α_t(1-p_t)^γlog(p_t)\&lt;/p&gt;
+&lt;p&gt;# Multi-Label:\
+1.\ pos_loss = α(1-p(x_i))^γ\ \ -log(p_t)\
+2.\ neg_loss = (1-α)p(x_i)^γ\ \ -log(1-p_t)
+$$&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;论文&#34;&gt;论文&lt;/h2&gt;
+&lt;h3 id=&#34;mlp-mixer---nips-2021&#34;&gt;Mlp-mixer - &lt;em&gt;NIPS 2021&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;title: Mlp-mixer: An all-mlp architecture for vision&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>深度学习论文汇总2</title>
@@ -306,7 +736,30 @@ where \ y_i \in [0, 1] \&lt;/p&gt;</description>
       <description>&lt;h3 id=&#34;cam----cvpr-2015&#34;&gt;&lt;strong&gt;CAM&lt;/strong&gt;  - CVPR 2015&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;Learning Deep Features for Discriminative Localization&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;弱监督对象定位&lt;/strong&gt;  - 仅提供Image level label&lt;/p&gt;
-&lt;p&gt;期望：每个单元被其感受野内的某种视觉模式激活。因此 fk （表示空间位置 (x, y) 处最后一个卷积层中单元 k 的激活//输出特征图的一个像素）是该视觉模式存在的地图。类激活图只是这些视觉模式在不同空间位置的存在的加权线性和&lt;/p&gt;</description>
+&lt;p&gt;期望：每个单元被其感受野内的某种视觉模式激活。因此 fk （表示空间位置 (x, y) 处最后一个卷积层中单元 k 的激活//输出特征图的一个像素）是该视觉模式存在的地图。类激活图只是这些视觉模式在不同空间位置的存在的加权线性和&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;计算卷积特征图对于特定输出单元的重要性来实现的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;⭐⭐⭐网络可以保留其卓越的定位能力，直到最后一层   =&amp;gt; 深层特征的定位能力&lt;/p&gt;
+&lt;p&gt;❗❗❗尽管接受了图像级标签的训练，CNN 仍具有出色的对象定位能力&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;缺陷&lt;/strong&gt;：卷积特征图→全局平均池化→softmax层  // 特定网络结构&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322134603157&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FizSzlSfuX9fZOO_3HduKDclEzcI&#34;&gt;&lt;/p&gt;
+&lt;center style=&#34;color: red; font-weight: bold;&#34;&gt;做法图示&lt;/center&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322134441902&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FiBRel9zde6IJ3STCIWgQtDspaZx&#34;&gt;&lt;/p&gt;
+&lt;center style=&#34;color: red; font-weight: bold;&#34;&gt;数学公式&lt;/center&gt;
+&lt;p&gt;在卷积特征图上执行全局平均池化，并将它们用作全连接层的特征，产生所需的输出分类;&lt;/p&gt;
+&lt;p&gt;❗❗❗将输出层的权重投影回卷积特征图来识别图像区域的重要性&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;grad-cam----iccv-2017&#34;&gt;Grad-CAM  - ICCV 2017&lt;/h3&gt;
+&lt;p&gt;适用CNN模型&lt;/p&gt;
+&lt;p&gt;但论文提到在CNN+LSTM的也能定位有区别的图像区域&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322141249072&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FjU70VichK5n125Mrm0J9kJnVy43&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322141305661&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FpssA7XV30OJ4BKmn1aDL-1GNYSa&#34;&gt;&lt;/p&gt;
+&lt;p&gt;α 捕获&lt;strong&gt;特征图&lt;/strong&gt; k 对于目标&lt;strong&gt;类&lt;/strong&gt; c 的&lt;strong&gt;重要性&lt;/strong&gt;  // 与CAM的分类线性层权重作用一致&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322141314248&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FoLeKuhJnfw8veLYf18fRWRhEy09&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ReLU&lt;/strong&gt;的作用，只对对感兴趣的类别有积极影响的特征感兴趣。负像素可能属于图像中的其他类别&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;上述操作 =&amp;gt; 具有&lt;strong&gt;类别区分性&lt;/strong&gt;并且可以很好地定位相关图像区域&lt;/em&gt;   - 最后特征图比较小!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;				  但缺乏显示细粒度重要性的能力 （能区分猫狗，但对为什么识别为猫，不够精确）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过点乘法融合 &lt;strong&gt;引导反向传播&lt;/strong&gt; 和 &lt;strong&gt;Grad-CAM&lt;/strong&gt; =&amp;gt; 可视化&lt;/p&gt;</description>
     </item>
     <item>
       <title>About Me</title>

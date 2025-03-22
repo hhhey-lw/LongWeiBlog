@@ -30,7 +30,23 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; -it &amp;lt;容器名称或ID&amp;gt; /bin/bash &lt;span class=&#34;c1&#34;&gt;# execute -it:Interactive and Teletypewriter 交互式&amp;amp;伪终端&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;linux&#34;&gt;&lt;strong&gt;Linux&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;文件和目录&lt;/p&gt;</description>
+&lt;p&gt;文件和目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;ls -l &lt;span class=&#34;c1&#34;&gt;# -l:详细信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 当前目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;mkdir/vim
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;rm/rmdir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;cp mv
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;文件权限&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;chmod  &lt;span class=&#34;c1&#34;&gt;# Change Mode  # chmod u+rwx file.txt x:Execute&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;chown
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;系统命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;ps -ef  &lt;span class=&#34;c1&#34;&gt;# e:all -f full info&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;ps -u &lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;ps -ef &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &amp;lt;info&amp;gt;  &lt;span class=&#34;c1&#34;&gt;# global regular expression print&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;htop  &lt;span class=&#34;c1&#34;&gt;# 显示系统资源使用情况&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;网络管理&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

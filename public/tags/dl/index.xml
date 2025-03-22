@@ -77,7 +77,21 @@ $$&lt;/p&gt;
 &lt;h4 id=&#34;bce-loss&#34;&gt;BCE Loss&lt;/h4&gt;
 &lt;p&gt;$$
 Loss = −\sum_{i}^{c}(y_ilog(p(x_i)+(1−y_i)log(1−p(x_i)) \
-where \ y_i \in [0, 1] \&lt;/p&gt;</description>
+where \ y_i \in [0, 1] \&lt;/p&gt;
+&lt;p&gt;pos_partition = -log(p(x_i))\
+neg_partition = -log(1-p(x_i))
+$$&lt;/p&gt;
+&lt;h4 id=&#34;focal-loss&#34;&gt;Focal Loss&lt;/h4&gt;
+&lt;p&gt;$$
+Loss = -α_t(1-p_t)^γlog(p_t)\&lt;/p&gt;
+&lt;p&gt;# Multi-Label:\
+1.\ pos_loss = α(1-p(x_i))^γ\ \ -log(p_t)\
+2.\ neg_loss = (1-α)p(x_i)^γ\ \ -log(1-p_t)
+$$&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;论文&#34;&gt;论文&lt;/h2&gt;
+&lt;h3 id=&#34;mlp-mixer---nips-2021&#34;&gt;Mlp-mixer - &lt;em&gt;NIPS 2021&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;title: Mlp-mixer: An all-mlp architecture for vision&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>深度学习论文汇总2</title>
@@ -87,7 +101,30 @@ where \ y_i \in [0, 1] \&lt;/p&gt;</description>
       <description>&lt;h3 id=&#34;cam----cvpr-2015&#34;&gt;&lt;strong&gt;CAM&lt;/strong&gt;  - CVPR 2015&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;Learning Deep Features for Discriminative Localization&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;弱监督对象定位&lt;/strong&gt;  - 仅提供Image level label&lt;/p&gt;
-&lt;p&gt;期望：每个单元被其感受野内的某种视觉模式激活。因此 fk （表示空间位置 (x, y) 处最后一个卷积层中单元 k 的激活//输出特征图的一个像素）是该视觉模式存在的地图。类激活图只是这些视觉模式在不同空间位置的存在的加权线性和&lt;/p&gt;</description>
+&lt;p&gt;期望：每个单元被其感受野内的某种视觉模式激活。因此 fk （表示空间位置 (x, y) 处最后一个卷积层中单元 k 的激活//输出特征图的一个像素）是该视觉模式存在的地图。类激活图只是这些视觉模式在不同空间位置的存在的加权线性和&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;计算卷积特征图对于特定输出单元的重要性来实现的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;⭐⭐⭐网络可以保留其卓越的定位能力，直到最后一层   =&amp;gt; 深层特征的定位能力&lt;/p&gt;
+&lt;p&gt;❗❗❗尽管接受了图像级标签的训练，CNN 仍具有出色的对象定位能力&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;缺陷&lt;/strong&gt;：卷积特征图→全局平均池化→softmax层  // 特定网络结构&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322134603157&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FizSzlSfuX9fZOO_3HduKDclEzcI&#34;&gt;&lt;/p&gt;
+&lt;center style=&#34;color: red; font-weight: bold;&#34;&gt;做法图示&lt;/center&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322134441902&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FiBRel9zde6IJ3STCIWgQtDspaZx&#34;&gt;&lt;/p&gt;
+&lt;center style=&#34;color: red; font-weight: bold;&#34;&gt;数学公式&lt;/center&gt;
+&lt;p&gt;在卷积特征图上执行全局平均池化，并将它们用作全连接层的特征，产生所需的输出分类;&lt;/p&gt;
+&lt;p&gt;❗❗❗将输出层的权重投影回卷积特征图来识别图像区域的重要性&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;grad-cam----iccv-2017&#34;&gt;Grad-CAM  - ICCV 2017&lt;/h3&gt;
+&lt;p&gt;适用CNN模型&lt;/p&gt;
+&lt;p&gt;但论文提到在CNN+LSTM的也能定位有区别的图像区域&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322141249072&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FjU70VichK5n125Mrm0J9kJnVy43&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322141305661&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FpssA7XV30OJ4BKmn1aDL-1GNYSa&#34;&gt;&lt;/p&gt;
+&lt;p&gt;α 捕获&lt;strong&gt;特征图&lt;/strong&gt; k 对于目标&lt;strong&gt;类&lt;/strong&gt; c 的&lt;strong&gt;重要性&lt;/strong&gt;  // 与CAM的分类线性层权重作用一致&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322141314248&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FoLeKuhJnfw8veLYf18fRWRhEy09&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ReLU&lt;/strong&gt;的作用，只对对感兴趣的类别有积极影响的特征感兴趣。负像素可能属于图像中的其他类别&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;上述操作 =&amp;gt; 具有&lt;strong&gt;类别区分性&lt;/strong&gt;并且可以很好地定位相关图像区域&lt;/em&gt;   - 最后特征图比较小!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;				  但缺乏显示细粒度重要性的能力 （能区分猫狗，但对为什么识别为猫，不够精确）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过点乘法融合 &lt;strong&gt;引导反向传播&lt;/strong&gt; 和 &lt;strong&gt;Grad-CAM&lt;/strong&gt; =&amp;gt; 可视化&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -10,7 +10,7 @@
 <meta name="description" content="Posts - LongCoding&#39;s Blog">
 <meta name="author" content="👨🏻‍🎓 LongWei">
 <link rel="canonical" href="http://121.40.252.207/posts/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://121.40.252.207/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
@@ -161,6 +161,14 @@
 <header class="page-header"><div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a></div>
   <h1>
     Posts
+    <a href="/posts/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
   </h1>
 </header>
 
@@ -172,9 +180,21 @@
   <div class="entry-content">
     <p>Java 反射 它提供了动态性和灵活性，使得程序可以在运行时动态地加载类、调用方法、访问字段等，而不需要在编译时确定这些操作。
 1. 动态加载类
+在运行时根据类名动态加载类，而不是在编译时硬编码类名。 – 插件化架构：根据配置文件或用户输入动态加载类。
+2. 创建对象
+通过反射可以在运行时动态创建对象，即使类的构造函数是私有的。
+工厂模式：根据配置动态创建对象。 依赖注入框架：Spring 通过反射创建 Bean 实例。 3. 调用方法
+通过反射可以在运行时动态调用对象的方法，即使方法是私有的。
+测试框架：JUnit 通过反射调用测试方法。 4. 访问字段
+通过反射可以在运行时动态访问对象的字段，即使字段是私有的
+序列化和反序列化：通过反射访问对象的字段。 对象关系映射（ORM）：Hibernate 通过反射访问实体类的字段。 7. 注解处理
+通过反射可以获取类、方法、字段上的注解，并根据注解执行相应的逻辑。
+24/4/14
+1️⃣ 反射的作用
+获取类中的所有信息(e.g.持久化、IDE的代码提示) 1Field[] fields = cls.getDeclaredFields(); 2for (int i = 0; i &lt; fields.length; i&#43;&#43;) { 3 fields[i].setAccessible(true); 4 // String name = fields[i].getName(); // 属性名 第一次先生成列名 5 Object value = fields[i].get(obj); 6 bw.append(value.toString()); 7 if (i &lt; fields.length - 1) { 8 bw.append(&#34;, &#34;); 9 } 10} 11bw.newLine(); 结合配置文件动态创建对象 1Properties prop = new Properties(); 2 3String filename = &#34;prop.properties&#34;; 4FileInputStream is = new FileInputStream(filename); 5 6prop.load(is); 7 8String classname = prop.getProperty(&#34;classname&#34;); 9String method = prop.getProperty(&#34;method&#34;); 10String name = prop.getProperty(&#34;name&#34;); 11 12Class cls = Class.forName(classname); 13Constructor con = cls.getDeclaredConstructor(); 14Object o = con.newInstance(); 15 16Method setName = cls.getMethod(&#34;setName&#34;, String.class); 17setName.invoke(o, name); 18 19Method met = cls.getDeclaredMethod(method); 20met.invoke(o); 2️⃣ 获取Class的三种方式
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;22 min&nbsp;·&nbsp;10534 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;25 min&nbsp;·&nbsp;5142 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to Java学习笔记" href="http://121.40.252.207/posts/learning/java_learning/"></a>
 </article>
 
@@ -186,9 +206,13 @@
   <div class="entry-content">
     <p>图示 卷积注意力 自注意力 学习 Norm Loss Cross Entropy $$ Loss = -\sum_{i}^{C}y_ilog(p(x_{i})), where \ y_i\ is label,p(x_i)\ is\ predict. $$
 BCE Loss $$ Loss = −\sum_{i}^{c}(y_ilog(p(x_i)&#43;(1−y_i)log(1−p(x_i)) \ where \ y_i \in [0, 1] \
+pos_partition = -log(p(x_i))\ neg_partition = -log(1-p(x_i)) $$
+Focal Loss $$ Loss = -α_t(1-p_t)^γlog(p_t)\
+# Multi-Label:\ 1.\ pos_loss = α(1-p(x_i))^γ\ \ -log(p_t)\ 2.\ neg_loss = (1-α)p(x_i)^γ\ \ -log(1-p_t) $$
+论文 Mlp-mixer - NIPS 2021 title: Mlp-mixer: An all-mlp architecture for vision
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;24 min&nbsp;·&nbsp;11569 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;12 min&nbsp;·&nbsp;2516 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 深度学习论文汇总1" href="http://121.40.252.207/posts/learning/paper_reading1/"></a>
 </article>
 
@@ -201,9 +225,21 @@ BCE Loss $$ Loss = −\sum_{i}^{c}(y_ilog(p(x_i)&#43;(1−y_i)log(1−p(x_i)) \ 
     <p>CAM - CVPR 2015 Learning Deep Features for Discriminative Localization
 弱监督对象定位 - 仅提供Image level label
 期望：每个单元被其感受野内的某种视觉模式激活。因此 fk （表示空间位置 (x, y) 处最后一个卷积层中单元 k 的激活//输出特征图的一个像素）是该视觉模式存在的地图。类激活图只是这些视觉模式在不同空间位置的存在的加权线性和
+计算卷积特征图对于特定输出单元的重要性来实现的
+⭐⭐⭐网络可以保留其卓越的定位能力，直到最后一层 =&gt; 深层特征的定位能力
+❗❗❗尽管接受了图像级标签的训练，CNN 仍具有出色的对象定位能力
+缺陷：卷积特征图→全局平均池化→softmax层 // 特定网络结构
+做法图示数学公式在卷积特征图上执行全局平均池化，并将它们用作全连接层的特征，产生所需的输出分类;
+❗❗❗将输出层的权重投影回卷积特征图来识别图像区域的重要性
+Grad-CAM - ICCV 2017 适用CNN模型
+但论文提到在CNN&#43;LSTM的也能定位有区别的图像区域
+α 捕获特征图 k 对于目标类 c 的重要性 // 与CAM的分类线性层权重作用一致
+ReLU的作用，只对对感兴趣的类别有积极影响的特征感兴趣。负像素可能属于图像中的其他类别
+上述操作 =&gt; 具有类别区分性并且可以很好地定位相关图像区域 - 最后特征图比较小!
+但缺乏显示细粒度重要性的能力 （能区分猫狗，但对为什么识别为猫，不够精确）通过点乘法融合 引导反向传播 和 Grad-CAM =&gt; 可视化
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;37 min&nbsp;·&nbsp;18402 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;19 min&nbsp;·&nbsp;3881 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 深度学习论文汇总2" href="http://121.40.252.207/posts/learning/paper_reading2/"></a>
 </article>
 <footer class="page-footer">
