@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Learning on LongCoding&#39;s Blog</title>
-    <link>//localhost:1313/series/learning/</link>
+    <link>http://localhost:1313/series/learning/</link>
     <description>Recent content in Learning on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Sun, 16 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/series/learning/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/series/learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux&amp;Docker&amp;Shell命令</title>
-      <link>//localhost:1313/posts/learning/common_commands/</link>
+      <link>http://localhost:1313/posts/learning/common_commands/</link>
       <pubDate>Sun, 16 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/learning/common_commands/</guid>
+      <guid>http://localhost:1313/posts/learning/common_commands/</guid>
       <description>&lt;h3 id=&#34;docker&#34;&gt;docker&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;service docker start
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -34,9 +34,9 @@
     </item>
     <item>
       <title>DL基准模型训练伪代码</title>
-      <link>//localhost:1313/posts/learning/minibaseline_learning/</link>
+      <link>http://localhost:1313/posts/learning/minibaseline_learning/</link>
       <pubDate>Thu, 31 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/learning/minibaseline_learning/</guid>
+      <guid>http://localhost:1313/posts/learning/minibaseline_learning/</guid>
       <description>&lt;h3 id=&#34;mingpt&#34;&gt;minGPT&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;author: karpathy Andrej&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;work flow&lt;/strong&gt;&lt;/p&gt;
@@ -81,18 +81,18 @@
     </item>
     <item>
       <title>Java学习笔记</title>
-      <link>//localhost:1313/posts/learning/java_learning/</link>
+      <link>http://localhost:1313/posts/learning/java_learning/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/learning/java_learning/</guid>
+      <guid>http://localhost:1313/posts/learning/java_learning/</guid>
       <description>&lt;h3 id=&#34;java-反射&#34;&gt;Java 反射&lt;/h3&gt;
 &lt;p&gt;它提供了动态性和灵活性，使得程序可以在运行时动态地加载类、调用方法、访问字段等，而不需要在编译时确定这些操作。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1. 动态加载类&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>深度学习论文汇总1</title>
-      <link>//localhost:1313/posts/learning/paper_reading1/</link>
+      <link>http://localhost:1313/posts/learning/paper_reading1/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/learning/paper_reading1/</guid>
+      <guid>http://localhost:1313/posts/learning/paper_reading1/</guid>
       <description>&lt;h2 id=&#34;图示&#34;&gt;图示&lt;/h2&gt;
 &lt;h3 id=&#34;卷积注意力&#34;&gt;卷积注意力&lt;/h3&gt;
 &lt;p&gt;&lt;img alt=&#34;image-20240322202245497&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FnOSHW83hKtIFxFdU34DDsMiOeWO&#34;&gt;&lt;/p&gt;
@@ -114,9 +114,9 @@ where \ y_i \in [0, 1] \&lt;/p&gt;</description>
     </item>
     <item>
       <title>深度学习论文汇总2</title>
-      <link>//localhost:1313/posts/learning/paper_reading2/</link>
+      <link>http://localhost:1313/posts/learning/paper_reading2/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/learning/paper_reading2/</guid>
+      <guid>http://localhost:1313/posts/learning/paper_reading2/</guid>
       <description>&lt;h3 id=&#34;cam----cvpr-2015&#34;&gt;&lt;strong&gt;CAM&lt;/strong&gt;  - CVPR 2015&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;Learning Deep Features for Discriminative Localization&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;弱监督对象定位&lt;/strong&gt;  - 仅提供Image level label&lt;/p&gt;

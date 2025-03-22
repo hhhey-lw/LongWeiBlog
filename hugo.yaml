@@ -1,6 +1,6 @@
-baseURL: http://121.40.252.207/
+baseURL: "http://121.40.252.207/"
 languageCode: en 
-title: LongCoding's Blog
+title: "LongCoding's Blog"
 theme: ["PaperMod"]
 mainsections: ["posts"]
 
@@ -50,7 +50,8 @@ languages:
 
 params:
   env: production
-  defaultTheme: auto
+  author: 👨🏻‍🎓 LongWei
+  defaultTheme: PaperMod
   # ShowShareButtons: true
   ShowReadingTime: true
   displayFullLangName: true
@@ -70,17 +71,17 @@ params:
         # enableFontAwesome: true
   profileMode:
         enabled: true
-        title: Welcome to my Blog
+        title: 𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰
         imageUrl: "images/avatar.png"
         imageTitle: LongWei image
         # imageWidth: 120
         # imageHeight: 120
         # subtitle: "☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive"
         buttons:
-          - name: Posts
+          - name: 🗒️ Posts
             url: posts
-          - name: Categories
-            url: categories
+          # - name: 🗒️ Categories
+            # url: categories
   # 主页 - 信息模式（默认）
   homeInfoParams:
     Title: "Hi there ⛳"
@@ -91,7 +92,10 @@ params:
       url: "https://github.com/hhhey-lw"
     - name: tiktok
       url: " https://v.douyin.com/IsEQU-ZVnik/ 9@7.com :3pm"
-
+  label:
+      text: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰"
+      icon: "android-icon-48x48.png"
+      iconHeight: 30
 
   # 搜索
   fuseOpts:

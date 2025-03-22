@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Redis on LongCoding&#39;s Blog</title>
-    <link>//localhost:1313/tags/redis/</link>
+    <link>http://localhost:1313/tags/redis/</link>
     <description>Recent content in Redis on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Sat, 01 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Redis面试题笔记</title>
-      <link>//localhost:1313/posts/jobs/redis/</link>
+      <link>http://localhost:1313/posts/jobs/redis/</link>
       <pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/jobs/redis/</guid>
+      <guid>http://localhost:1313/posts/jobs/redis/</guid>
       <description>&lt;h3 id=&#34;637-常见的数据类型&#34;&gt;637 常见的数据类型&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;String&lt;/li&gt;
