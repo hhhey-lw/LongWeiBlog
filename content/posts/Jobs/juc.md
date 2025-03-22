@@ -2,7 +2,7 @@
 author: "LongWei"
 title: "并发面试题笔记"
 date: "2025-03-05"
-tags: ["Concurrency"]
+tags: ["JUC"]
 categories: ["Jobs"]
 series: ["JobLearning"]
 aliases: ["mianshiya_concurrency"]

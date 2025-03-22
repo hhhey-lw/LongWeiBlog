@@ -1,4 +1,4 @@
-baseURL: https://example.org/
+baseURL: ./
 languageCode: en 
 title: LongCoding's Blog
 theme: ["PaperMod"]
@@ -28,23 +28,23 @@ languages:
        series: series
      # https://gohugo.io/content-management/menus/#define-in-site-configuration
      menus:
-      main:
-        - name: Home
+        main:
+        - name: 🏡 Home
           pageRef: /
           weight: 4 # 控制在页面上展示的前后顺序
-        - name: Archive
+        - name: 📃 Archive
           pageRef: archives/
           weight: 5
-        - name: Categories
+        - name: 🗒️ Categories
           pageRef: categories/
           weight: 10
-        - name: Tags
+        - name: 📑 Tags
           pageRef: tags/
           weight: 10
-        - name: Search
+        - name: 🔍 Search
           pageRef: search/
           weight: 20
-        - name: About
+        - name: 👨🏻‍🎓 About Me
           pageRef: about/
           weight: 21
 
@@ -61,19 +61,38 @@ params:
   ShowAllPagesInArchive: true
   ShowPageNums: true
   ShowToc: true
+  # 是否启用阅读时间展示
+  ShowReadingTime: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: false
+  comments: true
+  # assets:
+        # enableFontAwesome: true
   profileMode:
         enabled: true
-        title: PaperMod
-        imageUrl: "https://raw.githubusercontent.com/googlefonts/noto-emoji/master/svg/emoji_u1f9d1_1f3fb_200d_1f4bb.svg"
-        imageTitle: ProfileMode image
+        title: Welcome to my Blog
+        imageUrl: "images/avatar.png"
+        imageTitle: LongWei image
         # imageWidth: 120
         # imageHeight: 120
-        subtitle: "☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive"
+        # subtitle: "☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive"
         buttons:
-          - name: Blog
+          - name: Posts
             url: posts
-          - name: About
-            url: about
+          - name: Categories
+            url: categories
+  # 主页 - 信息模式（默认）
+  homeInfoParams:
+    Title: "Hi there ⛳"
+    Content: Welcome to my blog
+  #  主页 - 信息模式 图标展示
+  socialIcons:
+    - name: github
+      url: "https://github.com/hhhey-lw"
+    - name: tiktok
+      url: " https://v.douyin.com/IsEQU-ZVnik/ 9@7.com :3pm"
+
+
   # 搜索
   fuseOpts:
       isCaseSensitive: false # 是否大小写敏感
@@ -112,4 +131,9 @@ markup:
     renderer:
       unsafe: true
   highlight:
-    noClasses: false
+    highlight:
+    anchorLineNos: false # 不要给行号设置锚标
+    codeFences: true # 代码围栏
+    noClasses: false # TODO: 不知道干啥的，暂时没必要了解，不影响展示
+    lineNos: true # 代码行
+    lineNumbersInTable: false # 不要设置成 true，否则如果文章开头是代码的话，摘要会由一大堆数字

@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>并发面试题笔记 | LongCoding&#39;s Blog</title>
+<meta name="keywords" content="JUC">
+<meta name="description" content="1 如何创建多线程
+1） 实现Runnable接口
+
+实现run()方法
+
+1new Thread(MyRunnable()).start();
+2）继承Thread类
+
+重写run()方法
+
+3）Callable接口&amp;&amp;FutureTask">
+<meta name="author" content="LongWei">
+<link rel="canonical" href="//localhost:1313/posts/jobs/juc/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
+<link rel="icon" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="//localhost:1313/posts/jobs/juc/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><meta property="og:url" content="//localhost:1313/posts/jobs/juc/">
+  <meta property="og:site_name" content="LongCoding&#39;s Blog">
+  <meta property="og:title" content="并发面试题笔记">
+  <meta property="og:description" content="1 如何创建多线程 1） 实现Runnable接口
+实现run()方法 1new Thread(MyRunnable()).start(); 2）继承Thread类
+重写run()方法 3）Callable接口&amp;&amp;FutureTask">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-05T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-05T00:00:00+00:00">
+    <meta property="article:tag" content="JUC">
+      <meta property="og:see_also" content="//localhost:1313/posts/jobs/collection/">
+      <meta property="og:see_also" content="//localhost:1313/posts/jobs/jvm/">
+      <meta property="og:see_also" content="//localhost:1313/posts/jobs/mysql/">
+      <meta property="og:see_also" content="//localhost:1313/posts/jobs/redis/">
+      <meta property="og:see_also" content="//localhost:1313/posts/jobs/java/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发面试题笔记">
+<meta name="twitter:description" content="1 如何创建多线程
+1） 实现Runnable接口
+
+实现run()方法
+
+1new Thread(MyRunnable()).start();
+2）继承Thread类
+
+重写run()方法
+
+3）Callable接口&amp;&amp;FutureTask">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "//localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "并发面试题笔记",
+      "item": "//localhost:1313/posts/jobs/juc/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "并发面试题笔记",
+  "name": "并发面试题笔记",
+  "description": "1 如何创建多线程 1） 实现Runnable接口\n实现run()方法 1new Thread(MyRunnable()).start(); 2）继承Thread类\n重写run()方法 3）Callable接口\u0026amp;\u0026amp;FutureTask\n",
+  "keywords": [
+    "JUC"
+  ],
+  "articleBody": "1 如何创建多线程 1） 实现Runnable接口\n实现run()方法 1new Thread(MyRunnable()).start(); 2）继承Thread类\n重写run()方法 3）Callable接口\u0026\u0026FutureTask\n实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动 1FutrueTask\u003cReturnType\u003e task = new FutrueTask\u003c\u003e(MyCallable()); 2Thread(task).start 3 4ResultType res = task.get(); // 这里阻塞 4）使用线程池\n通过ExecutorService提交Runnable或者Callable任务 不同方法对比\n1Runnable vs Callable 2Callable:可以返回结果，可以抛出异常 3 4线程池的优势：避免重复创建和销毁线程，减少这部分重复带来的开销； 5ThreadPool =\u003e (FixedThreadPool, CachedThreadPool, ScheduledThreadPool) 6 7虚拟线程：虚拟线程创建和切换开销更低 8Thread.startVirtualThread() ThreadPool实践\nXXXThreadPool.submit(task…)\n1FixedThreadPool: 固定池中线程数量 =\u003e 适合1.执行较长任务；2.控制并发度 2 3CachedThreadPool：池中线程数量不固定，根据需要动态创建线程，空的被回收，少了多创建； 4⭐适用于任务执行时间短且任务数量不确定的场景； 5 6ScheduledThreadPool：适用于需要定时执行或周期性执行任务的场景。 1// 定时任务线程池 2ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5); 3// For 延迟任务 4scheduledThreadPool.schedule(() -\u003e { 5 // 任务逻辑 6}, 10, TimeUnit.SECONDS); // 延迟10秒执行 7 8// For周期执行任务 9scheduledThreadPool.scheduleAtFixedRate(() -\u003e { 10 // 任务逻辑 11}, 0, 1, TimeUnit.SECONDS); // 每隔1秒执行一次 Thread.sleep(0) \u003c= 主动让出CPU控制权\nthread.join() \u003c= 等待该线程完成\n2 创建线程池 1） Executors工厂类\nExecutors.newFixedThreadPool(10) // 2）ThreadPoolExecutor直接创建线程池\n1new ThreadPoolExecutor(corePoolSize, maximumPoolSize, KeepAliveTime,TimeUnit,new LinkedBlockingQueue\u003c\u003e()) 2 3LinkedBlockingQueue: 当提交的任务多于线程数时，会将多余的暂时挂起 线程池相关参数解释\ncorePoolSize：核心线程数，即线程池中始终保存的线程数量； maximumPoolSize：最大线程数，线程池中允许的最大线程数量； KeepAliveTime：线程空闲时间，非核心线程空闲超过这个时间会被销毁； workQueue：工作队列，存放待执行的任务； threadFactory：线程工厂，用于创建新线程； rejectedExecutionHandler：任务拒绝处理器，当前任务无法执行时的处理策略。 工作队列\nSynchronousQueue：不存储任务，直接提交任务给线程； LinkedBlockingQueue：链表结构的阻塞队列，大小无限； ArrayBlockingQueue：数据结构的阻塞队列； PriorityBlockingQueue：带优先级的无界阻塞队列。/ praɪˈɒrəti / 线程池的拒绝策略\n队列满且无空闲线程的添加任务的情况。\nAbortPolicy：抛异常； CallerRunsPolicy：由提交线程本身执行； DiscardOldestPolicy：删除最早提交的任务； DiscardPolicy：直接丢弃当前任务。 3 线程安全的集合 1concurrentHashMap: 同步HashMap\u003cK-\u003eV\u003e 2数据结构=\u003e 使用数组 + 链表 + 红黑树的结构; 3线程安全=\u003e CAS保证操作的原子性 4 5eg:线程不安全的操作： 6// 非线程安全的操作 7int value = map.get(\"key\"); // 这里，如果有其他线程对key-\u003evalue进行了修改！，这里的value是过期了的 8map.put(\"key\", value + 1); 9// ⭐保证原子性 10map.compute(\"key\", (k, v) -\u003e v + 1); // 一次完成 11 12// 如果是方法中创建的Map,每个线程专享，不会有线程间安全问题 13// 如果是类中，且多个线程共享同一个Class实例，则可能出现线程安全问题 14Method中创建：安全 15Class-成员变量：多个线程可能共享同一个map实例，需要保证线程安全 16Class-静态变量：所有线程共享同一个 map 实例 ，需要保证线程安全 17 18BlockingQueue： -数组实现 19LinkedBlockingQueue: 线程安全的阻塞队列-链表实现 4 线程同步 多线程情况下，避免共享资源同时访问，引发数据不一致。=\u003e 加锁，限制访问。\nJAVA中，常见的同步方式：\nsynchronized 同步 // 仅限一个线程访问. 由 JVM 负责管理锁的获取和释放. 非公平锁\n生产-消费 模拟\n1Main： 2// 共享队列，用于生产者和消费者之间的数据传递 3Queue\u003cInteger\u003e queue = new LinkedList\u003c\u003e(); // or BlockingQueue 4int maxSize = 5; // 队列的最大容量 5 6// 创建生产者和消费者线程 7Thread producer = new Thread(new Producer(queue, maxSize), \"Producer\"); 8Thread consumer = new Thread(new Consumer(queue), \"Consumer\"); 9 10// 启动线程 11producer.start(); 12consumer.start(); 1Producer: 实现Runnable interface 2@Override 3public void run() { 4 int i = 0; 5 while (true) { 6 synchronized (queue) { // 对队列加锁 7 // 如果队列已满，生产者等待 8 while (queue.size() == maxSize) { 9 try { 10 System.out.println(\"队列已满，生产者等待...\"); 11 queue.wait(); // 释放锁，进入等待状态 12 } catch (InterruptedException e) { 13 e.printStackTrace(); 14 } 15 } 16 17 // 生产数据并添加到队列 18 System.out.println(\"生产者生产数据: \" + i); 19 queue.add(i++); 20 21 // 通知消费者可以消费了 22 queue.notifyAll(); 23 24 // 模拟生产耗时 25 try { 26 Thread.sleep(500); 27 } catch (InterruptedException e) { 28 e.printStackTrace(); 29 } 30 } 31 } 32} 1Consumer：实现Runnable接口 2@Override 3public void run() { 4 while (true) { 5 synchronized (queue) { // 对队列加锁 6 // 如果队列为空，消费者等待 7 while (queue.isEmpty()) { 8 try { 9 System.out.println(\"队列为空，消费者等待...\"); 10 queue.wait(); // 释放锁，进入等待状态 11 } catch (InterruptedException e) { 12 e.printStackTrace(); 13 } 14 } 15 16 // 消费数据 17 int value = queue.poll(); 18 System.out.println(\"消费者消费数据: \" + value); 19 20 // 通知生产者可以生产了 21 queue.notifyAll(); 22 23 // 模拟消费耗时 24 try { 25 Thread.sleep(1000); 26 } catch (InterruptedException e) { 27 e.printStackTrace(); 28 } 29 } 30 } 31} ⭐⭐⭐\nsynchronized（临界区对象） \u003c= 锁住临界区\nwhile(临界区不可用) =\u003e 重试 =\u003e .wait() 当前线程进入等待状态让出CPU，并且释放锁\n处理完成=\u003e .notifyAll() // 通知等待状态的线程\nsynchronized：通过 Object.wait() 和 Object.notify()/notifyAll() 进行线程间通信\nReentrantLock 可重入锁 Re en trant lock. 需要手动加锁和释放锁\n1lock.lock(); 2try { 3 // 临界区代码 4} finally { 5 lock.unlock(); 6} ReentrantLock：使用 Condition 对象更灵活地控制线程等待和唤醒：\n1Condition condition = lock.newCondition(); 2lock.lock(); 3try { 4 condition.await(); // 线程等待 5 condition.signal(); // 唤醒单个等待的线程 6 condition.signalAll(); // 唤醒所有等待的线程 7} finally { 8 lock.unlock(); 9} 案例\n1// 共享队列，用于生产者和消费者之间的数据传递 2Queue\u003cInteger\u003e queue = new LinkedList\u003c\u003e(); 3// 创建 ReentrantLock 和 Condition 4Lock lock = new ReentrantLock(); 5Condition notFull = lock.newCondition(); // 队列未满的条件 6Condition notEmpty = lock.newCondition(); // 队列非空的条件 7 8Producer: 9while(true) { 10 lock.lock() 11 try{ 12 // 13 while(queue.size == maxSize) { 14 System.out.println(\"队列已满，生产者等待...\"); 15 notFull.await(); // 等待队列未满的条件 16 } 17 18 queue.add(?) 19 notEmpty.signalAll() 20 21 // ... 生产耗时 22 23 }finally{ 24 lock.unlock() 25 } 26} 27 28Consumer: 29while(true) { 30 lock.lock() 31 try { 32 while(queue.size == 0) { 33 sout(\"没东西消费\") 34 notEmpty.await() 35 } 36 37 queue.poll() 38 notFull.signalAll() 39 40 // ...消费时长 41 }finally{ 42\tlock.unlock() 43 } 44} ⭐⭐⭐ 关键用法：\nLock lock = new ReentrantLock(); Condition notFull = lock.newCondition(); // 队列未满的条件 Condition notEmpty = lock.newCondition(); // 队列非空的条件\nlock.lock \u0026\u0026 lock.unlock\nnotFull.await(), notFull.signal(), notFull.signalAll()\n5 线程安全 保证多线程，乱序执行时候，无论怎么执行，都可以得到预期结果\n=\u003e 通过 线程同步 (悲观锁)\n通过Synchronized 和 ReentrantLock ˈsɪŋkrənaɪzd \u0026 riːˈentrənt, lɒk 实现线程同步\n=\u003e 通过原子操作类\nAtomicInteger əˈtɒmɪk 原子， 原子整数\n⭐⭐⭐扩展CAS（乐观锁）：（Compare And Swap，比较并交换）是一种无锁并发编程技术，常用于实现原子操作。它的基本原理是：先比较，再交换，即只有当变量的当前值等于预期值时，才会更新，否则重试。\n1// 当前值, 预期值, 新值 2boolean compareAndSwap(V, E, N) { 3 if (V == E) { // 比较当前值是否等于预期值 4 V = N; // 如果相等，更新为新值 5 return true; // 操作成功 6 } 7 return false; // 操作失败 8} 例子：最佳实践案例=\u003e 线程安全的计数器\n1private AtomicInteger value = new AtomicInteger(0); 2 3// 线程安全的递增方法 4public void increment() { 5 int oldValue; 6 int newValue; 7 do { 8 oldValue = value.get(); // 获取当前值, 先获取修改值 9 newValue = oldValue + 1; // 计算新值 10 } while (!value.compareAndSet(oldValue, newValue)); // CAS 操作 11} 12// CAS compare and swap \u003c=\u003e 访问到修改期间，没有其他线程进行修改的话，就可以执行 13value.compareAndSet(oldValue, newValue) =\u003e oldvalue == value.get() ? value = newValue ：nothing 检查第一次得到的旧值与修改时的值是否一致，判断是否被动过，没动过再改\n=\u003e 线程安全的容器：concurrentHashMap or copyonWriteArrayList❌ 不懂\n=\u003e 局部变量，线程专享\n=\u003e ThreadLocal, 线程本地资源，线程专享\n6 线程生命周期 初始(资源) =\u003e 可运行(CPU队列) =\u003e 运行 =\u003e 终止\n​ 阻塞\u0026等待\n7 线程通信 多线程间的协同工作\n1）**共享变量：**访问共享内存变量来交换信息；\n2）同步机制：\nsynchronized() =\u003e wait =\u003e notify\u0026notifyAll （Object中的方法）\nReentrantLock.lock =\u003e condition.await =\u003e condition.signal\u0026signalAll\nBlockingQueue =\u003e queue.put() 满则阻塞 =\u003e queue.take() 空则阻塞\n1synchronized (lock) { 2 while (conditionNotMet) { 3 lock.wait(); // 释放锁，进入等待状态 4 } 5 // 执行操作 6 lock.notify(); // 唤醒等待的线程 7} 1Lock lock = new ReentrantLock(); 2Condition condition = lock.newCondition(); 3 4lock.lock(); 5try { 6 while (conditionNotMet) { 7 condition.await(); // 等待 8 } 9 // 执行操作 10 condition.signal(); // 唤醒等待的线程 11} finally { 12 lock.unlock(); 13} 1BlockingQueue\u003cString\u003e queue = new LinkedBlockingQueue\u003c\u003e(10); 2 3// 生产者 4new Thread(() -\u003e { 5 try { 6 queue.put(\"Data\"); 7 } catch (InterruptedException e) { 8 Thread.currentThread().interrupt(); 9 } 10}).start(); 11 12// 消费者 13new Thread(() -\u003e { 14 try { 15 String data = queue.take(); 16 } catch (InterruptedException e) { 17 Thread.currentThread().interrupt(); 18 } 19}).start(); 8 线程池 池化技术，预先创建并管理一组线程，避免线程重复创建和销毁带来的开销\n关键配置：核心线程数，最大线程数，空间存活时间，工作队列，拒绝策略\n=\u003e 提交任务才会创建线程，或者设置preStartAllCoreThreads\n=\u003e 核心线程满了不会创建线程，而是把多余的任务放到工作队列中，等待执行\n=\u003e 核心线程满载且工作队列放不下了，才会新增线程执行提交的任务(\u003c最大线程数)\n=\u003e 工作队列满了+已最大线程数了 =\u003e 拒绝策略?新任务\n=\u003e 线程空闲时间超过指定时间 且有多余的非核心线程 =\u003e 释放非核心线程\n工作队列：\nLinkedBlockingQueue 无界队列，链式\nArrayBlockingQueue 有界队列，数组\nPriorityBlockingQueue 带有优先级的无界阻塞队列\n线程池类型：\n1FixedThreadPool: 固定线程数 2CachedThreadPool：变化，动态新建 3SingleThreadPool：单线程的池子 4ScheduledThreadPool：定时任务的池子 shutdown与shutdownNow的区别\nshutdown：提醒关闭，会把已提交的任务执行完毕\nshutdownNow：强制停止\n9 并发工具类 ConcurrentHashMap：线程安全的HashMap，多线程修改临界区时加锁或者其他方法，=\u003e安全\nAtomicInterger：əˈtɒmɪk 线程安全的整型 compareAndSet CAS方法，原子类型\nSemaphore 信号量：acquire() and release()\nBlockingQueue：阻塞队列-通信容器 queue.put() and queue.take()\nCyclicBarrier：循环屏障 barrier.await\nCountDownlatch：计时器 latch.countDown() latch.await()\n497 ReentrantLock实现 =\u003e 可重入锁，允许同一个线程多次获取同一把锁的锁机制，避免线程因为重复获取锁而导致死锁\n案例：1. 递归调用中的锁保护\n1# 非公平锁 2final boolean nonfairTryAcquire(int acquires) { 3 final Thread current = Thread.currentThread(); 4 int c = getState(); 5 if (c == 0) { // 锁未被占用 6 if (compareAndSetState(0, acquires)) { // CAS 尝试获取锁 7 setExclusiveOwnerThread(current); // 设置当前线程为独占线程 8 return true; 9 } 10 } else if (current == getExclusiveOwnerThread()) { // ⭐⭐⭐锁已被当前线程占用（重入） 11 int nextc = c + acquires; // 增加重入次数 12 if (nextc \u003c 0) throw new Error(\"Maximum lock count exceeded\"); 13 setState(nextc); // 更新状态 14 return true; 15 } 16 return false; // 获取锁失败 17} 基于AQS实现的一个可重入锁，支持公平和非公平两种方式\n内部依靠一个State变量和两个等待队列：同步队列和等待队列\n利用CAS修改state来争夺锁\n争抢不到锁就入AQS 等待队列进行等待，AQS 等待队列是一个双向队列\n抢到锁但是条件condition不满足则入条件队列(每个condition维护一个)，单向链表\n是否公平锁 =\u003e 线程获取锁 是加入同步队列尾部还是直接利用CAS争夺锁\nReentrantLock 是基于 AQS 实现的可重入独占锁，支持公平锁和非公平锁两种模式。其核心是通过 AQS 的状态管理（state）和等待队列来实现线程的阻塞和唤醒。非公平锁的性能通常优于公平锁，但公平锁可以避免线程饥饿问题。ReentrantLock 提供了比 synchronized 更灵活的锁操作，是 Java 并发编程中的重要工具\n492 Synchronized实现 依赖于JVM的监视器锁+对象头\n当synchronized修饰在方法或者代码块上时，会对特定的对象或者类加锁，确保只有一个线程能运行加锁的代码块；\nsynchronized修饰方法：方法的标志位会增加一个ACC_SYNCHRONIZED标志，检查标志再获取锁，这部分进行同步控制 synchronized修饰代码块：会在代码块前后插入monitorenter和monitorexit字节码指令，上锁+解锁 synchronized是可重入锁\n491 Synchronized和ReentrantLock 496 如何优化Java中锁的使用？ 减少锁的粒度： 减少加锁的范围，减少锁的持续时间 使用更细粒度的锁：提高并发度 hashTable: 通过方法上添加synchronized实现锁的安全，仅一个线程，性能较差 concurrentHashMap： 通过CAS+synchronized实现线程安全，允许多个线程同时读写，性能更高 减少锁的使用 通过无锁编程、CAS操作和原子类来避免锁的使用，减少锁带来的性能损失 通过减少共享资源的使用，避免对临界区的竞争。(本地变量+线程本地变量) 扩展：\n独占锁：写操作多的场景，仅允许一个线程持有锁 读写锁：允许多个线程并发读，但写的时候需要上锁，适合读多写少的场景 乐观锁和悲观锁：悲观锁每次都加锁；乐观锁假设没有冲突-CAS或版本号实现 499 读写锁 允许多个线程同时读操作，但是写操作需要加锁(单个线程)。\n=\u003e 读写+写写操纵是互斥操作；⭐适合读多写少的情况\n可以利用ReadWriteLock和ReentrantReadWriteLock实现\n1# 代码示例 2 3ReentrantReadWriteLock lock = new ReentrantReadWriteLock() 4Lock readLock = lock.readLock() 5lock writeLock = lock.writeLock() 6 7// 1. 判断写锁(读写互斥)2. 判断读锁,第一个和后续 8readLock.lock() 9try{ 10 ... 11} finally { 12 readLock.unlock() 13} 14 15// 1. 有读锁或写锁且写锁不是当前线程持有，则失败 16// 2. 根据公平性策略（公平锁或非公平锁）决定是否需要阻塞 17// 3. CAS 更新状态 18// 4. 设置写锁持有者 \u003c= 设置可重入 19writeLock.lock() // 互斥 写写互斥 20try{ 21 ... 22} finally { 23 writeLock.unlock() 24} 501 Java JMM java内存模型 java memory model\n用于描述线程何时从主内存中读取数据、何时把数据写回主存中\nJMM核心目标\n可见性：确保某个线程的修改，其他线程及时可见。 使用volatile关键字强制线程每次读写都直接从主内存中获取新值 有序性：指线程执行操作的顺序，JMM允许某些指令通过指令重拍提高性能，且保证线程内的操作顺序不会被破坏，通过happens-before关系保证跨线程的有序性。 **原子性：**指操作不可分割，线程不会在执行过程中被中断。 Why JMM：\n操作系统有自己的内存模型，但JAVA是跨平台实现的，因此需要自己设计一套内存模型屏蔽各操作系统之间的差异。JMM描述了多线程环境下，如何在不通过的线程之间共享变量以及变量的操作顺序。\n主内存和工作内存：\n主内存：JAVA堆内存的一部分，所有的实例变量、静态变量和数组元素都存储在主内存中； 工作内存：每个线程都有自己的工作内存，工作内存存储了主内存中的变量副本，线程的所有操作都在工作内存中进行。 线程之间的变量，必须经过主内存进行传递 506 Why ThreadLocal 每个线程自己独享的独立变量副本，避免多个线程间的变量共享和竞争，解决线程安全问题。\n每个线程维护一个ThreadLocalMap 用于存储线程独立的变量副本，ThreadLocalMap以ThreadLocal实例为键，不同线程通过自己ThreadLocal身份获取各自的变量副本。\n避免同一个ThreadLocalMap的竞争\n517 Java中wait、notify和notifyALL 这三个方法都是Object对象定义的方法，用于线程之间的通信，且需要在Synchronized修饰内使用\nwait =\u003e 线程进入等待状态，释放锁 notify =\u003e 唤醒一个在等待的线程 notifyALL =\u003e 唤醒所有等待的线程 518 死锁 及 避免 条件互斥：独享资源 占有且等待：不放手，等别人放弃 不可抢占：文明 循环等待： A=\u003eB=\u003eC=\u003eA 避免：\n按序申请 =\u003e 锁获取的顺序相同，这样就可以在前面卡住 超时等待时间=\u003e释放手中资源和锁 519 volatile关键字 主要的作用还是保证变量的可见性\n可见性：修改了volatile变量的值，该值会被立刻刷新回主内存中，及时让其他线程可见。 6304 如何知晓子线程是否执行完毕？ ThreadObj.join() 会等待对应子线程执行完毕 FutureTask+Callable futrue.get() 拿到线程执行完成的结果 回调机制：完成后，调用回调函数通知主线程，异步了 481 Semaphore 信号量 ˈseməfɔːr\n主要作用就是确保 只有指定数量的线程能够访问资源，限制同时访问特定资源的线程数量\n基本概念\n许可 permits: 可以访问资源的线程数量。\nAcquire：尝试获取许可；\nrelease：释放许可。\n公平：按照请求顺序获取许可，防止线程饥饿\n非公平：可以提高性能。\n常见用法：\n1Semaphore semaphore = new Semaphore(10); // 允许最多10个线程访问 2semaphore.acquire(); // 失败会阻塞不会往下执行了 3try { 4 // 访问共享资源 5} finally { 6 semaphore.release(); 7} 8 9Semaphore semaphore = new Semaphore(5); // 允许最多5个线程同时执行任务 10for (int i = 0; i \u003c 10; i++) { 11 new Thread(() -\u003e { 12 try { 13 semaphore.acquire(); // 阻塞 14 // 执行任务 15 } catch (InterruptedException e) { 16 Thread.currentThread().interrupt(); 17 } finally { 18 semaphore.release(); 19 } 20 }).start(); 21} 482 CyclicBarrier ˈsaɪklɪk ˈbæriə(r) 循环障碍 // 可以重用，当所有线程到达屏障后，刷新\n允许一组线程在执行某个任务相互等待，直到所有线程都达到了Barrier屏障后才能继续执行 // 直接全卡住\n屏障：调用barrier.await() 阻塞，等待所有线程都到达屏障； 线程数量：预指定的，当所有线程到达屏障，所有线程才被唤醒； 重用性：可以被重用。 1# 示例 2static CyclicBarrier cyclicbarrier; 3cyclicbarrier = new CyclicBarrier(parties=10, () -\u003e Sout(\"全部准备就绪\")) 4 5for(i ...) 6 new Thread(() -\u003e { 7 Thread.sleep(i * 3000 ms) 8 sout(i+\"玩家准备完成\"); 9 cyclicbarrier.await() // ⭐等待全部完成 10 sout(i+\"玩家进入游戏\") 11 }) 483 CountDownLatch 倒计时门闩锁 - 不可复用\n作用：使某线程等待其他线程执行完一组操作完成。每当其他线程完成一个操作，计数器–，到达0则等待的ALL线程会被唤醒\n主要功能：\n等待事件完成：await()； 递减计数器：latch.countdown()； 线程同步：当计数器变为0，唤醒线程。 1CountDownLatch latch = new CountDownLatch(3) 2 3for(int i = 1; i \u003c= 3; i++) { // 异步 4 new Thread(() -\u003e { 5 Thread,sleep(i*3000) 6 sout(i+\"???\") 7 latch.countDown(); // 这里模拟递减计数器 8 }).start() 9} 10 11sout(\"wait all thread finish\") 12latch.await() // 主线程阻塞等待 13sout(\"all thread finish\") // 并行计算结果的汇总\n487 如何控制多个线程的执行顺序呢？ synchronized + awit + notify, A =\u003e B =\u003e C 多组锁 ReentrantLock + condition 多组 Thread.join, 逐步等待 CountDownLatch，等待其他的线程countdown semaphore，限制异步为同步顺序 488 Java阻塞队列 ArrayBlockingQueue LinkedBlockingQueue PriorBlockingQueue praɪə(r) 489 原子类 AtomicInterger əˈtɒmɪk ˈɪntɪdʒə(r) AtomicStampedReference stæmpt 1.get 2.compareAndSet 3.getAndIncrement ˈɪŋkrəmənt 提问 CAS Compare and swap\n比较内存中的值 是否与 之前的预期值(之前拿到的旧值) 相等\n相等 =\u003e 将该变量的值设置为新值\n=\u003e 判断从之前的访问到现在的修改，中间变量的值是否变动过，没变过=\u003e可以修改\n优势：\n无锁并发 + CAS是原子性的(线程安全)\n缺点：\nABA问题，如果变量值 从 A=\u003eB=\u003eA,CAS无法检测到这种变化 自旋(重复)开销：导致CPU资源浪费，因为一直比较，直到能够修改为止 单变量限制：仅支持修改单变量 ABA问题：引入版本号或者时间戳，每次更新变量的同时更新版本号，从而依靠版本号判断变量是否被调整过。\n做法：\n1private AtomicStampedReference\u003cInteger\u003e atomicStampedReference = new AtomicStampedReference\u003c\u003e(0, 0); // 初始值:版本号 == 0:0 2 3public void updateValue(int expected, int newValue) { 4 int[] stampHolder = new int[1]; 5 Integer currentValue = atomicStampedReference.get(stampHolder); 6 int currentStamp = stampHolder[0]; 7\t8 // 9 boolean updated = atomicStampedReference.compareAndSet(expected, newValue, currentStamp, currentStamp + 1); 10 if (updated) { 11 System.out.println(\"Value updated to \" + newValue); 12 } else { 13 System.out.println(\"Update failed\"); 14 } 15} AtomicStampedReference：",
+  "wordCount" : "8355",
+  "inLanguage": "en",
+  "datePublished": "2025-03-05T00:00:00Z",
+  "dateModified": "2025-03-05T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "LongWei"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "//localhost:1313/posts/jobs/juc/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LongCoding's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "//localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="//localhost:1313/" accesskey="h" title="LongCoding&#39;s Blog (Alt + H)">LongCoding&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="//localhost:1313/" title="LongCoding&#39;s Blog">
+                    <span>🏡 Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/archives/" title="Timeline">
+                    <span>📃 Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/tags/" title="Tags">
+                    <span>📑 Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/categories/" title="Categories">
+                    <span>🗒️ Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/search/" title="Search">
+                    <span>🔍 Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/about/" title="About Me">
+                    <span>👨🏻‍🎓 About Me</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="//localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="//localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      并发面试题笔记
+    </h1>
+    <div class="post-meta"><span title='2025-03-05 00:00:00 +0000 UTC'>March 5, 2025</span>&nbsp;·&nbsp;17 min&nbsp;·&nbsp;8355 words&nbsp;·&nbsp;LongWei
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#1-%e5%a6%82%e4%bd%95%e5%88%9b%e5%bb%ba%e5%a4%9a%e7%ba%bf%e7%a8%8b" aria-label="1 如何创建多线程">1 如何创建多线程</a></li>
+                <li>
+                    <a href="#2-%e5%88%9b%e5%bb%ba%e7%ba%bf%e7%a8%8b%e6%b1%a0" aria-label="2 创建线程池">2 创建线程池</a></li>
+                <li>
+                    <a href="#3-%e7%ba%bf%e7%a8%8b%e5%ae%89%e5%85%a8%e7%9a%84%e9%9b%86%e5%90%88" aria-label="3 线程安全的集合">3 线程安全的集合</a></li>
+                <li>
+                    <a href="#4-%e7%ba%bf%e7%a8%8b%e5%90%8c%e6%ad%a5" aria-label="4 线程同步">4 线程同步</a></li>
+                <li>
+                    <a href="#5-%e7%ba%bf%e7%a8%8b%e5%ae%89%e5%85%a8" aria-label="5 线程安全">5 线程安全</a></li>
+                <li>
+                    <a href="#6-%e7%ba%bf%e7%a8%8b%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f" aria-label="6 线程生命周期">6 线程生命周期</a></li>
+                <li>
+                    <a href="#7-%e7%ba%bf%e7%a8%8b%e9%80%9a%e4%bf%a1" aria-label="7 线程通信">7 线程通信</a></li>
+                <li>
+                    <a href="#8-%e7%ba%bf%e7%a8%8b%e6%b1%a0" aria-label="8 线程池">8 线程池</a></li>
+                <li>
+                    <a href="#9-%e5%b9%b6%e5%8f%91%e5%b7%a5%e5%85%b7%e7%b1%bb" aria-label="9 并发工具类">9 并发工具类</a></li>
+                <li>
+                    <a href="#497-reentrantlock%e5%ae%9e%e7%8e%b0" aria-label="497 ReentrantLock实现">497 ReentrantLock实现</a></li>
+                <li>
+                    <a href="#492-synchronized%e5%ae%9e%e7%8e%b0" aria-label="492 Synchronized实现">492 Synchronized实现</a></li>
+                <li>
+                    <a href="#491-synchronized%e5%92%8creentrantlock" aria-label="491 Synchronized和ReentrantLock">491 Synchronized和ReentrantLock</a></li>
+                <li>
+                    <a href="#496-%e5%a6%82%e4%bd%95%e4%bc%98%e5%8c%96java%e4%b8%ad%e9%94%81%e7%9a%84%e4%bd%bf%e7%94%a8" aria-label="496 如何优化Java中锁的使用？">496 如何优化Java中锁的使用？</a></li>
+                <li>
+                    <a href="#499-%e8%af%bb%e5%86%99%e9%94%81" aria-label="499 读写锁">499 读写锁</a></li>
+                <li>
+                    <a href="#501-java-jmm-java%e5%86%85%e5%ad%98%e6%a8%a1%e5%9e%8b" aria-label="501 Java JMM java内存模型">501 Java JMM java内存模型</a></li>
+                <li>
+                    <a href="#506-why-threadlocal" aria-label="506 Why ThreadLocal">506 Why ThreadLocal</a></li>
+                <li>
+                    <a href="#517-java%e4%b8%adwaitnotify%e5%92%8cnotifyall" aria-label="517 Java中wait、notify和notifyALL">517 Java中wait、notify和notifyALL</a></li>
+                <li>
+                    <a href="#518-%e6%ad%bb%e9%94%81-%e5%8f%8a-%e9%81%bf%e5%85%8d" aria-label="518 死锁 及 避免">518 死锁 及 避免</a></li>
+                <li>
+                    <a href="#519-volatile%e5%85%b3%e9%94%ae%e5%ad%97" aria-label="519 volatile关键字">519 volatile关键字</a></li>
+                <li>
+                    <a href="#6304-%e5%a6%82%e4%bd%95%e7%9f%a5%e6%99%93%e5%ad%90%e7%ba%bf%e7%a8%8b%e6%98%af%e5%90%a6%e6%89%a7%e8%a1%8c%e5%ae%8c%e6%af%95" aria-label="6304 如何知晓子线程是否执行完毕？">6304 如何知晓子线程是否执行完毕？</a></li>
+                <li>
+                    <a href="#481-semaphore-%e4%bf%a1%e5%8f%b7%e9%87%8f" aria-label="481 Semaphore 信号量">481 Semaphore 信号量</a></li>
+                <li>
+                    <a href="#482-cyclicbarrier" aria-label="482 CyclicBarrier">482 CyclicBarrier</a></li>
+                <li>
+                    <a href="#483-countdownlatch" aria-label="483 CountDownLatch">483 CountDownLatch</a></li>
+                <li>
+                    <a href="#487-%e5%a6%82%e4%bd%95%e6%8e%a7%e5%88%b6%e5%a4%9a%e4%b8%aa%e7%ba%bf%e7%a8%8b%e7%9a%84%e6%89%a7%e8%a1%8c%e9%a1%ba%e5%ba%8f%e5%91%a2" aria-label="487 如何控制多个线程的执行顺序呢？">487 如何控制多个线程的执行顺序呢？</a></li>
+                <li>
+                    <a href="#488-java%e9%98%bb%e5%a1%9e%e9%98%9f%e5%88%97" aria-label="488 Java阻塞队列">488 Java阻塞队列</a></li>
+                <li>
+                    <a href="#489-%e5%8e%9f%e5%ad%90%e7%b1%bb" aria-label="489 原子类">489 原子类</a></li>
+                <li>
+                    <a href="#%e6%8f%90%e9%97%ae" aria-label="提问">提问</a><ul>
+                        
+                <li>
+                    <a href="#cas" aria-label="CAS">CAS</a></li>
+                <li>
+                    <a href="#aqs" aria-label="AQS">AQS</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h3 id="1-如何创建多线程">1 如何创建多线程<a hidden class="anchor" aria-hidden="true" href="#1-如何创建多线程">#</a></h3>
+<p>1） 实现<strong>Runnable</strong>接口</p>
+<ul>
+<li>实现run()方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(</span><span class="n">MyRunnable</span><span class="p">()).</span><span class="na">start</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><p>2）继承Thread类</p>
+<ul>
+<li>重写run()方法</li>
+</ul>
+<p>3）Callable接口&amp;&amp;FutureTask</p>
+<ul>
+<li>实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">FutrueTask</span><span class="o">&lt;</span><span class="n">ReturnType</span><span class="o">&gt;</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FutrueTask</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">MyCallable</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="n">Thread</span><span class="p">(</span><span class="n">task</span><span class="p">).</span><span class="na">start</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="n">ResultType</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">task</span><span class="p">.</span><span class="na">get</span><span class="p">();</span><span class="w"> </span><span class="c1">// 这里阻塞</span><span class="w">
+</span></span></span></code></pre></div><p>4）使用线程池</p>
+<ul>
+<li>通过ExecutorService提交Runnable或者Callable任务</li>
+</ul>
+<p>不同方法对比</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">Runnable</span><span class="w"> </span><span class="n">vs</span><span class="w"> </span><span class="n">Callable</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nl">Callable</span><span class="p">:</span><span class="n">可以返回结果</span><span class="err">，</span><span class="n">可以抛出异常</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="n">线程池的优势</span><span class="err">：</span><span class="n">避免重复创建和销毁线程</span><span class="err">，</span><span class="n">减少这部分重复带来的开销</span><span class="err">；</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="n">ThreadPool</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">FixedThreadPool</span><span class="p">,</span><span class="w"> </span><span class="n">CachedThreadPool</span><span class="p">,</span><span class="w"> </span><span class="n">ScheduledThreadPool</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">   
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w"></span><span class="n">虚拟线程</span><span class="err">：</span><span class="n">虚拟线程创建和切换开销更低</span><span class="w">
+</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="w"></span><span class="n">Thread</span><span class="p">.</span><span class="na">startVirtualThread</span><span class="p">()</span><span class="w">
+</span></span></span></code></pre></div><p><strong>ThreadPool实践</strong></p>
+<p>XXXThreadPool.submit(task&hellip;)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="nl">FixedThreadPool</span><span class="p">:</span><span class="w"> </span><span class="n">固定池中线程数量</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">适合1</span><span class="p">.</span><span class="na">执行较长任务</span><span class="err">；</span><span class="n">2</span><span class="p">.</span><span class="na">控制并发度</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="n">CachedThreadPool</span><span class="err">：</span><span class="n">池中线程数量不固定</span><span class="err">，</span><span class="n">根据需要动态创建线程</span><span class="err">，</span><span class="n">空的被回收</span><span class="err">，</span><span class="n">少了多创建</span><span class="err">；</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="err">⭐</span><span class="n">适用于任务执行时间短且任务数量不确定的场景</span><span class="err">；</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w"></span><span class="n">ScheduledThreadPool</span><span class="err">：</span><span class="n">适用于需要定时执行或周期性执行任务的场景</span><span class="err">。</span><span class="w">    
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// 定时任务线程池</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="n">ScheduledExecutorService</span><span class="w"> </span><span class="n">scheduledThreadPool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Executors</span><span class="p">.</span><span class="na">newScheduledThreadPool</span><span class="p">(</span><span class="n">5</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="c1">// For 延迟任务</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="n">scheduledThreadPool</span><span class="p">.</span><span class="na">schedule</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="c1">// 任务逻辑</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="p">},</span><span class="w"> </span><span class="n">10</span><span class="p">,</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">);</span><span class="w"> </span><span class="c1">// 延迟10秒执行</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="c1">// For周期执行任务</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="n">scheduledThreadPool</span><span class="p">.</span><span class="na">scheduleAtFixedRate</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="c1">// 任务逻辑</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="p">},</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">);</span><span class="w"> </span><span class="c1">// 每隔1秒执行一次</span><span class="w">
+</span></span></span></code></pre></div><p>Thread.sleep(0) &lt;= 主动让出CPU控制权</p>
+<p>thread.join() &lt;= 等待该线程完成</p>
+<h3 id="2-创建线程池">2 创建线程池<a hidden class="anchor" aria-hidden="true" href="#2-创建线程池">#</a></h3>
+<p>1） Executors<strong>工厂类</strong></p>
+<ul>
+<li>Executors.newFixedThreadPool(10) //</li>
+</ul>
+<p>2）ThreadPoolExecutor直接创建<strong>线程池</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">new</span><span class="w"> </span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">corePoolSize</span><span class="p">,</span><span class="w"> </span><span class="n">maximumPoolSize</span><span class="p">,</span><span class="w"> </span><span class="n">KeepAliveTime</span><span class="p">,</span><span class="n">TimeUnit</span><span class="p">,</span><span class="k">new</span><span class="w"> </span><span class="n">LinkedBlockingQueue</span><span class="o">&lt;&gt;</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="nl">LinkedBlockingQueue</span><span class="p">:</span><span class="w"> </span><span class="n">当提交的任务多于线程数时</span><span class="err">，</span><span class="n">会将多余的暂时挂起</span><span class="w">
+</span></span></span></code></pre></div><p><strong>线程池相关参数解释</strong></p>
+<ul>
+<li>corePoolSize：核心线程数，即线程池中始终保存的线程数量；</li>
+<li>maximumPoolSize：最大线程数，线程池中允许的最大线程数量；</li>
+<li>KeepAliveTime：线程空闲时间，非核心线程空闲超过这个时间会被销毁；</li>
+<li>workQueue：工作队列，存放待执行的任务；</li>
+<li>threadFactory：线程工厂，用于创建新线程；</li>
+<li>rejectedExecutionHandler：任务拒绝处理器，当前任务无法执行时的处理策略。</li>
+</ul>
+<p><strong>工作队列</strong></p>
+<ul>
+<li>SynchronousQueue：不存储任务，直接提交任务给线程；</li>
+<li>LinkedBlockingQueue：链表结构的阻塞队列，大小无限；</li>
+<li>ArrayBlockingQueue：数据结构的阻塞队列；</li>
+<li>PriorityBlockingQueue：带优先级的无界阻塞队列。/ praɪˈɒrəti /</li>
+</ul>
+<p><strong>线程池的拒绝策略</strong></p>
+<p>队列满且无空闲线程的添加任务的情况。</p>
+<ul>
+<li>AbortPolicy：抛异常；</li>
+<li>CallerRunsPolicy：由提交线程本身执行；</li>
+<li>DiscardOldestPolicy：删除最早提交的任务；</li>
+<li>DiscardPolicy：直接丢弃当前任务。</li>
+</ul>
+<h3 id="3-线程安全的集合">3 线程安全的集合<a hidden class="anchor" aria-hidden="true" href="#3-线程安全的集合">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nl">concurrentHashMap</span><span class="p">:</span><span class="w"> </span><span class="n">同步HashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">-&gt;</span><span class="n">V</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="n">数据结构</span><span class="o">=&gt;</span><span class="w"> </span><span class="n">使用数组</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">链表</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">红黑树的结构</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="n">线程安全</span><span class="o">=&gt;</span><span class="w"> </span><span class="n">CAS保证操作的原子性</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="nl">eg</span><span class="p">:</span><span class="n">线程不安全的操作</span><span class="err">：</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="c1">// 非线程安全的操作</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&#34;key&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 这里，如果有其他线程对key-&gt;value进行了修改！，这里的value是过期了的</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;key&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="c1">// ⭐保证原子性</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="n">map</span><span class="p">.</span><span class="na">compute</span><span class="p">(</span><span class="s">&#34;key&#34;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// 一次完成</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="c1">// 如果是方法中创建的Map,每个线程专享，不会有线程间安全问题</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="c1">// 如果是类中，且多个线程共享同一个Class实例，则可能出现线程安全问题</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span><span class="n">Method中创建</span><span class="err">：</span><span class="n">安全</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span><span class="n">Class</span><span class="o">-</span><span class="n">成员变量</span><span class="err">：</span><span class="n">多个线程可能共享同一个map实例</span><span class="err">，</span><span class="n">需要保证线程安全</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"></span><span class="n">Class</span><span class="o">-</span><span class="n">静态变量</span><span class="err">：</span><span class="n">所有线程共享同一个</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="n">实例</span><span class="w"> </span><span class="err">，</span><span class="n">需要保证线程安全</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w"></span><span class="n">BlockingQueue</span><span class="err">：</span><span class="w"> </span><span class="o">-</span><span class="n">数组实现</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"></span><span class="nl">LinkedBlockingQueue</span><span class="p">:</span><span class="w"> </span><span class="n">线程安全的阻塞队列</span><span class="o">-</span><span class="n">链表实现</span><span class="w">
+</span></span></span></code></pre></div><h3 id="4-线程同步">4 线程同步<a hidden class="anchor" aria-hidden="true" href="#4-线程同步">#</a></h3>
+<p>多线程情况下，避免共享资源同时访问，引发数据不一致。=&gt; 加锁，限制访问。</p>
+<p>JAVA中，常见的同步方式：</p>
+<p><strong>synchronized</strong> 同步 // 仅限一个线程访问.  由 JVM 负责管理锁的获取和释放. 非公平锁</p>
+<p>生产-消费 模拟</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">Main</span><span class="err">：</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="c1">// 共享队列，用于生产者和消费者之间的数据传递</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w"> </span><span class="c1">// or BlockingQueue</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">maxSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">5</span><span class="p">;</span><span class="w"> </span><span class="c1">// 队列的最大容量</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="c1">// 创建生产者和消费者线程</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="n">Thread</span><span class="w"> </span><span class="n">producer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Producer</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span><span class="w"> </span><span class="n">maxSize</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;Producer&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="n">Thread</span><span class="w"> </span><span class="n">consumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Consumer</span><span class="p">(</span><span class="n">queue</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;Consumer&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="c1">// 启动线程</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="n">producer</span><span class="p">.</span><span class="na">start</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="n">consumer</span><span class="p">.</span><span class="na">start</span><span class="p">();</span><span class="w">    
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nl">Producer</span><span class="p">:</span><span class="w"> </span><span class="n">实现Runnable</span><span class="w"> </span><span class="kd">interface</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="err">@</span><span class="nc">Override</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">        </span><span class="kd">synchronized</span><span class="w"> </span><span class="p">(</span><span class="n">queue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 对队列加锁</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">            </span><span class="c1">// 如果队列已满，生产者等待</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">queue</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">maxSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">                </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;队列已满，生产者等待...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">                    </span><span class="n">queue</span><span class="p">.</span><span class="na">wait</span><span class="p">();</span><span class="w"> </span><span class="c1">// 释放锁，进入等待状态</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">                    </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">            </span><span class="c1">// 生产数据并添加到队列</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;生产者生产数据: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">            </span><span class="n">queue</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">i</span><span class="o">++</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">            </span><span class="c1">// 通知消费者可以消费了</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">            </span><span class="n">queue</span><span class="p">.</span><span class="na">notifyAll</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">            </span><span class="c1">// 模拟生产耗时</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">                </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">500</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">                </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">Consumer</span><span class="err">：</span><span class="n">实现Runnable接口</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">        </span><span class="kd">synchronized</span><span class="w"> </span><span class="p">(</span><span class="n">queue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 对队列加锁</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">            </span><span class="c1">// 如果队列为空，消费者等待</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">queue</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">                </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;队列为空，消费者等待...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">                    </span><span class="n">queue</span><span class="p">.</span><span class="na">wait</span><span class="p">();</span><span class="w"> </span><span class="c1">// 释放锁，进入等待状态</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">                    </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">            </span><span class="c1">// 消费数据</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="na">poll</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;消费者消费数据: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">            </span><span class="c1">// 通知生产者可以生产了</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">            </span><span class="n">queue</span><span class="p">.</span><span class="na">notifyAll</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">            </span><span class="c1">// 模拟消费耗时</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">                </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">1000</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">                </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>⭐⭐⭐</p>
+<p>synchronized（临界区对象）  &lt;=  锁住临界区</p>
+<p>while(临界区不可用) =&gt; 重试 =&gt; .wait() 当前线程进入等待状态<strong>让出CPU</strong>，并且<strong>释放锁</strong></p>
+<p>处理完成=&gt; .notifyAll() // 通知等待状态的线程</p>
+<p><strong><code>synchronized</code></strong>：通过 <code>Object.wait()</code> 和 <code>Object.notify()/notifyAll()</code> 进行线程间通信</p>
+<hr>
+<p><strong>ReentrantLock</strong>  可重入锁  Re en trant lock.  需要手动加锁和释放锁</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">lock</span><span class="p">.</span><span class="na">lock</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">    </span><span class="c1">// 临界区代码</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">    </span><span class="n">lock</span><span class="p">.</span><span class="na">unlock</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p><strong><code>ReentrantLock</code></strong>：使用 <code>Condition</code> 对象更灵活地控制线程等待和唤醒：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">Condition</span><span class="w"> </span><span class="n">condition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lock</span><span class="p">.</span><span class="na">newCondition</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="n">lock</span><span class="p">.</span><span class="na">lock</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">    </span><span class="n">condition</span><span class="p">.</span><span class="na">await</span><span class="p">();</span><span class="w">  </span><span class="c1">// 线程等待</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">    </span><span class="n">condition</span><span class="p">.</span><span class="na">signal</span><span class="p">();</span><span class="w"> </span><span class="c1">// 唤醒单个等待的线程</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">    </span><span class="n">condition</span><span class="p">.</span><span class="na">signalAll</span><span class="p">();</span><span class="w"> </span><span class="c1">// 唤醒所有等待的线程</span><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="w">    </span><span class="n">lock</span><span class="p">.</span><span class="na">unlock</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>案例</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// 共享队列，用于生产者和消费者之间的数据传递</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="c1">// 创建 ReentrantLock 和 Condition</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="n">Lock</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ReentrantLock</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="n">Condition</span><span class="w"> </span><span class="n">notFull</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lock</span><span class="p">.</span><span class="na">newCondition</span><span class="p">();</span><span class="w"> </span><span class="c1">// 队列未满的条件</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="n">Condition</span><span class="w"> </span><span class="n">notEmpty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lock</span><span class="p">.</span><span class="na">newCondition</span><span class="p">();</span><span class="w"> </span><span class="c1">// 队列非空的条件</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="nl">Producer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="n">lock</span><span class="p">.</span><span class="na">lock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="k">try</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">        </span><span class="c1">// </span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">queue</span><span class="p">.</span><span class="na">size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">maxSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;队列已满，生产者等待...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">            </span><span class="n">notFull</span><span class="p">.</span><span class="na">await</span><span class="p">();</span><span class="w"> </span><span class="c1">// 等待队列未满的条件</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">        </span><span class="n">queue</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="o">?</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="n">notEmpty</span><span class="p">.</span><span class="na">signalAll</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">        </span><span class="c1">// ... 生产耗时</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="k">finally</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">        </span><span class="n">lock</span><span class="p">.</span><span class="na">unlock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w"></span><span class="nl">Consumer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w"></span><span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">    </span><span class="n">lock</span><span class="p">.</span><span class="na">lock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">queue</span><span class="p">.</span><span class="na">size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">            </span><span class="n">sout</span><span class="p">(</span><span class="s">&#34;没东西消费&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">            </span><span class="n">notEmpty</span><span class="p">.</span><span class="na">await</span><span class="p">()</span><span class="w">    
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">        </span><span class="n">queue</span><span class="p">.</span><span class="na">poll</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">        </span><span class="n">notFull</span><span class="p">.</span><span class="na">signalAll</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">            
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">        </span><span class="c1">// ...消费时长</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="k">finally</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">		</span><span class="n">lock</span><span class="p">.</span><span class="na">unlock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>⭐⭐⭐ 关键用法：</p>
+<p>Lock lock = new ReentrantLock();
+Condition notFull = lock.newCondition(); // 队列未满的条件
+Condition notEmpty = lock.newCondition(); // 队列非空的条件</p>
+<p>lock.lock &amp;&amp; lock.unlock</p>
+<p>notFull.await(),  notFull.signal(),  notFull.signalAll()</p>
+<hr>
+<h3 id="5-线程安全">5 线程安全<a hidden class="anchor" aria-hidden="true" href="#5-线程安全">#</a></h3>
+<p>保证多线程，乱序执行时候，无论怎么执行，都可以得到预期结果</p>
+<p>=&gt; <strong>通过 线程同步</strong> (悲观锁)</p>
+<p>通过Synchronized 和 ReentrantLock   ˈsɪŋkrənaɪzd &amp;  riːˈentrənt, lɒk 实现线程同步</p>
+<p>=&gt; <strong>通过原子操作类</strong></p>
+<p>AtomicInteger  əˈtɒmɪk 原子，  原子整数</p>
+<p>⭐⭐⭐<em><strong>扩展CAS</strong></em>（乐观锁）：（<strong>Compare And Swap</strong>，比较并交换）是一种无锁并发编程技术，常用于实现<strong>原子操作</strong>。它的基本原理是：<strong>先比较，再交换</strong>，即<strong>只有当变量的当前值等于预期值时，才会更新，否则重试</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// 当前值, 预期值, 新值</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="kt">boolean</span><span class="w"> </span><span class="nf">compareAndSwap</span><span class="p">(</span><span class="n">V</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">V</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">E</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 比较当前值是否等于预期值</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">        </span><span class="n">V</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w">    </span><span class="c1">// 如果相等，更新为新值</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// 操作成功</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"> </span><span class="c1">// 操作失败</span><span class="w">
+</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>例子：最佳实践案例=&gt; 线程安全的计数器</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">AtomicInteger</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AtomicInteger</span><span class="p">(</span><span class="n">0</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="c1">// 线程安全的递增方法</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">increment</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">oldValue</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">newValue</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="k">do</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">        </span><span class="n">oldValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="na">get</span><span class="p">();</span><span class="w"> </span><span class="c1">// 获取当前值, 先获取修改值</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">        </span><span class="n">newValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oldValue</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 计算新值 </span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">value</span><span class="p">.</span><span class="na">compareAndSet</span><span class="p">(</span><span class="n">oldValue</span><span class="p">,</span><span class="w"> </span><span class="n">newValue</span><span class="p">));</span><span class="w"> </span><span class="c1">// CAS 操作</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="c1">// CAS  compare and swap &lt;=&gt; 访问到修改期间，没有其他线程进行修改的话，就可以执行 </span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="n">value</span><span class="p">.</span><span class="na">compareAndSet</span><span class="p">(</span><span class="n">oldValue</span><span class="p">,</span><span class="w"> </span><span class="n">newValue</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oldvalue</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="na">get</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newValue</span><span class="w"> </span><span class="err">：</span><span class="n">nothing</span><span class="w">
+</span></span></span></code></pre></div><p><strong>检查第一次得到的旧值与修改时的值是否一致，判断是否被动过，没动过再改</strong></p>
+<p><img alt="image-20250303211427792" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FivGPltzjm8vcyR15n4BDC2-1Bq9"></p>
+<p>=&gt; <strong>线程安全的容器</strong>：concurrentHashMap or copyonWriteArrayList❌ <strong>不懂</strong></p>
+<p>=&gt; <strong>局部变量</strong>，线程专享</p>
+<p>=&gt; <strong>ThreadLocal</strong>, 线程本地资源，线程专享</p>
+<h3 id="6-线程生命周期">6 线程生命周期<a hidden class="anchor" aria-hidden="true" href="#6-线程生命周期">#</a></h3>
+<p>初始(资源) =&gt; 可运行(CPU队列) =&gt; 运行 =&gt; 终止</p>
+<p>​                                     阻塞&amp;等待</p>
+<h3 id="7-线程通信">7 线程通信<a hidden class="anchor" aria-hidden="true" href="#7-线程通信">#</a></h3>
+<p>多线程间的协同工作</p>
+<p>1）**共享变量：**访问共享内存变量来交换信息；</p>
+<p>2）<strong>同步机制：</strong></p>
+<p>synchronized() =&gt; wait =&gt; notify&amp;notifyAll  （Object中的方法）</p>
+<p>ReentrantLock.lock =&gt; condition.await =&gt; condition.signal&amp;signalAll</p>
+<p>BlockingQueue =&gt; queue.put() 满则阻塞 =&gt; queue.take() 空则阻塞</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">synchronized</span><span class="w"> </span><span class="p">(</span><span class="n">lock</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">   </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">conditionNotMet</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">       </span><span class="n">lock</span><span class="p">.</span><span class="na">wait</span><span class="p">();</span><span class="w"> </span><span class="c1">// 释放锁，进入等待状态</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">   </span><span class="c1">// 执行操作</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">   </span><span class="n">lock</span><span class="p">.</span><span class="na">notify</span><span class="p">();</span><span class="w"> </span><span class="c1">// 唤醒等待的线程</span><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">Lock</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ReentrantLock</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="n">Condition</span><span class="w"> </span><span class="n">condition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lock</span><span class="p">.</span><span class="na">newCondition</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="n">lock</span><span class="p">.</span><span class="na">lock</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">   </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">conditionNotMet</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">       </span><span class="n">condition</span><span class="p">.</span><span class="na">await</span><span class="p">();</span><span class="w"> </span><span class="c1">// 等待</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">   </span><span class="c1">// 执行操作</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">   </span><span class="n">condition</span><span class="p">.</span><span class="na">signal</span><span class="p">();</span><span class="w"> </span><span class="c1">// 唤醒等待的线程</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">   </span><span class="n">lock</span><span class="p">.</span><span class="na">unlock</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LinkedBlockingQueue</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">10</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="c1">// 生产者</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">   </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">       </span><span class="n">queue</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;Data&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">       </span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">interrupt</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="p">}).</span><span class="na">start</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="c1">// 消费者</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">   </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">       </span><span class="n">String</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="na">take</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">       </span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">interrupt</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">   </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"></span><span class="p">}).</span><span class="na">start</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><h3 id="8-线程池">8 线程池<a hidden class="anchor" aria-hidden="true" href="#8-线程池">#</a></h3>
+<p>池化技术，预先创建并管理一组线程，避免线程重复创建和销毁带来的开销</p>
+<p>关键配置：核心线程数，最大线程数，空间存活时间，工作队列，拒绝策略</p>
+<p>=&gt; 提交任务才会创建线程，或者设置preStartAllCoreThreads</p>
+<p>=&gt; 核心线程满了不会创建线程，而是把多余的任务放到工作队列中，等待执行</p>
+<p>=&gt; 核心线程满载且工作队列放不下了，才会新增线程执行提交的任务(&lt;最大线程数)</p>
+<p>=&gt; 工作队列满了+已最大线程数了 =&gt; 拒绝策略?新任务</p>
+<p>=&gt; 线程空闲时间超过指定时间 且有多余的非核心线程 =&gt; 释放非核心线程</p>
+<p>工作队列：</p>
+<p>LinkedBlockingQueue 无界队列，链式</p>
+<p>ArrayBlockingQueue 有界队列，数组</p>
+<p>PriorityBlockingQueue 带有优先级的无界阻塞队列</p>
+<p>线程池类型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="nl">FixedThreadPool</span><span class="p">:</span><span class="w"> </span><span class="n">固定线程数</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="n">CachedThreadPool</span><span class="err">：</span><span class="n">变化</span><span class="err">，</span><span class="n">动态新建</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="n">SingleThreadPool</span><span class="err">：</span><span class="n">单线程的池子</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="n">ScheduledThreadPool</span><span class="err">：</span><span class="n">定时任务的池子</span><span class="w">
+</span></span></span></code></pre></div><p>shutdown与shutdownNow的区别</p>
+<p>shutdown：提醒关闭，会把已提交的任务执行完毕</p>
+<p>shutdownNow：强制停止</p>
+<h3 id="9-并发工具类">9 并发工具类<a hidden class="anchor" aria-hidden="true" href="#9-并发工具类">#</a></h3>
+<ul>
+<li>
+<p>ConcurrentHashMap：线程安全的HashMap，多线程修改临界区时加锁或者其他方法，=&gt;安全</p>
+</li>
+<li>
+<p>AtomicInterger：əˈtɒmɪk   线程安全的整型  compareAndSet CAS方法，原子类型</p>
+</li>
+<li>
+<p>Semaphore 信号量：acquire() and release()</p>
+</li>
+<li>
+<p>BlockingQueue：阻塞队列-通信容器  queue.put() and queue.take()</p>
+</li>
+<li>
+<p>CyclicBarrier：循环屏障 barrier.await</p>
+</li>
+<li>
+<p>CountDownlatch：计时器 latch.countDown() latch.await()</p>
+</li>
+</ul>
+<h3 id="497-reentrantlock实现">497 ReentrantLock实现<a hidden class="anchor" aria-hidden="true" href="#497-reentrantlock实现">#</a></h3>
+<p>=&gt; 可重入锁，允许同一个线程多次获取同一把锁的锁机制，避免线程因为重复获取锁而导致死锁</p>
+<p>案例：1. 递归调用中的锁保护</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="err">#</span><span class="w"> </span><span class="n">非公平锁</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="kd">final</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">nonfairTryAcquire</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">acquires</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="n">Thread</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getState</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 锁未被占用</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">compareAndSetState</span><span class="p">(</span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">acquires</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// CAS 尝试获取锁</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">            </span><span class="n">setExclusiveOwnerThread</span><span class="p">(</span><span class="n">current</span><span class="p">);</span><span class="w"> </span><span class="c1">// 设置当前线程为独占线程</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">current</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">getExclusiveOwnerThread</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ⭐⭐⭐锁已被当前线程占用（重入）</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">nextc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">acquires</span><span class="p">;</span><span class="w"> </span><span class="c1">// 增加重入次数</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nextc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Error</span><span class="p">(</span><span class="s">&#34;Maximum lock count exceeded&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">        </span><span class="n">setState</span><span class="p">(</span><span class="n">nextc</span><span class="p">);</span><span class="w"> </span><span class="c1">// 更新状态</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"> </span><span class="c1">// 获取锁失败</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p><strong>基于AQS实现的一个可重入锁</strong>，支持公平和非公平两种方式</p>
+<p>内部依靠一个<strong>State变量</strong>和两个等待<strong>队列</strong>：同步队列和等待队列</p>
+<p>利用CAS修改state来争夺锁</p>
+<ul>
+<li>
+<p>争抢不到锁就入<strong>AQS 等待队列</strong>进行等待，<strong>AQS 等待队列</strong>是一个双向队列</p>
+</li>
+<li>
+<p>抢到锁但是条件condition不满足则入<strong>条件队列(每个condition维护一个)</strong>，单向链表</p>
+</li>
+</ul>
+<p>是否公平锁 =&gt; 线程获取锁 是加入同步队列尾部还是直接利用CAS争夺锁</p>
+<p><img alt="image-20250305195628416" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqPim2avU5jlSZ9MgW892NKCux-W"></p>
+<p><code>ReentrantLock</code> 是基于 AQS 实现的可重入独占锁，支持公平锁和非公平锁两种模式。其核心是通过 AQS 的状态管理（<code>state</code>）和等待队列来实现线程的阻塞和唤醒。非公平锁的性能通常优于公平锁，但<strong>公平锁可以避免线程饥饿</strong>问题。<code>ReentrantLock</code> 提供了比 <code>synchronized</code> 更灵活的锁操作，是 Java 并发编程中的重要工具</p>
+<h3 id="492-synchronized实现">492 Synchronized实现<a hidden class="anchor" aria-hidden="true" href="#492-synchronized实现">#</a></h3>
+<p>依赖于JVM的监视器锁+对象头</p>
+<p>当synchronized修饰在方法或者代码块上时，会对特定的对象或者类加锁，确保只有一个线程能运行加锁的代码块；</p>
+<ul>
+<li>synchronized修饰方法：方法的<strong>标志</strong>位会增加一个ACC_SYNCHRONIZED标志，检查标志再获取锁，这部分进行同步控制</li>
+<li>synchronized修饰代码块：会在代码块前后插入monitorenter和monitorexit字节码指令，上锁+解锁</li>
+</ul>
+<p>synchronized是可重入锁</p>
+<h3 id="491-synchronized和reentrantlock">491 Synchronized和ReentrantLock<a hidden class="anchor" aria-hidden="true" href="#491-synchronized和reentrantlock">#</a></h3>
+<p><img alt="image-20250305205348468" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FmLzFQnZFDkECyV1ZTIc2ZEK_yyO"></p>
+<h3 id="496-如何优化java中锁的使用">496 如何优化Java中锁的使用？<a hidden class="anchor" aria-hidden="true" href="#496-如何优化java中锁的使用">#</a></h3>
+<ol>
+<li><strong>减少锁的粒度</strong>：
+<ol>
+<li>减少加锁的范围，减少锁的持续时间</li>
+</ol>
+</li>
+<li>使用<strong>更细粒度的锁</strong>：提高并发度
+<ul>
+<li>hashTable:
+<ul>
+<li>通过方法上添加synchronized实现锁的安全，仅一个线程，性能较差</li>
+</ul>
+</li>
+<li>concurrentHashMap：
+<ul>
+<li>通过CAS+synchronized实现线程安全，允许多个线程同时读写，性能更高</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>减少锁的使用
+<ol>
+<li>通过无锁编程、CAS操作和原子类来避免锁的使用，减少锁带来的性能损失</li>
+<li>通过减少共享资源的使用，避免对临界区的竞争。(本地变量+线程本地变量)</li>
+</ol>
+</li>
+</ol>
+<p>扩展：</p>
+<ul>
+<li>独占锁：写操作多的场景，仅允许一个线程持有锁</li>
+<li>读写锁：允许多个线程并发读，但写的时候需要上锁，适合读多写少的场景</li>
+<li>乐观锁和悲观锁：悲观锁每次都加锁；乐观锁假设没有冲突-CAS或版本号实现</li>
+</ul>
+<h3 id="499-读写锁">499 读写锁<a hidden class="anchor" aria-hidden="true" href="#499-读写锁">#</a></h3>
+<p>允许多个线程同时读操作，但是写操作需要加锁(单个线程)。</p>
+<p>=&gt; 读写+写写操纵是互斥操作；⭐适合读多写少的情况</p>
+<p>可以利用ReadWriteLock和ReentrantReadWriteLock实现</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="err">#</span><span class="w"> </span><span class="n">代码示例</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="n">ReentrantReadWriteLock</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ReentrantReadWriteLock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="n">Lock</span><span class="w"> </span><span class="n">readLock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lock</span><span class="p">.</span><span class="na">readLock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="n">lock</span><span class="w"> </span><span class="n">writeLock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lock</span><span class="p">.</span><span class="na">writeLock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="c1">// 1. 判断写锁(读写互斥)2. 判断读锁,第一个和后续</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="n">readLock</span><span class="p">.</span><span class="na">lock</span><span class="p">()</span><span class="w"> 
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="k">try</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="n">readLock</span><span class="p">.</span><span class="na">unlock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span><span class="c1">// 1. 有读锁或写锁且写锁不是当前线程持有，则失败</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"></span><span class="c1">// 2. 根据公平性策略（公平锁或非公平锁）决定是否需要阻塞</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"></span><span class="c1">// 3. CAS 更新状态</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w"></span><span class="c1">// 4. 设置写锁持有者 &lt;= 设置可重入</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"></span><span class="n">writeLock</span><span class="p">.</span><span class="na">lock</span><span class="p">()</span><span class="w"> </span><span class="c1">// 互斥 写写互斥</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w"></span><span class="k">try</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="n">writeLock</span><span class="p">.</span><span class="na">unlock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="501-java-jmm-java内存模型">501 Java JMM java内存模型<a hidden class="anchor" aria-hidden="true" href="#501-java-jmm-java内存模型">#</a></h3>
+<p>java memory model</p>
+<p>用于描述线程何时从主内存中读取数据、何时把数据写回主存中</p>
+<p>JMM核心目标</p>
+<ul>
+<li><strong>可见性</strong>：确保某个线程的修改，其他线程及时可见。 使用volatile关键字强制线程每次读写都直接从主内存中获取新值</li>
+<li><strong>有序性</strong>：指线程执行操作的顺序，JMM允许某些指令通过指令重拍提高性能，且保证线程内的操作顺序不会被破坏，通过<code>happens-before</code>关系保证跨线程的有序性。</li>
+<li>**原子性：**指操作不可分割，线程不会在执行过程中被中断。</li>
+</ul>
+<p>Why JMM：</p>
+<p>操作系统有自己的内存模型，但JAVA是跨平台实现的，因此需要自己设计一套内存模型屏蔽各操作系统之间的差异。JMM描述了多线程环境下，如何在不通过的线程之间共享变量以及变量的操作顺序。</p>
+<p>主内存和工作内存：</p>
+<ul>
+<li>主内存：JAVA堆内存的一部分，所有的实例变量、静态变量和数组元素都存储在主内存中；</li>
+<li>工作内存：每个线程都有自己的工作内存，工作内存存储了主内存中的变量副本，线程的所有操作都在工作内存中进行。</li>
+<li>线程之间的变量，必须经过主内存进行传递</li>
+</ul>
+<h3 id="506-why-threadlocal">506 Why ThreadLocal<a hidden class="anchor" aria-hidden="true" href="#506-why-threadlocal">#</a></h3>
+<p>每个线程自己<strong>独享的独立变量副本</strong>，避免多个线程间的变量共享和竞争，解决线程安全问题。</p>
+<p><strong>每个</strong>线程维护一个<code>ThreadLocalMap</code> 用于存储线程独立的变量副本，ThreadLocalMap以ThreadLocal实例为键，不同线程通过自己ThreadLocal身份获取各自的变量副本。</p>
+<p>避免同一个ThreadLocalMap的竞争</p>
+<h3 id="517-java中waitnotify和notifyall">517 Java中wait、notify和notifyALL<a hidden class="anchor" aria-hidden="true" href="#517-java中waitnotify和notifyall">#</a></h3>
+<p>这三个方法都是Object对象定义的方法，用于线程之间的通信，且需要在Synchronized修饰内使用</p>
+<ul>
+<li>wait =&gt; 线程进入等待状态，释放锁</li>
+<li>notify =&gt; 唤醒一个在等待的线程</li>
+<li>notifyALL =&gt; 唤醒所有等待的线程</li>
+</ul>
+<h3 id="518-死锁-及-避免">518 死锁 及 避免<a hidden class="anchor" aria-hidden="true" href="#518-死锁-及-避免">#</a></h3>
+<ul>
+<li>条件互斥：独享资源</li>
+<li>占有且等待：不放手，等别人放弃</li>
+<li>不可抢占：文明</li>
+<li>循环等待： A=&gt;B=&gt;C=&gt;A</li>
+</ul>
+<p>避免：</p>
+<ul>
+<li>按序申请 =&gt; 锁获取的顺序相同，这样就可以在前面卡住</li>
+<li>超时等待时间=&gt;释放手中资源和锁</li>
+</ul>
+<h3 id="519-volatile关键字">519 volatile关键字<a hidden class="anchor" aria-hidden="true" href="#519-volatile关键字">#</a></h3>
+<p>主要的作用还是保证变量的可见性</p>
+<ul>
+<li>可见性：修改了volatile变量的值，该值会被立刻刷新回主内存中，及时让其他线程可见。</li>
+</ul>
+<h3 id="6304-如何知晓子线程是否执行完毕">6304 如何知晓子线程是否执行完毕？<a hidden class="anchor" aria-hidden="true" href="#6304-如何知晓子线程是否执行完毕">#</a></h3>
+<ul>
+<li>ThreadObj.join() 会等待对应子线程执行完毕</li>
+<li>FutureTask+Callable   futrue.get() 拿到线程执行完成的结果</li>
+<li>回调机制：完成后，调用回调函数通知主线程，异步了</li>
+</ul>
+<h3 id="481-semaphore-信号量">481 Semaphore 信号量<a hidden class="anchor" aria-hidden="true" href="#481-semaphore-信号量">#</a></h3>
+<p>ˈseməfɔːr</p>
+<p>主要作用就是确保 只有指定数量的线程能够访问资源，<strong>限制同时访问特定资源的线程数量</strong></p>
+<p><em>基本概念</em></p>
+<ul>
+<li>
+<p>许可 permits: 可以访问资源的线程数量。</p>
+</li>
+<li>
+<p>Acquire：尝试获取许可；</p>
+</li>
+<li>
+<p>release：释放许可。</p>
+</li>
+<li>
+<p>公平：按照请求顺序获取许可，防止线程饥饿</p>
+</li>
+<li>
+<p>非公平：可以提高性能。</p>
+</li>
+</ul>
+<p>常见用法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">Semaphore</span><span class="w"> </span><span class="n">semaphore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Semaphore</span><span class="p">(</span><span class="n">10</span><span class="p">);</span><span class="w">  </span><span class="c1">// 允许最多10个线程访问</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="n">semaphore</span><span class="p">.</span><span class="na">acquire</span><span class="p">();</span><span class="w"> </span><span class="c1">// 失败会阻塞不会往下执行了</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="c1">// 访问共享资源</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="n">semaphore</span><span class="p">.</span><span class="na">release</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="n">Semaphore</span><span class="w"> </span><span class="n">semaphore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Semaphore</span><span class="p">(</span><span class="n">5</span><span class="p">);</span><span class="w">  </span><span class="c1">// 允许最多5个线程同时执行任务</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">10</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">            </span><span class="n">semaphore</span><span class="p">.</span><span class="na">acquire</span><span class="p">();</span><span class="w"> </span><span class="c1">// 阻塞</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">            </span><span class="c1">// 执行任务</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">            </span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">interrupt</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">            </span><span class="n">semaphore</span><span class="p">.</span><span class="na">release</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">    </span><span class="p">}).</span><span class="na">start</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="482-cyclicbarrier">482 CyclicBarrier<a hidden class="anchor" aria-hidden="true" href="#482-cyclicbarrier">#</a></h3>
+<p>ˈsaɪklɪk ˈbæriə(r) 循环障碍 // <strong>可以重用</strong>，当所有线程到达屏障后，刷新</p>
+<p>允许一组线程在执行某个任务相互等待，直到所有线程都达到了Barrier屏障后才能继续执行 // 直接全卡住</p>
+<ul>
+<li>屏障：调用barrier.await() 阻塞，等待所有线程都到达屏障；</li>
+<li>线程数量：预指定的，当所有线程到达屏障，所有线程才被唤醒；</li>
+<li>重用性：可以被重用。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="err">#</span><span class="w"> </span><span class="n">示例</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="kd">static</span><span class="w"> </span><span class="n">CyclicBarrier</span><span class="w"> </span><span class="n">cyclicbarrier</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="n">cyclicbarrier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CyclicBarrier</span><span class="p">(</span><span class="n">parties</span><span class="o">=</span><span class="n">10</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Sout</span><span class="p">(</span><span class="s">&#34;全部准备就绪&#34;</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="p">...)</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">        </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">3000</span><span class="w"> </span><span class="n">ms</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">        </span><span class="n">sout</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="s">&#34;玩家准备完成&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">        </span><span class="n">cyclicbarrier</span><span class="p">.</span><span class="na">await</span><span class="p">()</span><span class="w"> </span><span class="c1">// ⭐等待全部完成</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">        </span><span class="n">sout</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="s">&#34;玩家进入游戏&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="p">})</span><span class="w">  
+</span></span></span></code></pre></div><h3 id="483-countdownlatch">483 CountDownLatch<a hidden class="anchor" aria-hidden="true" href="#483-countdownlatch">#</a></h3>
+<p>倒计时门闩锁  - 不可复用</p>
+<p>作用：<strong>使某线程等待其他线程执行完一组操作完成</strong>。每当其他线程完成一个操作，计数器&ndash;，到达0则等待的ALL线程会被唤醒</p>
+<p>主要功能：</p>
+<ul>
+<li>等待事件完成：await()；</li>
+<li>递减计数器：latch.countdown()；</li>
+<li>线程同步：当计数器变为0，唤醒线程。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">CountDownLatch</span><span class="w"> </span><span class="n">latch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CountDownLatch</span><span class="p">(</span><span class="n">3</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">3</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 异步</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">        </span><span class="n">Thread</span><span class="p">,</span><span class="n">sleep</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">3000</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">        </span><span class="n">sout</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="s">&#34;???&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">        </span><span class="n">latch</span><span class="p">.</span><span class="na">countDown</span><span class="p">();</span><span class="w"> </span><span class="c1">// 这里模拟递减计数器</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="p">}).</span><span class="na">start</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">    
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="n">sout</span><span class="p">(</span><span class="s">&#34;wait all thread finish&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="n">latch</span><span class="p">.</span><span class="na">await</span><span class="p">()</span><span class="w"> </span><span class="c1">// 主线程阻塞等待</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="n">sout</span><span class="p">(</span><span class="s">&#34;all thread finish&#34;</span><span class="p">)</span><span class="w">    
+</span></span></span></code></pre></div><p>// 并行计算结果的汇总</p>
+<h3 id="487-如何控制多个线程的执行顺序呢">487 如何控制多个线程的执行顺序呢？<a hidden class="anchor" aria-hidden="true" href="#487-如何控制多个线程的执行顺序呢">#</a></h3>
+<ul>
+<li>synchronized + awit + notify, A =&gt; B =&gt; C 多组锁</li>
+<li>ReentrantLock + condition 多组</li>
+<li>Thread.join, 逐步等待</li>
+<li>CountDownLatch，等待其他的线程countdown</li>
+<li>semaphore，限制异步为同步顺序</li>
+</ul>
+<h3 id="488-java阻塞队列">488 Java阻塞队列<a hidden class="anchor" aria-hidden="true" href="#488-java阻塞队列">#</a></h3>
+<ul>
+<li>ArrayBlockingQueue</li>
+<li>LinkedBlockingQueue</li>
+<li>PriorBlockingQueue praɪə(r)</li>
+</ul>
+<h3 id="489-原子类">489 原子类<a hidden class="anchor" aria-hidden="true" href="#489-原子类">#</a></h3>
+<ul>
+<li>AtomicInterger                           əˈtɒmɪk ˈɪntɪdʒə(r)</li>
+<li>AtomicStampedReference            stæmpt</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">.</span><span class="na">get</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="p">.</span><span class="na">compareAndSet</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="p">.</span><span class="na">getAndIncrement</span><span class="w">    </span><span class="n">ˈɪŋkrəmənt</span><span class="w">
+</span></span></span></code></pre></div><h3 id="提问">提问<a hidden class="anchor" aria-hidden="true" href="#提问">#</a></h3>
+<h4 id="cas">CAS<a hidden class="anchor" aria-hidden="true" href="#cas">#</a></h4>
+<p>Compare and swap</p>
+<p>比较内存中的值 是否与 之前的预期值(之前拿到的旧值) 相等</p>
+<p>相等 =&gt; 将该变量的值设置为新值</p>
+<p>=&gt; 判断从之前的访问到现在的修改，中间变量的值是否变动过，没变过=&gt;可以修改</p>
+<p>优势：</p>
+<p><strong>无锁并发</strong> + CAS是原子性的(线程安全)</p>
+<p>缺点：</p>
+<ul>
+<li>ABA问题，如果变量值 从 A=&gt;B=&gt;A,CAS无法检测到这种变化</li>
+<li><strong>自旋(重复)开销</strong>：导致CPU资源浪费，因为一直比较，直到能够修改为止</li>
+<li>单变量限制：仅支持修改单变量</li>
+</ul>
+<p>ABA问题：引入版本号或者时间戳，每次更新变量的同时更新版本号，从而依靠版本号判断变量是否被调整过。</p>
+<p>做法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">AtomicStampedReference</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">atomicStampedReference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AtomicStampedReference</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 初始值:版本号 == 0:0</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">updateValue</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">newValue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">stampHolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="n">Integer</span><span class="w"> </span><span class="n">currentValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atomicStampedReference</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">stampHolder</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">currentStamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stampHolder</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">	
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="c1">// </span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="n">updated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atomicStampedReference</span><span class="p">.</span><span class="na">compareAndSet</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="n">newValue</span><span class="p">,</span><span class="w"> </span><span class="n">currentStamp</span><span class="p">,</span><span class="w"> </span><span class="n">currentStamp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">updated</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Value updated to &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">newValue</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Update failed&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>AtomicStampedReference：&lt;ObjRef =&gt; stampedref&gt;</p>
+<p><strong>尝试更新值和版本号</strong></p>
+<p>boolean updated = atomicStampedReference.compareAndSet(expected, newValue, currentStamp, currentStamp + 1);</p>
+<p>期望的当前值，更新值，期望的版本号，更新的版本号; <strong>当期望的两个值相同才更新</strong></p>
+<p>辅助理解</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="n">newValue</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">ready</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="c1">// 获取当前引用值和版本号</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">stampHolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="c1">// 因为Java只能返回一个返回值，将多个结果修改数组的形式间接返回</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="n">Integer</span><span class="w"> </span><span class="n">currentValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atomicStampedRef</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">stampHolder</span><span class="p">);</span><span class="w"> 
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">currentStamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stampHolder</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="c1">// ⭐⭐⭐</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="s">&#34;当前值: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">currentValue</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="nl">版本号</span><span class="p">:</span><span class="w"> </span><span class="s">&#34; + currentStamp 
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s">    
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s">atomicStampedReference.compareAndSet(expected, newValue, currentStamp, currentStamp + 1);
+</span></span></span></code></pre></div><p>在CAS基础上，多判断一个版本号，检查变量是否修改过，解决ABA问题</p>
+<p>// ##</p>
+<p>自旋锁 =&gt; 获取锁失败，不会阻塞，而是重复尝试获取锁 ❗非公平:饥饿；性能问题:对同一变量高并发进行CAS</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SpinLock</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">AtomicBoolean</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AtomicBoolean</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">lock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">lock</span><span class="p">.</span><span class="na">compareAndSet</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">            </span><span class="c1">// 自旋等待</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">unlock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">        </span><span class="n">lock</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>针对自旋锁=&gt;CLH</p>
+<h4 id="aqs">AQS<a hidden class="anchor" aria-hidden="true" href="#aqs">#</a></h4>
+<p><strong>Abstract Queued Synchronizer</strong> 是同步器的基础框架， 起到抽象、封装的作用，将一些排队、入队、加锁、中断方法提供出来，具体加锁时机、入队时机等需要实现类自己控制。</p>
+<ul>
+<li><strong>(volatile申明)state状态</strong>，可以通过CAS无锁并发方式竞争锁</li>
+</ul>
+<p>AQS支持</p>
+<ol>
+<li>独占模式：只有一个线程可以执行，互斥锁；</li>
+<li>共享模式：多个线程可以同时执行，例如信号量；</li>
+</ol>
+<p>当一个线程获取锁失败时，AQS将其插入等待队列中，并阻塞线程，直到同步状态可用。</p>
+<p>使用AQS实现一个独占锁</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SimpleLock</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Sync</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AbstractQueuedSynchronizer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">        </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">        </span><span class="kd">protected</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">tryAcquire</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">acquires</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">compareAndSetState</span><span class="p">(</span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">                </span><span class="n">setExclusiveOwnerThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">        </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">        </span><span class="kd">protected</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">tryRelease</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">releases</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">getState</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalMonitorStateException</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">            </span><span class="n">setExclusiveOwnerThread</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">            </span><span class="n">setState</span><span class="p">(</span><span class="n">0</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">        </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">        </span><span class="kd">protected</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isHeldExclusively</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">getState</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">        </span><span class="kd">final</span><span class="w"> </span><span class="n">ConditionObject</span><span class="w"> </span><span class="nf">newCondition</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConditionObject</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Sync</span><span class="w"> </span><span class="n">sync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Sync</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">lock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">        </span><span class="n">sync</span><span class="p">.</span><span class="na">acquire</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">unlock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">        </span><span class="n">sync</span><span class="p">.</span><span class="na">release</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isLocked</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sync</span><span class="p">.</span><span class="na">isHeldExclusively</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Condition</span><span class="w"> </span><span class="nf">newCondition</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sync</span><span class="p">.</span><span class="na">newCondition</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="err">#</span><span class="w"> </span><span class="n">基于AQS的独占锁</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nl">tryAcquire</span><span class="p">:</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">CAS</span><span class="p">(</span><span class="n">原子</span><span class="err">，</span><span class="n">比较且设置</span><span class="p">)</span><span class="n">检查是否锁可以使用</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">可以则设置当前线程为独占模式</span><span class="w"> </span><span class="kc">true</span><span class="o">=&gt;</span><span class="k">else</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="nl">tryRelease</span><span class="p">:</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">getState</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">如果不为1则异常</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">关闭独占模式并释放锁</span><span class="p">(</span><span class="n">state设置为0</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Sync</span><span class="w"> </span><span class="n">sync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Sync</span><span class="p">()</span><span class="w"> </span><span class="c1">// 作为锁对象</span><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w"></span><span class="nl">lock</span><span class="p">:</span><span class="w"> </span><span class="n">sync</span><span class="p">.</span><span class="na">acquire</span><span class="p">(</span><span class="n">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="w"></span><span class="nl">unlock</span><span class="p">:</span><span class="w"> </span><span class="n">sync</span><span class="p">.</span><span class="na">release</span><span class="p">(</span><span class="n">1</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>AQS和CAS两者可以经常一起使用，例如在ReentrantLock中，CAS用于实现锁的获取和释放操作，而AQS则管理锁的状态和等待队列。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="//localhost:1313/tags/juc/">JUC</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="//localhost:1313/posts/jobs/jvm/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>JVM面试题笔记</span>
+  </a>
+  <a class="next" href="//localhost:1313/posts/jobs/mysql/">
+    <span class="title">Next »</span>
+    <br>
+    <span>MySQL面试题笔记</span>
+  </a>
+</nav>
+
+  </footer> <div id="tw-comment"></div>
+ <script>
+     
+     const getStoredTheme = () => localStorage.getItem("pref-theme") === "light" ? "light" : "dark";
+     const setGiscusTheme = () => {
+         const sendMessage = (message) => {
+             const iframe = document.querySelector('iframe.giscus-frame');
+             if (iframe) {
+                 iframe.contentWindow.postMessage({giscus: message}, 'https://giscus.app');
+            }
+        }
+        sendMessage({setConfig: {theme: getStoredTheme()}})
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const giscusAttributes = {
+            "src": "https://giscus.app/client.js",
+            "data-repo": "hhhey-lw\/LongWeiBlog",
+            "data-repo-id": "R_kgDOOMaMvQ",
+            "data-category": "Announcements",
+            "data-category-id": "DIC_kwDOOMaMvc4CoUI4",
+            "data-mapping": "pathname",
+            "data-strict": "0",
+            "data-reactions-enabled": "1",
+            "data-emit-metadata": "0",
+            "data-input-position": "bottom",
+            "data-theme": getStoredTheme(),
+            "data-lang": "en",
+            "data-loading": "lazy",
+            "crossorigin": "anonymous",
+        };
+
+        
+        const giscusScript = document.createElement("script");
+        Object.entries(giscusAttributes).forEach(
+                ([key, value]) => giscusScript.setAttribute(key, value));
+        document.querySelector("#tw-comment").appendChild(giscusScript);
+
+        
+        const themeSwitcher = document.querySelector("#theme-toggle");
+        if (themeSwitcher) {
+            themeSwitcher.addEventListener("click", setGiscusTheme);
+        }
+        const themeFloatSwitcher = document.querySelector("#theme-toggle-float");
+        if (themeFloatSwitcher) {
+            themeFloatSwitcher.addEventListener("click", setGiscusTheme);
+        }
+    });
+</script>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="//localhost:1313/">LongCoding&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

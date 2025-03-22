@@ -8,34 +8,34 @@
 <title>Linux&amp;Docker&amp;Shell命令 | LongCoding&#39;s Blog</title>
 <meta name="keywords" content="Commands">
 <meta name="description" content="docker
-service docker start
-
-docker pull &lt;镜像名称&gt;:&lt;标签&gt;
-
-docker rmi &lt;镜像名称或ID&gt;
-
-docker images
-
-docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt;
-
-docker start &lt;容器名称或ID&gt;
-
-docker ps
-
-docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端
+ 1service docker start
+ 2
+ 3docker pull &lt;镜像名称&gt;:&lt;标签&gt;
+ 4
+ 5docker rmi &lt;镜像名称或ID&gt;
+ 6
+ 7docker images
+ 8
+ 9docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt;
+10
+11docker start &lt;容器名称或ID&gt;
+12
+13docker ps
+14
+15docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端
 Linux
 文件和目录">
 <meta name="author" content="LongWei">
-<link rel="canonical" href="http://localhost:1313/posts/learning/common_commands/">
+<link rel="canonical" href="//localhost:1313/posts/learning/common_commands/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.488b476fe12f895e41e7473bc23e9831609c74c2bdb368da996800ef083721e1.css" integrity="sha256-SItHb&#43;EviV5B50c7wj6YMWCcdMK9s2jamWgA7wg3IeE=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/learning/common_commands/">
+<link rel="alternate" hreflang="en" href="//localhost:1313/posts/learning/common_commands/">
 <noscript>
     <style>
         #theme-toggle,
@@ -72,76 +72,40 @@ Linux
         }
 
     </style>
-</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
- <script type="text/javascript"
-         async
-         src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
- MathJax.Hub.Config({
-   tex2jax: {
-     inlineMath: [['$','$'], ['\\(','\\)']],
-     displayMath: [['$$','$$'], ['\[\[','\]\]']],
-     processEscapes: true,
-     processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-
-MathJax.Hub.Queue(function() {
-    
-    
-    
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<style>
-code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
-}
-</style>
-<meta property="og:url" content="http://localhost:1313/posts/learning/common_commands/">
+</noscript><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><meta property="og:url" content="//localhost:1313/posts/learning/common_commands/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
   <meta property="og:title" content="Linux&Docker&Shell命令">
-  <meta property="og:description" content="docker service docker start docker pull &lt;镜像名称&gt;:&lt;标签&gt; docker rmi &lt;镜像名称或ID&gt; docker images docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt; docker start &lt;容器名称或ID&gt; docker ps docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端 Linux 文件和目录">
+  <meta property="og:description" content="docker 1service docker start 2 3docker pull &lt;镜像名称&gt;:&lt;标签&gt; 4 5docker rmi &lt;镜像名称或ID&gt; 6 7docker images 8 9docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt; 10 11docker start &lt;容器名称或ID&gt; 12 13docker ps 14 15docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端 Linux 文件和目录">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-03-16T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-03-16T00:00:00+00:00">
     <meta property="article:tag" content="Commands">
-      <meta property="og:see_also" content="http://localhost:1313/posts/learning/minibaseline_learning/">
-      <meta property="og:see_also" content="http://localhost:1313/posts/learning/java_learning/">
-      <meta property="og:see_also" content="http://localhost:1313/posts/learning/paper_reading1/">
-      <meta property="og:see_also" content="http://localhost:1313/posts/learning/paper_reading2/">
+      <meta property="og:see_also" content="//localhost:1313/posts/learning/minibaseline_learning/">
+      <meta property="og:see_also" content="//localhost:1313/posts/learning/java_learning/">
+      <meta property="og:see_also" content="//localhost:1313/posts/learning/paper_reading1/">
+      <meta property="og:see_also" content="//localhost:1313/posts/learning/paper_reading2/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux&amp;Docker&amp;Shell命令">
 <meta name="twitter:description" content="docker
-service docker start
-
-docker pull &lt;镜像名称&gt;:&lt;标签&gt;
-
-docker rmi &lt;镜像名称或ID&gt;
-
-docker images
-
-docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt;
-
-docker start &lt;容器名称或ID&gt;
-
-docker ps
-
-docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端
+ 1service docker start
+ 2
+ 3docker pull &lt;镜像名称&gt;:&lt;标签&gt;
+ 4
+ 5docker rmi &lt;镜像名称或ID&gt;
+ 6
+ 7docker images
+ 8
+ 9docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt;
+10
+11docker start &lt;容器名称或ID&gt;
+12
+13docker ps
+14
+15docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端
 Linux
 文件和目录">
 
@@ -155,13 +119,13 @@ Linux
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://localhost:1313/posts/"
+      "item": "//localhost:1313/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "Linux\u0026Docker\u0026Shell命令",
-      "item": "http://localhost:1313/posts/learning/common_commands/"
+      "item": "//localhost:1313/posts/learning/common_commands/"
     }
   ]
 }
@@ -172,12 +136,12 @@ Linux
   "@type": "BlogPosting",
   "headline": "Linux\u0026Docker\u0026Shell命令",
   "name": "Linux\u0026Docker\u0026Shell命令",
-  "description": "docker service docker start docker pull \u0026lt;镜像名称\u0026gt;:\u0026lt;标签\u0026gt; docker rmi \u0026lt;镜像名称或ID\u0026gt; docker images docker run [选项] \u0026lt;镜像名称\u0026gt;:\u0026lt;标签\u0026gt; docker start \u0026lt;容器名称或ID\u0026gt; docker ps docker exec -it \u0026lt;容器名称或ID\u0026gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式\u0026amp;伪终端 Linux 文件和目录\n",
+  "description": "docker 1service docker start 2 3docker pull \u0026lt;镜像名称\u0026gt;:\u0026lt;标签\u0026gt; 4 5docker rmi \u0026lt;镜像名称或ID\u0026gt; 6 7docker images 8 9docker run [选项] \u0026lt;镜像名称\u0026gt;:\u0026lt;标签\u0026gt; 10 11docker start \u0026lt;容器名称或ID\u0026gt; 12 13docker ps 14 15docker exec -it \u0026lt;容器名称或ID\u0026gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式\u0026amp;伪终端 Linux 文件和目录\n",
   "keywords": [
     "Commands"
   ],
-  "articleBody": "docker service docker start docker pull \u003c镜像名称\u003e:\u003c标签\u003e docker rmi \u003c镜像名称或ID\u003e docker images docker run [选项] \u003c镜像名称\u003e:\u003c标签\u003e docker start \u003c容器名称或ID\u003e docker ps docker exec -it \u003c容器名称或ID\u003e /bin/bash # execute -it:Interactive and Teletypewriter 交互式\u0026伪终端 Linux 文件和目录\nls -l # -l:详细信息 cd pwd # 当前目录 mkdir/vim rm/rmdir cp mv 文件权限\nchmod # Change Mode # chmod u+rwx file.txt x:Execute chown 系统命令\nps -ef # e:all -f full info ps -u $USER ps -ef | grep # global regular expression print htop # 显示系统资源使用情况 网络管理\nping ifconfig netstat # 网络连接信息 压缩解压\ntar -czvf archive.tar.gz folder_name # 压缩 tar -xzvf archive.tar.gz # 解压 -c: # create 创建 -x: # extract解压 -z: # 使用gzip压缩 -v: # verbose显示[详细]信息 -f：# file 指定文件名 杂项\nhistory echo clear Git Git 是一个分布式版本控制系统，支持多人协作开发。\ngit init git clone --link git status 添加文件：git add file 或者 git add . 提交文件：git commit -m \"commit msg\" git push git pull git log // branch 分支 git branch \u003c分支名\u003e git checkout \u003c分支名\u003e // 切换分支 git merge \u003c分支名\u003e -- 手动编辑冲突文件，然后使用 git add 标记冲突已解决，最后提交更改。 Shell 条件判断\n#!/bin/bash if [ -f \"file.txt\" ]; then echo \"file.txt exists.\" else echo \"file.txt not exists.\" fi # -f 检查文件是否存在 #!/bin/bash num=10 if [ $num -gt 5 ]; then echo \"$num is greater than 5.\" fi -gt # greater than 循环\n#!/bin/bash num=(1 2 3 4 5) for i in \"${num[@]}\"; do # 是用于引用数组 num 中所有元素的方式 echo \"number: $i\" done ------------------------ #!/bin/bash if [ $# -eq 0 ]; then echo \"Usage: $0 \" exit 1 fi for i in \"$@\"; do echo \"number: $i\" done # $# 表示传递给脚本或函数的命令行参数的数量 $@ 所有参数 =\u003e ./script.sh 1 2 3 Where\n#!/bin/bash count=1 while [ $count -le 5 ]; do echo \"Count: $count\" count=$((count + 1)) done 函数\n#!/bin/bash greet() { echo \"Hello, $1!\" } greet \"Alice\" greet \"Bob\" 读写文件\necho \"Hello, File!\" \u003e output.txt # write：\u003e 覆盖 \u003e\u003e 追加 while read line; do echo \"Line: $line\" done \u003c file.txt # 读文件 读取输入\necho \"Enter your name:\" read name # 类似scanf 控制台阻塞等待 echo \"Hello, $name!\" read -s -p \"Enter your password: \" password echo \"Password entered.\" # s 静默，不显示信息 p显示提示信息 ",
-  "wordCount" : "707",
+  "articleBody": "docker 1service docker start 2 3docker pull \u003c镜像名称\u003e:\u003c标签\u003e 4 5docker rmi \u003c镜像名称或ID\u003e 6 7docker images 8 9docker run [选项] \u003c镜像名称\u003e:\u003c标签\u003e 10 11docker start \u003c容器名称或ID\u003e 12 13docker ps 14 15docker exec -it \u003c容器名称或ID\u003e /bin/bash # execute -it:Interactive and Teletypewriter 交互式\u0026伪终端 Linux 文件和目录\n1ls -l # -l:详细信息 2cd 3pwd # 当前目录 4mkdir/vim 5rm/rmdir 6cp mv 文件权限\n1chmod # Change Mode # chmod u+rwx file.txt x:Execute 2chown 系统命令\n1ps -ef # e:all -f full info 2ps -u $USER 3ps -ef | grep # global regular expression print 4 5htop # 显示系统资源使用情况 网络管理\n1ping 2ifconfig 3netstat # 网络连接信息 压缩解压\n1tar -czvf archive.tar.gz folder_name # 压缩 2tar -xzvf archive.tar.gz # 解压 3 4-c: # create 创建 5-x: # extract解压 6-z: # 使用gzip压缩 7-v: # verbose显示[详细]信息 8-f：# file 指定文件名 杂项\n1history 2echo 3clear Git Git 是一个分布式版本控制系统，支持多人协作开发。\n1git init 2git clone --link 3git status 4添加文件：git add file 或者 git add . 5提交文件：git commit -m \"commit msg\" 6git push 7git pull 8git log 9 10// branch 分支 11git branch \u003c分支名\u003e 12git checkout \u003c分支名\u003e // 切换分支 13git merge \u003c分支名\u003e 14-- 手动编辑冲突文件，然后使用 git add 标记冲突已解决，最后提交更改。 Shell 条件判断\n1#!/bin/bash 2if [ -f \"file.txt\" ]; then 3 echo \"file.txt exists.\" 4else 5 echo \"file.txt not exists.\" 6fi 7 8# -f 检查文件是否存在 9 10#!/bin/bash 11num=10 12if [ $num -gt 5 ]; then 13 echo \"$num is greater than 5.\" 14fi 15 16-gt # greater than 循环\n1#!/bin/bash 2num=(1 2 3 4 5) 3for i in \"${num[@]}\"; do # 是用于引用数组 num 中所有元素的方式 4 echo \"number: $i\" 5done 6------------------------ 7#!/bin/bash 8if [ $# -eq 0 ]; then 9 echo \"Usage: $0 \" 10 exit 1 11fi 12 13for i in \"$@\"; do 14 echo \"number: $i\" 15done 16 17# $# 表示传递给脚本或函数的命令行参数的数量 $@ 所有参数 18=\u003e ./script.sh 1 2 3 Where\n1#!/bin/bash 2count=1 3while [ $count -le 5 ]; do 4 echo \"Count: $count\" 5 count=$((count + 1)) 6done 函数\n1#!/bin/bash 2greet() { 3 echo \"Hello, $1!\" 4} 5greet \"Alice\" 6greet \"Bob\" 读写文件\n1echo \"Hello, File!\" \u003e output.txt # write：\u003e 覆盖 \u003e\u003e 追加 2 3while read line; do 4 echo \"Line: $line\" 5done \u003c file.txt # 读文件 读取输入\n1echo \"Enter your name:\" 2read name # 类似scanf 控制台阻塞等待 3echo \"Hello, $name!\" 4 5read -s -p \"Enter your password: \" password 6echo \"Password entered.\" 7 8# s 静默，不显示信息 p显示提示信息 ",
+  "wordCount" : "739",
   "inLanguage": "en",
   "datePublished": "2025-03-16T00:00:00Z",
   "dateModified": "2025-03-16T00:00:00Z",
@@ -187,14 +151,14 @@ Linux
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:1313/posts/learning/common_commands/"
+    "@id": "//localhost:1313/posts/learning/common_commands/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "LongCoding's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://localhost:1313/favicon.ico"
+      "url": "//localhost:1313/favicon.ico"
     }
   }
 }
@@ -216,7 +180,7 @@ Linux
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="LongCoding&#39;s Blog (Alt + H)">LongCoding&#39;s Blog</a>
+            <a href="//localhost:1313/" accesskey="h" title="LongCoding&#39;s Blog (Alt + H)">LongCoding&#39;s Blog</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -242,33 +206,33 @@ Linux
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="LongCoding&#39;s Blog">
-                    <span>Home</span>
+                <a href="//localhost:1313/" title="LongCoding&#39;s Blog">
+                    <span>🏡 Home</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="Timeline">
-                    <span>Archive</span>
+                <a href="//localhost:1313/archives/" title="Timeline">
+                    <span>📃 Archive</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/categories/" title="Categories">
-                    <span>Category</span>
+                <a href="//localhost:1313/tags/" title="Tags">
+                    <span>📑 Tags</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="Tags">
-                    <span>Tags</span>
+                <a href="//localhost:1313/categories/" title="Categories">
+                    <span>🗒️ Categories</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>Search</span>
+                <a href="//localhost:1313/search/" title="Search">
+                    <span>🔍 Search</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="About Me">
-                    <span>About</span>
+                <a href="//localhost:1313/about/" title="About Me">
+                    <span>👨🏻‍🎓 About Me</span>
                 </a>
             </li>
         </ul>
@@ -278,11 +242,11 @@ Linux
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="//localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="//localhost:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Linux&amp;Docker&amp;Shell命令
     </h1>
-    <div class="post-meta"><span title='2025-03-16 00:00:00 +0000 UTC'>March 16, 2025</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;LongWei
+    <div class="post-meta"><span title='2025-03-16 00:00:00 +0000 UTC'>March 16, 2025</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;739 words&nbsp;·&nbsp;LongWei
 
 </div>
   </header> <div class="toc">
@@ -307,159 +271,208 @@ Linux
 </div>
 
   <div class="post-content"><h3 id="docker">docker<a hidden class="anchor" aria-hidden="true" href="#docker">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service docker start
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">docker pull &lt;镜像名称&gt;:&lt;标签&gt;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">docker rmi &lt;镜像名称或ID&gt;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">docker images
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">docker run <span class="o">[</span>选项<span class="o">]</span> &lt;镜像名称&gt;:&lt;标签&gt;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">docker start &lt;容器名称或ID&gt;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">docker ps
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it &lt;容器名称或ID&gt; /bin/bash <span class="c1"># execute -it:Interactive and Teletypewriter 交互式&amp;伪终端</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">service docker start
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">docker pull &lt;镜像名称&gt;:&lt;标签&gt;
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">docker rmi &lt;镜像名称或ID&gt;
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">docker images
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">docker run <span class="o">[</span>选项<span class="o">]</span> &lt;镜像名称&gt;:&lt;标签&gt;
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">docker start &lt;容器名称或ID&gt;
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl">docker ps
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl">docker <span class="nb">exec</span> -it &lt;容器名称或ID&gt; /bin/bash <span class="c1"># execute -it:Interactive and Teletypewriter 交互式&amp;伪终端</span>
 </span></span></code></pre></div><h3 id="linux"><strong>Linux</strong><a hidden class="anchor" aria-hidden="true" href="#linux">#</a></h3>
 <p>文件和目录</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls -l <span class="c1"># -l:详细信息</span>
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span>
-</span></span><span class="line"><span class="cl"><span class="nb">pwd</span> <span class="c1"># 当前目录</span>
-</span></span><span class="line"><span class="cl">mkdir/vim
-</span></span><span class="line"><span class="cl">rm/rmdir
-</span></span><span class="line"><span class="cl">cp mv
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">ls -l <span class="c1"># -l:详细信息</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">cd</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nb">pwd</span> <span class="c1"># 当前目录</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">mkdir/vim
+</span></span><span class="line"><span class="ln">5</span><span class="cl">rm/rmdir
+</span></span><span class="line"><span class="ln">6</span><span class="cl">cp mv
 </span></span></code></pre></div><p>文件权限</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod  <span class="c1"># Change Mode  # chmod u+rwx file.txt x:Execute</span>
-</span></span><span class="line"><span class="cl">chown
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">chmod  <span class="c1"># Change Mode  # chmod u+rwx file.txt x:Execute</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">chown
 </span></span></code></pre></div><p>系统命令</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ps -ef  <span class="c1"># e:all -f full info</span>
-</span></span><span class="line"><span class="cl">ps -u <span class="nv">$USER</span>
-</span></span><span class="line"><span class="cl">ps -ef <span class="p">|</span> grep &lt;info&gt;  <span class="c1"># global regular expression print</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">htop  <span class="c1"># 显示系统资源使用情况</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">ps -ef  <span class="c1"># e:all -f full info</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">ps -u <span class="nv">$USER</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">ps -ef <span class="p">|</span> grep &lt;info&gt;  <span class="c1"># global regular expression print</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl">htop  <span class="c1"># 显示系统资源使用情况</span>
 </span></span></code></pre></div><p>网络管理</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping
-</span></span><span class="line"><span class="cl">ifconfig
-</span></span><span class="line"><span class="cl">netstat  <span class="c1"># 网络连接信息</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">ping
+</span></span><span class="line"><span class="ln">2</span><span class="cl">ifconfig
+</span></span><span class="line"><span class="ln">3</span><span class="cl">netstat  <span class="c1"># 网络连接信息</span>
 </span></span></code></pre></div><p>压缩解压</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar -czvf archive.tar.gz folder_name  <span class="c1"># 压缩 </span>
-</span></span><span class="line"><span class="cl">tar -xzvf archive.tar.gz  <span class="c1"># 解压</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">-c: <span class="c1"># create 创建</span>
-</span></span><span class="line"><span class="cl">-x: <span class="c1"># extract解压</span>
-</span></span><span class="line"><span class="cl">-z: <span class="c1"># 使用gzip压缩</span>
-</span></span><span class="line"><span class="cl">-v: <span class="c1"># verbose显示[详细]信息</span>
-</span></span><span class="line"><span class="cl">-f：# file 指定文件名
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">tar -czvf archive.tar.gz folder_name  <span class="c1"># 压缩 </span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">tar -xzvf archive.tar.gz  <span class="c1"># 解压</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl">-c: <span class="c1"># create 创建</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">-x: <span class="c1"># extract解压</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">-z: <span class="c1"># 使用gzip压缩</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">-v: <span class="c1"># verbose显示[详细]信息</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">-f：# file 指定文件名
 </span></span></code></pre></div><p>杂项</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">history</span> 
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
-</span></span><span class="line"><span class="cl">clear
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">history</span> 
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">clear
 </span></span></code></pre></div><h3 id="git"><strong>Git</strong><a hidden class="anchor" aria-hidden="true" href="#git">#</a></h3>
 <p>Git 是一个分布式版本控制系统，支持多人协作开发。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git init
-</span></span><span class="line"><span class="cl">git clone --link
-</span></span><span class="line"><span class="cl">git status
-</span></span><span class="line"><span class="cl">添加文件：git add file  或者 git add .
-</span></span><span class="line"><span class="cl">提交文件：git commit -m <span class="s2">&#34;commit msg&#34;</span>
-</span></span><span class="line"><span class="cl">git push 
-</span></span><span class="line"><span class="cl">git pull
-</span></span><span class="line"><span class="cl">git log
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">// branch 分支
-</span></span><span class="line"><span class="cl">git branch &lt;分支名&gt;
-</span></span><span class="line"><span class="cl">git checkout &lt;分支名&gt;  // 切换分支
-</span></span><span class="line"><span class="cl">git merge &lt;分支名&gt;
-</span></span><span class="line"><span class="cl">-- 手动编辑冲突文件，然后使用 git add 标记冲突已解决，最后提交更改。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">git init
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">git clone --link
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">git status
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">添加文件：git add file  或者 git add .
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">提交文件：git commit -m <span class="s2">&#34;commit msg&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">git push 
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">git pull
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">git log
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">// branch 分支
+</span></span><span class="line"><span class="ln">11</span><span class="cl">git branch &lt;分支名&gt;
+</span></span><span class="line"><span class="ln">12</span><span class="cl">git checkout &lt;分支名&gt;  // 切换分支
+</span></span><span class="line"><span class="ln">13</span><span class="cl">git merge &lt;分支名&gt;
+</span></span><span class="line"><span class="ln">14</span><span class="cl">-- 手动编辑冲突文件，然后使用 git add 标记冲突已解决，最后提交更改。
 </span></span></code></pre></div><h3 id="shell"><strong>Shell</strong><a hidden class="anchor" aria-hidden="true" href="#shell">#</a></h3>
 <p>条件判断</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;file.txt&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;file.txt exists.&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;file.txt not exists.&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># -f 检查文件是否存在</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#!/bin/bash</span>
-</span></span><span class="line"><span class="cl"><span class="nv">num</span><span class="o">=</span><span class="m">10</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$num</span> -gt <span class="m">5</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$num</span><span class="s2"> is greater than 5.&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">-gt <span class="c1"># greater than</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cp"></span><span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;file.txt&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;file.txt exists.&#34;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;file.txt not exists.&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"># -f 检查文件是否存在</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1">#!/bin/bash</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="nv">num</span><span class="o">=</span><span class="m">10</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$num</span> -gt <span class="m">5</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$num</span><span class="s2"> is greater than 5.&#34;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl">-gt <span class="c1"># greater than</span>
 </span></span></code></pre></div><p>循环</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">num</span><span class="o">=(</span><span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> 5<span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> i in <span class="s2">&#34;</span><span class="si">${</span><span class="nv">num</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>  <span class="c1"># 是用于引用数组 num 中所有元素的方式</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;number: </span><span class="nv">$i</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">done</span>
-</span></span><span class="line"><span class="cl">------------------------
-</span></span><span class="line"><span class="cl"><span class="c1">#!/bin/bash</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;Usage: </span><span class="nv">$0</span><span class="s2"> &lt;n1&gt; &lt;n2&gt;&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">exit</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">for</span> i in <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;number: </span><span class="nv">$i</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">done</span>    
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># $# 表示传递给脚本或函数的命令行参数的数量  $@ 所有参数</span>
-</span></span><span class="line"><span class="cl"><span class="o">=</span>&gt; ./script.sh <span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cp"></span><span class="nv">num</span><span class="o">=(</span><span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> 5<span class="o">)</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="k">for</span> i in <span class="s2">&#34;</span><span class="si">${</span><span class="nv">num</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>  <span class="c1"># 是用于引用数组 num 中所有元素的方式</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;number: </span><span class="nv">$i</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">------------------------
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1">#!/bin/bash</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;Usage: </span><span class="nv">$0</span><span class="s2"> &lt;n1&gt; &lt;n2&gt;&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="k">for</span> i in <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;number: </span><span class="nv">$i</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="k">done</span>    
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="c1"># $# 表示传递给脚本或函数的命令行参数的数量  $@ 所有参数</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="o">=</span>&gt; ./script.sh <span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
 </span></span></code></pre></div><p>Where</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">count</span><span class="o">=</span><span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="o">[</span> <span class="nv">$count</span> -le <span class="m">5</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Count: </span><span class="nv">$count</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">count</span><span class="o">=</span><span class="k">$((</span>count <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
-</span></span><span class="line"><span class="cl"><span class="k">done</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span><span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">while</span> <span class="o">[</span> <span class="nv">$count</span> -le <span class="m">5</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Count: </span><span class="nv">$count</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="nv">count</span><span class="o">=</span><span class="k">$((</span>count <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="k">done</span>
 </span></span></code></pre></div><p>函数</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>greet<span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Hello, </span><span class="nv">$1</span><span class="s2">!&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">greet <span class="s2">&#34;Alice&#34;</span>
-</span></span><span class="line"><span class="cl">greet <span class="s2">&#34;Bob&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span>greet<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Hello, </span><span class="nv">$1</span><span class="s2">!&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">greet <span class="s2">&#34;Alice&#34;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">greet <span class="s2">&#34;Bob&#34;</span>
 </span></span></code></pre></div><p>读写文件</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Hello, File!&#34;</span> &gt; output.txt  <span class="c1"># write：&gt; 覆盖 &gt;&gt; 追加</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="nb">read</span> line<span class="p">;</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Line: </span><span class="nv">$line</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">done</span> &lt; file.txt     <span class="c1"># 读文件</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Hello, File!&#34;</span> &gt; output.txt  <span class="c1"># write：&gt; 覆盖 &gt;&gt; 追加</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">while</span> <span class="nb">read</span> line<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Line: </span><span class="nv">$line</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="k">done</span> &lt; file.txt     <span class="c1"># 读文件</span>
 </span></span></code></pre></div><p>读取输入</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Enter your name:&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">read</span> name  <span class="c1"># 类似scanf 控制台阻塞等待</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Hello, </span><span class="nv">$name</span><span class="s2">!&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">read</span> -s -p <span class="s2">&#34;Enter your password: &#34;</span> password
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Password entered.&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># s 静默，不显示信息  p显示提示信息</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Enter your name:&#34;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">read</span> name  <span class="c1"># 类似scanf 控制台阻塞等待</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Hello, </span><span class="nv">$name</span><span class="s2">!&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nb">read</span> -s -p <span class="s2">&#34;Enter your password: &#34;</span> password
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Password entered.&#34;</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="c1"># s 静默，不显示信息  p显示提示信息</span>
 </span></span></code></pre></div>
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/commands/">Commands</a></li>
+      <li><a href="//localhost:1313/tags/commands/">Commands</a></li>
     </ul>
 <nav class="paginav">
-  <a class="next" href="http://localhost:1313/posts/jobs/collection/">
+  <a class="next" href="//localhost:1313/posts/jobs/collection/">
     <span class="title">Next »</span>
     <br>
     <span>集合面试题笔记</span>
   </a>
 </nav>
 
-  </footer>
+  </footer> <div id="tw-comment"></div>
+ <script>
+     
+     const getStoredTheme = () => localStorage.getItem("pref-theme") === "light" ? "light" : "dark";
+     const setGiscusTheme = () => {
+         const sendMessage = (message) => {
+             const iframe = document.querySelector('iframe.giscus-frame');
+             if (iframe) {
+                 iframe.contentWindow.postMessage({giscus: message}, 'https://giscus.app');
+            }
+        }
+        sendMessage({setConfig: {theme: getStoredTheme()}})
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const giscusAttributes = {
+            "src": "https://giscus.app/client.js",
+            "data-repo": "hhhey-lw\/LongWeiBlog",
+            "data-repo-id": "R_kgDOOMaMvQ",
+            "data-category": "Announcements",
+            "data-category-id": "DIC_kwDOOMaMvc4CoUI4",
+            "data-mapping": "pathname",
+            "data-strict": "0",
+            "data-reactions-enabled": "1",
+            "data-emit-metadata": "0",
+            "data-input-position": "bottom",
+            "data-theme": getStoredTheme(),
+            "data-lang": "en",
+            "data-loading": "lazy",
+            "crossorigin": "anonymous",
+        };
+
+        
+        const giscusScript = document.createElement("script");
+        Object.entries(giscusAttributes).forEach(
+                ([key, value]) => giscusScript.setAttribute(key, value));
+        document.querySelector("#tw-comment").appendChild(giscusScript);
+
+        
+        const themeSwitcher = document.querySelector("#theme-toggle");
+        if (themeSwitcher) {
+            themeSwitcher.addEventListener("click", setGiscusTheme);
+        }
+        const themeFloatSwitcher = document.querySelector("#theme-toggle-float");
+        if (themeFloatSwitcher) {
+            themeFloatSwitcher.addEventListener("click", setGiscusTheme);
+        }
+    });
+</script>
+
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">LongCoding&#39;s Blog</a></span> · 
+        <span>&copy; 2025 <a href="//localhost:1313/">LongCoding&#39;s Blog</a></span> · 
 
     <span>
         Powered by
