@@ -176,22 +176,6 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Linux&amp;Docker&amp;Shell命令
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>docker 1service docker start 2 3docker pull &lt;镜像名称&gt;:&lt;标签&gt; 4 5docker rmi &lt;镜像名称或ID&gt; 6 7docker images 8 9docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt; 10 11docker start &lt;容器名称或ID&gt; 12 13docker ps 14 15docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端 Linux 文件和目录
-1ls -l # -l:详细信息 2cd 3pwd # 当前目录 4mkdir/vim 5rm/rmdir 6cp mv 文件权限
-1chmod # Change Mode # chmod u&#43;rwx file.txt x:Execute 2chown 系统命令
-1ps -ef # e:all -f full info 2ps -u $USER 3ps -ef | grep &lt;info&gt; # global regular expression print 4 5htop # 显示系统资源使用情况 网络管理
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-03-16 00:00:00 +0000 UTC'>March 16, 2025</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;372 words&nbsp;·&nbsp;LongWei</footer>
-  <a class="entry-link" aria-label="post link to Linux&Docker&Shell命令" href="http://121.40.252.207/posts/learning/common_commands/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">集合面试题笔记
     </h2>
   </header>
@@ -367,30 +351,48 @@ work flow
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">LeetCodeHot100刷题笔记
+    <h2 class="entry-hint-parent">深度学习论文汇总1
     </h2>
   </header>
   <div class="entry-content">
-    <p>热题100 哈希 1. 两数之和 给定： 数组nums 和target
-要求：找出两元素之和为target的数组下标
-暴力：
-1for i in range(len(nums)): 2 for j in range(i&#43;1, len(nums)): 3 if ... 4# O(n^2) 题解：
-问题分解 =&gt; 给定x 寻找 target-x(这是复杂度的主要部分)
-用额外结构记录
-1hashtable = dict() 2for i in range(len(nums)): 3 if nums[i] in hashtable: 4 return [i, hashtable[nums[i]]] 5 else: 6 hashtable[nums[i]] = i 7# 保存遍历过的元素，参考过去 49. 字母异位词分组 输入: strs = [&#34;eat&#34;, &#34;tea&#34;, &#34;tan&#34;, &#34;ate&#34;, &#34;nat&#34;, &#34;bat&#34;]输出: [[&#34;bat&#34;],[&#34;nat&#34;,&#34;tan&#34;],[&#34;ate&#34;,&#34;eat&#34;,&#34;tea&#34;]] 思路：condition =&gt; […]
-HashTable, Key=排序后的Str, Value=List&lt;String&gt;
-1HashMap&lt;String, List&lt;String&gt;&gt; hashTable = new HashMap&lt;&gt;(); 2for(String str : strs){ 3 char[] charArray = str.toCharArray(); // 将字符串转换为字符数组 4 Arrays.sort(charArray); // 对字符数组进行排序 5 String orderStr = new String(charArray); 6 if (hashTable.containsKey(orderStr)) { 7 hashTable.get(orderStr).add(str); 8 }else { 9 hashTable.put(orderStr, new ArrayList&lt;&gt;()); 10 hashTable.get(orderStr).add(str); 11 } 12} 13 14List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;(); 15 16for (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : hashTable.entrySet()) { 17 res.add(entry.getValue()); 18} 19return res; 128. 最长连续序列 1HashSet&lt;Integer&gt; hashSet = new HashSet&lt;&gt;(); 2// 去重复，并且查询O(1) 3for (int num : nums) { 4 hashSet.add(num); 5} 6 7List&lt;Integer&gt; start_nums = new ArrayList&lt;&gt;(); 8 9// 找所有为起点的数 10for (Iterator&lt;Integer&gt; it = hashSet.iterator(); it.hasNext(); ) { 11 int num = it.next(); 12 if (!hashSet.contains(num-1)){ 13 start_nums.add(num); 14 } 15} 16 17// 遍历起点x, 遍历 x&#43;1, x&#43;2, ... 18int longest_length = 0; 19for(int start : start_nums){ 20 int current_length = 1; 21 int start_i = start; 22 while (hashSet.contains(start_i&#43;1)) { 23 current_length &#43;= 1; 24 start_i &#43;= 1; 25 } 26 if (current_length &gt; longest_length){ 27 longest_length = current_length; 28 } 29} 30return longest_length; 31} 双指针 283. 移动零 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序(原始数组位置，非不是重新排序)。
+    <p>图示 卷积注意力 自注意力 学习 Norm Loss Cross Entropy $$ Loss = -\sum_{i}^{C}y_ilog(p(x_{i})), where \ y_i\ is label,p(x_i)\ is\ predict. $$
+BCE Loss $$ Loss = −\sum_{i}^{c}(y_ilog(p(x_i)&#43;(1−y_i)log(1−p(x_i)) \ where \ y_i \in [0, 1] \
+pos_partition = -log(p(x_i))\ neg_partition = -log(1-p(x_i)) $$
+Focal Loss $$ Loss = -α_t(1-p_t)^γlog(p_t)\
+# Multi-Label:\ 1.\ pos_loss = α(1-p(x_i))^γ\ \ -log(p_t)\ 2.\ neg_loss = (1-α)p(x_i)^γ\ \ -log(1-p_t) $$
+论文 Mlp-mixer - NIPS 2021 title: Mlp-mixer: An all-mlp architecture for vision
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-09-18 00:00:00 +0000 UTC'>September 18, 2024</span>&nbsp;·&nbsp;35 min&nbsp;·&nbsp;7397 words&nbsp;·&nbsp;LongWei</footer>
-  <a class="entry-link" aria-label="post link to LeetCodeHot100刷题笔记" href="http://121.40.252.207/posts/leetcode/leetcode_hot100/"></a>
+  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;12 min&nbsp;·&nbsp;2516 words&nbsp;·&nbsp;LongWei</footer>
+  <a class="entry-link" aria-label="post link to 深度学习论文汇总1" href="http://121.40.252.207/posts/learning/paper_reading1/"></a>
 </article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="next" href="http://121.40.252.207/posts/page/2/">Next&nbsp;&nbsp;»
-    </a>
-  </nav>
-</footer>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">深度学习论文汇总2
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>CAM - CVPR 2015 Learning Deep Features for Discriminative Localization
+弱监督对象定位 - 仅提供Image level label
+期望：每个单元被其感受野内的某种视觉模式激活。因此 fk （表示空间位置 (x, y) 处最后一个卷积层中单元 k 的激活//输出特征图的一个像素）是该视觉模式存在的地图。类激活图只是这些视觉模式在不同空间位置的存在的加权线性和
+计算卷积特征图对于特定输出单元的重要性来实现的
+⭐⭐⭐网络可以保留其卓越的定位能力，直到最后一层 =&gt; 深层特征的定位能力
+❗❗❗尽管接受了图像级标签的训练，CNN 仍具有出色的对象定位能力
+缺陷：卷积特征图→全局平均池化→softmax层 // 特定网络结构
+做法图示数学公式在卷积特征图上执行全局平均池化，并将它们用作全连接层的特征，产生所需的输出分类;
+❗❗❗将输出层的权重投影回卷积特征图来识别图像区域的重要性
+Grad-CAM - ICCV 2017 适用CNN模型
+但论文提到在CNN&#43;LSTM的也能定位有区别的图像区域
+α 捕获特征图 k 对于目标类 c 的重要性 // 与CAM的分类线性层权重作用一致
+ReLU的作用，只对对感兴趣的类别有积极影响的特征感兴趣。负像素可能属于图像中的其他类别
+上述操作 =&gt; 具有类别区分性并且可以很好地定位相关图像区域 - 最后特征图比较小!
+但缺乏显示细粒度重要性的能力 （能区分猫狗，但对为什么识别为猫，不够精确）通过点乘法融合 引导反向传播 和 Grad-CAM =&gt; 可视化
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;19 min&nbsp;·&nbsp;3881 words&nbsp;·&nbsp;LongWei</footer>
+  <a class="entry-link" aria-label="post link to 深度学习论文汇总2" href="http://121.40.252.207/posts/learning/paper_reading2/"></a>
+</article>
     </main>
     
 <footer class="footer">

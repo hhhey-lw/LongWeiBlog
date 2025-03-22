@@ -179,32 +179,6 @@ JVM内存模型 ❗❗❗内存堆和数据结构堆不是同一个东西(不是
   <footer class="entry-footer"><span title='2025-02-19 00:00:00 +0000 UTC'>February 19, 2025</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;1389 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to Java面试题笔记" href="http://121.40.252.207/posts/jobs/java/"></a>
 </article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Java学习笔记
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p> Java 反射 它提供了动态性和灵活性，使得程序可以在运行时动态地加载类、调用方法、访问字段等，而不需要在编译时确定这些操作。
-1. 动态加载类
-在运行时根据类名动态加载类，而不是在编译时硬编码类名。 – 插件化架构：根据配置文件或用户输入动态加载类。
-2. 创建对象
-通过反射可以在运行时动态创建对象，即使类的构造函数是私有的。
-工厂模式：根据配置动态创建对象。 依赖注入框架：Spring 通过反射创建 Bean 实例。 3. 调用方法
-通过反射可以在运行时动态调用对象的方法，即使方法是私有的。
-测试框架：JUnit 通过反射调用测试方法。 4. 访问字段
-通过反射可以在运行时动态访问对象的字段，即使字段是私有的
-序列化和反序列化：通过反射访问对象的字段。 对象关系映射（ORM）：Hibernate 通过反射访问实体类的字段。 7. 注解处理
-通过反射可以获取类、方法、字段上的注解，并根据注解执行相应的逻辑。
-24/4/14
-1️⃣ 反射的作用
-获取类中的所有信息(e.g.持久化、IDE的代码提示) 1Field[] fields = cls.getDeclaredFields(); 2for (int i = 0; i &lt; fields.length; i&#43;&#43;) { 3 fields[i].setAccessible(true); 4 // String name = fields[i].getName(); // 属性名 第一次先生成列名 5 Object value = fields[i].get(obj); 6 bw.append(value.toString()); 7 if (i &lt; fields.length - 1) { 8 bw.append(&#34;, &#34;); 9 } 10} 11bw.newLine(); 结合配置文件动态创建对象 1Properties prop = new Properties(); 2 3String filename = &#34;prop.properties&#34;; 4FileInputStream is = new FileInputStream(filename); 5 6prop.load(is); 7 8String classname = prop.getProperty(&#34;classname&#34;); 9String method = prop.getProperty(&#34;method&#34;); 10String name = prop.getProperty(&#34;name&#34;); 11 12Class cls = Class.forName(classname); 13Constructor con = cls.getDeclaredConstructor(); 14Object o = con.newInstance(); 15 16Method setName = cls.getMethod(&#34;setName&#34;, String.class); 17setName.invoke(o, name); 18 19Method met = cls.getDeclaredMethod(method); 20met.invoke(o); 2️⃣ 获取Class的三种方式
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;25 min&nbsp;·&nbsp;5142 words&nbsp;·&nbsp;LongWei</footer>
-  <a class="entry-link" aria-label="post link to Java学习笔记" href="http://121.40.252.207/posts/learning/java_learning/"></a>
-</article>
     </main>
     
 <footer class="footer">
