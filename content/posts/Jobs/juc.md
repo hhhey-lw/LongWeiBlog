@@ -5,7 +5,6 @@ date: "2025-03-05"
 tags: ["JUC"]
 categories: ["Jobs"]
 series: ["JobLearning"]
-aliases: ["mianshiya_concurrency"]
 ShowToc: true
 TocOpen: true
 ---

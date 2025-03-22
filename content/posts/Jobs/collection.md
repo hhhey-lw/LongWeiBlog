@@ -5,7 +5,6 @@ date: "2025-03-13"
 tags: ["Collection"]
 categories: ["Jobs"]
 series: ["JobLearning"]
-aliases: ["mianshiya_collection"]
 ShowToc: true
 TocOpen: true
 ---

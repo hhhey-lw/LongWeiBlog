@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>ECG论文和实验 | LongCoding&#39;s Blog</title>
+<meta name="keywords" content="ECG">
+<meta name="description" content="ECG心电图论文创新点整理和初步实验">
+<meta name="author" content="LongWei">
+<link rel="canonical" href="http://121.40.252.207/posts/learning/ecg_exp/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://121.40.252.207/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://121.40.252.207/apple-touch-icon.png">
+<link rel="mask-icon" href="http://121.40.252.207/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://121.40.252.207/posts/learning/ecg_exp/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="http://121.40.252.207/posts/learning/ecg_exp/">
+  <meta property="og:site_name" content="LongCoding&#39;s Blog">
+  <meta property="og:title" content="ECG论文和实验">
+  <meta property="og:description" content="ECG心电图论文创新点整理和初步实验">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-04-19T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-04-19T00:00:00+00:00">
+    <meta property="article:tag" content="ECG">
+      <meta property="og:image" content="http://121.40.252.207/papermod-cover.png">
+      <meta property="og:see_also" content="http://121.40.252.207/posts/learning/minibaseline_learning/">
+      <meta property="og:see_also" content="http://121.40.252.207/posts/learning/paper_reading1/">
+      <meta property="og:see_also" content="http://121.40.252.207/posts/learning/paper_reading2/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://121.40.252.207/papermod-cover.png">
+<meta name="twitter:title" content="ECG论文和实验">
+<meta name="twitter:description" content="ECG心电图论文创新点整理和初步实验">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://121.40.252.207/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "ECG论文和实验",
+      "item": "http://121.40.252.207/posts/learning/ecg_exp/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ECG论文和实验",
+  "name": "ECG论文和实验",
+  "description": "ECG心电图论文创新点整理和初步实验",
+  "keywords": [
+    "ECG"
+  ],
+  "articleBody": "论文 ⭐IM-ECG - 2023 IM-ECG: An interpretable framework for arrhythmia detection using multi-lead ECG - Expert Systems With Applications sci-1\n创新点:\nConv2D模型与Grad-CAM的适配更好 - 实时标注病理区域 解释性\n双核残差块 - 横轴与竖轴+面 三种扫描方式\nk * n(区域扫描)内核朝向中心压缩ECG以更直接地捕获导联间特征，而1 * n(横轴扫描)内核沿着时间维度压缩ECG并且因此更关注导联内特征\n流程图示\n模型结构\nBlock\nLightweight Transformer - 2022 Enhancing dynamic ECG heartbeat classification with lightweight transformer model\nArtificial Intelligence In Medicine sci-1\n创新点：\n两级注意力机制： 局部 + 全局 // 局部注意力 == 通道注意力 SEBlock || 全局注意力 == Transformer Encoder\n卷积结构来代替自注意\nInput: 检测R峰分段\n模型框架\rCNN Block\rCNN+Attention来提取心跳内部的特征\nlight-Conv Attention\rGLU: gated linear unit\nLconv: depth-wise Convolution\nSE-ECGNet - 2020 SE-ECGNet: A Multi-scale Deep Residual Network with Squeeze-and-Excitation Module for ECG Signal Classification\n2020 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)\n利用ECG信号中的多导联信息，将多尺度二维卷积块与一维卷积块结合起来进行特征提取\n创新点\n提供对心电数据的不同视角 将ECG信号视为二维图片(单通道灰度图)\n模型框架\rCNN Block\r前期较大的卷积核可以扩大感受野，提取更加广泛的信息，后期进行信息浓缩提取\n⭐MVMS-ECG - 2023 A Multi-View Multi-Scale Neural Network for Multi-Label ECG Classification\nIEEE Transactions on Emerging Topics in Computational Intelligence sci-2\n创新点：\n将导联按照连接观测角度分组 分视图的融合网络为教室网络(参数大) =蒸馏\u003e 单视图的学生网络\n模型结构\nCNN Layers\nFusion Layer\n如果是多视图，那么就不要最后的FC将最后特征映射为类别数；\n源码 =\u003e 每个视图output都是 [B, 128] =\u003e 重新加权(128=\u003e1的linear充当调和器) =\u003e 过多视图的FC(128 =\u003e num_class)\nMulti-scale Conv Block\n网络的多尺度表示在更细粒度的级别上得到增强 - 采用Res2Block\nCoordinate Attention 1D\n既建立了特征通道间的关系，对各通道的重要性进行重新加权，又获得了特征空间中的空间信息\nMVKT-ECG - 2023 MVKT-ECG: Efficient single-lead ECG classification for multi-label arrhythmia by multi-view knowledge transferring\nComputers in Biology and Medicine sci-2\n创新点：\n​\t# 多导联信息如何蒸馏到单导联中\n不同导联是检测心脏状况的不同视角，提供对目标疾病的多种观测点和多种外貌\n=\u003e 目标：是教会网络从单导联ECG信号中恢复尽可能多的全导联信息\n导联共同信息的知识蒸馏 虽然有些疾病不能从单导联ECG信号中推断出来，但我们的目标是尽可能缩短单导联ECG解释模型和多导联ECG解释模型之间的信息差距，鼓励学生更多地关注某些特定疾病的关键细节，最大限度地利用单导联ECG解释模型和多导联ECG解释模型之间的疾病信息。\n=\u003e 通过缩短学生模型和教师模型对积极对的表示并将“消极\"对之间的表示分开来实现的\n⭐⭐⭐最大化单导联ECG信号和多导联ECG信号之间的互(共同)信息来传递有用的疾病信息。\n因为：从单导联ECG信号中提取的疾病信息比12导联ECG信号少，但仍包含部分疾病信息。\n❗❗❗ 引出CLT-Loss 太难了，没看\n面向特征与特征的相似度 与 最终预测和标签的Loss目的不一样\n多标签知识蒸馏的优化 仿照CE-Loss 和 BCE-Loss\nMulti-Modal + Instance - 2023 Multimodal multi-instance learning for long-term ECG classification - Knowledge-Based Systems\n节拍 视为 实例\n双模态：一维信号 + 二维图片\n多模态信息融合 传统：\n新方法\n​\t通过使用最大池化操作从每个模态的实例特征中选择顶部激活实例特征(代表)。然后计算顶部激活实例特征和所有剩余实例特征之间的相关性分数以获得特征向量，其中包含来自两种模态的信息。最后，将特征向量和顶部激活实例特征向量融合，得到每个模态的bag特征。每种模态的袋子特征通过线性层拼接在一起，得到最终的袋子特征。\nMulti Res Trans Net - 2023 Multi-scale SE-ResBlock + Transformer Encoder\nMulti-scale SE-residual network with transformer encoder for myocardial infarction classification Applied Soft Computing sci-1\n提取局部特征和全局特征\n模型结构\n分段 - 用具有重叠的滑动窗口\nMulti-scale sample layer\n多尺度采样模块 名称不错\nSE-Resnet Block\nCPC\nGAP(全局平均池化)定位的是整体区域，而GMP(全局最大池化)定位的是目标区域中最重要的部分。\n⭐Dual-Branch CNN-Trans + Select - 2023 A token selection-based multi-scale dual-branch CNN-transformer network for 12-lead ECG signal classification\nKnowledge-Based Systems sci-1\n模型结构\nRR表示计算两个分支中CLS token之间的相关系数 =\u003e RR-Loss 迫使两个分支朝着最终预测同向而行\nCNN Blocks\n⃝+ is element-wise addition\nMSEL\n一般采用ViT中的嵌入, Conv1D实现\n通过不同大小的Token嵌入,或许可以捕获到不同的模式\nToken Select\n删掉冗余的Token,或许可以在论文中可视化一下自注意力图,直观的描述冗余\nECGNet - 2018 ECGNet: Deep Network for Arrhythmia Classification\nInception Block + Conv Block × N\nMulti module: LSTM + CNN + AutoEncoder Multi-module Recurrent Convolutional Neural Network with Transformer Encoder for ECG Arrhythmia Classification\nECG Dual-path RNN - 2022/8 Single-lead ECG recordings modeling for end-to-end recognition of atrial fibrillation with dual-path RNN\nBiomedical Signal Processing and Control 二区\nSegmentation:\n[batch, 1, L] =\u003e [batch, num_seg, len_seg]\n重叠50%\nOverlap-Add:\n​\tSegmentation的逆操作，重叠相加\nRNN为Bi-LSTM\nLSTM 输入数据格式 Batch, num_seq, len_seq\n段间建模 + 段内建模\n图例：\n类似MLP-Mixer，用RNN建模信息融合，隐状态传递时序信息\n⭐MINA - Signal Processing 2019 MINA: Multilevel Knowledge-Guided Attention for Modeling Electrocardiography Signals\n做法：\n特征工程：从心电图波形中提取信息特征 =\u003e 传统机器学习进行处理 =\u003e 结果\n探索P-QRS-T 波的各种幅度和持续时间特征，包括用于分类的形态学 和 RR 间期特征 // Hermite变换和小波变换\n❗❗❗依赖于提取的特征，很容易受到噪声干扰，特征没提取好，后续工作很难进展\n注意力引导网络关注重点 （通用自学习注意力）和（融合领域知识的注意力）\n3级注意力：（节拍级、节律级和频率级）领域知识特征\n⭐提取特定级别的领域知识特征并使用它们来引导注意力，包括引导注意力CNN的节拍形态知识和引导注意力RNN的节奏知识\n⭐跨时域和频域进行注意力融合\n节拍级：主要考虑异常的波形或边缘。知识引导的注意力来聚合这些特征并获得节拍级别注意力\n​\t卷积神经网络 (CNN) 用于学习节拍级别模式\n节律级：考虑异常节律变化\n​\t循环神经网络（RNN）适合捕获节律特征\n提取特定级别的领域知识特征并使用它们来引导注意力，包括指导注意力 CNN 的节拍形态知识和指导注意力 RNN 的节奏知识\n识别关键节拍位置、显着的节律变化、重要的频率分量\n知识特征 作用于 网络特征\n特定级别的领域知识特征 - 引导注意力\nBeat Level\r​\t主要考虑异常波形或急剧变化的点 =\u003e 计算一阶差分 Δ 和每个片段 s 上的卷积运算\n​\t一阶差分： 用来提取信号的变化趋势和特征\n​\tRhythm Level\r​\t计算每个片段的标准差，以提取节奏水平知识特征向量\n​\t标准差：衡量信号的稳定性、检测异常值、描述信号波动性、比较不同信号之间的波动程度\nFrequency Level\r​\t能量越大的信号包含的信息越多，功率谱密度（PSD）来提取频率级知识特征向量\n​\t频谱分析可以辅助了解信号在不同频率下的成分和能量分布情况\n​\t功率谱密度估计是计算信号功率在频域上的分布\n​\t例：100HzECG段数据 =\u003e periodogram(估计信号的功率谱密度的函数) =\u003e 返回频率范围(0-50Hz)和对应的功率值 =\u003e sum() 总频谱密度\n模型框架：\nInput: 单导联心电信号\nFrequency Transformation Layer: 将信号按照频率区分开，利用高通滤波器、带通滤波器； 0-0.5Hz: 低频漂移；0.5-50hz：主要成分; \u003e50Hz: 噪声\n1### candidate channels for ECG 2P_wave = (0.67, 5) 3QRS_complex = (10, 50) 4T_wave = (1, 7) 5muscle = (5, 50)\t# 肌肉干扰 6resp = (0.12, 0.5)\t# 呼吸信号 7! 8 9ECG_preprocessed = (0.5, 50) # ！！！ ECG主要部分 10wander = (0.001, 0.5)\t# 基线漂移 11noise = 50 12 13# low (wander), middle (ECG_preprocessed) and high (noise) 14bandpass_list = [wander, ECG_preprocessed] 15highpass_list = [noise] Sliding Window Segmentation: 固定窗口，重叠分段（不用先定位R峰再分段）\n计算一阶差商、标准差、功率谱密度估计作为统计特征\n将统计信息作为注意力引导嵌入模型中：\nL： 经过Conv提取段内信息后的数据\nH：经过RNN融合段间信息后的数据\n$$ V^{T} ∈ R^{1×D_{α}} $$\n再将α作用于特征\n最后将不同频率区域的输出Concat 通道在一起，过频率注意力重新加权\nSelf-supervised - 2022 Self-supervised representation learning from 12-lead ECG data\nComputers in Biology and Medicine\n问题：\n医学高质量标签很难获得，成本昂贵 公开数据集不够大 未标记数据的数量通常远远超过标记数据的数量 结合NLP、视觉、语音在无监督学习的成功\n⬇️\n创新：\n使用自监督的方法，实现ECG表征学习 对比学习CPC框架结构\n为什么用MLP不用CNN，因为ECG采样频率为100Hz比音频典型采用频率10 kHz粗糙，使用MLP进行非线性映射\n数据集：\n结果\n评价指标macro AUC\n线性评估-冻结模型参数，将分类头改为线性层，验证模型学到的特征表示；\n微调-在下游任务上进行微调分类头和部分参数。\n预训练的表示与下游分类任务高度相关\n自监督预训练提高了下游分类器的稳健性\n表明在大数据集上预训练，在下游任务中，需要更少的标签数据就可以达到有监督训练的效果\nMulti-scale Progressive Gated Transformer Multi-scale Progressive Gated Transformer for Physiological Signal Classification\n分两步：\n细粒度捕获局部波形变化 粗粒度捕获全局趋势变化 框架：\n使用Conv-MaxPool-Conv-AvgPool 实现嵌入\n堆叠 MHSA-FFN-TCN-FFN 模块 (Temporal Convolution Net)\n分支融合：x1 ⨂ sigmoid(tanh(fc(x1))) + x2\nCLOCS - ICML 2021 Contrastive Learning of Cardiac Signals Across Space, Time, and Patients\n对比：时间-空间-患者\nFigure：（左）对比多段编码、（中）对比多导联编码和（右）对比多段多导联编码中的K个实例的小批量的相似性矩阵。将基于所有应用的变换运算符TA和TB对生成附加矩阵。沿着边缘沿着示出了示例性变换的ECG实例。为了识别阳性对，我们将每个实例与其患者ID相关联。通过设计，对角元素（绿色）对应于同一患者，有助于等式2.类似地，实例1和实例50（黄色）属于同一患者，有助于等式（1）。3.蓝色区域对应于阴性示例，因为它们涉及来自不同患者的实例。\n数据划分：\n1frame = torch.tensor(input_frame,dtype=torch.float) 2label = torch.tensor(label,dtype=torch.float) 3frame = frame.unsqueeze(0) #(1,5000,12) #SxL = Samples x Leads 4frame_views = torch.empty(1,2500,self.nviews*2) #nviews = nleads in this case (1x2500x12*nsegments) 5nsegments = frame.shape[1]//2500 6fcount = 0 7for n in range(self.nviews): #nviews = # of leads 8 for s in range(nsegments): 9 start = s*2500 10 current_view = frame[0,start:start+2500,n] 11 current_view = self.obtain_perturbed_frame(current_view) 12 current_view = self.normalize_frame(current_view) 13 frame_views[0,:,fcount] = current_view 14 fcount += 1 15# =\u003e (1, 2500, 24) ⭐CMSMLC(Contrastive Multi-segment Multi-lead Coding)\nLoss分析：\n1pids = ['1', '2', '1', '3'] # patient id 2data = [4, feature_dim, 4] # batch, dim_feature, nviews 3 4# 1. 先标记相同患者的样本 5 6# 2. 计算各个视图的相似性 7view_combinations = combinations(nviews,2) 8# (0,1), (0,2), (0,3) 9# (1,2), (1,3) 10# (2,3) 11loss = 0 12ncombinations = 0 13for combination in view_combinations: 14 view1 = data[:, :, combination[0]] 15 view2 = data[:, :, combination[1]] 16 norm1_vector = view1_array.norm(dim=1).unsqueeze(0) 17 norm2_vector = view2_array.norm(dim=1).unsqueeze(0) 18 sim_matrix = torch.mm(view1,view2.transpose(0,1)) 19 norm_matrix = torch.mm(norm1_vector.transpose(0, 1), norm2_vector) 20 argument = sim_matrix / (norm_matrix * temperature) # temperature=0.1 21 sim_matrix_exp = torch.exp(argument) 22 23 # obtain element 24 triu_elements = sim_matrix_exp[rows1,cols1] # upper triangle 25 tril_elements = sim_matrix_exp[rows2,cols2] # lower triangle 26 diag_elements = torch.diag(sim_matrix_exp) # 主对角 27 28 triu_sum = torch.sum(sim_matrix_exp,1) 29 tril_sum = torch.sum(sim_matrix_exp,0) 30 31 loss_diag1 = -torch.mean(torch.log(diag_elements/triu_sum)) # A =\u003e B 32 loss_diag2 = -torch.mean(torch.log(diag_elements/tril_sum)) # B =\u003e A 33 34 loss_triu = -torch.mean(torch.log(triu_elements/triu_sum[rows1])) # 上三角对应的行 35 loss_tril = -torch.mean(torch.log(tril_elements/tril_sum[cols2])) # 下三角对应的列 36 37 loss = loss_diag1 + loss_diag2 38 loss_terms = 2 39 40 if len(rows1) \u003e 0: 41 loss += loss_triu #technically need to add 1 more term for symmetry 42 loss_terms += 1 43 44 if len(rows2) \u003e 0: 45 loss += loss_tril #technically need to add 1 more term for symmetry 46 loss_terms += 1 47 48ncombinations += 1 49loss = loss/(loss_terms*ncombinations) # loss/(4*6) 每个视图4份loss，总共算6对 GUIDING MASKED REPRESENTATION LEARNING - ICLR 2024 ⭐心电图进行简单的数据增强也可能会严重改变病理信息\n✔️利用MAE方法，生成式自监督学习\n3种嵌入方式，时间-空间-时空\n模型：\nposition embeddings： 使用同一组位置-共享\nlead-embeddings: 每个导联专用-标记导联编号\n[SEP]: 区分各个导联Patch\n为了增加重建难度：\nDecoder部分只看同一导联的Patch；=\u003e 确保重建时不会显式使用其他导联的嵌入 =\u003e 迫使模型有效地学习时空表示 代码分析：\n1# x: [batch, 12, 2250] 2x = series 3# === forward_encoder === 4x = patch_embedding(x) # segment-\u003eLN-\u003eLinear-\u003eLN, =\u003e [batch, 12, 30, 75] 5x = x + pos_embedding[:, 1:n + 1, :].unsqueeze(1) # lead-inter shared pos embedding 6 7# mask 8len_keep = int(n * (1 - mask_ratio)) 9ids_shuffle # [batch, 12, 30] 段编号打乱 10ids_restore # 段编号原始顺序 11 12ids_keep = ids_shuffle[:, :, :len_keep] 13x_masked = torch.gather(x, dim=2, index=ids_keep.unsqueeze(-1).repeat(1, 1, 1, d)) 14mask = torch.ones([b, num_leads, n], device=x.device) 15mask[:, :, :len_keep] = 0 16# === x_masked, mask, ids_restore === 17 18# embedding 19x = torch.cat([left_sep, x, right_sep], dim=2) 20lead_embeddings = lead_embeddings.unsqueeze(2).expand(b, -1, n_masked_with_sep, -1) 21x = x + lead_embeddings # lead-intra shared lead embedding 22 23# Transformer Encoder x 12 24x = encoder(x) 25 26# === forward_decoder === 27x = self.to_decoder_embedding(x) # 维度映射 28 29# 初始化被mask掉的patch 30mask_embeddings = self.mask_embedding.unsqueeze(1) 31mask_embeddings = mask_embeddings.repeat(b, self.num_leads, n + 2 - n_masked_with_sep, 1) 32 33x_wo_sep = torch.cat([x[:, :, 1:-1, :], mask_embeddings], dim=2) # [X..,masked,..] 34x_wo_sep = torch.gather(x_wo_sep, dim=2, index=ids_restore.unsqueeze(-1).repeat(1, 1, 1, d)) # 恢复位置 35 36x_wo_sep = x_wo_sep + self.decoder_pos_embed[:, 1:n + 1, :].unsqueeze(1) # 重新添加位置信息 37left_sep = x[:, :, :1, :] + self.decoder_pos_embed[:, :1, :].unsqueeze(1) 38right_sep = x[:, :, -1:, :] + self.decoder_pos_embed[:, -1:, :].unsqueeze(1) 39x = torch.cat([left_sep, x_wo_sep, right_sep], dim=2) 40 41x_decoded = [] 42for i in range(self.num_leads): 43 x_lead = x[:, i, :, :] 44 for block in self.decoder_blocks: # Transformer Encoder x 6 45 x_lead = block(x_lead) 46 x_lead = self.decoder_norm(x_lead) 47 x_lead = self.decoder_head(x_lead) 48 x_decoded.append(x_lead[:, 1:-1, :]) 49pred = torch.stack(x_decoded, dim=1) 50 51# === loss === 52target = self.patchify(series) 53 54loss = (pred - target) ** 2 55loss = loss.mean(dim=-1) # (batch_size, num_leads, n), mean loss per patch 56 57loss = (loss * mask).sum() / mask.sum() # mean loss on removed patches 58# mask: [batch, 12, 30], 其中1代表被mask，0表示没有被mask 微调时取Encoder部分\n实验 InceptionFormer InceptionNeXt + SMT\n图示仿照SMT风格绘制\n仿照SMT的渐进融合网络结构 前半部分使用 InceptionNeXt结构块，DConv卷积代替MHSA 1# 模型 FLOPs: 2.14G 2# 模型参数数量: 12.45M 3 4cnnblock = StemConv() # 1, 12, 1000 5# 模型 FLOPs: 36.74M 6# 模型参数数量: 36.72K 7CNNBlock1 = getattr(model, 'block0') # 1, 64, 1000 8# 模型 FLOPs: 35.07M 9# 模型参数数量: 35.07K 10CNNBlock2 = getattr(model, 'block1') # 1, 128, 500 11# 模型 FLOPs: 135.68M 12# 模型参数数量: 271.36K 13MixBlock = getattr(model, 'block2') # 1, 256, 250 14# 模型 FLOPs: 793.09M 15# 模型参数数量: 3.18M 16MHSABlock = getattr(model, 'block3') # 1, 512, 125 17# 模型 FLOPs: 1.05G 18# 模型参数数量: 8.41M 模型框架 模型框架\rStem 模块：\n参考：A token selection-based multi-scale dual-branch CNN-transformer 一区论文\n标准一维卷积，多尺度提取特征，提取ECG形态信息。全面提取（携带冗余信息） # shape: 12, 1000 =\u003e 128，1000\nBlock：\nPatch Fusion:\n​\t使用Conv1D，kernel_size=3，stride=2, padding=1 =\u003e 重叠式嵌入，减少Token数量，增加Token维度(增加Token携带信息的丰富度)\n图示： ①Token间 ②Token内\n自注意力 在InceptionFormer上实验\nMulti Head Self Attention 1Test\tBest F1: 0.8410 2Validate Best F1: 0.8184 SR-MHSA 使用Conv1D stride=2 缩小K，V的TokenMap，减少Token数量\nsr-ratio = 2\n1Test\tBest F1: 0.8137 2Validate Best F1: 0.8216 Bi-Routing Attention – SR与标准的折中\n超参：num_window=25，topk=10\n1Test\tBest F1: 0.8344 2Validate Best F1: 0.8199 Window Attention – 单纯窗口级\t❌多余的版本 - 不如MobileViTBlock ❗没加CNN先局部融合\n1Test\tBest F1: 0.8261 2Validate Best F1: 0.8148 Shift Window Attention 感觉有点问题，效果不如 WA，混合结构的问题？前面进行的交错的CNN和MHSA？\n1Test\tBest F1: 0.8129 2Validate Best F1: 0.8100 级联删除Token和修剪Head 去掉冗余的 ❗未测试\n位置嵌入 前期直接融进Token中 – ViT 仅一次 ​\t例：data: [batch, num_token, dim_token] learnable_pos_embed: [batch, num_token, dim_token]\n​\tdata + pos_embed\n注意力计算中引入 – SwinT 每次 ​\t例： att:[num_token, num_token] + relative_pos_bias:[num_token, num_token]\n​\t让相对位置信息(自学习)影响注意力权重\nDWConv 引入局部位置信息 / 在计算完自注意力前 – Bi-Routing-Attention 每次 ​\t例： DWConv(x) + EncoderBlock(x)\nDWConv增强位置信息 / 在计算完自注意力中 – Bi-Routing-Attention 每次 ​\t例： SoftMax(Q@K.T/√d)@ (V + DWConv(V) )\n现存问题 ⭐没有为MHSA计算时添加位置信息\nDWConv 代替位置编码 MHSA之前加入可学习的位置向量 渐进式模块融合策略\n交错 并行？ 没有优化自注意力的计算\nDConv的优化\nInceptionFormer + 卷积调制 InceptionNeXtBlock =\u003e ConvModulation =\u003e MHSA\n卷积 =\u003e 卷积×调制 =\u003e 调制×自注意力 =\u003e 自注意力\nx2 x4 x8 x4\n1acc: 0.8299, f1: 0.8418, macro_auc: 0.9679 2classes: ['I-AVB' 'AF' 'LBBB' 'RBBB' 'NORM' 'PAC' 'STD' 'STE' 'PVC'] 3test f1s: [0.9252, 0.9231, 0.902, 0.9477, 0.8261, 0.6733, 0.8161, 0.7805, 0.782] 全局平均池化 =\u003e CLS Token\n❗Validate F1 score only 0.8185\t# 稳健性一般\n1acc: 0.8343, f1: 0.8488, macro_auc: 0.9677 threshold: 0.8 2classes: ['I-AVB' 'AF' 'LBBB' 'RBBB' 'NORM' 'PAC' 'STD' 'STE' 'PVC'] 3F1 Scores: [0.9028, 0.9587, 0.9412, 0.9444, 0.7861, 0.7308, 0.8046, 0.7895, 0.7813 ❌PAC 仍然改善不了\n注意力可视化 InceptionFormer + Shunt Shunt Self Attention =\u003e InceptionFormer\n在多头部分嵌入多尺度。8头自注意力， 1/2头执行像素级自注意力，1/4头执行下采样2倍的块级自注意力，1/4头执行下采样4倍的域级自注意力\n在计算自注意力时，实现多尺度\n1acc: 0.8154, f1: 0.8389, macro_auc: 0.9682 2classes: ['I-AVB' 'AF' 'LBBB' 'RBBB' 'NORM' 'PAC' 'STD' 'STE' 'PVC'] 3F1 Scores: [0.9065, 0.9283, 0.8511, 0.9296, 0.7865, 0.6531, 0.8193, 0.8421, 0.8333] ❗PAC\nInceptionFormer: MS-DWConv + MHSA\n1验证集: 9-Fold, 测试集: 10-Fold. 2 3Acc: 0.8328, F1: 0.8530, Auc: 0.9701, Threshold: 0.4, Test_loss: 0.2225 4F1s: ['0.8936', '0.9219', '0.9200', '0.9505', '0.8298', '0.6972', '0.8315', '0.8000', '0.8321'] 5 6Acc: 0.7918, F1: 0.8247, Auc: 0.9564, Threshold: 0.9, Vali_loss: 0.2764 7F1s: ['0.8971', '0.9160', '1.0000', '0.9020', '0.7831', '0.6981', '0.7600', '0.6154', '0.8504'] 8 9# 此处，仅取平均，最终应该组合在一起进行测试，因为阈值不一致 10Acc: 0.8123, F1: 0.8388, Auc: 0.9633 Average Test and Validate 11F1s: ['0.8953', '0.9189', '0.9600', '0.9263', '0.8064', '0.6977', '0.7957', '0.7077', '0.8413'] 12 13# 模型 FLOPs: 2.14G 14# 模型参数数量: 12.45M InceptionFormer: MS-DWConv + S-MHSA\n❌数据敏感\n1验证集: 9-Fold, 测试集: 10-Fold. 2 3Acc: 0.8125, F1: 0.8204, Auc: 0.9686, Threshold: 0.6, Test_loss: 0.2426 4F1s: ['0.8467', '0.9143', '0.8800', '0.9344', '0.8021', '0.6355', '0.8452', '0.7368', '0.7883'] 5 6Acc: 0.7918, F1: 0.8163, Auc: 0.9556, Threshold: 0.8, Vali_loss: 0.2814 7F1s: ['0.8841', '0.8934', '0.9778', '0.9091', '0.7340', '0.7037', '0.7925', '0.5946', '0.8571'] 8 9Acc: 0.8022, F1: 0.8183, Auc: 0.9621 Average Test and Validate 10F1s: ['0.8654', '0.9039', '0.9289', '0.9218', '0.7681', '0.6696', '0.8188', '0.6657', '0.8227'] InceptionFormer: MS-DWConv-SE + MHSA\n自动重新校准 - 通道重要性\n1Validate: Acc:0.788937409\tF1:0.819458854\t2Test : Acc:0.827034884\tF1:0.835588466 InceptionFormer: MS-DWConv-CA + MHSA\n同时校准 通道 + 空间 重要性\n1Validate: Acc:0.7991\tF1:0.8315 2Test : Acc:0.8096\tF1:0.8194 InceptionFormer: only front 3 stage\n删除第四stage，降低参数\n1# Best F1: 0.8395 Only front 3 layer 2# 模型 FLOPs: 1.04G 3# 模型参数数量: 3.64M InceptionFormer: stage depth [2, 4, 8, 4] =\u003e [2, 4, 8, 2]\n减少stage4层数\n1# stage depths = [2, 4, 8, 2] 2# Best F1: 0.8422 3# 模型 FLOPs: 1.61G 4# 模型参数数量: 8.25M InceptionFormer + SparseSemanticToken\n减少Token\n1# Best F1: 0.8312 sparse token -- DW-SpatialPool 2# 模型 FLOPs: 1.53G 3# 模型参数数量: 17.19M 4 5SparseAttentionBlock: 6# 模型 FLOPs: 236.95M 7# 模型参数数量: 4.74M InceptionFormerTiny\n减少Token长度 dim_token: [64, 128, 256, 512] =\u003e [32, 64, 128, 256]\n1# Best F1: 0.8265 2# 模型 FLOPs: 536.07M 3# 模型参数数量: 3.13M ⭐⭐⭐\nBaseline\n1# resnet18 2模型 FLOPs: 176.57M 3模型参数数量: 3.85M 4Best F1: 0.8168 5 6# resnet34 7模型 FLOPs: 357.74M 8模型参数数量: 7.23M 9Best F1: 0.8185 10 11# mobilenetv2 12模型 FLOPs: 96.60M 13模型参数数量: 2.19M 14Best F1: 0.7967\tPTB-XL - 推荐9折验证 10折测试\nCPSC - (比赛) 9折验证 10折测试\n优化器调整\nAdamw + StepLR =\u003e Adamw + CosineAnnealingLR\n固定步长衰减学习率 =\u003e 余弦退火调整学习率\nAdamw + StepLR：\n1# scheduler 2lr = 1e-3 3step_size = 20 4step_gamma = 0.1 Adamw + CosineAnnealingLR\nPASS\n频域特征 数据的另一种表达形式，或者在这个格式中，某些特征会被放大，使得可以被识别到\ntime domain I-AVB AF LBBB LBBB NORM PAC STD PVC STE 平均 描述 F1 0.8844 0.9231 0.8800 0.9500 0.7514 0.6392 0.8024 0.7692 0.7669 0.8185 时序信号 \u0026 一维模型 frequency domain 1# [batch_size, num_leads, data_length] =STFT=\u003e [batch_size, num_leads, W, H] 2# =\u003e resnet34 3# =\u003e output I-AVB AF LBBB LBBB NORM PAC STD PVC STE 平均 描述 F1 0.7763 0.9180 0.8511 0.8889 0.7684 0.6393 0.7500 0.7671 0.7805 0.7933 时序信号通过STFT转为频谱图(汉明窗口100) two-stream: time and frequency domain I-AVB AF LBBB LBBB NORM PAC STD PVC STE 平均 描述 F1 0.8993 0.9255 0.9020 0.9326 0.7817 0.7040 0.8000 0.7805 0.7619 0.8319 时序信号通过STFT转为频谱图(窗口100) InceptionNeXt + Shunted-Self Attention （Cross-Stack） 1️⃣\nInception depthwise convlution\n2️⃣\nSelf-Attention 内部实现粗细粒度\n3️⃣\n特征图 =\u003e 金字塔结构 （中间CNN和Transformer融合，交叉堆叠）\n1classes: 2 ['I-AVB' 'AF' 'LBBB' 'RBBB' 'NORM' 'PAC' 'STD' 'STE' 'PVC'] 3 4 5Test set: 6Acc: 0.9706, F1: 0.8547, Auc: 0.9666, Threshold: 0.5, Test_loss: 0.1813 7Acc: ['0.9797', '0.9782', '0.9913', '0.9738', '0.9506', '0.9549', '0.9593', '0.9913', '0.9564'] 8F1s: ['0.9028', '0.9388', '0.8846', '0.9511', '0.8132', '0.7207', '0.8391', '0.8500', '0.7917'] 9 10Validate set: 11Acc: 0.9596, F1: 0.8105, Auc: 0.9657, Threshold: 0.5, Vali_loss: 0.2111 12F1s: ['0.8750', '0.9333', '0.9787', '0.9016', '0.6989', '0.6504', '0.7545', '0.6818', '0.8201'] 13Train[650 1099 212 1675 826 554 782 198 629] 14Acc: ['0.9738', '0.9767', '0.9985', '0.9476', '0.9185', '0.9374', '0.9403', '0.9796', '0.9636'] CPSC - 患者间\n训练集包含 6,877 个（女性：3178 个;男性：3699 个）12 导联心电图记录，持续时间从 6 秒到 60 秒不等。\n论文中是 1-8 训练；9 验证；10 测试；\nPTB-XL - 患者间\n包含来自 18885 名 10 秒长度患者的 21837 个临床 12 导联心电图\n⭐ 特定患者的所有记录都分配给同一折。折 9 和 10 中的记录至少经过一次人工评估，因此具有特别高的标签质量。因此，我们建议使用 1-8 折 作为训练集，折叠 9 作为验证集，折叠 10 作为测试集。\nChapman-Shaoxin ECG Data - 患者间\n包含 10,646 名患者的 12 导联心电图，采样率为 500 Hz，11 种常见心律\n类别分组：\nResult\ndataset Task F1_macro AUC_macro CPSC arrhythmia | multi-label 0.8547 0.9666 PTB-XL arrhythmia | multi-label 0.5370 0.9552 dataset Task AUC_macro F1_macro Accuracy Recall Precision chapman arrhythmia | multi-class 0.9966 0.9660 0.9699 0.9652 0.9671 multi-label: sigmoid转0-1区间，用阈值进行预测值二值化，生成标签\nmulti-class: softmax转概率，取概率最大的下标作为预测标签\n数据增强：\n随机mask某导联\n随机mask某段(仅开头或结尾)\n增加随机噪声\n没啥用\n汇总 实验结果 1️⃣ CNN：优势=\u003e强大的提取局部模式的能力； =\u003e 提出局部细节，边缘，纹理模式信息。 ⭐ 高频信息\n​ 不足=\u003e需要堆叠很深，感受范围才能延申到全局； =\u003e 感知全局弱势\n2️⃣ Transformer： 优势=\u003e全局感受野，不够整体外貌能力很强; ⭐ 低频信息\n​\t不足=\u003e看的太多，干扰太多，对局部细节模式捕获能力较弱。\n模型插图 Block基本结构 InceptionNext DConv: 根据通道分组，每组使用不同卷积核大小的DWConv\nInceptionMHSALinear Local Block 和 Global Block 线性拼接\nInceptionFormer Local Block 和 Global Block 交叉堆叠进行融合\nInceptionShuntSA 一半注意力头执行细粒度注意力，另一半头执行粗粒度注意力\nInceptionHiLoSA 一半注意力头执行【窗口级注意力】，另一半头执行【池化注意力】\n🧐要调整窗口大小 ！\nSandwichNet **InceptionFormer, M-DWConv 加入倒残差结构 ** (Inverted residual block) 在多尺度DWConv前嵌入Conv1×1 扩张通道数，后嵌入Conv1×1 进行降维。\n风格非常统一 =\u003e 简单\nSandwichProNet Channel Mixer：GLU， DW-FFN\nToken Mixer: 细粒度局部 + 粗粒度全局\n堆叠方式\n数据 Arrhythmia Task\n10s + 100Hz sampling rate\nPTB-XL - Rhythm Task\n1['AFIB', 'AFLT', 'BIGU', 'PACE', 'PSVT', 'SARRH', 'SBRAD', 'SR', 'STACH', 'SVARR', 'SVTAC', 'TRIGU'] 2- 12 class 3 4[ 1362 66 74 266 22 695 573 15074 744 143 24 18] # Train 5[ 152 7 8 28 2 77 64 1674 82 14 3 2] # Test 6 7Train: 18932 8Test : 2098 9Total: 21030 Chapman\n1['AFIB', 'GSVT', 'SB', 'SR'] 2- 4 class 3 4Train [1996. 2069. 3498. 2000.] 5Test [222. 231. 389. 222. ] 6 7Train: 9563 8Test : 1064 9Total: 10627 CPSC-2018\n1['I-AVB' 'AF' 'LBBB' 'RBBB' 'NORM' 'PAC' 'STD' 'STE' 'PVC'] 2- 9 class 3 4Train [ 650 1099 212 1675 826 554 782 198 629] 5Test [ 72 122 24 181 92 61 87 22 70] 6 7Train: 6187 8Test : 688 9Total: 6875 ",
+  "wordCount" : "2541",
+  "inLanguage": "en",
+  "image": "http://121.40.252.207/papermod-cover.png","datePublished": "2024-04-19T00:00:00Z",
+  "dateModified": "2024-04-19T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "LongWei"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://121.40.252.207/posts/learning/ecg_exp/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LongCoding's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://121.40.252.207/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://121.40.252.207/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
+                <img src="http://121.40.252.207/android-icon-48x48.png" alt="" aria-label="logo"
+                    height="30">𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://121.40.252.207/index.html" title="🏡 Home">
+                    <span>🏡 Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/archives/" title="📃 Archive">
+                    <span>📃 Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/tags/" title="📑 Tags">
+                    <span>📑 Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/categories/" title="🗒️ Categories">
+                    <span>🗒️ Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/search/" title="🔍 Search">
+                    <span>🔍 Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://121.40.252.207/about/" title="👨🏻‍🎓 About Me">
+                    <span>👨🏻‍🎓 About Me</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      ECG论文和实验
+    </h1>
+    <div class="post-description">
+      ECG心电图论文创新点整理和初步实验
+    </div>
+    <div class="post-meta"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;12 min&nbsp;·&nbsp;2541 words&nbsp;·&nbsp;LongWei
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e8%ae%ba%e6%96%87" aria-label="论文">论文</a><ul>
+                        
+                <li>
+                    <a href="#im-ecg----2023" aria-label="⭐IM-ECG  - 2023">⭐IM-ECG  - 2023</a></li>
+                <li>
+                    <a href="#lightweight-transformer----2022" aria-label="Lightweight Transformer  - 2022">Lightweight Transformer  - 2022</a></li>
+                <li>
+                    <a href="#se-ecgnet----2020" aria-label="SE-ECGNet  - 2020">SE-ECGNet  - 2020</a></li>
+                <li>
+                    <a href="#mvms-ecg----2023" aria-label="⭐MVMS-ECG  - 2023">⭐MVMS-ECG  - 2023</a></li>
+                <li>
+                    <a href="#mvkt-ecg----2023" aria-label="MVKT-ECG  - 2023">MVKT-ECG  - 2023</a><ul>
+                        
+                <li>
+                    <a href="#%e5%af%bc%e8%81%94%e5%85%b1%e5%90%8c%e4%bf%a1%e6%81%af%e7%9a%84%e7%9f%a5%e8%af%86%e8%92%b8%e9%a6%8f" aria-label="导联共同信息的知识蒸馏">导联共同信息的知识蒸馏</a></li>
+                <li>
+                    <a href="#%e5%a4%9a%e6%a0%87%e7%ad%be%e7%9f%a5%e8%af%86%e8%92%b8%e9%a6%8f%e7%9a%84%e4%bc%98%e5%8c%96" aria-label="多标签知识蒸馏的优化">多标签知识蒸馏的优化</a></li></ul>
+                </li>
+                <li>
+                    <a href="#multi-modal--instance----2023" aria-label="Multi-Modal &#43; Instance  - 2023">Multi-Modal + Instance  - 2023</a><ul>
+                        
+                <li>
+                    <a href="#%e5%a4%9a%e6%a8%a1%e6%80%81%e4%bf%a1%e6%81%af%e8%9e%8d%e5%90%88" aria-label="多模态信息融合">多模态信息融合</a></li></ul>
+                </li>
+                <li>
+                    <a href="#multi-res-trans-net----2023" aria-label="Multi Res Trans Net  - 2023">Multi Res Trans Net  - 2023</a></li>
+                <li>
+                    <a href="#dual-branch-cnn-trans--select----2023" aria-label="⭐Dual-Branch CNN-Trans &#43; Select  - 2023">⭐Dual-Branch CNN-Trans + Select  - 2023</a></li>
+                <li>
+                    <a href="#ecgnet----2018" aria-label="ECGNet  - 2018">ECGNet  - 2018</a></li>
+                <li>
+                    <a href="#multi-module-lstm--cnn--autoencoder" aria-label="Multi module: LSTM &#43; CNN &#43; AutoEncoder">Multi module: LSTM + CNN + AutoEncoder</a></li>
+                <li>
+                    <a href="#ecg-dual-path-rnn---20228" aria-label="ECG Dual-path RNN - 2022/8">ECG Dual-path RNN - 2022/8</a></li>
+                <li>
+                    <a href="#mina----signal-processing-2019" aria-label="⭐MINA  - Signal Processing 2019">⭐MINA  - Signal Processing 2019</a></li>
+                <li>
+                    <a href="#self-supervised----2022" aria-label="Self-supervised  - 2022">Self-supervised  - 2022</a></li>
+                <li>
+                    <a href="#multi-scale-progressive-gated-transformer" aria-label="Multi-scale Progressive Gated Transformer">Multi-scale Progressive Gated Transformer</a></li>
+                <li>
+                    <a href="#clocs---icml-2021" aria-label="CLOCS - ICML 2021">CLOCS - ICML 2021</a></li>
+                <li>
+                    <a href="#guiding-masked-representation-learning----iclr-2024" aria-label="GUIDING MASKED REPRESENTATION LEARNING  - ICLR 2024">GUIDING MASKED REPRESENTATION LEARNING  - ICLR 2024</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%ae%9e%e9%aa%8c" aria-label="实验">实验</a><ul>
+                        
+                <li>
+                    <a href="#inceptionformer" aria-label="InceptionFormer">InceptionFormer</a><ul>
+                        
+                <li>
+                    <a href="#%e6%a8%a1%e5%9e%8b%e6%a1%86%e6%9e%b6" aria-label="模型框架">模型框架</a></li>
+                <li>
+                    <a href="#%e8%87%aa%e6%b3%a8%e6%84%8f%e5%8a%9b" aria-label="自注意力">自注意力</a></li>
+                <li>
+                    <a href="#%e4%bd%8d%e7%bd%ae%e5%b5%8c%e5%85%a5" aria-label="位置嵌入">位置嵌入</a></li>
+                <li>
+                    <a href="#%e7%8e%b0%e5%ad%98%e9%97%ae%e9%a2%98" aria-label="现存问题">现存问题</a></li></ul>
+                </li>
+                <li>
+                    <a href="#inceptionformer--%e5%8d%b7%e7%a7%af%e8%b0%83%e5%88%b6" aria-label="InceptionFormer &#43; 卷积调制">InceptionFormer + 卷积调制</a><ul>
+                        
+                <li>
+                    <a href="#%e6%b3%a8%e6%84%8f%e5%8a%9b%e5%8f%af%e8%a7%86%e5%8c%96" aria-label="注意力可视化">注意力可视化</a></li></ul>
+                </li>
+                <li>
+                    <a href="#inceptionformer--shunt" aria-label="InceptionFormer &#43; Shunt">InceptionFormer + Shunt</a></li>
+                <li>
+                    <a href="#%e9%a2%91%e5%9f%9f%e7%89%b9%e5%be%81" aria-label="频域特征">频域特征</a></li>
+                <li>
+                    <a href="#time-domain" aria-label="time domain">time domain</a></li>
+                <li>
+                    <a href="#frequency-domain" aria-label="frequency domain">frequency domain</a></li>
+                <li>
+                    <a href="#two-stream-time-and-frequency-domain" aria-label="two-stream: time and frequency domain">two-stream: time and frequency domain</a></li>
+                <li>
+                    <a href="#inceptionnext--shunted-self-attention-cross-stack" aria-label="InceptionNeXt &#43; Shunted-Self Attention （Cross-Stack）">InceptionNeXt + Shunted-Self Attention （Cross-Stack）</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%b1%87%e6%80%bb" aria-label="汇总">汇总</a><ul>
+                        
+                <li>
+                    <a href="#%e5%ae%9e%e9%aa%8c%e7%bb%93%e6%9e%9c" aria-label="实验结果">实验结果</a></li>
+                <li>
+                    <a href="#%e6%a8%a1%e5%9e%8b%e6%8f%92%e5%9b%be" aria-label="模型插图">模型插图</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%95%b0%e6%8d%ae" aria-label="数据">数据</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="论文">论文<a hidden class="anchor" aria-hidden="true" href="#论文">#</a></h2>
+<h3 id="im-ecg----2023">⭐IM-ECG  - 2023<a hidden class="anchor" aria-hidden="true" href="#im-ecg----2023">#</a></h3>
+<p><strong>IM-ECG: An interpretable framework for arrhythmia detection using  multi-lead ECG</strong>   <em>- Expert Systems With Applications  sci-1</em></p>
+<p>创新点:</p>
+<ul>
+<li>
+<p>Conv2D模型与Grad-CAM的适配更好  - 实时标注病理区域  <strong>解释性</strong></p>
+</li>
+<li>
+<p>双核残差块  - 横轴与竖轴+面 三种扫描方式</p>
+</li>
+</ul>
+<p><img alt="image-20231008222054322" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20231008222054322.png"></p>
+<p><strong>k * n</strong>(区域扫描)内核朝向中心压缩ECG以更直接地捕获<strong>导联间</strong>特征，而<strong>1 * n</strong>(横轴扫描)内核沿着时间维度压缩ECG并且因此更关注<strong>导联内</strong>特征</p>
+<p><strong>流程图示</strong></p>
+<p><img alt="image-20240327154037056" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327154037056.png"></p>
+<p><strong>模型结构</strong></p>
+<p><img alt="image-20240327153836525" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327153836525.png"></p>
+<p><strong>Block</strong></p>
+<p><img alt="image-20240327153914172" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327153914172.png"></p>
+<hr>
+<h3 id="lightweight-transformer----2022">Lightweight Transformer  - 2022<a hidden class="anchor" aria-hidden="true" href="#lightweight-transformer----2022">#</a></h3>
+<p><strong>Enhancing dynamic ECG heartbeat classification with lightweight transformer model</strong></p>
+<p><em>Artificial Intelligence In Medicine</em>  <em>sci-1</em></p>
+<p>创新点：</p>
+<ul>
+<li>
+<p>两级注意力机制： 局部 + 全局 // 局部注意力 == 通道注意力 SEBlock  || 全局注意力 == Transformer Encoder</p>
+</li>
+<li>
+<p>卷积结构来代替自注意</p>
+</li>
+</ul>
+<p><strong>Input:</strong>   检测R峰分段</p>
+<p><img alt="image-20240327125618915" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327125618915.png"></p>
+<center style="color:red; font-weight:bolder;">模型框架</center>
+<p><img alt="image-20240327125748959" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327125748959.png"></p>
+<center style="color:blue; font-weight:bolder;">CNN Block</center>
+<p><strong>CNN+Attention来提取心跳内部的特征</strong></p>
+<p><img alt="image-20240327125829274" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327125829274.png"></p>
+<center style="color:blue; font-weight:bolder;">light-Conv Attention</center>
+<p><strong>GLU:</strong>  <em>gated linear unit</em></p>
+<p><strong>Lconv:</strong>   <em>depth-wise Convolution</em></p>
+<hr>
+<h3 id="se-ecgnet----2020">SE-ECGNet  - 2020<a hidden class="anchor" aria-hidden="true" href="#se-ecgnet----2020">#</a></h3>
+<p><strong>SE-ECGNet: A Multi-scale Deep Residual Network with Squeeze-and-Excitation Module for ECG Signal Classification</strong></p>
+<p><em>2020 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)</em></p>
+<p>利用ECG信号中的多导联信息，将多尺度二维卷积块与一维卷积块结合起来进行特征提取</p>
+<p><em>创新点</em></p>
+<ul>
+<li>提供对心电数据的不同视角</li>
+</ul>
+<p><img alt="image-20231105144220615" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20231105144220615.png"></p>
+<p><em><strong>将ECG信号视为二维图片(单通道灰度图)</strong></em></p>
+<p><img alt="image-20231105144204757" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20231105144204757.png"></p>
+<center style="color:red; font-weight:bolder;">模型框架</center>
+<p><img alt="image-20240327131154616" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327131154616.png"></p>
+<center style="color:blue; font-weight:bolder;">CNN Block</center>
+<p>前期较大的卷积核可以扩大感受野，提取更加广泛的信息，后期进行信息浓缩提取</p>
+<hr>
+<h3 id="mvms-ecg----2023">⭐MVMS-ECG  - 2023<a hidden class="anchor" aria-hidden="true" href="#mvms-ecg----2023">#</a></h3>
+<p><em><strong>A Multi-View Multi-Scale Neural Network for Multi-Label ECG Classification</strong></em></p>
+<p><em>IEEE Transactions on Emerging Topics in Computational Intelligence</em>    sci-2</p>
+<p>创新点：</p>
+<ul>
+<li>将导联按照连接观测角度分组</li>
+</ul>
+<p><img alt="image-20240327133550908" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327133550908.png"></p>
+<p>分视图的融合网络为教室网络(参数大)  =蒸馏&gt; 单视图的学生网络</p>
+<p><strong style='color:blue'>模型结构</strong></p>
+<p><img alt="image-20240327133617466" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327133617466.png"></p>
+<p><strong>CNN Layers</strong></p>
+<p><img alt="image-20240327133758012" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327133758012.png"></p>
+<p><strong>Fusion Layer</strong></p>
+<p><img alt="image-20240327133955260" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327133955260.png"></p>
+<p>如果是多视图，那么就不要最后的FC将最后特征映射为类别数；</p>
+<p>源码 =&gt; 每个视图output都是 [B, 128]  =&gt; 重新加权(128=&gt;1的linear充当调和器) =&gt; 过多视图的FC(128 =&gt; num_class)</p>
+<p><strong>Multi-scale Conv Block</strong></p>
+<p><img alt="image-20240327134133763" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327134133763.png"></p>
+<p>网络的多尺度表示在更细粒度的级别上得到增强  - 采用Res2Block</p>
+<p><strong>Coordinate Attention 1D</strong></p>
+<p><img alt="image-20240327134033425" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327134033425.png"></p>
+<p>既建立了特征通道间的关系，对各通道的重要性进行重新加权，又获得了特征空间中的空间信息</p>
+<hr>
+<h3 id="mvkt-ecg----2023">MVKT-ECG  - 2023<a hidden class="anchor" aria-hidden="true" href="#mvkt-ecg----2023">#</a></h3>
+<p>MVKT-ECG: Efficient single-lead ECG classification for multi-label arrhythmia by multi-view knowledge transferring</p>
+<p><em>Computers in Biology and Medicine</em>    <em>sci-2</em></p>
+<p>创新点：</p>
+<p>​	# 多导联信息如何蒸馏到单导联中</p>
+<p><img alt="image-20240327140327574" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327140327574.png"></p>
+<p>不同导联是检测心脏状况的不同视角，提供对目标疾病的多种观测点和多种外貌</p>
+<p>=&gt; 目标：是教会网络从单导联ECG信号中恢复尽可能多的全导联信息</p>
+<h4 id="导联共同信息的知识蒸馏">导联共同信息的知识蒸馏<a hidden class="anchor" aria-hidden="true" href="#导联共同信息的知识蒸馏">#</a></h4>
+<p>虽然有些疾病不能从单导联ECG信号中推断出来，但我们的目标是尽可能缩短单导联ECG解释模型和多导联ECG解释模型之间的信息差距，鼓励学生更多地关注某些特定疾病的关键细节，最大限度地利用单导联ECG解释模型和多导联ECG解释模型之间的疾病信息。</p>
+<p>=&gt; 通过缩短学生模型和教师模型对积极对的表示并将“消极&quot;对之间的表示分开来实现的</p>
+<p>⭐⭐⭐最大化单导联ECG信号和多导联ECG信号之间的互(共同)信息来传递有用的疾病信息。</p>
+<p>因为：从单导联ECG信号中提取的疾病信息比12导联ECG信号少，但仍包含部分疾病信息。</p>
+<p>❗❗❗ 引出CLT-Loss  太难了，没看</p>
+<p><strong>面向特征与特征的相似度 与 最终预测和标签的Loss目的不一样</strong></p>
+<h4 id="多标签知识蒸馏的优化">多标签知识蒸馏的优化<a hidden class="anchor" aria-hidden="true" href="#多标签知识蒸馏的优化">#</a></h4>
+<p><img alt="image-20240327140614683" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327140614683.png"></p>
+<p>仿照CE-Loss 和 BCE-Loss</p>
+<hr>
+<h3 id="multi-modal--instance----2023">Multi-Modal + Instance  - 2023<a hidden class="anchor" aria-hidden="true" href="#multi-modal--instance----2023">#</a></h3>
+<p><em><strong>Multimodal multi-instance learning for long-term ECG classification</strong></em>   <em><strong>- Knowledge-Based Systems</strong></em></p>
+<p><strong>节拍 视为 实例</strong></p>
+<p><img alt="image-20240327143559281" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327143559281.png"></p>
+<p><strong>双模态：一维信号 + 二维图片</strong></p>
+<p><img alt="image-20240327143524604" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327143524604.png"></p>
+<h4 id="多模态信息融合">多模态信息融合<a hidden class="anchor" aria-hidden="true" href="#多模态信息融合">#</a></h4>
+<p><em>传统：</em></p>
+<p><img alt="image-20240327145248469" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327145248469.png"></p>
+<p><em>新方法</em></p>
+<p><img alt="image-20240327145025906" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327145025906.png"></p>
+<p>​	通过使用最大池化操作从每个模态的实例特征中选择<strong>顶部激活实例特征(代表)</strong>。然后<strong>计算顶部激活实例特征和所有剩余实例特征之间的相关性分数</strong>以获得特征向量，其中包含来自两种模态的信息。最后，将<strong>特征向量和顶部激活实例特征向量融合</strong>，得到每个模态的bag特征。每种模态的袋子特征通过线性层拼接在一起，得到最终的袋子特征。</p>
+<p><img alt="image-20240327145455889" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327145455889.png"></p>
+<hr>
+<h3 id="multi-res-trans-net----2023">Multi Res Trans Net  - 2023<a hidden class="anchor" aria-hidden="true" href="#multi-res-trans-net----2023">#</a></h3>
+<p><em>Multi-scale SE-ResBlock + Transformer Encoder</em></p>
+<p><strong>Multi-scale SE-residual network with transformer encoder for myocardial infarction classification</strong>    <em>Applied Soft Computing  sci-1</em></p>
+<p>提取局部特征和全局特征</p>
+<p><strong>模型结构</strong></p>
+<p><em>分段</em>  - 用具有重叠的滑动窗口</p>
+<p><img alt="image-20240327145737234" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327145737234.png"></p>
+<p><strong>Multi-scale sample layer</strong></p>
+<p><img alt="image-20240327145938698" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327145938698.png"></p>
+<p>多尺度采样模块  名称不错</p>
+<p><strong>SE-Resnet Block</strong></p>
+<p><img alt="image-20240327150034480" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327150034480.png"></p>
+<p><strong>CPC</strong></p>
+<p><img alt="image-20240327150132721" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327150132721.png"></p>
+<p>GAP(全局平均池化)定位的是整体区域，而GMP(全局最大池化)定位的是目标区域中最重要的部分。</p>
+<hr>
+<h3 id="dual-branch-cnn-trans--select----2023">⭐Dual-Branch CNN-Trans + Select  - 2023<a hidden class="anchor" aria-hidden="true" href="#dual-branch-cnn-trans--select----2023">#</a></h3>
+<p><strong>A token selection-based multi-scale dual-branch CNN-transformer network for 12-lead ECG signal classification</strong></p>
+<p><em>Knowledge-Based Systems sci-1</em></p>
+<p><strong>模型结构</strong></p>
+<p><img alt="image-20240327151553655" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327151553655.png"></p>
+<p>RR表示计算两个分支中CLS token之间的相关系数  =&gt; RR-Loss 迫使两个分支朝着最终预测同向而行</p>
+<p><strong>CNN Blocks</strong></p>
+<p><img alt="image-20240327151939118" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327151939118.png"></p>
+<p>⃝+ is element-wise addition</p>
+<p><strong>MSEL</strong></p>
+<p><img alt="image-20240327152059740" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327152059740.png"></p>
+<p>一般采用ViT中的嵌入, Conv1D实现</p>
+<p>通过不同大小的Token嵌入,或许可以捕获到不同的模式</p>
+<p><strong>Token Select</strong></p>
+<p><img alt="image-20240327152029903" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327152029903.png"></p>
+<p>删掉冗余的Token,或许可以在论文中可视化一下自注意力图,直观的描述冗余</p>
+<hr>
+<h3 id="ecgnet----2018">ECGNet  - 2018<a hidden class="anchor" aria-hidden="true" href="#ecgnet----2018">#</a></h3>
+<p>ECGNet: Deep Network for Arrhythmia Classification</p>
+<p><img alt="image-20240327152958835" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327152958835.png"></p>
+<p>Inception Block + Conv Block × N</p>
+<hr>
+<h3 id="multi-module-lstm--cnn--autoencoder">Multi module: LSTM + CNN + AutoEncoder<a hidden class="anchor" aria-hidden="true" href="#multi-module-lstm--cnn--autoencoder">#</a></h3>
+<p>Multi-module Recurrent Convolutional Neural Network with Transformer Encoder for ECG Arrhythmia Classification</p>
+<p><img alt="image-20240327153623587" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240327153623587.png"></p>
+<hr>
+<h3 id="ecg-dual-path-rnn---20228">ECG Dual-path RNN - 2022/8<a hidden class="anchor" aria-hidden="true" href="#ecg-dual-path-rnn---20228">#</a></h3>
+<p><strong>Single-lead ECG recordings modeling for end-to-end recognition of atrial fibrillation with dual-path RNN</strong></p>
+<p><em>Biomedical Signal Processing and Control</em>  二区</p>
+<p><img alt="image-20240227141810637" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240227141810637.png"></p>
+<p><em><strong>Segmentation:</strong></em></p>
+<p><img alt="image-20240227143633528" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240227143633528.png"></p>
+<p>[batch, 1, L]  =&gt; [batch, num_seg, len_seg]</p>
+<p>重叠50%</p>
+<p><em><strong>Overlap-Add:</strong></em></p>
+<p>​	Segmentation的逆操作，重叠相加</p>
+<p>RNN为Bi-LSTM</p>
+<p>LSTM 输入数据格式 Batch, num_seq, len_seq</p>
+<p>段间建模 + 段内建模</p>
+<p><em><strong>图例：</strong></em></p>
+<p><img alt="image-20240228141118686" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240228141118686.png"></p>
+<p><img alt="image-20240228141137134" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240228141137134.png"></p>
+<p>类似MLP-Mixer，用RNN建模信息融合，隐状态传递时序信息</p>
+<hr>
+<h3 id="mina----signal-processing-2019">⭐MINA  - Signal Processing 2019<a hidden class="anchor" aria-hidden="true" href="#mina----signal-processing-2019">#</a></h3>
+<p><em>MINA: <strong>Multilevel Knowledge-Guided Attention</strong> for Modeling Electrocardiography Signals</em></p>
+<p>做法：</p>
+<ul>
+<li>
+<p>特征工程：从心电图波形中提取信息特征 =&gt; 传统机器学习进行处理 =&gt; 结果</p>
+<p>探索P-QRS-T 波的各种幅度和持续时间特征，包括用于分类的形态学 和 RR 间期特征  // Hermite变换和小波变换</p>
+<p>❗❗❗<strong>依赖于提取的特征，很容易受到噪声干扰，特征没提取好，后续工作很难进展</strong></p>
+</li>
+<li>
+<p>注意力引导网络关注重点 （通用自学习注意力）和（融合领域知识的注意力）</p>
+</li>
+</ul>
+<p>3级注意力：（节拍级、节律级和频率级）领域知识特征</p>
+<p><img alt="image-20240320125118402" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240320125118402.png"></p>
+<p><strong>⭐提取特定级别的领域知识特征并使用它们来引导注意力，包括<strong style="color:red">引导注意力CNN的节拍形态知识</strong>和<strong style="color:red">引导注意力RNN的节奏知识</strong></strong></p>
+<p>⭐<strong>跨时域和频域进行注意力融合</strong></p>
+<p><strong>节拍级</strong>：主要考虑异常的波形或边缘。知识引导的注意力来聚合这些特征并获得节拍级别注意力</p>
+<p>​				<strong>卷积神经网络 (CNN) 用于学习节拍级别模式</strong></p>
+<p><strong>节律级</strong>：考虑异常节律变化</p>
+<p>​				<strong>循环神经网络（RNN）适合捕获节律特征</strong></p>
+<p>提取特定级别的领域知识特征并使用它们来引导注意力，包括指导注意力 CNN 的节拍形态知识和指导注意力 RNN 的节奏知识</p>
+<p>识别关键节拍位置、显着的节律变化、重要的频率分量</p>
+<p><em>知识特征 作用于 网络特征</em></p>
+<p><strong>特定级别的领域知识特征  - 引导注意力</strong></p>
+<div style='color:red; font-weight:bolder'>Beat Level</div>
+<p>​	 主要考虑异常波形或急剧变化的点 =&gt; 计算<strong>一阶差分</strong> Δ 和每个片段 s 上的<strong>卷积</strong>运算</p>
+<p>​	一阶差分： 用来提取信号的变化趋势和特征</p>
+<p>​	<img alt="image-20240320134815892" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240320134815892.png"></p>
+<div style='color:red; font-weight:bolder'>Rhythm Level</div>
+<p>​	计算每个片段的<strong>标准差</strong>，以提取节奏水平知识特征向量</p>
+<p>​		<em><strong>标准差</strong></em>：<strong>衡量信号的稳定性</strong>、<strong>检测异常值</strong>、<strong>描述信号波动性</strong>、<strong>比较不同信号之间的波动程度</strong></p>
+<div style='color:red; font-weight:bolder'>Frequency Level</div>
+<p>​	能量越大的信号包含的信息越多，<strong>功率谱密度</strong>（PSD）来提取频率级知识特征向量</p>
+<p>​		频谱分析可以辅助了解信号在不同频率下的成分和能量分布情况</p>
+<p>​		功率谱密度估计是计算信号功率在频域上的分布</p>
+<p>​		例：100HzECG段数据 =&gt;  periodogram(估计信号的功率谱密度的函数) =&gt; 返回频率范围(0-50Hz)和对应的功率值 =&gt; sum() 总频谱密度</p>
+<p><strong>模型框架：</strong></p>
+<p><img alt="image-20240320130936524" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240320130936524.png"></p>
+<p><strong>Input</strong>:  单导联心电信号</p>
+<p><strong>Frequency Transformation Layer</strong>:  将信号按照频率区分开，利用高通滤波器、带通滤波器；  <em><strong>0-0.5Hz: 低频漂移；0.5-50hz：主要成分;  &gt;50Hz: 噪声</strong></em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">### candidate channels for ECG</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="n">P_wave</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.67</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="n">QRS_complex</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="n">T_wave</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="n">muscle</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>	<span class="c1"># 肌肉干扰</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="n">resp</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>	<span class="c1"># 呼吸信号</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="err">!</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="n">ECG_preprocessed</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span> <span class="c1"># ！！！ ECG主要部分</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="n">wander</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>	<span class="c1"># 基线漂移</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="n">noise</span> <span class="o">=</span> <span class="mi">50</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"># low (wander), middle (ECG_preprocessed) and high (noise)</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="n">bandpass_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">wander</span><span class="p">,</span> <span class="n">ECG_preprocessed</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="n">highpass_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">noise</span><span class="p">]</span>
+</span></span></code></pre></div><p><img alt="image-20240320133906384" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240320133906384.png"></p>
+<p><strong>Sliding Window Segmentation</strong>:  固定窗口，重叠分段（不用先定位R峰再分段）</p>
+<p><img alt="image-20240320134653351" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240320134653351.png"></p>
+<p>计算一阶差商、标准差、功率谱密度估计作为<strong>统计特征</strong></p>
+<p><strong>将统计信息作为注意力引导嵌入模型中：</strong></p>
+<p>L： 经过Conv提取段内信息后的数据</p>
+<p>H：经过RNN融合段间信息后的数据</p>
+<p><img alt="image-20240320141812190" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240320141812190.png"></p>
+<p>$$
+V^{T} ∈ R^{1×D_{α}}
+$$</p>
+<p>再将α作用于特征</p>
+<p>最后将不同频率区域的输出Concat 通道在一起，过频率注意力重新加权</p>
+<hr>
+<h3 id="self-supervised----2022">Self-supervised  - 2022<a hidden class="anchor" aria-hidden="true" href="#self-supervised----2022">#</a></h3>
+<p><em><strong>Self-supervised representation learning from 12-lead ECG data</strong></em></p>
+<p><em>Computers in Biology and Medicine</em></p>
+<p><strong>问题：</strong></p>
+<ul>
+<li>医学高质量标签很难获得，成本昂贵</li>
+<li>公开数据集不够大</li>
+<li>未标记数据的数量通常远远超过标记数据的数量</li>
+</ul>
+<p>结合NLP、视觉、语音在无监督学习的成功</p>
+<p>⬇️</p>
+<p><strong>创新：</strong></p>
+<ul>
+<li>使用自监督的方法，实现ECG表征学习</li>
+</ul>
+<p><strong>对比学习CPC框架结构</strong></p>
+<p><img alt="image-20240416131704929" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240416131704929.png"></p>
+<p>为什么用MLP不用CNN，因为<strong>ECG</strong>采样频率为<strong>100Hz</strong>比<strong>音频</strong>典型采用频率<strong>10 kHz</strong>粗糙，使用MLP进行非线性映射</p>
+<p><strong>数据集：</strong></p>
+<p><img alt="image-20240416131354561" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240416131354561.png"></p>
+<p><strong>结果</strong></p>
+<p>评价指标<em><strong>macro AUC</strong></em></p>
+<p><strong>线性评估</strong>-冻结模型参数，将分类头改为线性层，验证模型学到的特征表示；</p>
+<p><strong>微调</strong>-在下游任务上进行微调分类头和部分参数。</p>
+<p><img alt="image-20240416132013141" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240416132013141.png"></p>
+<p><em><strong>预训练的表示与下游分类任务高度相关</strong></em></p>
+<p><em><strong>自监督预训练提高了下游分类器的稳健性</strong></em></p>
+<p><img alt="image-20240416134716985" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240416134716985.png"></p>
+<p>表明在大数据集上预训练，在下游任务中，需要更少的标签数据就可以达到有监督训练的效果</p>
+<hr>
+<h3 id="multi-scale-progressive-gated-transformer">Multi-scale Progressive Gated Transformer<a hidden class="anchor" aria-hidden="true" href="#multi-scale-progressive-gated-transformer">#</a></h3>
+<p>Multi-scale Progressive Gated Transformer for Physiological Signal Classification</p>
+<p>分两步：</p>
+<ul>
+<li>细粒度捕获局部波形变化</li>
+<li>粗粒度捕获全局趋势变化</li>
+</ul>
+<p>框架：</p>
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20240615220014092.png" alt="image-20240615220014092" style="zoom: 67%;" />
+<ul>
+<li>
+<p>使用Conv-MaxPool-Conv-AvgPool 实现嵌入</p>
+</li>
+<li>
+<p>堆叠 MHSA-FFN-TCN-FFN 模块 (Temporal Convolution Net)</p>
+</li>
+<li>
+<p>分支融合：x1 ⨂ sigmoid(tanh(fc(x1))) + x2</p>
+</li>
+</ul>
+<hr>
+<h3 id="clocs---icml-2021">CLOCS - ICML 2021<a hidden class="anchor" aria-hidden="true" href="#clocs---icml-2021">#</a></h3>
+<p><em>Contrastive Learning of Cardiac Signals Across Space, Time, and Patients</em></p>
+<p>对比：时间-空间-患者</p>
+<p><img alt="image-20240731153848210" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240731153848210.png"></p>
+<p><img alt="image-20240731153914807" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240731153914807.png"></p>
+<p>Figure：（左）对比多段编码、（中）对比多导联编码和（右）对比多段多导联编码中的K个实例的小批量的相似性矩阵。将基于所有应用的变换运算符TA和TB对生成附加矩阵。沿着边缘沿着示出了示例性变换的ECG实例。为了识别阳性对，我们将每个实例与其患者ID相关联。通过设计，对角元素（绿色）对应于同一患者，有助于等式2.类似地，实例1和实例50（黄色）属于同一患者，有助于等式（1）。3.蓝色区域对应于阴性示例，因为它们涉及来自不同患者的实例。</p>
+<p>数据划分：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">frame</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">input_frame</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="n">label</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">label</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">#(1,5000,12) #SxL = Samples x Leads</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="n">frame_views</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2500</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nviews</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#nviews = nleads in this case (1x2500x12*nsegments)</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="n">nsegments</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">//</span><span class="mi">2500</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="n">fcount</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nviews</span><span class="p">):</span> <span class="c1">#nviews = # of leads</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">   <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsegments</span><span class="p">):</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">       <span class="n">start</span> <span class="o">=</span> <span class="n">s</span><span class="o">*</span><span class="mi">2500</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">       <span class="n">current_view</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">start</span><span class="p">:</span><span class="n">start</span><span class="o">+</span><span class="mi">2500</span><span class="p">,</span><span class="n">n</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">       <span class="n">current_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obtain_perturbed_frame</span><span class="p">(</span><span class="n">current_view</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">       <span class="n">current_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize_frame</span><span class="p">(</span><span class="n">current_view</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">       <span class="n">frame_views</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="n">fcount</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_view</span>  
+</span></span><span class="line"><span class="ln">14</span><span class="cl">       <span class="n">fcount</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1"># =&gt; (1, 2500, 24) </span>
+</span></span></code></pre></div><p>⭐<em><strong>CMSMLC(Contrastive Multi-segment Multi-lead Coding)</strong></em></p>
+<p>Loss分析：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">pids</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">]</span>  <span class="c1"># patient id</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="n">feature_dim</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>   <span class="c1"># batch, dim_feature, nviews</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1"># 1. 先标记相同患者的样本</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="c1"># 2. 计算各个视图的相似性</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="n">view_combinations</span> <span class="o">=</span> <span class="n">combinations</span><span class="p">(</span><span class="n">nviews</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"># (0,1), (0,2), (0,3)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1">#        (1,2), (1,3)</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1">#               (2,3)</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="n">loss</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="n">ncombinations</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="k">for</span> <span class="n">combination</span> <span class="ow">in</span> <span class="n">view_combinations</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="n">view1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">combination</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="n">view2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">combination</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="n">norm1_vector</span> <span class="o">=</span> <span class="n">view1_array</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="n">norm2_vector</span> <span class="o">=</span> <span class="n">view2_array</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="n">sim_matrix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">view1</span><span class="p">,</span><span class="n">view2</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="n">norm_matrix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">norm1_vector</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">norm2_vector</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="n">argument</span> <span class="o">=</span> <span class="n">sim_matrix</span> <span class="o">/</span> <span class="p">(</span><span class="n">norm_matrix</span> <span class="o">*</span> <span class="n">temperature</span><span class="p">)</span>  <span class="c1"># temperature=0.1</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">    <span class="n">sim_matrix_exp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">argument</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">    
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="c1"># obtain element</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">    <span class="n">triu_elements</span> <span class="o">=</span> <span class="n">sim_matrix_exp</span><span class="p">[</span><span class="n">rows1</span><span class="p">,</span><span class="n">cols1</span><span class="p">]</span>  <span class="c1"># upper triangle</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="n">tril_elements</span> <span class="o">=</span> <span class="n">sim_matrix_exp</span><span class="p">[</span><span class="n">rows2</span><span class="p">,</span><span class="n">cols2</span><span class="p">]</span>  <span class="c1"># lower triangle</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">    <span class="n">diag_elements</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">sim_matrix_exp</span><span class="p">)</span>   <span class="c1"># 主对角</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">    
+</span></span><span class="line"><span class="ln">28</span><span class="cl">    <span class="n">triu_sum</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sim_matrix_exp</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="n">tril_sum</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sim_matrix_exp</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">            
+</span></span><span class="line"><span class="ln">31</span><span class="cl">    <span class="n">loss_diag1</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">diag_elements</span><span class="o">/</span><span class="n">triu_sum</span><span class="p">))</span>  <span class="c1"># A =&gt; B</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">    <span class="n">loss_diag2</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">diag_elements</span><span class="o">/</span><span class="n">tril_sum</span><span class="p">))</span>  <span class="c1"># B =&gt; A</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">            
+</span></span><span class="line"><span class="ln">34</span><span class="cl">    <span class="n">loss_triu</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">triu_elements</span><span class="o">/</span><span class="n">triu_sum</span><span class="p">[</span><span class="n">rows1</span><span class="p">]))</span>  <span class="c1"># 上三角对应的行</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">    <span class="n">loss_tril</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">tril_elements</span><span class="o">/</span><span class="n">tril_sum</span><span class="p">[</span><span class="n">cols2</span><span class="p">]))</span>  <span class="c1"># 下三角对应的列</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">    
+</span></span><span class="line"><span class="ln">37</span><span class="cl">    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_diag1</span> <span class="o">+</span> <span class="n">loss_diag2</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">    <span class="n">loss_terms</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">
+</span></span><span class="line"><span class="ln">40</span><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">        <span class="n">loss</span> <span class="o">+=</span> <span class="n">loss_triu</span> <span class="c1">#technically need to add 1 more term for symmetry</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">        <span class="n">loss_terms</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">
+</span></span><span class="line"><span class="ln">44</span><span class="cl">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">            <span class="n">loss</span> <span class="o">+=</span> <span class="n">loss_tril</span> <span class="c1">#technically need to add 1 more term for symmetry</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">            <span class="n">loss_terms</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl">            
+</span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="n">ncombinations</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span><span class="o">/</span><span class="p">(</span><span class="n">loss_terms</span><span class="o">*</span><span class="n">ncombinations</span><span class="p">)</span>  <span class="c1"># loss/(4*6) 每个视图4份loss，总共算6对</span>
+</span></span></code></pre></div><p><img alt="image-20240731205058921" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240731205058921.png"></p>
+<p><img alt="image-20240731204919944" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240731204919944.png"></p>
+<hr>
+<h3 id="guiding-masked-representation-learning----iclr-2024">GUIDING MASKED REPRESENTATION LEARNING  - ICLR 2024<a hidden class="anchor" aria-hidden="true" href="#guiding-masked-representation-learning----iclr-2024">#</a></h3>
+<p>⭐心电图进行简单的数据增强也可能会严重改变病理信息</p>
+<p>✔️利用MAE方法，生成式自监督学习</p>
+<p>3种嵌入方式，<em><strong>时间-空间-时空</strong></em></p>
+<p><img alt="image-20240731152623466" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240731152623466.png"></p>
+<p>模型：</p>
+<p><img alt="image-20240731152710546" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240731152710546.png"></p>
+<p>position embeddings： 使用同一组位置-共享</p>
+<p>lead-embeddings:   每个导联专用-标记导联编号</p>
+<p>[SEP]: 区分各个导联Patch</p>
+<p>为了增加重建难度：</p>
+<ol>
+<li>Decoder部分只看同一导联的Patch；=&gt; 确保重建时不会显式使用其他导联的嵌入 =&gt; 迫使模型有效地学习时空表示</li>
+</ol>
+<p>代码分析：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># x: [batch, 12, 2250]</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">series</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"># === forward_encoder ===</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">patch_embedding</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># segment-&gt;LN-&gt;Linear-&gt;LN, =&gt; [batch, 12, 30, 75]</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">pos_embedding</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># lead-inter shared pos embedding</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"># mask </span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="n">len_keep</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mask_ratio</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="n">ids_shuffle</span> <span class="c1"># [batch, 12, 30] 段编号打乱</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="n">ids_restore</span> <span class="c1"># 段编号原始顺序</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="n">ids_keep</span> <span class="o">=</span> <span class="n">ids_shuffle</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="n">len_keep</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="n">x_masked</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">ids_keep</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">num_leads</span><span class="p">,</span> <span class="n">n</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="n">mask</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="n">len_keep</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1"># === x_masked, mask, ids_restore === </span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="c1"># embedding </span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">left_sep</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">right_sep</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="n">lead_embeddings</span> <span class="o">=</span> <span class="n">lead_embeddings</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_masked_with_sep</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">lead_embeddings</span>  <span class="c1"># lead-intra shared lead embedding</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">
+</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="c1"># Transformer Encoder x 12</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">encoder</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">
+</span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="c1"># === forward_decoder === </span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_decoder_embedding</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 维度映射</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">
+</span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="c1"># 初始化被mask掉的patch</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="n">mask_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_embedding</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="n">mask_embeddings</span> <span class="o">=</span> <span class="n">mask_embeddings</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_leads</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">n_masked_with_sep</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">
+</span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="n">x_wo_sep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">mask_embeddings</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># [X..,masked,..]</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="n">x_wo_sep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">x_wo_sep</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">ids_restore</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>  <span class="c1"># 恢复位置</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">
+</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="n">x_wo_sep</span> <span class="o">=</span> <span class="n">x_wo_sep</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_pos_embed</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 重新添加位置信息</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="n">left_sep</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_pos_embed</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> 
+</span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="n">right_sep</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_pos_embed</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">left_sep</span><span class="p">,</span> <span class="n">x_wo_sep</span><span class="p">,</span> <span class="n">right_sep</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">
+</span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="n">x_decoded</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_leads</span><span class="p">):</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">    <span class="n">x_lead</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl">    <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_blocks</span><span class="p">:</span>  <span class="c1"># Transformer Encoder x 6</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">        <span class="n">x_lead</span> <span class="o">=</span> <span class="n">block</span><span class="p">(</span><span class="n">x_lead</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">        <span class="n">x_lead</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_norm</span><span class="p">(</span><span class="n">x_lead</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl">        <span class="n">x_lead</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_head</span><span class="p">(</span><span class="n">x_lead</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">        <span class="n">x_decoded</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_lead</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="n">pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">x_decoded</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">50</span><span class="cl">
+</span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="c1"># === loss ===</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">patchify</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">53</span><span class="cl">
+</span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="n">loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">pred</span> <span class="o">-</span> <span class="n">target</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (batch_size, num_leads, n), mean loss per patch</span>
+</span></span><span class="line"><span class="ln">56</span><span class="cl">
+</span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="n">loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">loss</span> <span class="o">*</span> <span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># mean loss on removed patches</span>
+</span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="c1"># mask: [batch, 12, 30], 其中1代表被mask，0表示没有被mask</span>
+</span></span></code></pre></div><p><em>微调时取Encoder部分</em></p>
+<hr>
+<hr>
+<h2 id="实验">实验<a hidden class="anchor" aria-hidden="true" href="#实验">#</a></h2>
+<h3 id="inceptionformer">InceptionFormer<a hidden class="anchor" aria-hidden="true" href="#inceptionformer">#</a></h3>
+<p><em><strong>InceptionNeXt + SMT</strong></em></p>
+<blockquote>
+<p>图示仿照SMT风格绘制</p></blockquote>
+<ul>
+<li>仿照SMT的渐进融合网络结构</li>
+<li>前半部分使用 InceptionNeXt结构块，DConv卷积代替MHSA</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c"># 模型 FLOPs: 2.14G</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="c"># 模型参数数量: 12.45M</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="l">cnnblock = StemConv()                 </span><span class="w"> </span><span class="c"># 1, 12, 1000</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="c"># 模型 FLOPs: 36.74M</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="c"># 模型参数数量: 36.72K</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="l">CNNBlock1 = getattr(model, &#39;block0&#39;)  </span><span class="w"> </span><span class="c"># 1, 64, 1000</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="c"># 模型 FLOPs: 35.07M</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="c"># 模型参数数量: 35.07K</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="l">CNNBlock2 = getattr(model, &#39;block1&#39;)  </span><span class="w"> </span><span class="c"># 1, 128, 500</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="c"># 模型 FLOPs: 135.68M</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="c"># 模型参数数量: 271.36K</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="l">MixBlock = getattr(model, &#39;block2&#39;)   </span><span class="w"> </span><span class="c"># 1, 256, 250</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span><span class="c"># 模型 FLOPs: 793.09M</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span><span class="c"># 模型参数数量: 3.18M</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"></span><span class="l">MHSABlock = getattr(model, &#39;block3&#39;)  </span><span class="w"> </span><span class="c"># 1, 512, 125</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"></span><span class="c"># 模型 FLOPs: 1.05G</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w"></span><span class="c"># 模型参数数量: 8.41M</span><span class="w">
+</span></span></span></code></pre></div><h4 id="模型框架">模型框架<a hidden class="anchor" aria-hidden="true" href="#模型框架">#</a></h4>
+<p><img alt="image-20240307212600434" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240307212600434.png"></p>
+<center style="font-weight:bolder; color:rgb(4A,4A,4A);">模型框架</center>
+<p><strong>Stem 模块：</strong></p>
+<blockquote>
+<p>参考：A token selection-based multi-scale dual-branch CNN-transformer  一区论文</p></blockquote>
+<p>标准一维卷积，多尺度提取特征，提取ECG形态信息。<em><strong>全面</strong></em>提取（携带冗余信息）  # shape: 12, 1000  =&gt; 128，1000</p>
+<p><img alt="image-20240307212809248" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240307212809248.png"></p>
+<p><strong>Block：</strong></p>
+<p><img alt="image-20240307213204707" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240307213204707.png"></p>
+<p><strong>Patch Fusion:</strong></p>
+<p>​	使用Conv1D，kernel_size=3，stride=2, padding=1   =&gt; 重叠式嵌入，减少Token数量，增加Token维度(增加Token携带信息的丰富度)</p>
+<p><em>图示：</em> ①Token间  ②Token内</p>
+<p><img alt="image-20240312132746778" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240312132746778.png"></p>
+<h4 id="自注意力">自注意力<a hidden class="anchor" aria-hidden="true" href="#自注意力">#</a></h4>
+<p><em>在InceptionFormer上实验</em></p>
+<ul>
+<li><strong>Multi Head Self Attention</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">Test	  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8410</span><span class="w"> 
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nt">Validate  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8184</span><span class="w"> 
+</span></span></span></code></pre></div><ul>
+<li>
+<p><strong>SR-MHSA</strong>  使用Conv1D stride=2 缩小K，V的TokenMap，减少Token数量</p>
+<p><em>sr-ratio = 2</em></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">Test	  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8137</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nt">Validate  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8216</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>
+<p><strong>Bi-Routing Attention</strong>  &ndash; SR与标准的折中</p>
+<p>超参：num_window=25，topk=10</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">Test	  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8344</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nt">Validate  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8199</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li><strong>Window Attention</strong>  &ndash; 单纯窗口级	❌多余的版本 - 不如MobileViTBlock</li>
+</ul>
+<p>❗没加CNN先局部融合</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">Test	  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8261</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nt">Validate  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8148</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li><strong>Shift Window Attention</strong></li>
+</ul>
+<p><em><strong>感觉有点问题，效果不如 WA，混合结构的问题？前面进行的交错的CNN和MHSA？</strong></em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">Test	  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8129</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nt">Validate  Best F1</span><span class="p">:</span><span class="w"> </span><span class="m">0.8100</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li><strong>级联删除Token和修剪Head</strong></li>
+</ul>
+<p>去掉冗余的 ❗<em><strong>未测试</strong></em></p>
+<h4 id="位置嵌入">位置嵌入<a hidden class="anchor" aria-hidden="true" href="#位置嵌入">#</a></h4>
+<ul>
+<li><strong>前期</strong>直接融进Token中  &ndash; ViT <em>仅一次</em></li>
+</ul>
+<p>​		例：data: [batch, num_token, dim_token]    learnable_pos_embed: [batch, num_token, dim_token]</p>
+<p>​		data + pos_embed</p>
+<ul>
+<li>注意力<strong>计算中</strong>引入         &ndash; SwinT  <em>每次</em></li>
+</ul>
+<p>​		例： att:[num_token, num_token]  + relative_pos_bias:[num_token, num_token]</p>
+<p>​		让相对位置信息(自学习)影响注意力权重</p>
+<ul>
+<li>DWConv 引入局部位置信息 / 在计算完自<strong>注意力前</strong>     &ndash; Bi-Routing-Attention  <em>每次</em></li>
+</ul>
+<p>​		例： DWConv(x) + EncoderBlock(x)</p>
+<ul>
+<li>DWConv增强位置信息 / 在计算完自<strong>注意力中</strong>     &ndash; Bi-Routing-Attention  <em>每次</em></li>
+</ul>
+<p>​		例： SoftMax(<a href="mailto:Q@K.T">Q@K.T</a>/√d)@ (V + DWConv(V) )</p>
+<h4 id="现存问题"><strong>现存问题</strong><a hidden class="anchor" aria-hidden="true" href="#现存问题">#</a></h4>
+<ul>
+<li>
+<p>⭐没有为MHSA计算时<strong>添加位置信息</strong></p>
+<ul>
+<li>DWConv 代替位置编码</li>
+<li>MHSA之前加入可学习的位置向量</li>
+</ul>
+</li>
+<li>
+<p>渐进式模块融合策略</p>
+<ul>
+<li>交错</li>
+<li>并行？</li>
+</ul>
+</li>
+<li>
+<p>没有优化自注意力的计算</p>
+</li>
+<li>
+<p>DConv的优化</p>
+</li>
+</ul>
+<hr>
+<h3 id="inceptionformer--卷积调制">InceptionFormer + 卷积调制<a hidden class="anchor" aria-hidden="true" href="#inceptionformer--卷积调制">#</a></h3>
+<p><em><strong>InceptionNeXtBlock =&gt; ConvModulation =&gt; MHSA</strong></em></p>
+<p>卷积 =&gt; 卷积×调制 =&gt; 调制×自注意力 =&gt; 自注意力</p>
+<p>x2              x4                       x8                       x4</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">acc</span><span class="p">:</span> <span class="mf">0.8299</span><span class="p">,</span> <span class="n">f1</span><span class="p">:</span> <span class="mf">0.8418</span><span class="p">,</span> <span class="n">macro_auc</span><span class="p">:</span> <span class="mf">0.9679</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">classes</span><span class="p">:</span>  <span class="p">[</span><span class="s1">&#39;I-AVB&#39;</span>  <span class="s1">&#39;AF&#39;</span>   <span class="s1">&#39;LBBB&#39;</span>   <span class="s1">&#39;RBBB&#39;</span>  <span class="s1">&#39;NORM&#39;</span>  <span class="s1">&#39;PAC&#39;</span>   <span class="s1">&#39;STD&#39;</span>  <span class="s1">&#39;STE&#39;</span>   <span class="s1">&#39;PVC&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="n">test</span> <span class="n">f1s</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9252</span><span class="p">,</span> <span class="mf">0.9231</span><span class="p">,</span> <span class="mf">0.902</span><span class="p">,</span> <span class="mf">0.9477</span><span class="p">,</span> <span class="mf">0.8261</span><span class="p">,</span> <span class="mf">0.6733</span><span class="p">,</span> <span class="mf">0.8161</span><span class="p">,</span> <span class="mf">0.7805</span><span class="p">,</span> <span class="mf">0.782</span><span class="p">]</span>
+</span></span></code></pre></div><p><strong>全局平均池化 =&gt; CLS Token</strong></p>
+<p>❗Validate F1 score only 0.8185	# 稳健性一般</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">acc</span><span class="p">:</span> <span class="mf">0.8343</span><span class="p">,</span> <span class="n">f1</span><span class="p">:</span> <span class="mf">0.8488</span><span class="p">,</span> <span class="n">macro_auc</span><span class="p">:</span> <span class="mf">0.9677</span> <span class="n">threshold</span><span class="p">:</span> <span class="mf">0.8</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">classes</span><span class="p">:</span>   <span class="p">[</span><span class="s1">&#39;I-AVB&#39;</span>  <span class="s1">&#39;AF&#39;</span>   <span class="s1">&#39;LBBB&#39;</span>   <span class="s1">&#39;RBBB&#39;</span>  <span class="s1">&#39;NORM&#39;</span>  <span class="s1">&#39;PAC&#39;</span>   <span class="s1">&#39;STD&#39;</span>  <span class="s1">&#39;STE&#39;</span>   <span class="s1">&#39;PVC&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="n">F1</span> <span class="n">Scores</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9028</span><span class="p">,</span> <span class="mf">0.9587</span><span class="p">,</span> <span class="mf">0.9412</span><span class="p">,</span> <span class="mf">0.9444</span><span class="p">,</span> <span class="mf">0.7861</span><span class="p">,</span> <span class="mf">0.7308</span><span class="p">,</span> <span class="mf">0.8046</span><span class="p">,</span> <span class="mf">0.7895</span><span class="p">,</span> <span class="mf">0.7813</span>
+</span></span></code></pre></div><p>❌<strong>PAC  仍然改善不了</strong></p>
+<h4 id="注意力可视化">注意力可视化<a hidden class="anchor" aria-hidden="true" href="#注意力可视化">#</a></h4>
+<p><img alt="image-20240321214200346" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240321214200346.png"></p>
+<p><img alt="image-20240321214221728" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240321214221728.png"></p>
+<p><img alt="image-20240321214245731" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240321214245731.png"><img alt="image-20240323153412375" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240323153412375.png"></p>
+<p><img alt="image-20240323153505140" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240323153505140.png"></p>
+<h3 id="inceptionformer--shunt"><em><strong>InceptionFormer + Shunt</strong></em><a hidden class="anchor" aria-hidden="true" href="#inceptionformer--shunt">#</a></h3>
+<p><em><strong>Shunt Self Attention =&gt; InceptionFormer</strong></em></p>
+<p><strong>在多头部分嵌入多尺度</strong>。8头自注意力， 1/2头执行像素级自注意力，1/4头执行下采样2倍的块级自注意力，1/4头执行下采样4倍的域级自注意力</p>
+<p><img alt="image-20240321215459046" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240321215459046.png"></p>
+<p><strong>在计算自注意力时，实现多尺度</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">acc</span><span class="p">:</span> <span class="mf">0.8154</span><span class="p">,</span> <span class="n">f1</span><span class="p">:</span> <span class="mf">0.8389</span><span class="p">,</span> <span class="n">macro_auc</span><span class="p">:</span> <span class="mf">0.9682</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">classes</span><span class="p">:</span>   <span class="p">[</span><span class="s1">&#39;I-AVB&#39;</span>  <span class="s1">&#39;AF&#39;</span>   <span class="s1">&#39;LBBB&#39;</span>   <span class="s1">&#39;RBBB&#39;</span>  <span class="s1">&#39;NORM&#39;</span>  <span class="s1">&#39;PAC&#39;</span>   <span class="s1">&#39;STD&#39;</span>  <span class="s1">&#39;STE&#39;</span>   <span class="s1">&#39;PVC&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="n">F1</span> <span class="n">Scores</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9065</span><span class="p">,</span> <span class="mf">0.9283</span><span class="p">,</span> <span class="mf">0.8511</span><span class="p">,</span> <span class="mf">0.9296</span><span class="p">,</span> <span class="mf">0.7865</span><span class="p">,</span> <span class="mf">0.6531</span><span class="p">,</span> <span class="mf">0.8193</span><span class="p">,</span> <span class="mf">0.8421</span><span class="p">,</span> <span class="mf">0.8333</span><span class="p">]</span>
+</span></span></code></pre></div><p>❗<strong>PAC</strong></p>
+<p><img alt="image-20240323152854941" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240323152854941.png"></p>
+<p><img alt="image-20240321221939637" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240321221939637.png"></p>
+<p><img alt="image-20240321221958275" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240321221958275.png"></p>
+<p><img alt="image-20240321222022287" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240321222022287.png"></p>
+<hr>
+<p><strong>InceptionFormer: MS-DWConv + MHSA</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">验证集</span><span class="p">:</span> <span class="mi">9</span><span class="o">-</span><span class="n">Fold</span><span class="p">,</span> <span class="n">测试集</span><span class="p">:</span> <span class="mi">10</span><span class="o">-</span><span class="n">Fold</span><span class="o">.</span>                                                                               
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">                                                               
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="mf">0.8328</span><span class="p">,</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8530</span><span class="p">,</span> <span class="n">Auc</span><span class="p">:</span> <span class="mf">0.9701</span><span class="p">,</span> <span class="n">Threshold</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">Test_loss</span><span class="p">:</span> <span class="mf">0.2225</span>                                        
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="n">F1s</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.8936&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9219&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9200&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9505&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8298&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6972&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8315&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8000&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8321&#39;</span><span class="p">]</span>                
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">                                                                                                               
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="mf">0.7918</span><span class="p">,</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8247</span><span class="p">,</span> <span class="n">Auc</span><span class="p">:</span> <span class="mf">0.9564</span><span class="p">,</span> <span class="n">Threshold</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">Vali_loss</span><span class="p">:</span> <span class="mf">0.2764</span>                                        
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="n">F1s</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.8971&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9160&#39;</span><span class="p">,</span> <span class="s1">&#39;1.0000&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9020&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7831&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6981&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7600&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6154&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8504&#39;</span><span class="p">]</span>                
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"># 此处，仅取平均，最终应该组合在一起进行测试，因为阈值不一致</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="mf">0.8123</span><span class="p">,</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8388</span><span class="p">,</span> <span class="n">Auc</span><span class="p">:</span> <span class="mf">0.9633</span>  <span class="n">Average</span> <span class="n">Test</span> <span class="ow">and</span> <span class="n">Validate</span>                                                
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="n">F1s</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.8953&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9189&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9600&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9263&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8064&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6977&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7957&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7077&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8413&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"># 模型 FLOPs: 2.14G</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1"># 模型参数数量: 12.45M</span>
+</span></span></code></pre></div><p><strong>InceptionFormer: MS-DWConv + S-MHSA</strong></p>
+<p>❌数据敏感</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">验证集</span><span class="p">:</span> <span class="mi">9</span><span class="o">-</span><span class="n">Fold</span><span class="p">,</span> <span class="n">测试集</span><span class="p">:</span> <span class="mi">10</span><span class="o">-</span><span class="n">Fold</span><span class="o">.</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="mf">0.8125</span><span class="p">,</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8204</span><span class="p">,</span> <span class="n">Auc</span><span class="p">:</span> <span class="mf">0.9686</span><span class="p">,</span> <span class="n">Threshold</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">Test_loss</span><span class="p">:</span> <span class="mf">0.2426</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="n">F1s</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.8467&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9143&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8800&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9344&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8021&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6355&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8452&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7368&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7883&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="mf">0.7918</span><span class="p">,</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8163</span><span class="p">,</span> <span class="n">Auc</span><span class="p">:</span> <span class="mf">0.9556</span><span class="p">,</span> <span class="n">Threshold</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span> <span class="n">Vali_loss</span><span class="p">:</span> <span class="mf">0.2814</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="n">F1s</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.8841&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8934&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9778&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9091&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7340&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7037&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7925&#39;</span><span class="p">,</span> <span class="s1">&#39;0.5946&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8571&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="mf">0.8022</span><span class="p">,</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8183</span><span class="p">,</span> <span class="n">Auc</span><span class="p">:</span> <span class="mf">0.9621</span>  <span class="n">Average</span> <span class="n">Test</span> <span class="ow">and</span> <span class="n">Validate</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="n">F1s</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.8654&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9039&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9289&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9218&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7681&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6696&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8188&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6657&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8227&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p><strong>InceptionFormer: MS-DWConv-SE + MHSA</strong></p>
+<p>自动重新校准  - 通道重要性</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">Validate</span><span class="p">:</span> <span class="n">Acc</span><span class="p">:</span><span class="mf">0.788937409</span>	<span class="n">F1</span><span class="p">:</span><span class="mf">0.819458854</span>	
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">Test</span>    <span class="p">:</span> <span class="n">Acc</span><span class="p">:</span><span class="mf">0.827034884</span>	<span class="n">F1</span><span class="p">:</span><span class="mf">0.835588466</span>
+</span></span></code></pre></div><p><strong>InceptionFormer: MS-DWConv-CA + MHSA</strong></p>
+<p>同时校准 通道 + 空间 重要性</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">Validate</span><span class="p">:</span> <span class="n">Acc</span><span class="p">:</span><span class="mf">0.7991</span>	<span class="n">F1</span><span class="p">:</span><span class="mf">0.8315</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">Test</span>    <span class="p">:</span> <span class="n">Acc</span><span class="p">:</span><span class="mf">0.8096</span>	<span class="n">F1</span><span class="p">:</span><span class="mf">0.8194</span>
+</span></span></code></pre></div><p><strong>InceptionFormer: only front 3 stage</strong></p>
+<p>删除第四stage，降低参数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># Best F1: 0.8395  Only front 3 layer</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># 模型 FLOPs: 1.04G</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># 模型参数数量: 3.64M</span>
+</span></span></code></pre></div><p><strong>InceptionFormer:  stage depth [2, 4, 8, 4] =&gt; [2, 4, 8, 2]</strong></p>
+<p>减少stage4层数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># stage depths = [2, 4, 8, 2]</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># Best F1: 0.8422</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># 模型 FLOPs: 1.61G</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># 模型参数数量: 8.25M</span>
+</span></span></code></pre></div><p><strong>InceptionFormer + SparseSemanticToken</strong></p>
+<p><em>减少Token</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># Best F1: 0.8312  sparse token -- DW-SpatialPool</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># 模型 FLOPs: 1.53G</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># 模型参数数量: 17.19M</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="n">SparseAttentionBlock</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="c1"># 模型 FLOPs: 236.95M</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="c1"># 模型参数数量: 4.74M</span>
+</span></span></code></pre></div><p><strong>InceptionFormerTiny</strong></p>
+<p><em>减少Token长度  dim_token: [64, 128, 256, 512] =&gt; [32, 64, 128, 256]</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># Best F1: 0.8265</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># 模型 FLOPs: 536.07M</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># 模型参数数量: 3.13M</span>
+</span></span></code></pre></div><p>⭐⭐⭐</p>
+<p><strong>Baseline</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># resnet18</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="n">模型</span> <span class="n">FLOPs</span><span class="p">:</span> <span class="mf">176.57</span><span class="n">M</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="n">模型参数数量</span><span class="p">:</span> <span class="mf">3.85</span><span class="n">M</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="n">Best</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8168</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="c1"># resnet34</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="n">模型</span> <span class="n">FLOPs</span><span class="p">:</span> <span class="mf">357.74</span><span class="n">M</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="n">模型参数数量</span><span class="p">:</span> <span class="mf">7.23</span><span class="n">M</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="n">Best</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8185</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"># mobilenetv2</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="n">模型</span> <span class="n">FLOPs</span><span class="p">:</span> <span class="mf">96.60</span><span class="n">M</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="n">模型参数数量</span><span class="p">:</span> <span class="mf">2.19</span><span class="n">M</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="n">Best</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.7967</span>	
+</span></span></code></pre></div><hr>
+<p><strong>PTB-XL</strong>  - 推荐9折验证 10折测试</p>
+<p><strong>CPSC</strong>  - (比赛) 9折验证 10折测试</p>
+<hr>
+<p><strong>优化器调整</strong></p>
+<p>Adamw + StepLR  =&gt; Adamw + CosineAnnealingLR</p>
+<p>固定步长衰减学习率  =&gt; 余弦退火调整学习率</p>
+<p>Adamw + StepLR：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># scheduler</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">lr</span> <span class="o">=</span> <span class="mf">1e-3</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="n">step_size</span> <span class="o">=</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="n">step_gamma</span> <span class="o">=</span> <span class="mf">0.1</span>
+</span></span></code></pre></div><p>Adamw + CosineAnnealingLR</p>
+<p><em><strong>PASS</strong></em></p>
+<hr>
+<h3 id="频域特征">频域特征<a hidden class="anchor" aria-hidden="true" href="#频域特征">#</a></h3>
+<p>数据的另一种表达形式，或者在这个格式中，某些特征会被放大，使得可以被识别到</p>
+<h3 id="time-domain">time domain<a hidden class="anchor" aria-hidden="true" href="#time-domain">#</a></h3>
+<p><img alt="image-20240422221233452" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240422221233452.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center"></th>
+          <th>I-AVB</th>
+          <th>AF</th>
+          <th>LBBB</th>
+          <th>LBBB</th>
+          <th>NORM</th>
+          <th>PAC</th>
+          <th>STD</th>
+          <th>PVC</th>
+          <th>STE</th>
+          <th>平均</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><strong>F1</strong></td>
+          <td>0.8844</td>
+          <td>0.9231</td>
+          <td>0.8800</td>
+          <td>0.9500</td>
+          <td>0.7514</td>
+          <td>0.6392</td>
+          <td>0.8024</td>
+          <td>0.7692</td>
+          <td>0.7669</td>
+          <td><strong>0.8185</strong></td>
+          <td>时序信号 &amp; 一维模型</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="frequency-domain">frequency domain<a hidden class="anchor" aria-hidden="true" href="#frequency-domain">#</a></h3>
+<p><img alt="image-20240422221515722" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240422221515722.png"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># [batch_size, num_leads, data_length]  =STFT=&gt; [batch_size, num_leads, W, H]</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># =&gt; resnet34</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># =&gt; output</span>
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th style="text-align: center"></th>
+          <th>I-AVB</th>
+          <th>AF</th>
+          <th>LBBB</th>
+          <th>LBBB</th>
+          <th>NORM</th>
+          <th>PAC</th>
+          <th>STD</th>
+          <th>PVC</th>
+          <th>STE</th>
+          <th>平均</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><strong>F1</strong></td>
+          <td>0.7763</td>
+          <td>0.9180</td>
+          <td>0.8511</td>
+          <td>0.8889</td>
+          <td>0.7684</td>
+          <td>0.6393</td>
+          <td>0.7500</td>
+          <td>0.7671</td>
+          <td>0.7805</td>
+          <td><strong>0.7933</strong></td>
+          <td>时序信号通过STFT转为频谱图(汉明窗口100)</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="two-stream-time-and-frequency-domain">two-stream: time and frequency domain<a hidden class="anchor" aria-hidden="true" href="#two-stream-time-and-frequency-domain">#</a></h3>
+<p><img alt="image-20240422214551861" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240422214551861.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center"></th>
+          <th>I-AVB</th>
+          <th>AF</th>
+          <th>LBBB</th>
+          <th>LBBB</th>
+          <th>NORM</th>
+          <th>PAC</th>
+          <th>STD</th>
+          <th>PVC</th>
+          <th>STE</th>
+          <th>平均</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><strong>F1</strong></td>
+          <td>0.8993</td>
+          <td>0.9255</td>
+          <td>0.9020</td>
+          <td>0.9326</td>
+          <td>0.7817</td>
+          <td>0.7040</td>
+          <td>0.8000</td>
+          <td>0.7805</td>
+          <td>0.7619</td>
+          <td><strong>0.8319</strong></td>
+          <td>时序信号通过STFT转为频谱图(窗口100)</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="inceptionnext--shunted-self-attention-cross-stack">InceptionNeXt + Shunted-Self Attention （Cross-Stack）<a hidden class="anchor" aria-hidden="true" href="#inceptionnext--shunted-self-attention-cross-stack">#</a></h3>
+<p>1️⃣</p>
+<p><img alt="image-20240511210910969" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240511210910969.png"></p>
+<p><em><strong>Inception depthwise convlution</strong></em></p>
+<p>2️⃣</p>
+<p><img alt="image-20240511211011416" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240511211011416.png"></p>
+<p><em><strong>Self-Attention 内部实现粗细粒度</strong></em></p>
+<p>3️⃣</p>
+<p><img alt="image-20240511211237019" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240511211237019.png"></p>
+<p><em><strong>特征图  =&gt; 金字塔结构</strong></em>  （中间CNN和Transformer融合，交叉堆叠）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">classes</span><span class="p">:</span>  
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">     <span class="p">[</span><span class="s1">&#39;I-AVB&#39;</span>   <span class="s1">&#39;AF&#39;</span>      <span class="s1">&#39;LBBB&#39;</span>    <span class="s1">&#39;RBBB&#39;</span>    <span class="s1">&#39;NORM&#39;</span>    <span class="s1">&#39;PAC&#39;</span>     <span class="s1">&#39;STD&#39;</span>     <span class="s1">&#39;STE&#39;</span>     <span class="s1">&#39;PVC&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="n">Test</span> <span class="nb">set</span><span class="p">:</span>  
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="mf">0.9706</span><span class="p">,</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8547</span><span class="p">,</span> <span class="n">Auc</span><span class="p">:</span> <span class="mf">0.9666</span><span class="p">,</span> <span class="n">Threshold</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">Test_loss</span><span class="p">:</span> <span class="mf">0.1813</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.9797&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9782&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9913&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9738&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9506&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9549&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9593&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9913&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9564&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="n">F1s</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.9028&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9388&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8846&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9511&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8132&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7207&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8391&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8500&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7917&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="n">Validate</span> <span class="nb">set</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="mf">0.9596</span><span class="p">,</span> <span class="n">F1</span><span class="p">:</span> <span class="mf">0.8105</span><span class="p">,</span> <span class="n">Auc</span><span class="p">:</span> <span class="mf">0.9657</span><span class="p">,</span> <span class="n">Threshold</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">Vali_loss</span><span class="p">:</span> <span class="mf">0.2111</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="n">F1s</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.8750&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9333&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9787&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9016&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6989&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6504&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7545&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6818&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8201&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="n">Train</span><span class="p">[</span><span class="mi">650</span>        <span class="mi">1099</span>      <span class="mi">212</span>       <span class="mi">1675</span>      <span class="mi">826</span>       <span class="mi">554</span>       <span class="mi">782</span>       <span class="mi">198</span>       <span class="mi">629</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="n">Acc</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.9738&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9767&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9985&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9476&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9185&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9374&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9403&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9796&#39;</span><span class="p">,</span> <span class="s1">&#39;0.9636&#39;</span><span class="p">]</span>
+</span></span></code></pre></div><p><em><strong>CPSC</strong></em>  - <strong>患者间</strong></p>
+<p>训练集包含 6,877 个（女性：3178 个;男性：3699 个）12 导联心电图记录，持续时间从 6 秒到 60 秒不等。</p>
+<p><img alt="image-20240511213646105" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240511213646105.png"></p>
+<p>论文中是 1-8 训练；9 验证；10 测试；</p>
+<p><em><strong>PTB-XL</strong></em>  - 患者间</p>
+<p>包含来自 18885 名 10 秒长度患者的 21837 个临床 12 导联心电图</p>
+<p><img alt="image-20240511214058996" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240511214058996.png"></p>
+<p>⭐ 特定患者的所有记录都分配给同一折。折 9 和 10 中的记录至少经过一次人工评估，因此具有特别高的标签质量。因此，我们建议使用 1-8 折 作为训练集，折叠 9 作为验证集，折叠 10 作为测试集。</p>
+<p><em><strong>Chapman-Shaoxin ECG Data</strong></em>  - 患者间</p>
+<p>包含 10,646 名患者的 12 导联心电图，采样率为 500 Hz，11 种常见心律</p>
+<p><img alt="image-20240513120253717" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240513120253717.png"></p>
+<p>类别分组：</p>
+<p><img alt="image-20240513195732015" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240513195732015.png"></p>
+<p><strong>Result</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>dataset</th>
+          <th>Task</th>
+          <th>F1_macro</th>
+          <th>AUC_macro</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>CPSC</td>
+          <td>arrhythmia | multi-label</td>
+          <td>0.8547</td>
+          <td>0.9666</td>
+      </tr>
+      <tr>
+          <td>PTB-XL</td>
+          <td>arrhythmia | multi-label</td>
+          <td>0.5370</td>
+          <td>0.9552</td>
+      </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+      <tr>
+          <th>dataset</th>
+          <th>Task</th>
+          <th>AUC_macro</th>
+          <th>F1_macro</th>
+          <th>Accuracy</th>
+          <th>Recall</th>
+          <th>Precision</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>chapman</td>
+          <td>arrhythmia | multi-class</td>
+          <td>0.9966</td>
+          <td>0.9660</td>
+          <td>0.9699</td>
+          <td>0.9652</td>
+          <td>0.9671</td>
+      </tr>
+  </tbody>
+</table>
+<p>multi-label:  sigmoid转0-1区间，用<strong>阈值</strong>进行预测值二值化，生成标签</p>
+<p>multi-class:  softmax转概率，取概率最大的下标作为预测标签</p>
+<p>数据增强：</p>
+<ol>
+<li>
+<p>随机mask某导联</p>
+</li>
+<li>
+<p>随机mask某段(仅开头或结尾)</p>
+</li>
+<li>
+<p>增加随机噪声</p>
+<p><em>没啥用</em></p>
+</li>
+</ol>
+<hr>
+<h2 id="汇总">汇总<a hidden class="anchor" aria-hidden="true" href="#汇总">#</a></h2>
+<h3 id="实验结果">实验结果<a hidden class="anchor" aria-hidden="true" href="#实验结果">#</a></h3>
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20240603201428685.png" alt="image-20240603201428685" style="zoom:80%;" />
+<p>1️⃣ CNN：优势=&gt;强大的提取局部模式的能力； =&gt; 提出局部细节，边缘，纹理模式信息。  ⭐ 高频信息</p>
+<p>​                  不足=&gt;需要堆叠很深，感受范围才能延申到全局； =&gt; 感知全局弱势</p>
+<p>2️⃣ Transformer： 优势=&gt;全局感受野，不够整体外貌能力很强;                                              ⭐ 低频信息</p>
+<p>​								  不足=&gt;看的太多，干扰太多，对局部细节模式捕获能力较弱。</p>
+<h3 id="模型插图">模型插图<a hidden class="anchor" aria-hidden="true" href="#模型插图">#</a></h3>
+<ul>
+<li><strong>Block基本结构</strong></li>
+</ul>
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20240603173800170.png" alt="image-20240603173800170" style="zoom:67%;" />
+<ul>
+<li><strong>InceptionNext</strong></li>
+</ul>
+<p><img alt="image-20240603173849448" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240603173849448.png"></p>
+<p><em>DConv: 根据通道分组，每组使用不同卷积核大小的DWConv</em></p>
+<ul>
+<li><strong>InceptionMHSALinear</strong></li>
+</ul>
+<p><img alt="image-20240603140051484" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240603140051484.png"></p>
+<p><em>Local Block 和 Global Block 线性拼接</em></p>
+<ul>
+<li><strong>InceptionFormer</strong></li>
+</ul>
+<p><img alt="image-20240603140214408" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240603140214408.png"></p>
+<p><em>Local Block 和 Global Block 交叉堆叠进行融合</em></p>
+<ul>
+<li><strong>InceptionShuntSA</strong></li>
+</ul>
+<p><img alt="image-20240603163710962" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240603163710962.png"></p>
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20240603163728815.png" alt="image-20240603163728815" style="zoom:80%;" />
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20240603163748074.png" alt="image-20240603163748074" style="zoom:80%;" />
+<p><em>一半注意力头执行细粒度注意力，另一半头执行粗粒度注意力</em></p>
+<ul>
+<li><strong>InceptionHiLoSA</strong></li>
+</ul>
+<p><img alt="image-20240603172844194" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20240603172844194.png"></p>
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20240603172708413.png" alt="image-20240603172708413" style="zoom: 67%;" />
+<p><em>一半注意力头执行【窗口级注意力】，另一半头执行【池化注意力】</em></p>
+<p>🧐要调整窗口大小 ！</p>
+<ul>
+<li><strong>SandwichNet</strong></li>
+</ul>
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20240603164045740.png" alt="image-20240603164045740" style="zoom:80%;" />
+<ul>
+<li>**InceptionFormer, M-DWConv 加入倒残差结构 ** <em><strong>(Inverted residual block)</strong></em></li>
+</ul>
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20240603202132653.png" alt="image-20240603202132653" style="zoom:50%;" />
+<p><em>在多尺度DWConv前嵌入Conv1×1 扩张通道数，后嵌入Conv1×1 进行降维。</em></p>
+<p><em><strong>风格非常统一</strong></em>  <em><strong>=&gt; 简单</strong></em></p>
+<ul>
+<li><strong>SandwichProNet</strong></li>
+</ul>
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20240611122337229.png" alt="image-20240611122337229" style="zoom:67%;" />
+<ul>
+<li>
+<p><strong>Channel Mixer</strong>：GLU， DW-FFN</p>
+</li>
+<li>
+<p><strong>Token Mixer:</strong>  细粒度局部 + 粗粒度全局</p>
+</li>
+<li>
+<p><strong>堆叠方式</strong></p>
+</li>
+</ul>
+<h2 id="数据">数据<a hidden class="anchor" aria-hidden="true" href="#数据">#</a></h2>
+<p><em><strong>Arrhythmia Task</strong></em></p>
+<p><em>10s + 100Hz sampling rate</em></p>
+<p><em><strong>PTB-XL  - Rhythm Task</strong></em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">[</span><span class="s1">&#39;AFIB&#39;</span><span class="p">,</span> <span class="s1">&#39;AFLT&#39;</span><span class="p">,</span> <span class="s1">&#39;BIGU&#39;</span><span class="p">,</span> <span class="s1">&#39;PACE&#39;</span><span class="p">,</span> <span class="s1">&#39;PSVT&#39;</span><span class="p">,</span> <span class="s1">&#39;SARRH&#39;</span><span class="p">,</span> <span class="s1">&#39;SBRAD&#39;</span><span class="p">,</span> <span class="s1">&#39;SR&#39;</span><span class="p">,</span> <span class="s1">&#39;STACH&#39;</span><span class="p">,</span> <span class="s1">&#39;SVARR&#39;</span><span class="p">,</span> <span class="s1">&#39;SVTAC&#39;</span><span class="p">,</span> <span class="s1">&#39;TRIGU&#39;</span><span class="p">]</span> 
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="o">-</span> <span class="mi">12</span> <span class="k">class</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="err">[ 1362  66  74  266  22  695  573  15074  744  143  24  18]  # </span><span class="nc">Train</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">[</span> <span class="mi">152</span>    <span class="mi">7</span>   <span class="mi">8</span>   <span class="mi">28</span>   <span class="mi">2</span>   <span class="mi">77</span>   <span class="mi">64</span>   <span class="mi">1674</span>   <span class="mi">82</span>   <span class="mi">14</span>   <span class="mi">3</span>   <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Test</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="n">Train</span><span class="p">:</span> <span class="mi">18932</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="n">Test</span> <span class="p">:</span> <span class="mi">2098</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="n">Total</span><span class="p">:</span> <span class="mi">21030</span>
+</span></span></code></pre></div><p><em><strong>Chapman</strong></em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">[</span><span class="s1">&#39;AFIB&#39;</span><span class="p">,</span> <span class="s1">&#39;GSVT&#39;</span><span class="p">,</span> <span class="s1">&#39;SB&#39;</span><span class="p">,</span> <span class="s1">&#39;SR&#39;</span><span class="p">]</span> 
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="o">-</span> <span class="mi">4</span> <span class="k">class</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nc">Train</span> <span class="p">[</span><span class="mf">1996.</span> <span class="mf">2069.</span> <span class="mf">3498.</span> <span class="mf">2000.</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="n">Test</span>  <span class="p">[</span><span class="mf">222.</span>  <span class="mf">231.</span>  <span class="mf">389.</span>  <span class="mf">222.</span> <span class="p">]</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="n">Train</span><span class="p">:</span> <span class="mi">9563</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="n">Test</span> <span class="p">:</span> <span class="mi">1064</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="n">Total</span><span class="p">:</span> <span class="mi">10627</span>
+</span></span></code></pre></div><p><em><strong>CPSC-2018</strong></em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">[</span><span class="s1">&#39;I-AVB&#39;</span>  <span class="s1">&#39;AF&#39;</span>  <span class="s1">&#39;LBBB&#39;</span>  <span class="s1">&#39;RBBB&#39;</span>  <span class="s1">&#39;NORM&#39;</span>  <span class="s1">&#39;PAC&#39;</span>  <span class="s1">&#39;STD&#39;</span>  <span class="s1">&#39;STE&#39;</span>  <span class="s1">&#39;PVC&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="o">-</span> <span class="mi">9</span> <span class="k">class</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nc">Train</span> <span class="p">[</span> <span class="mi">650</span> <span class="mi">1099</span> <span class="mi">212</span> <span class="mi">1675</span> <span class="mi">826</span> <span class="mi">554</span> <span class="mi">782</span> <span class="mi">198</span> <span class="mi">629</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="n">Test</span>  <span class="p">[</span>  <span class="mi">72</span>  <span class="mi">122</span>  <span class="mi">24</span>  <span class="mi">181</span>  <span class="mi">92</span>  <span class="mi">61</span>  <span class="mi">87</span>  <span class="mi">22</span>  <span class="mi">70</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="n">Train</span><span class="p">:</span> <span class="mi">6187</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="n">Test</span> <span class="p">:</span> <span class="mi">688</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="n">Total</span><span class="p">:</span> <span class="mi">6875</span>
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://121.40.252.207/tags/ecg/">ECG</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://121.40.252.207/posts/leetcode/leetcode_hot100/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>LeetCodeHot100刷题笔记</span>
+  </a>
+  <a class="next" href="http://121.40.252.207/posts/learning/java_learning/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Java学习笔记</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://121.40.252.207/">LongCoding&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

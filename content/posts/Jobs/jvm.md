@@ -5,7 +5,6 @@ date: "2025-03-08"
 tags: ["JVM"]
 categories: ["Jobs"]
 series: ["JobLearning"]
-aliases: ["mianshiya_jvm"]
 ShowToc: true
 TocOpen: true
 ---

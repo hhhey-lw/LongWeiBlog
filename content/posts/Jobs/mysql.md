@@ -5,7 +5,6 @@ date: "2025-03-04"
 tags: ["MySQL"]
 categories: ["Jobs"]
 series: ["JobLearning"]
-aliases: ["mianshiya_mysql"]
 ShowToc: true
 TocOpen: true
 ---

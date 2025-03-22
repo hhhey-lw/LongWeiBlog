@@ -5,7 +5,6 @@ date: "2024-10-31"
 tags: ["DL"]
 categories: ["Learning"]
 series: ["Learning"]
-aliases: ["dl_learning"]
 ShowToc: true
 TocOpen: true
 ---

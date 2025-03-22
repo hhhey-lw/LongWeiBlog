@@ -5,7 +5,6 @@ date: "2025-03-01"
 tags: ["Redis"]
 categories: ["Jobs"]
 series: ["JobLearning"]
-aliases: ["mianshiya_redis"]
 ShowToc: true
 TocOpen: true
 ---
@@ -362,7 +361,7 @@ Big Memory Key，key对应的value超级大
   - 备份的时候，先生成RDB，再将新增的写操作加到AOF文件后面
 
 
- 
+
 
 ### 649 Redis在生成RDB快照时，如何处理请求
 

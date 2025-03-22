@@ -5,7 +5,6 @@ date: "2025-02-19"
 tags: ["Java"]
 categories: ["Jobs"]
 series: ["JobLearning"]
-aliases: ["mianshiya_java"]
 ShowToc: true
 TocOpen: true
 ---

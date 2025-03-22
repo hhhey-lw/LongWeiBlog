@@ -627,6 +627,13 @@
 &lt;p&gt;给定一个数组 &lt;code&gt;nums&lt;/code&gt;，编写一个函数将所有 &lt;code&gt;0&lt;/code&gt; 移动到数组的末尾，同时保持非零元素的&lt;strong&gt;相对顺序&lt;/strong&gt;(原始数组位置，非不是重新排序)。&lt;/p&gt;</description>
     </item>
     <item>
+      <title>ECG论文和实验</title>
+      <link>http://121.40.252.207/posts/learning/ecg_exp/</link>
+      <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://121.40.252.207/posts/learning/ecg_exp/</guid>
+      <description>ECG心电图论文创新点整理和初步实验</description>
+    </item>
+    <item>
       <title>Java学习笔记</title>
       <link>http://121.40.252.207/posts/learning/java_learning/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>

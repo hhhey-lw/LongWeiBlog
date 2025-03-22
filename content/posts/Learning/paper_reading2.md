@@ -5,7 +5,6 @@ date: "2024-04-19"
 tags: ["DL"]
 categories: ["Learning"]
 series: ["Learning"]
-aliases: ["dl_papers2"]
 ShowToc: true
 TocOpen: true
 ---

@@ -83,5 +83,12 @@
       <guid>http://121.40.252.207/tags/hot100/</guid>
       <description></description>
     </item>
+    <item>
+      <title>ECG</title>
+      <link>http://121.40.252.207/tags/ecg/</link>
+      <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://121.40.252.207/tags/ecg/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>
