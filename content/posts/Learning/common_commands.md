@@ -37,7 +37,7 @@ docker exec -it <容器名称或ID> /bin/bash # execute -it:Interactive and Tele
 
 
 
-### **Linux**
+### Linux
 
 文件和目录
 
@@ -100,7 +100,7 @@ clear
 
 
 
-### **Git**
+### Git
 
 Git 是一个分布式版本控制系统，支持多人协作开发。
 
@@ -125,7 +125,7 @@ git merge <分支名>
 
 
 
-### **Shell**
+### Shell
 
 条件判断
 
