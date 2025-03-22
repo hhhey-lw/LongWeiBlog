@@ -68,7 +68,7 @@ params:
   ShowRssButtonInSectionTermList: false
   comments: true
   assets:
-        # disableFingerprinting: true
+        disableFingerprinting: true
         disableHLJS: true
         favicon: favicon.ico
         favicon16x16: favicon-16x16.png
