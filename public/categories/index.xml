@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on LongCoding&#39;s Blog</title>
-    <link>http://121.40.252.207/categories/</link>
+    <link>http://localhost:1313/categories/</link>
     <description>Recent content in Categories on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Sun, 16 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://121.40.252.207/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learning</title>
-      <link>http://121.40.252.207/categories/learning/</link>
+      <link>http://localhost:1313/categories/learning/</link>
       <pubDate>Sun, 16 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/categories/learning/</guid>
+      <guid>http://localhost:1313/categories/learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Jobs</title>
-      <link>http://121.40.252.207/categories/jobs/</link>
+      <link>http://localhost:1313/categories/jobs/</link>
       <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/categories/jobs/</guid>
+      <guid>http://localhost:1313/categories/jobs/</guid>
       <description></description>
     </item>
     <item>
       <title>LeetCode</title>
-      <link>http://121.40.252.207/categories/leetcode/</link>
+      <link>http://localhost:1313/categories/leetcode/</link>
       <pubDate>Sun, 24 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/categories/leetcode/</guid>
+      <guid>http://localhost:1313/categories/leetcode/</guid>
       <description></description>
     </item>
   </channel>
