@@ -60,6 +60,7 @@ params:
 
     assets:
         disableHLJS: true
+        disableFingerprinting: true
         favicon: favicon.ico
         favicon16x16: favicon-16x16.png
     profileMode:
