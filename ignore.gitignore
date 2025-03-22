@@ -1,7 +1,3 @@
 # 自动生成的文件
 public
-resources
 .hugo_build.lock
-
-# hugo命令
-hugo.exe
