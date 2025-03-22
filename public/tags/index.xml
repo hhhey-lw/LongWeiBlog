@@ -2,80 +2,80 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on LongCoding&#39;s Blog</title>
-    <link>http://127.0.0.1/tags/</link>
+    <link>http://121.40.252.207/tags/</link>
     <description>Recent content in Tags on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Sun, 16 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://127.0.0.1/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://121.40.252.207/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Commands</title>
-      <link>http://127.0.0.1/tags/commands/</link>
+      <link>http://121.40.252.207/tags/commands/</link>
       <pubDate>Sun, 16 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/commands/</guid>
+      <guid>http://121.40.252.207/tags/commands/</guid>
       <description></description>
     </item>
     <item>
       <title>Collection</title>
-      <link>http://127.0.0.1/tags/collection/</link>
+      <link>http://121.40.252.207/tags/collection/</link>
       <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/collection/</guid>
+      <guid>http://121.40.252.207/tags/collection/</guid>
       <description></description>
     </item>
     <item>
       <title>JVM</title>
-      <link>http://127.0.0.1/tags/jvm/</link>
+      <link>http://121.40.252.207/tags/jvm/</link>
       <pubDate>Sat, 08 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/jvm/</guid>
+      <guid>http://121.40.252.207/tags/jvm/</guid>
       <description></description>
     </item>
     <item>
       <title>JUC</title>
-      <link>http://127.0.0.1/tags/juc/</link>
+      <link>http://121.40.252.207/tags/juc/</link>
       <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/juc/</guid>
+      <guid>http://121.40.252.207/tags/juc/</guid>
       <description></description>
     </item>
     <item>
       <title>MySQL</title>
-      <link>http://127.0.0.1/tags/mysql/</link>
+      <link>http://121.40.252.207/tags/mysql/</link>
       <pubDate>Tue, 04 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/mysql/</guid>
+      <guid>http://121.40.252.207/tags/mysql/</guid>
       <description></description>
     </item>
     <item>
       <title>Redis</title>
-      <link>http://127.0.0.1/tags/redis/</link>
+      <link>http://121.40.252.207/tags/redis/</link>
       <pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/redis/</guid>
+      <guid>http://121.40.252.207/tags/redis/</guid>
       <description></description>
     </item>
     <item>
       <title>Java</title>
-      <link>http://127.0.0.1/tags/java/</link>
+      <link>http://121.40.252.207/tags/java/</link>
       <pubDate>Wed, 19 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/java/</guid>
+      <guid>http://121.40.252.207/tags/java/</guid>
       <description></description>
     </item>
     <item>
       <title>SQL</title>
-      <link>http://127.0.0.1/tags/sql/</link>
+      <link>http://121.40.252.207/tags/sql/</link>
       <pubDate>Sun, 24 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/sql/</guid>
+      <guid>http://121.40.252.207/tags/sql/</guid>
       <description></description>
     </item>
     <item>
       <title>DL</title>
-      <link>http://127.0.0.1/tags/dl/</link>
+      <link>http://121.40.252.207/tags/dl/</link>
       <pubDate>Thu, 31 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/dl/</guid>
+      <guid>http://121.40.252.207/tags/dl/</guid>
       <description></description>
     </item>
     <item>
       <title>Hot100</title>
-      <link>http://127.0.0.1/tags/hot100/</link>
+      <link>http://121.40.252.207/tags/hot100/</link>
       <pubDate>Wed, 18 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>http://127.0.0.1/tags/hot100/</guid>
+      <guid>http://121.40.252.207/tags/hot100/</guid>
       <description></description>
     </item>
   </channel>
