@@ -93,9 +93,7 @@ Where&amp;GroupBy&amp;HAVING
         }
 
     </style>
-</noscript><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><meta property="og:url" content="http://121.40.252.207/posts/leetcode/leetcode_sql/">
+</noscript><meta property="og:url" content="http://121.40.252.207/posts/leetcode/leetcode_sql/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
   <meta property="og:title" content="高频SQL50题刷题笔记">
   <meta property="og:description" content="高频SQL50题 查询 Where&amp;GroupBy&amp;HAVING 1SELECT id, revenue # 某个用户2021年可能有多项记录 2FROM users 3Where year = 2021 4 5SELECT id, SUM(revenue) 6FROM users 7Where year = 2021 # 1. 先筛选出此年份所有记录 8Group By id # 2. 再根据id分组 3. 必须结合SUM() 或者其他聚合函数，因此这个有多列，需要处理为单值。 9 10SELECT id 11FROM users 12Where year = 2021 # 1. 先筛选记录 13Group By id # 2. 分组 14HAVING SUM(revenue) &gt; 1000 # 3. 聚合分组字段记录 并 判断 查找没买过东西的顾客 1# 1. NOT EXISTS 2SELECT `name` AS `Customers` 3FROM `Customers` AS c 4WHERE NOT EXISTS ( 5 SELECT `customerId` 6 FROM `Orders` AS o 7 Where o.customerId = c.id 8) 1# 2. Left Join 2# example 3SELECT c.id AS id, c.name, o.id AS oid 4FROM customers AS c LEFT JOIN orders AS o 5on c.id = o.customerId 6 7SELECT `name` as `Customers` 8FROM customers AS c LEFT JOIN orders AS o 9on c.id = o.customerId 10WHERE o.id is NULL 计算特殊奖金 编写解决方案，计算每个雇员的奖金。如果一个雇员的 id 是 奇数 并且他的名字不是以 &#39;M&#39; 开头，那么他的奖金是他工资的 100% ，否则奖金为 0 。">
