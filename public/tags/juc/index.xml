@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>JUC on LongCoding&#39;s Blog</title>
-    <link>http://121.40.252.207/tags/juc/</link>
+    <link>http://localhost:1313/tags/juc/</link>
     <description>Recent content in JUC on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Wed, 05 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://121.40.252.207/tags/juc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/juc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>并发面试题笔记</title>
-      <link>http://121.40.252.207/posts/jobs/juc/</link>
+      <link>http://localhost:1313/posts/jobs/juc/</link>
       <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/jobs/juc/</guid>
+      <guid>http://localhost:1313/posts/jobs/juc/</guid>
       <description>&lt;h3 id=&#34;1-如何创建多线程&#34;&gt;1 如何创建多线程&lt;/h3&gt;
 &lt;p&gt;1） 实现&lt;strong&gt;Runnable&lt;/strong&gt;接口&lt;/p&gt;
 &lt;ul&gt;

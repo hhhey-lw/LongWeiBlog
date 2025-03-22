@@ -4,7 +4,7 @@ title: "Java学习笔记"
 date: "2024-04-19"
 tags: ["Java"]
 categories: ["Learning"]
-series: ["Learning"]
+series: ["Java"]
 aliases: ["java_learning"]
 ShowToc: true
 TocOpen: true

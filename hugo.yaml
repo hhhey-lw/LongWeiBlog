@@ -1,79 +1,68 @@
 baseURL: "http://121.40.252.207/"
-languageCode: en 
 title: "LongCoding's Blog"
-theme: ["PaperMod"]
-# mainsections: ["posts"]
+pagination.pagerSize: "5"
+theme: PaperMod
 
 enableInlineShortcodes: true # shortcode，类似于模板变量，可以在写 markdown 的时候便捷地插入，官方文档中有一个视频讲的很通俗
-# hasCJKLanguage: true # 是否有 CJK 的字符
 enableRobotsTXT: true # 允许生成 robots.txt
 buildDrafts: false # 构建时是否包括草稿
 buildFuture: false # 构建未来发布的内容
 buildExpired: false # 构建过期的内容
 enableEmoji: true # 允许 emoji
 pygmentsUseClasses: true
-defaultContentLanguage: en # 顶部首先展示的语言界面
-defaultContentLanguageInSubdir: false # 是否要在地址栏加上默认的语言代码
 
 minify:
   disableXML: true
 
 languages:
-   en:
-     languageName: "English" # 展示的语言名
-     weight: 1 # 权重
-     taxonomies: # 分类系统
-       category: categories
-       tag: tags
-       series: series
-     # https://gohugo.io/content-management/menus/#define-in-site-configuration
-     menus:
-        main:
-        - name: 🏡 Home
-          pageRef: /
-          weight: 4 # 控制在页面上展示的前后顺序
-        - name: 📃 Archive
-          pageRef: archives/
-          weight: 5
-        - name: 🗒️ Categories
-          pageRef: categories/
-          weight: 10
-        - name: 📑 Tags
-          pageRef: tags/
-          weight: 10
-        - name: 🔍 Search
-          pageRef: search/
-          weight: 20
-        - name: 👨🏻‍🎓 About Me
-          pageRef: about/
-          weight: 21
+    en:
+        languageName: "English" # 展示的语言名
+        weight: 1 # 权重
+        taxonomies: # 分类系统
+          category: categories
+          tag: tags
+          series: series
+        menus:
+            main:
+                - name: 🏡 Home
+                  url: index.html
+                  weight: 4 # 控制在页面上展示的前后顺序
+                - name: 📃 Archive
+                  url: archives/
+                  weight: 5
+                - name: 🗒️ Categories
+                  url: categories/
+                  weight: 10
+                - name: 📑 Tags
+                  url: tags/
+                  weight: 10
+                - name: 🔍 Search
+                  url: search/
+                  weight: 20
+                - name: 👨🏻‍🎓 About Me
+                  url: about/
+                  weight: 21 
 
 params:
-  env: production
-  author: 👨🏻‍🎓 LongWei
-  defaultTheme: PaperMod
-  # ShowShareButtons: true
-  ShowReadingTime: true
-  displayFullLangName: true
-  ShowPostNavLinks: true
-  ShowBreadCrumbs: true
-  ShowCodeCopyButtons: true
-  ShowRssButtonInSectionTermList: true
-  ShowAllPagesInArchive: true
-  ShowPageNums: true
-  ShowToc: true
-  # 是否启用阅读时间展示
-  ShowReadingTime: true
-  ShowWordCount: true
-  # ShowRssButtonInSectionTermList: false
-  # comments: true
-  assets:
-        disableFingerprinting: true  # CSS
+    env: production
+    author: 👨🏻‍🎓 LongWei
+    defaultTheme: PaperMod
+    ShowReadingTime: true
+    displayFullLangName: true
+    ShowBreadCrumbs: true
+    ShowCodeCopyButtons: true
+    ShowRssButtonInSectionTermList: true
+    ShowAllPagesInArchive: true
+    ShowPageNums: true
+    ShowToc: true
+    # 是否启用阅读时间展示
+    ShowReadingTime: true
+    ShowWordCount: true
+    assets:
         disableHLJS: true
         favicon: favicon.ico
         favicon16x16: favicon-16x16.png
-        # disableFingerprinting: true  # CSS Integrity 设置一致性
-  profileMode:
+    profileMode:
         enabled: true
         title: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰"
         imageUrl: "images/avatar.png"
@@ -81,64 +70,60 @@ params:
         buttons:
           - name: 🗒️ Posts
             url: posts
-          # - name: 🗒️ Categories
-            # url: categories
-  # 主页 - 信息模式（默认）
-  homeInfoParams:
-    Title: "Hi there ⛳"
-    Content: "Welcome to my blog"
-  #  主页 - 信息模式 图标展示
-  socialIcons:
-    - name: github
-      url: "https://github.com/hhhey-lw"
-    - name: tiktok
-      url: " https://v.douyin.com/IsEQU-ZVnik/ 9@7.com :3pm"
-  label:
-      text: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰"
-      icon: "android-icon-48x48.png"
-      iconHeight: 30
-
-  # 搜索
-  fuseOpts:
-      isCaseSensitive: false # 是否大小写敏感
-      shouldSort: true # 是否排序
-      location: 0
-      distance: 1000
-      threshold: 0.4
-      minMatchCharLength: 0
-      # limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
-      keys: ["title", "permalink", "summary", "content"]
-      includeMatches: true
-  # 评论的设置
-  giscus:
-    repo: "hhhey-lw/LongWeiBlog"
-    repoId: "R_kgDOOMaMvQ"
-    category: "Announcements"
-    categoryId: "DIC_kwDOOMaMvc4CoUI4"
-    mapping: "pathname"
-    strict: "0"
-    reactionsEnabled: "1"
-    emitMetadata: "0"
-    inputPosition: "bottom"
-    lightTheme: "light"
-    darkTheme: "dark"
-    lang: "en"
-    crossorigin: "anonymous"
-
+    # 主页 - 信息模式（默认）
+    homeInfoParams:
+        Title: "Hi there ⛳"
+        Content: "Welcome to my blog"
+    #  主页 - 信息模式 图标展示
+    socialIcons:
+        - name: github
+          url: "https://github.com/hhhey-lw"
+        - name: tiktok
+          url: " https://v.douyin.com/IsEQU-ZVnik/ 9@7.com :3pm"
+    label:
+        text: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰"
+        icon: "android-icon-48x48.png"
+        iconHeight: 30
+  
+    # 搜索
+    fuseOpts:
+        isCaseSensitive: false # 是否大小写敏感
+        shouldSort: true # 是否排序
+        location: 0
+        distance: 1000
+        threshold: 0.4
+        minMatchCharLength: 0
+        keys: ["title", "permalink", "summary", "content"]
+        includeMatches: true
+    # 评论的设置
+    giscus:
+        repo: "hhhey-lw/LongWeiBlog"
+        repoId: "R_kgDOOMaMvQ"
+        category: "Announcements"
+        categoryId: "DIC_kwDOOMaMvc4CoUI4"
+        mapping: "pathname"
+        strict: "0"
+        reactionsEnabled: "1"
+        emitMetadata: "0"
+        inputPosition: "bottom"
+        lightTheme: "light"
+        darkTheme: "dark"
+        lang: "en"
+        crossorigin: "anonymous"
+  
 outputs:
-  home:
-    - HTML # 生成的静态页面
-    - RSS 
-    - JSON # necessary for search, 这里的配置修改好之后，一定要重新生成一下
+    home:
+        - HTML # 生成的静态页面
+        - RSS 
+        - JSON # necessary for search, 这里的配置修改好之后，一定要重新生成一下
 
 markup:
-  goldmark:
-    renderer:
-      unsafe: true
-  highlight:
+    goldmark:
+        renderer:
+            unsafe: true
     highlight:
-    anchorLineNos: false # 不要给行号设置锚标
-    codeFences: true # 代码围栏
-    noClasses: false # TODO: 不知道干啥的，暂时没必要了解，不影响展示
-    lineNos: true # 代码行
-    lineNumbersInTable: false # 不要设置成 true，否则如果文章开头是代码的话，摘要会由一大堆数字
+        anchorLineNos: false # 不要给行号设置锚标
+        codeFences: true # 代码围栏
+        noClasses: false # TODO: 不知道干啥的，暂时没必要了解，不影响展示
+        lineNos: true # 代码行
+        lineNumbersInTable: false # 不要设置成 true，否则如果文章开头是代码的话，摘要会由一大堆数字

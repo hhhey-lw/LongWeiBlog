@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on LongCoding&#39;s Blog</title>
-    <link>http://121.40.252.207/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Sun, 16 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://121.40.252.207/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux&amp;Docker&amp;Shell命令</title>
-      <link>http://121.40.252.207/posts/learning/common_commands/</link>
+      <link>http://localhost:1313/posts/learning/common_commands/</link>
       <pubDate>Sun, 16 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/learning/common_commands/</guid>
+      <guid>http://localhost:1313/posts/learning/common_commands/</guid>
       <description>&lt;h3 id=&#34;docker&#34;&gt;docker&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;service docker start
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -50,9 +50,9 @@
     </item>
     <item>
       <title>集合面试题笔记</title>
-      <link>http://121.40.252.207/posts/jobs/collection/</link>
+      <link>http://localhost:1313/posts/jobs/collection/</link>
       <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/jobs/collection/</guid>
+      <guid>http://localhost:1313/posts/jobs/collection/</guid>
       <description>&lt;h3 id=&#34;6319-hashmap-原理&#34;&gt;6319 HashMap 原理&lt;/h3&gt;
 &lt;p&gt;数据结构：数组 + 链表  （JAVA8之后：数组+链表+红黑树）&lt;/p&gt;
 &lt;ul&gt;
@@ -124,9 +124,9 @@
     </item>
     <item>
       <title>JVM面试题笔记</title>
-      <link>http://121.40.252.207/posts/jobs/jvm/</link>
+      <link>http://localhost:1313/posts/jobs/jvm/</link>
       <pubDate>Sat, 08 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/jobs/jvm/</guid>
+      <guid>http://localhost:1313/posts/jobs/jvm/</guid>
       <description>&lt;h3 id=&#34;521-java如何实现跨平台的&#34;&gt;521. Java如何实现跨平台的？&lt;/h3&gt;
 &lt;p&gt;Java编译生成的是字节码文件.class文件，而不是特定于某个操作系统的机器码。&lt;/p&gt;
 &lt;p&gt;不同操作系统上都有各自实现的JVM，负责将字节码翻译成特定平台的机器代码并执行。使得JAVA文件可以被不同操作系统上的JVM运行。包装了一层。&lt;/p&gt;
@@ -210,9 +210,9 @@
     </item>
     <item>
       <title>并发面试题笔记</title>
-      <link>http://121.40.252.207/posts/jobs/juc/</link>
+      <link>http://localhost:1313/posts/jobs/juc/</link>
       <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/jobs/juc/</guid>
+      <guid>http://localhost:1313/posts/jobs/juc/</guid>
       <description>&lt;h3 id=&#34;1-如何创建多线程&#34;&gt;1 如何创建多线程&lt;/h3&gt;
 &lt;p&gt;1） 实现&lt;strong&gt;Runnable&lt;/strong&gt;接口&lt;/p&gt;
 &lt;ul&gt;
@@ -267,9 +267,9 @@
     </item>
     <item>
       <title>MySQL面试题笔记</title>
-      <link>http://121.40.252.207/posts/jobs/mysql/</link>
+      <link>http://localhost:1313/posts/jobs/mysql/</link>
       <pubDate>Tue, 04 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/jobs/mysql/</guid>
+      <guid>http://localhost:1313/posts/jobs/mysql/</guid>
       <description>&lt;h3 id=&#34;617-mysql-数据排序-实现&#34;&gt;617 MySQL 数据排序 实现？&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Order By 命中索引(包括索引字段)，使用索引排序(有序)，效率最高效&lt;/li&gt;
@@ -310,9 +310,9 @@
     </item>
     <item>
       <title>Redis面试题笔记</title>
-      <link>http://121.40.252.207/posts/jobs/redis/</link>
+      <link>http://localhost:1313/posts/jobs/redis/</link>
       <pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/jobs/redis/</guid>
+      <guid>http://localhost:1313/posts/jobs/redis/</guid>
       <description>&lt;h3 id=&#34;637-常见的数据类型&#34;&gt;637 常见的数据类型&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;String&lt;/li&gt;
@@ -385,9 +385,9 @@
     </item>
     <item>
       <title>Java面试题笔记</title>
-      <link>http://121.40.252.207/posts/jobs/java/</link>
+      <link>http://localhost:1313/posts/jobs/java/</link>
       <pubDate>Wed, 19 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/jobs/java/</guid>
+      <guid>http://localhost:1313/posts/jobs/java/</guid>
       <description>&lt;h3 id=&#34;415-序列化反序列化&#34;&gt;415 序列化&amp;amp;反序列化&lt;/h3&gt;
 &lt;p&gt;将Object转为字节流，或反之&lt;/p&gt;
 &lt;ul&gt;
@@ -446,9 +446,9 @@
     </item>
     <item>
       <title>高频SQL50题刷题笔记</title>
-      <link>http://121.40.252.207/posts/leetcode/leetcode_sql/</link>
+      <link>http://localhost:1313/posts/leetcode/leetcode_sql/</link>
       <pubDate>Sun, 24 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/leetcode/leetcode_sql/</guid>
+      <guid>http://localhost:1313/posts/leetcode/leetcode_sql/</guid>
       <description>&lt;h2 id=&#34;高频sql50题&#34;&gt;高频SQL50题&lt;/h2&gt;
 &lt;h3 id=&#34;查询&#34;&gt;查询&lt;/h3&gt;
 &lt;h4 id=&#34;wheregroupbyhaving&#34;&gt;Where&amp;amp;GroupBy&amp;amp;HAVING&lt;/h4&gt;
@@ -491,9 +491,9 @@
     </item>
     <item>
       <title>DL基准模型训练伪代码</title>
-      <link>http://121.40.252.207/posts/learning/minibaseline_learning/</link>
+      <link>http://localhost:1313/posts/learning/minibaseline_learning/</link>
       <pubDate>Thu, 31 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/learning/minibaseline_learning/</guid>
+      <guid>http://localhost:1313/posts/learning/minibaseline_learning/</guid>
       <description>&lt;h3 id=&#34;mingpt&#34;&gt;minGPT&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;author: karpathy Andrej&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;work flow&lt;/strong&gt;&lt;/p&gt;
@@ -538,9 +538,9 @@
     </item>
     <item>
       <title>LeetCodeHot100刷题笔记</title>
-      <link>http://121.40.252.207/posts/leetcode/leetcode_hot100/</link>
+      <link>http://localhost:1313/posts/leetcode/leetcode_hot100/</link>
       <pubDate>Wed, 18 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/leetcode/leetcode_hot100/</guid>
+      <guid>http://localhost:1313/posts/leetcode/leetcode_hot100/</guid>
       <description>&lt;h2 id=&#34;热题100&#34;&gt;热题100&lt;/h2&gt;
 &lt;h3 id=&#34;哈希&#34;&gt;哈希&lt;/h3&gt;
 &lt;h5 id=&#34;1-两数之和&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/two-sum/&#34;&gt;1. 两数之和&lt;/a&gt;&lt;/h5&gt;
@@ -623,9 +623,9 @@
     </item>
     <item>
       <title>Java学习笔记</title>
-      <link>http://121.40.252.207/posts/learning/java_learning/</link>
+      <link>http://localhost:1313/posts/learning/java_learning/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/learning/java_learning/</guid>
+      <guid>http://localhost:1313/posts/learning/java_learning/</guid>
       <description>&lt;h3 id=&#34;java-反射&#34;&gt;Java 反射&lt;/h3&gt;
 &lt;p&gt;它提供了动态性和灵活性，使得程序可以在运行时动态地加载类、调用方法、访问字段等，而不需要在编译时确定这些操作。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1. 动态加载类&lt;/strong&gt;&lt;/p&gt;
@@ -692,9 +692,9 @@
     </item>
     <item>
       <title>深度学习论文汇总1</title>
-      <link>http://121.40.252.207/posts/learning/paper_reading1/</link>
+      <link>http://localhost:1313/posts/learning/paper_reading1/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/learning/paper_reading1/</guid>
+      <guid>http://localhost:1313/posts/learning/paper_reading1/</guid>
       <description>&lt;h2 id=&#34;图示&#34;&gt;图示&lt;/h2&gt;
 &lt;h3 id=&#34;卷积注意力&#34;&gt;卷积注意力&lt;/h3&gt;
 &lt;p&gt;&lt;img alt=&#34;image-20240322202245497&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FnOSHW83hKtIFxFdU34DDsMiOeWO&#34;&gt;&lt;/p&gt;
@@ -730,9 +730,9 @@ $$&lt;/p&gt;
     </item>
     <item>
       <title>深度学习论文汇总2</title>
-      <link>http://121.40.252.207/posts/learning/paper_reading2/</link>
+      <link>http://localhost:1313/posts/learning/paper_reading2/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/learning/paper_reading2/</guid>
+      <guid>http://localhost:1313/posts/learning/paper_reading2/</guid>
       <description>&lt;h3 id=&#34;cam----cvpr-2015&#34;&gt;&lt;strong&gt;CAM&lt;/strong&gt;  - CVPR 2015&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;Learning Deep Features for Discriminative Localization&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;弱监督对象定位&lt;/strong&gt;  - 仅提供Image level label&lt;/p&gt;
