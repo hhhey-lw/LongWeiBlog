@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Collection on LongCoding&#39;s Blog</title>
-    <link>http://localhost:1313/tags/collection/</link>
+    <link>http://121.40.252.207/tags/collection/</link>
     <description>Recent content in Collection on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Thu, 13 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/collection/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://121.40.252.207/tags/collection/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>集合面试题笔记</title>
-      <link>http://localhost:1313/posts/jobs/collection/</link>
+      <link>http://121.40.252.207/posts/jobs/collection/</link>
       <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/jobs/collection/</guid>
+      <guid>http://121.40.252.207/posts/jobs/collection/</guid>
       <description>&lt;h3 id=&#34;6319-hashmap-原理&#34;&gt;6319 HashMap 原理&lt;/h3&gt;
 &lt;p&gt;数据结构：数组 + 链表  （JAVA8之后：数组+链表+红黑树）&lt;/p&gt;
 &lt;ul&gt;
