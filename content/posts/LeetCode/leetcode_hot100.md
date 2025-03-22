@@ -4,7 +4,6 @@ title: "LeetCodeHot100刷题笔记"
 date: "2024-09-18"
 tags: ["Hot100"]
 categories: ["LeetCode"]
-aliases: ["leetcode_hot100"]
 ShowToc: true
 TocOpen: true
 ---

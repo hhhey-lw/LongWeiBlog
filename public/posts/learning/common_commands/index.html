@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Linux&amp;Docker&amp;Shell命令 | LongCoding&#39;s Blog</title>
-<meta name="keywords" content="Commands">
+<meta name="keywords" content="Command">
 <meta name="description" content="docker
  1service docker start
  2
@@ -100,7 +100,7 @@ Linux
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-03-16T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-03-16T00:00:00+00:00">
-    <meta property="article:tag" content="Commands">
+    <meta property="article:tag" content="Command">
       <meta property="og:image" content="http://121.40.252.207/papermod-cover.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://121.40.252.207/papermod-cover.png">
@@ -169,7 +169,7 @@ Linux
   "name": "Linux\u0026Docker\u0026Shell命令",
   "description": "docker 1service docker start 2 3docker pull \u0026lt;镜像名称\u0026gt;:\u0026lt;标签\u0026gt; 4 5docker rmi \u0026lt;镜像名称或ID\u0026gt; 6 7docker images 8 9docker run [选项] \u0026lt;镜像名称\u0026gt;:\u0026lt;标签\u0026gt; 10 11docker start \u0026lt;容器名称或ID\u0026gt; 12 13docker ps 14 15docker exec -it \u0026lt;容器名称或ID\u0026gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式\u0026amp;伪终端 Linux 文件和目录\n1ls -l # -l:详细信息 2cd 3pwd # 当前目录 4mkdir/vim 5rm/rmdir 6cp mv 文件权限\n1chmod # Change Mode # chmod u+rwx file.txt x:Execute 2chown 系统命令\n1ps -ef # e:all -f full info 2ps -u $USER 3ps -ef | grep \u0026lt;info\u0026gt; # global regular expression print 4 5htop # 显示系统资源使用情况 网络管理\n",
   "keywords": [
-    "Commands"
+    "Command"
   ],
   "articleBody": "docker 1service docker start 2 3docker pull \u003c镜像名称\u003e:\u003c标签\u003e 4 5docker rmi \u003c镜像名称或ID\u003e 6 7docker images 8 9docker run [选项] \u003c镜像名称\u003e:\u003c标签\u003e 10 11docker start \u003c容器名称或ID\u003e 12 13docker ps 14 15docker exec -it \u003c容器名称或ID\u003e /bin/bash # execute -it:Interactive and Teletypewriter 交互式\u0026伪终端 Linux 文件和目录\n1ls -l # -l:详细信息 2cd 3pwd # 当前目录 4mkdir/vim 5rm/rmdir 6cp mv 文件权限\n1chmod # Change Mode # chmod u+rwx file.txt x:Execute 2chown 系统命令\n1ps -ef # e:all -f full info 2ps -u $USER 3ps -ef | grep # global regular expression print 4 5htop # 显示系统资源使用情况 网络管理\n1ping 2ifconfig 3netstat # 网络连接信息 压缩解压\n1tar -czvf archive.tar.gz folder_name # 压缩 2tar -xzvf archive.tar.gz # 解压 3 4-c: # create 创建 5-x: # extract解压 6-z: # 使用gzip压缩 7-v: # verbose显示[详细]信息 8-f：# file 指定文件名 杂项\n1history 2echo 3clear Git Git 是一个分布式版本控制系统，支持多人协作开发。\n1git init 2git clone --link 3git status 4添加文件：git add file 或者 git add . 5提交文件：git commit -m \"commit msg\" 6git push 7git pull 8git log 9 10// branch 分支 11git branch \u003c分支名\u003e 12git checkout \u003c分支名\u003e // 切换分支 13git merge \u003c分支名\u003e 14-- 手动编辑冲突文件，然后使用 git add 标记冲突已解决，最后提交更改。 Shell 条件判断\n1#!/bin/bash 2if [ -f \"file.txt\" ]; then 3 echo \"file.txt exists.\" 4else 5 echo \"file.txt not exists.\" 6fi 7 8# -f 检查文件是否存在 9 10#!/bin/bash 11num=10 12if [ $num -gt 5 ]; then 13 echo \"$num is greater than 5.\" 14fi 15 16-gt # greater than 循环\n1#!/bin/bash 2num=(1 2 3 4 5) 3for i in \"${num[@]}\"; do # 是用于引用数组 num 中所有元素的方式 4 echo \"number: $i\" 5done 6------------------------ 7#!/bin/bash 8if [ $# -eq 0 ]; then 9 echo \"Usage: $0 \" 10 exit 1 11fi 12 13for i in \"$@\"; do 14 echo \"number: $i\" 15done 16 17# $# 表示传递给脚本或函数的命令行参数的数量 $@ 所有参数 18=\u003e ./script.sh 1 2 3 Where\n1#!/bin/bash 2count=1 3while [ $count -le 5 ]; do 4 echo \"Count: $count\" 5 count=$((count + 1)) 6done 函数\n1#!/bin/bash 2greet() { 3 echo \"Hello, $1!\" 4} 5greet \"Alice\" 6greet \"Bob\" 读写文件\n1echo \"Hello, File!\" \u003e output.txt # write：\u003e 覆盖 \u003e\u003e 追加 2 3while read line; do 4 echo \"Line: $line\" 5done \u003c file.txt # 读文件 读取输入\n1echo \"Enter your name:\" 2read name # 类似scanf 控制台阻塞等待 3echo \"Hello, $name!\" 4 5read -s -p \"Enter your password: \" password 6echo \"Password entered.\" 7 8# s 静默，不显示信息 p显示提示信息 ",
   "wordCount" : "372",
@@ -441,7 +441,7 @@ Linux
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://121.40.252.207/tags/commands/">Commands</a></li>
+      <li><a href="http://121.40.252.207/tags/command/">Command</a></li>
     </ul>
 <nav class="paginav">
   <a class="next" href="http://121.40.252.207/posts/jobs/collection/">

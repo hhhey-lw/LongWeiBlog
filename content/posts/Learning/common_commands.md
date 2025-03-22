@@ -2,9 +2,8 @@
 author: "LongWei"
 title: "Linux&Docker&Shell命令"
 date: "2025-03-16"
-tags: ["Commands"]
+tags: ["Command"]
 categories: ["Learning"]
-aliases: ["common_commands"]
 ShowToc: true
 TocOpen: true
 ---
