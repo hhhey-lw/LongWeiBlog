@@ -4,6 +4,11 @@
     <title>MySQL on LongCoding&#39;s Blog</title>
     <link>http://121.40.252.207/tags/mysql/</link>
     <description>Recent content in MySQL on LongCoding&#39;s Blog</description>
+    <image>
+      <title>LongCoding&#39;s Blog</title>
+      <url>http://121.40.252.207/papermod-cover.png</url>
+      <link>http://121.40.252.207/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Tue, 04 Mar 2025 00:00:00 +0000</lastBuildDate>

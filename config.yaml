@@ -49,16 +49,15 @@ params:
     defaultTheme: PaperMod
     ShowReadingTime: true
     displayFullLangName: true
+    ShowPostNavLinks: true
     ShowBreadCrumbs: true
     ShowCodeCopyButtons: true
     ShowRssButtonInSectionTermList: true
-    ShowAllPagesInArchive: true
-    ShowPageNums: true
     ShowToc: true
-    # 是否启用阅读时间展示
-    ShowReadingTime: true
-    ShowWordCount: true
     comments: true
+    images: ["papermod-cover.png"]
+    ShowWordCount: true
+
     assets:
         disableHLJS: true
         favicon: favicon.ico
@@ -68,6 +67,8 @@ params:
         title: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰"
         imageUrl: "images/avatar.png"
         imageTitle: "LongWei image"
+        imageWidth: 200
+        imageHeight: 200
         buttons:
           - name: 🗒️ Posts
             url: posts
@@ -96,21 +97,6 @@ params:
         minMatchCharLength: 0
         keys: ["title", "permalink", "summary", "content"]
         includeMatches: true
-    # 评论的设置
-    giscus:
-        repo: "hhhey-lw/LongWeiBlog"
-        repoId: "R_kgDOOMaMvQ"
-        category: "Announcements"
-        categoryId: "DIC_kwDOOMaMvc4CoUI4"
-        mapping: "pathname"
-        strict: "0"
-        reactionsEnabled: "1"
-        emitMetadata: "0"
-        inputPosition: "bottom"
-        lightTheme: "light"
-        darkTheme: "dark"
-        lang: "en"
-        crossorigin: "anonymous"
   
 outputs:
     home:

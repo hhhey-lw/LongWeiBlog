@@ -139,12 +139,14 @@ hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突
     <meta property="article:published_time" content="2025-03-13T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-03-13T00:00:00+00:00">
     <meta property="article:tag" content="Collection">
+      <meta property="og:image" content="http://121.40.252.207/papermod-cover.png">
       <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/jvm/">
       <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/juc/">
       <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/mysql/">
       <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/redis/">
       <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/java/">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://121.40.252.207/papermod-cover.png">
 <meta name="twitter:title" content="集合面试题笔记">
 <meta name="twitter:description" content="6319 HashMap 原理
 数据结构：数组 &#43; 链表  （JAVA8之后：数组&#43;链表&#43;红黑树）
@@ -249,7 +251,7 @@ hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突
   "articleBody": "6319 HashMap 原理 数据结构：数组 + 链表 （JAVA8之后：数组+链表+红黑树）\n数据结构\njdk1.7：数组+链表，数组每个元素是一个链表的表头，当发生冲突，将新元素添加在头部(头插法) hash冲突：头插法，❗扩容时可能造成环形链表 jdk1.8： 引入红黑树，当链表节点超过8个，那么这个链表会转换为红黑树。查询时间由 O(n) 优化为 O(logn)。当节点小于6个，再转换为链表。 hash冲突：尾插法，避免环形链表❗ 扩容机制 jdk1.7 扩容，元素会重新计算hash值，并分配到新的扩容数组中。⭐比较耗时 扩容时，头插法，在多线程情况下，可能造成环形链表 jdk1.8 扩容时，利用了元素哈希值和旧数组容量关系，减少了重新计算的哈希次数 扩容时，尾插法，避免环形链表 使用键的hashcode()计算hash值，然后(n-1) \u0026 hash确定数组中的位置。\nn-1 =\u003e 10000 - 1 = 01111 HashMap的初始默认容量为16，负载因子为0.75。当存储的元素达到75%时，进行扩容，扩容为原来的2倍空间\n扩展知识：\nhashmap的红黑树优化：\nJAVA8开始，为了优化hash冲突时的查找性能。但链表的长度超过8时，链表会转变为红黑树。红黑树是一种自平衡的二叉搜索树 查找时间 O(n) =\u003e O(logn)。 当元素少于6个，切换为链表 hashCode() 和 equals()的重要性：\nhashCode计算hash值，决定键的存储位置。 而hashCode相同=\u003e冲突。 equals()比较的值 1// HashMap Node class 2static class Entry\u003cK,V\u003e { 3 final K key; // 键 4 V value; // 值 5 final int hash; // 计算后的哈希值 6 Entry\u003cK,V\u003e next; // 指向下一个元素的指针（形成链表） 7} 为什么头插法\u0026多线程\u0026扩容会造成环形链表?\n1void transfer(Entry[] newTable) { 2 Entry[] src = table; 3 int newCapacity = newTable.length; 4 for (int j = 0; j \u003c src.length; j++) { // 遍历旧表 5 Entry\u003cK,V\u003e e = src[j]; // 取出当前桶的头结点 6 if (e != null) { // 旧桶不为空 7 src[j] = null; // 释放旧桶的引用（防止 GC 误回收） 8 do { 9 Entry\u003cK,V\u003e next = e.next; // 记录下一个节点 10 int i = indexFor(e.hash, newCapacity); // 计算新索引（线程1暂停） 11 e.next = newTable[i]; // 头插法：将 e 连接到 newTable[i] 上 12 newTable[i] = e; // 将 e 作为 newTable[i] 的新头 13 e = next; // 继续处理下一个节点 14 } while (e != null); // 直到旧链表遍历完 15 } 16 } 17} 18 19old: [ ][ ][ ] old: [ ][ ][ ] 20 [1] [2] 21 [2] =\u003e 22 23new: [ ][ ][ ] new: [ ][ ][ ] // 头插法，将节点进行转移 24 [1] 25 26// 环的情况，HashMap多个线程共享 27Thread1: e -\u003e [1][ ][ ] Thread2: [3][ ][ ] 28 next-\u003e [2] 扩容成功 [2] 29 [3] [1] 30 31执行 32{ 33 e.next = newTable[i]; 34 newTable[i] = e; 35 e = next; 36} 37 38newTabel[0] =\u003e [1]-\u003e[3]-\u003e[2]-\u003e[1] 39 ⬆️ ⬅️ ⬅️ 4948 HashMap，有哪些提升性能的技巧？ 合理设置初始容量，减少resize，减少扩容操作。默认16\n调整负载因子，查找多的设置小一点，减少冲突情况，冲突少了(查询效率就高了)，但会提高内存占用情况，反之亦然。默认0.75\n确保hashCode(), 均匀的是均匀分布的，以减少hash冲突。\n扩展：\n当元素数量 \u003e 装填因子 * 数组大小 =\u003e 进行扩容，新数组为当前的2倍，并把当前hash中的数据重新分配到新的hashmap中； LinkedHashMap，拉链法，能够保存插入顺序 保存有序 =\u003e TreeMap. 需要线程安全 =\u003e ConcurrentHashMap 4947 Hash碰撞 \u0026 解决 不同key使用hashcode()\u0026n-1得到相同的坑，然后冲突\n链地址法(拉链法) 开放地址法，顺序往下or左右横跳 线性探测 平方探测 再hash法(双重hash) 出现碰撞后，使用第二个hash函数计算新的索引位置，减少碰撞的概率。 4946 CopyOnWriteArrayList \u0026 Collections.synchronizeddList 区别 CopyOnWriteArrayList 是线程安全的List实现，特性是写时复制\n每次对List的修改操作(add, remove, set)都会创建一个新的底层数组。 读操作不需要加锁，而写操作需要加锁\n优点：\n读操作无锁，写操作会创建数组副本 =\u003e 读写不冲突 ⭐读操作在当前数组上执行； 写操作(add,set,remove)会创建一个新数组，新数组上修改再替换旧的(加锁)。 缺点：\n写操作开销大：每次写操作都会创建并复制新数组，并且将数据复制到新的数组中，写频繁的场景下性能会比较低 内存消耗大 🎉适合读多写少的场景\nCollections.synchronizeddList 包装方法，将任何数组转换为线程安全的版本，会对每个访问方法(get, set, add, remove)进行同步(加锁)，线程安全。\n优点：\n方便 缺点：\n并发效率低 🎉适用于简单的将List转为线程安全的版本使用。\n444 Java中有哪些集合类？ List接口\nArrayList LinkedList Vector 基于动态数组实现，且线程安全，所有方法都添加了synchronized Set接口\nHashSet // 冲突的链表元素无序 LinkedHashSet // 继承HashSet，底层由双向链表实现，保证插入顺序 TreeSet // 基于红黑树, 自动排序，提供排序功能 Queue接口\nPriorityQueue， 优先队列，内部元素按级别排序。只能比较器 LinkedList，可以作为队列使用，FIFO Map接口\nHashMap LinkedHashMap TreeMap HashTable不推荐使用，线程安全的哈希表。**早期线程安全的HashMap，锁的粒度为整个表，这样并发能力不高。**底层使用synchronized关键字实现 ConcurrentHashMap，线程安全的hashmap。 高性能的线程安全HashMap 提供更细粒度的锁 分段锁和CAS操作 读操作不加锁 写操作 =\u003e CAS + synchronized细粒度锁 9179 ArrayList的扩容机制是什么？ 默认容量10，当元素数量超过其当前容量，会触发扩容机制。 扩容大小为原数组的1.5倍\n449 HashSet \u0026 HashMap HashSet存储不重复元素 =\u003e 不能冲突的HashMap\nHashMap，K=\u003eV, 键唯一，但不同键的值可以相同\n451 HashMap的扩容机制 负载因子默认0.75, 但比例超过负载因子，进行扩容，扩容为原来的2倍。\n当前hashmap中的元素在新hashmap的位置怎么计算？ 就是hashCode() \u0026 (n-1) =\u003e hashCode() \u0026 (2n-1)\n优化过程\n1// example: 2 n:16= 1,0000 n-1: 0,1111 2^4 32n:32=10,0000 2n-1:01,1111 2^5 4 5// 通过hash值 \u0026 2n-1: 6// 只要判断最高位是否即可 7 8if 第5位== 0：then 9 位置不变； 10else 11 位置偏移16位 452 为什么HashMap扩容采用2的n次方？ 计算散列位置决定=\u003e hashcode \u0026 (n-1) 其中 n-1=01111.. 可以将位置映射到数组的每个元素上，分布均匀。 位运算比取余效率高\n457 Java中的LinkedhashMap 基于HashMap \u0026 双向链表 \u0026 额外的顺序指针\n🏷️作用：保持插入顺序or访问顺序\n💠定义如下：\n1static class Entry\u003cK,V\u003e extends HashMap.Node\u003cK,V\u003e { 2 Entry\u003cK,V\u003e before, after; 3 Ectry(){...} // constructor 4} 🏷️图示：\n构想=\u003e 由于可以根据插入时间排序，因此可以模拟LRU(least recently used)算法，进行淘汰最不常用的节点。\n461 ConcurrentHashMap 🏷️背景：在多线程并发条件下，普通的共享HashMap会存在线程安全问题，因为没有加锁，导致数据被覆盖…；\n🏷️作用：通过同步机制加锁，使得HashMap在背景下是线程安全的，且还需要保证效率；\n🏷️定义：\nJDK1.7之前，采用分段锁，即每个Segment是独立的，将锁的粒度下方，提高线程并发度 利用数组+链表实现 =\u003e 锁的粒度是segment；\n缺点：segment不能扩容，而HashMap会扩容\nJDK1.8后，移除Segment，锁的粒度更加细化，锁只在链表or红黑树节点级别上竞争锁。通过CAS进行插入操作，只有在更新链表or红黑树时才使用synchronized关键字加锁，并且只锁住链表的头节点。 同步HashMap，数组+链表+红黑树实现； 🏷️添加节点过程\n计算key的hash后的下标，如果没有元素 =\u003e 利用CAS添加元素； 冲突 =\u003e 给这个节点上锁使用synchronized。这样其他线程就无法访问该节点以及之后的节点了 🏷️额外扩展（为什么分为CAS\u0026Synchronized呢？）\n无锁机制CAS，能进一步提高并发性能； 因此首次添加节点时，利用CAS很OK，判断\u0026插入 而后续对链表的修改，很难原子化操作orCAS比较交换。因此使用Synchronized，实现互斥，且该锁的粒度很小。 1// 自旋：如果 CAS 失败就重试 2while (true) { 3 currentNode = bucket.get(); 4 5 if (currentNode == null) { 6 // 如果桶位置为空，尝试通过 CAS 插入新节点 7 if (bucket.compareAndSet(null, newNode)) { 8 return null; // 插入成功 9 } 10 } else { 11 // 如果当前位置有节点，进行链表遍历，寻找合适位置插入 12 synchronized (currentNode) { // 在访问链表节点时加锁，防止并发修改 13 Node\u003cK, V\u003e prev = null; 14 while (currentNode != null) { 15 if (currentNode.key.equals(key)) { 16 // 如果找到相同的 key，更新 value 17 currentNode.value = value; 18 return currentNode.value; 19 } 20 prev = currentNode; 21 currentNode = currentNode.next; 22 } 23 // 如果没有找到相同的 key，在链表末尾添加新的节点 24 prev.next = newNode; 25 return null; // 插入成功 26 } 27 } 28} 464 CopyOnwriteArrayList 线程安全的动态数组，通过写时复制机制，保证数据最终一致性和隔离性，并不保证强一致性。\n写操作和读操作(Volatile修饰)分离，读完全ok(可能读到旧版本)；写需要加锁且复制数组，再修改旧数组的引用。 线程安全问题：\n竞争条件 多个线程对共享变量进行累加，可以导致统计不对 死锁 多个线程操作数据时，没有正确的请求资源和释放顺序，相互等待 可见性问题 某个线程对共享变量的修改，其他线程不一定及时可见 =\u003e volatile 强制从内存中修改\u0026读取 原子性问题 逻辑由多个操作步骤组成，其中CPU时间片到期了，中途其他线程修改了共享变量，导致不一致。 线程饥饿 多线程争抢CPU，非公平，有些永远抢不到 不一致视图 多个线程同时修改一个共享对象，导致一部分数据不一致 强制视图一致，就是我第一次拿到的数据，和最终的数据要一致，其他线程别给我改了一部分啊 =\u003e 加synchronized ",
   "wordCount" : "608",
   "inLanguage": "en",
-  "datePublished": "2025-03-13T00:00:00Z",
+  "image": "http://121.40.252.207/papermod-cover.png","datePublished": "2025-03-13T00:00:00Z",
   "dateModified": "2025-03-13T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -761,56 +763,20 @@ hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突
     <ul class="post-tags">
       <li><a href="http://121.40.252.207/tags/collection/">Collection</a></li>
     </ul>
-  </footer> <div id="tw-comment"></div>
- <script>
-     
-     const getStoredTheme = () => localStorage.getItem("pref-theme") === "light" ? "light" : "dark";
-     const setGiscusTheme = () => {
-         const sendMessage = (message) => {
-             const iframe = document.querySelector('iframe.giscus-frame');
-             if (iframe) {
-                 iframe.contentWindow.postMessage({giscus: message}, 'https://giscus.app');
-            }
-        }
-        sendMessage({setConfig: {theme: getStoredTheme()}})
-    }
+<nav class="paginav">
+  <a class="prev" href="http://121.40.252.207/posts/learning/common_commands/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Linux&amp;Docker&amp;Shell命令</span>
+  </a>
+  <a class="next" href="http://121.40.252.207/posts/jobs/jvm/">
+    <span class="title">Next »</span>
+    <br>
+    <span>JVM面试题笔记</span>
+  </a>
+</nav>
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const giscusAttributes = {
-            "src": "https://giscus.app/client.js",
-            "data-repo": "hhhey-lw\/LongWeiBlog",
-            "data-repo-id": "R_kgDOOMaMvQ",
-            "data-category": "Announcements",
-            "data-category-id": "DIC_kwDOOMaMvc4CoUI4",
-            "data-mapping": "pathname",
-            "data-strict": "0",
-            "data-reactions-enabled": "1",
-            "data-emit-metadata": "0",
-            "data-input-position": "bottom",
-            "data-theme": getStoredTheme(),
-            "data-lang": "en",
-            "data-loading": "lazy",
-            "crossorigin": "anonymous",
-        };
-
-        
-        const giscusScript = document.createElement("script");
-        Object.entries(giscusAttributes).forEach(
-                ([key, value]) => giscusScript.setAttribute(key, value));
-        document.querySelector("#tw-comment").appendChild(giscusScript);
-
-        
-        const themeSwitcher = document.querySelector("#theme-toggle");
-        if (themeSwitcher) {
-            themeSwitcher.addEventListener("click", setGiscusTheme);
-        }
-        const themeFloatSwitcher = document.querySelector("#theme-toggle-float");
-        if (themeFloatSwitcher) {
-            themeFloatSwitcher.addEventListener("click", setGiscusTheme);
-        }
-    });
-</script>
-
+  </footer>
 </article>
     </main>
     
