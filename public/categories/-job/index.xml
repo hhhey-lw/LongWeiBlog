@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>💻 Job on LongCoding&#39;s Blog</title>
+    <link>http://localhost:1313/categories/-job/</link>
+    <description>Recent content in 💻 Job on LongCoding&#39;s Blog</description>
+    <generator>Hugo -- 0.145.0</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 13 Mar 2025 21:49:44 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/-job/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>计算机网络面试题笔记</title>
+      <link>http://localhost:1313/posts/learning/java_learning/</link>
+      <pubDate>Thu, 13 Mar 2025 21:49:44 +0800</pubDate>
+      <guid>http://localhost:1313/posts/learning/java_learning/</guid>
+      <description>&lt;hr&gt;
+&lt;h3 id=&#34;java-反射&#34;&gt;Java 反射&lt;/h3&gt;
+&lt;p&gt;它提供了动态性和灵活性，使得程序可以在运行时动态地加载类、调用方法、访问字段等，而不需要在编译时确定这些操作。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. 动态加载类&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在运行时根据类名动态加载类，而不是在编译时硬编码类名。 &amp;ndash; 插件化架构：根据配置文件或用户输入动态加载类。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 创建对象&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过反射可以在运行时动态创建对象，即使类的构造函数是私有的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;工厂模式：根据配置动态创建对象。&lt;/li&gt;
+&lt;li&gt;依赖注入框架：Spring 通过反射创建 Bean 实例。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;3. 调用方法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过反射可以在运行时动态调用对象的方法，即使方法是私有的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;测试框架：JUnit 通过反射调用测试方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;4. 访问字段&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过反射可以在运行时动态访问对象的字段，即使字段是私有的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;序列化和反序列化：通过反射访问对象的字段。&lt;/li&gt;
+&lt;li&gt;对象关系映射（ORM）：Hibernate 通过反射访问实体类的字段。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;7. 注解处理&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过反射可以获取类、方法、字段上的注解，并根据注解执行相应的逻辑。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

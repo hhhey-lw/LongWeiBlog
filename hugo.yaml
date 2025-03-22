@@ -1,4 +1,4 @@
-baseURL: "http://121.40.252.207/"
+baseURL: "http://127.0.0.1:1313"
 title: "LongCoding's Blog"
 pagination.pagerSize: "5"
 theme: PaperMod
@@ -58,6 +58,7 @@ params:
     # 是否启用阅读时间展示
     ShowReadingTime: true
     ShowWordCount: true
+    comments: true
     assets:
         disableHLJS: true
         favicon: favicon.ico

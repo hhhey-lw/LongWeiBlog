@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>LeetCode on LongCoding&#39;s Blog</title>
-    <link>http://121.40.252.207/series/leetcode/</link>
+    <link>http://127.0.0.1:1313/series/leetcode/</link>
     <description>Recent content in LeetCode on LongCoding&#39;s Blog</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Sun, 24 Nov 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://121.40.252.207/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://127.0.0.1:1313/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>高频SQL50题刷题笔记</title>
-      <link>http://121.40.252.207/posts/leetcode/leetcode_sql/</link>
+      <link>http://127.0.0.1:1313/posts/leetcode/leetcode_sql/</link>
       <pubDate>Sun, 24 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/leetcode/leetcode_sql/</guid>
+      <guid>http://127.0.0.1:1313/posts/leetcode/leetcode_sql/</guid>
       <description>&lt;h2 id=&#34;高频sql50题&#34;&gt;高频SQL50题&lt;/h2&gt;
 &lt;h3 id=&#34;查询&#34;&gt;查询&lt;/h3&gt;
 &lt;h4 id=&#34;wheregroupbyhaving&#34;&gt;Where&amp;amp;GroupBy&amp;amp;HAVING&lt;/h4&gt;
@@ -55,9 +55,9 @@
     </item>
     <item>
       <title>LeetCodeHot100刷题笔记</title>
-      <link>http://121.40.252.207/posts/leetcode/leetcode_hot100/</link>
+      <link>http://127.0.0.1:1313/posts/leetcode/leetcode_hot100/</link>
       <pubDate>Wed, 18 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/posts/leetcode/leetcode_hot100/</guid>
+      <guid>http://127.0.0.1:1313/posts/leetcode/leetcode_hot100/</guid>
       <description>&lt;h2 id=&#34;热题100&#34;&gt;热题100&lt;/h2&gt;
 &lt;h3 id=&#34;哈希&#34;&gt;哈希&lt;/h3&gt;
 &lt;h5 id=&#34;1-两数之和&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/two-sum/&#34;&gt;1. 两数之和&lt;/a&gt;&lt;/h5&gt;
