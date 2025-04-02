@@ -77,16 +77,16 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
 
 ">
 <meta name="author" content="LongWei">
-<link rel="canonical" href="longcoding.top/posts/jobs/redis/">
-<link crossorigin="anonymous" href="longcoding.top/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="longcoding.top/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="longcoding.top/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="longcoding.top/favicon-32x32.png">
-<link rel="apple-touch-icon" href="longcoding.top/apple-touch-icon.png">
-<link rel="mask-icon" href="longcoding.top/safari-pinned-tab.svg">
+<link rel="canonical" href="http://longcoding.top/posts/jobs/redis/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://longcoding.top/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://longcoding.top/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://longcoding.top/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://longcoding.top/apple-touch-icon.png">
+<link rel="mask-icon" href="http://longcoding.top/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="longcoding.top/posts/jobs/redis/">
+<link rel="alternate" hreflang="en" href="http://longcoding.top/posts/jobs/redis/">
 <noscript>
     <style>
         #theme-toggle,
@@ -123,7 +123,7 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
         }
 
     </style>
-</noscript><meta property="og:url" content="longcoding.top/posts/jobs/redis/">
+</noscript><meta property="og:url" content="http://longcoding.top/posts/jobs/redis/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
   <meta property="og:title" content="Redis面试题笔记">
   <meta property="og:description" content="637 常见的数据类型 String Set Hash List Zset （Sorted Set） BitMap =&gt; 位图，考勤，或者xxx分配情况
@@ -155,14 +155,14 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
     <meta property="article:published_time" content="2025-03-01T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-03-01T00:00:00+00:00">
     <meta property="article:tag" content="Redis">
-      <meta property="og:image" content="longcoding.top/papermod-cover.png">
-      <meta property="og:see_also" content="longcoding.top/posts/jobs/collection/">
-      <meta property="og:see_also" content="longcoding.top/posts/jobs/jvm/">
-      <meta property="og:see_also" content="longcoding.top/posts/jobs/juc/">
-      <meta property="og:see_also" content="longcoding.top/posts/jobs/mysql/">
-      <meta property="og:see_also" content="longcoding.top/posts/jobs/java/">
+      <meta property="og:image" content="http://longcoding.top/papermod-cover.png">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/collection/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/jvm/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/juc/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/mysql/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/java/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="longcoding.top/papermod-cover.png">
+<meta name="twitter:image" content="http://longcoding.top/papermod-cover.png">
 <meta name="twitter:title" content="Redis面试题笔记">
 <meta name="twitter:description" content="637 常见的数据类型
 
@@ -244,13 +244,13 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "longcoding.top/posts/"
+      "item": "http://longcoding.top/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "Redis面试题笔记",
-      "item": "longcoding.top/posts/jobs/redis/"
+      "item": "http://longcoding.top/posts/jobs/redis/"
     }
   ]
 }
@@ -268,7 +268,7 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
   "articleBody": "637 常见的数据类型 String Set Hash List Zset （Sorted Set） BitMap =\u003e 位图，考勤，或者xxx分配情况\nHyperLogLog =\u003e 用户访问的独立用户数量\nGEO =\u003e 地理\n应用场景：\n缓存 实时系统 消息队列 分布式锁 计数器：页面访问量、点赞数、评论数 651 Redis 主从复制的实现原理 ➡️主节点-从节点 的数据同步\nWhy 需要主和从\n数据冗余\u0026故障恢复，某个节点宕机了，但是其他节点还活着； 提供负载均衡，配合读写分离策略，主节点写操作，从节点提供读操作； 高可用：主从复制是Redis的高可用的基础，也是哨兵和集群实施的基础。 复制流程： 全量 \u0026 增量\n主节点发送SYNC命令与从节点进行连接，开始同步， 主从之间建立联系；\n全量复制(第一次连接)： 主节点把全部数据复制到从节点，主节点将当前数据生成RDB文件，发送给从节点；\n发送的期间，主节点缓存(Replication backlog buffer-复制积压缓冲区)所有写命令。\n发送缓存的写命令给从节点。\n持续同步，持续把写命令同步给从节点。\n保持连接与断线重连\nRedis中，主节点会和从节点保持长连接，以确保数据的持续同步；\n当连接断开后，重连，请求增量复制，避免全量复制带来的大量开销。\n数据一致性和复制延迟\n由于网络延迟，主从之间会存在短暂的数据不一致。 ⭐对于数据一致性严格的任务，要求访问主节点。\n652 Redis集群实现的原理 ➡️通过多个Redis实例实现，每个实例存储部分数据，且这些数据是不重复的。类似于将数据库分库，按业务功能\n➡️具体为采用Hash Slot哈希槽，将键的空间划分为16384个槽。每个Redis实例只负责一部分槽。\n客户端 =\u003e 任意Redis实例 =\u003e 数据是否在本机上，在返回，否则返回目标节点信息，客户端再路由到其他Redis中。\n\u003c= 将单个Redis的压力，分摊到多台Redis实例上，提高并发性能。\n特性\n实现数据分布式存储，对数据进行分片，将不同数据储存在不同节点中 去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。 内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能) 布局：\n集群有多个master，每个master保存不同的数据(海量数据) 每个master有多个slave (支持高并发读) master之间通过ping检查彼此的健康度 客户端请求可以访问集群任意节点，最终都会被转发到正确的节点(路由规则) 存储与读取\n分片集群引入hash slot，一共有16384个槽 不同实例处理不同的槽 读写数据：根据有效部分计算hash值，对16384取余，得到插槽，寻找插槽所在实例。 传统哈希\n1hash(key)%N N:服务器数量， N一旦变了，大部分数据都需要重新映射到新的服务器上 一致性哈希❌❌❌\n635 Redis为什么快 存储方式、线程模型、IO模型、数据结构\n基于内存\n单线程事件驱动(避免线程切换开销，避免锁竞争,数据一致性) 结合 IO多路复用(单线程同时处理多个客户端连接)\n高效数据结构 =\u003e （String，List， Set）\n多线程引入 =\u003e 网络处理并发请求，减少网络IO等待影响 (网络IO可能成为性能瓶颈)\nRedis主线程很快，但是网络IO处理不一定更得上它的速度，可能成为累赘。\n使用多个IO进程加快网络IO速度(数据序列号\u0026反序列化，客户端请求的解析…)\n638 跳表 多层链表实现，底层链表保存所有元素，每层链表都是下一层的子集 (有序链表的基础上添加多级索引)\n特性\n快查找某个元素 \u0026 范围查询 复杂度O(logn) 1Level 3: 1 ---------------\u003e 9 ----------------\u003e 20 2Level 2: 1 ------\u003e 5 -----\u003e 9 ----\u003e 13 -----\u003e 20 3Level 1: 1 -\u003e 3 -\u003e 5 -\u003e 7 -\u003e 9 -\u003e 11 -\u003e 13 -\u003e 15 -\u003e 20 4Level 0: 1 -\u003e 2 -\u003e 3 -\u003e 4 -\u003e 5 -\u003e 6 -\u003e 7 -\u003e 8 -\u003e 9 -\u003e 10 -\u003e 11 -\u003e 12 -\u003e 13 -\u003e 14 -\u003e 15 -\u003e 16 -\u003e 20 从高层开始往下找\n插入时候呢 插入的随机层级：概率函数决定从下(level-0)到上(level-n) 概率为 0.25(n)\n跳表结构\n1Class SkipNode{ 2 int value; 3 SkipNode[] forward;// 指向不同层级的后继， 下一个level节点 4 5 public SkipNode(int value, int level) { 6 this.value = value; 7 this.forward = new SkipNode[level + 1]; // 0 到 level 层 每一个节点，动态的数据长度 8 } 9} 1class SkipList { 2 private static final int MAX_LEVEL = 16; // 最大层数 3 private int level; // 当前层数 4 private SkipListNode header; // 头节点 5 private Random random; // 随机数生成器，用于决定节点层数 6\t7 // 初始化头节点，其中有[0,...,MAX_LEVEL]的节点 8 public SkipList() { 9 this.level = 0; 10 this.header = new SkipListNode(Integer.MIN_VALUE, MAX_LEVEL); 11 this.random = new Random(); 12 } 13 14 // 插入节点 15 public void insert(int value) { 16 SkipListNode[] update = new SkipListNode[MAX_LEVEL + 1]; // 记录每层需要更新的节点位置 17 SkipListNode current = header; 18 19 // 从最高层开始查找插入位置 20 for (int i = level; i \u003e= 0; i--) { 21 // 找到插入节点的位置 22 while (current.forward[i] != null \u0026\u0026 current.forward[i].value \u003c value) { 23 current = current.forward[i]; 24 } 25 update[i] = current; // 记录插入节点的位置 26 } 27 28 // 随机生成新节点的层数 29 int newLevel = randomLevel(); 30 31 // 如果新节点的层数大于当前层数，更新 update 数组和当前层数 32 if (newLevel \u003e level) { 33 for (int i = level + 1; i \u003c= newLevel; i++) { 34 update[i] = header; 35 } 36 level = newLevel; 37 } 38 39 // 创建新节点 40 SkipListNode newNode = new SkipListNode(value, newLevel); 41 42 // 更新每层的指针 43 for (int i = 0; i \u003c= newLevel; i++) { 44 newNode.forward[i] = update[i].forward[i]; 45 update[i].forward[i] = newNode; 46 } 47 48 System.out.println(\"Inserted: \" + value); 49 } 50 51 52} 13 []=\u003e^ 22 [] =\u003e [] =\u003e^ 31 []=\u003e[]=\u003e[] =\u003e^ 40 []=\u003e[]=\u003e[] =\u003e^ 5 -1 3 6 6 7update 记录每一层的插入位置 8SkipListNode newNode = new SkipListNode(value, newLevel); 每个节点数组长度为newLevel+1 639 Redis Hash 键值对集合\nObjKey =\u003e {k1:v1, k2:v2}\n642 Redis数据过期删除策略 定时删除 =\u003e 定时任务，多少时间检查，删除过期的键 惰性删除 =\u003e 访问时，判断，过期了才删 内存回收机制\n当内存使用达到限制了，主动删除不常用的数据。 LRU算法 643 Redis内存淘汰策略 设置了过期时间的数据 淘汰策略\nrandom ttl lru 最近最少使用 least recent used lfu 最不常用 least frequency used 644 Redis Lua脚本 核心\n原子性，避免并发修改带来的安全问题 减少网络往返次数 复杂操作 Lua本身不具备原子性，但是Redis线程是单线程，因此Lua任务会一同执行，其他任务会被阻塞\n646 Redis BigKey问题，以及解决 Big Memory Key，key对应的value超级大\n内存分配不均，在集群模式下，如何某个实例的大key过多，负担不均衡 客户端超时 阻塞其他任务 解决\n开发方面\n开发时，数据压缩 大化小，拆成几份 选择合适的数据结构存储 业务方面\n仅存储必要信息 数据分布方面\n大Key拆分成小key，分散到不同redis实例中 647 如何解决redis中的热点key问题 问题：某个key被频繁访问，导致redis压力过大\n热点key拆分：将多个热点数据分散到多个key中，例如通过前缀，使不同请求分散到多个key中，且分布在多实例中，避免集中访问单一key。\n全量拷贝，key:datainfo =\u003e key:datainfo_1, key:datainfo_2, key:datainfo_3 Key拆分，每个key只存一部分 例如：热点库存key =\u003e stock:product_123,这个key被大量访问\n=\u003e 对其进行拆分 4份\n1stock:product_123:1 2stock:product_123:2 3stock:product_123:3 4stock:product_123:4 5 6# 业务层 7int shardIndex = (productId.hashCode() \u0026 Integer.MAX_VALUE) % shardCount; 8String shardKey = \"stock:product_123:\" + shardIndex; 将请求拆分成多个key，分摊压力\n⭐数据一致性：需要同步所有相关的key\n多级缓存：在Redis前，增加其他缓存层，如(CDN,本地缓存)，分担redis的压力； CDN(Content Delivery Network 内容分发网络)；\n读写分离：通过Redis主从复制，将读请求分发到多个从节点，分摊压力；\n限流和降级：应用限流策略，减少对redis的请求，必要时回传空值或降级数据。\n648 Redis的持久化机制 RDB(redis database)快照 通过生成某一时刻的数据快照来实现持久化，间隔一定时间 二进制文件，数据紧凑，恢复数据快 AOP(Append only file)日志 AOP通过将每个写操作追加到日志中实现持久化，以便根据操作日志进行恢复，重放 恢复精确，但文件体积大 操作记录什么时候写回磁盘 立即，每个操作 =\u003e 间隔, 间隔一定时间=\u003e 写AOF 缓冲区满，再写AOF 混合RDB+AOP 利用RDB文件快和AOF的精确 备份的时候，先生成RDB，再将新增的写操作加到AOF文件后面 649 Redis在生成RDB快照时，如何处理请求 写时复制技术\nRDB快照并不会复制数据，而是复制页表(相当于指针) 当Redis处理写请求时，会复制对应的页数据，这样RDB快照和当前数据的页表部分指向将变化了，进行错开. RDB快照在利用fork子进程存储快照 650 Redis哨兵机制 sentinel ˈsentɪn(ə)l =\u003e 系统能够在长时间运行中保持较高的可用性和稳定性，即使在出现故障时仍然能快速恢复，确保业务不中断。\n一种高可用性(稳健)解决方案，用于监控Redis主从集群，自动完成主从切换，以及故障自动恢复和通知\n监控：哨兵会不断的Ping redis主节点和从节点，定时Ping Redis实例，检查存活状态 自动故障转移：主节点宕机了，会选择一个从节点晋升为新的主节点，并通知客户端 通知，向管理员或其他服务发送通知，以便快速处理redis实例的变化 Redis主节点选举\n优先级， 通过配置文件， slave_priority\n优先级相同，则看同步状态offset(数据同步，复制偏移)，数据越一致，越可能成为主节点\n同步状态一致，则比较ID号\n选好master redis后，sentinel会把其他redis实例变为master redis的slave，将新主节点的IP和端口通知给客户端\n主观下线和客观下线\n1） sentinel每个1s Ping所有节点，当超过一段时间没收到对于节点的Pong，主观认为下线。\n2）客观下线(主节点而已)：如果主节点宕机了，它向其他哨兵发起投票，只有当下线的投票数大于一半的时候，才认为主节点宕机了。\n653. Redis集群脑裂问题 在网络分区的情况下，可能导致同一个集群出现多个主节点。\n分布式系统中，由于网络分区问题导致系统多个节点误认为自己是主节点，导致多个主节点提供写入服务，导致数据不一致。\n🏷️避免脑裂问题：\n【min-slaves-to-write】设置主节点至少有指定的从节点的情况下才执行写操作。 【min-slaves-max-lag】设置从节点的最大延迟，如果从节点的延迟超过这个值，则不计入min-slaves-to-write。 这样当脑裂后，某个主节点的从节点数量不够或者延迟较大，就无法写入，避免多个主节点写入造成的数据不一致。 【并不能完全解决】\n655 实现分布式锁 set ex nx (set expire_time not-exists) 命令 + lua脚本实现\n加锁：SET lock_key uniqueValue EX expire_time NX 解锁如下 1if redis.call(\"GET\",KEYS[1]) == ARGV[1] # 避免别人删了这把锁 2then 3 return redis.call(\"DEL\",KEYS[1]) 4else 5 return 0 6end 656 分布式锁在未完成业务时，过期了怎么办 =\u003e 逻辑途中，给它续期\n扩展知识 - 看门狗机制\n抢到锁之后，启动后台定时任务，定时向redis进行锁的续期。比如每过1/3锁的过期时间，给锁续期\n业务完成，再把这个后台定时任务给结束\n并且分布式锁需要满足谁上锁谁解锁 释放锁时,需要1.检查锁是不是自己上的,再释放锁. 两步=\u003e Lua脚本 654 Redis 订阅\u0026发布 1 =\u003e Subscriber 1 2publisher =\u003e channel =\u003e Subscriber 2 3 =\u003e Subscriber 3 消息的订阅和推送 - 阻塞式消息拉取\nSUBSCRIBE channel\rPUBLISH channel message\rUNSUBSCRIBE channel 658 Redis 实现分布式锁可能遇到的问题有哪些? 分布式锁需要满足的要求\n锁的互斥: Redis setnx+redis单线程 可重入性:一个线程可以重复拿到同一把锁 锁的性能: 需要基于内存 会出现问题:\n锁误解 =\u003e 需要确保锁自己自己解锁, 或者过期(线程ID判断下)\n锁的有效时间 =\u003e Watchdog机制,给锁定期续时间\n单点故障问题 =\u003e RedLock =\u003e\n需要保证一半以上的节点加锁成功才算拿到这把锁 可重入锁\n1-- tryLock.lua 2-- KEYS[1] 锁的Key 3-- ARGV[1] 当前线程标识 4-- ARGV[2] 锁的过期时间 5 6local lockValue = redis.call('get', KEYS[1]) 7if lockValue == false then 8 // 锁不存在 9 redis.call('setex', KEYS[1], ARGV[2], ARGV[2]) 10 return true 11else 12 // 锁存在 13 local parts = {} 14\tlocal index = 0 15 for match in (localValue .. \":\"):gmatch(\"(.-):\") do 16 parts[index] = match 17 index = index + 1 18 end 19 if parts[0] == ARGV[1] then 20 -- 锁由当前线程所有,重入次数+1 21 local count = tonumber(parts[1]) + 1 22 redis.call('setex', KEYS[1], ARGV[2], ARGV[1] .. \":\" .. count) 23 return true 24 end 25end 26return false 659 Redis中的缓存击穿、缓存穿透和缓存雪崩 概念\n缓存击穿： 某个热点Key数据在缓存中失效，导致大量的请求直接访问数据库。 瞬间的高并发，可能导致数据库崩溃； – 热点过期\\删除 缓存穿透： 指查询一个不存在的数据，缓存中没有存储，直接二次映射到数据库中查询，造成数据库负担； 缓存雪崩： 指多个缓存数据在同一时间过期，导致大量请求同时访问数据库，从而造成数据库瞬间负载激增。 – 批量过期 解决\n缓存击穿：\n1 加互斥锁，保证同一请求只有一个请求来重新构建缓存，其他线程等待。\n2 热点数据永不过期\n3 双重检查\n1String data = redisTemplate.opsForValue().get(\"hot_key\") 2if(data == null) { // 数据没缓存 3 synchronized(this) { // 加速，仅一个线程取构建缓存 4 String data = redisTemplate.opsForValue().get(\"hot_key\") // 这里再次判断，这样其他进入同步块的就不用重新访问DB构建缓存了 5 if(data == null){ 6 data = queryFromDB(); 7 redisTemplate.opsForValue().set(\"hot_key\", data, 30, TimeUnit.MINUTES); 8 } 9 } 10} 缓存穿透(避免二次路由到数据库，拦截它)：\n使用布隆过滤器，过滤掉不存在的请求，避免直接访问数据库; hash(where condition)\n实现// 快速判断一个元素是否在BitMap中，将字符串用多个Hash函数映射到不同的二进制位置，将对齐位置设置为1；当查询的时候，需要所有位置都置1，那么该数据才可能存在。因为不会重置为0；\n对查询结果进行缓存，即使不存在的数据，也可以换成个标识(空数据，较短的过期时间)，减少对数据库的请求\n缓存雪崩(多个过期)\n数据预热，提前将热门的数据加载到缓存中，避免高并发出现大量的数据库访问。 采用随机分布的方式设置缓存失效时间，避免多个缓存数据同时过期(批量过期)；添加随机值，进行偏移 双缓存策略，将数据同时储存在两层缓存中。 在Redis之前，添加一层本地缓存，减少对Redis的依赖。 ​\t⭐Caffeine高性能缓存库 LRU淘汰策略\n1@Service 2public class CacheService { 3 @Resource 4 private Cache\u003cString, String\u003e localCache; 5 6 public void put(String key, String value) { 7 localCache.put(key, value); 8 } 9 10 public String get(String key) { 11 return localCache.getIfPresent(key); 12 } 13} 14 15@Configuration 16@EnableCaching 17public class CaffeineCacheConfig { 18 19 @Bean 20 public com.github.benmanes.caffeine.cache.Cache\u003cString, String\u003e localCache() { 21 return Caffeine.newBuilder() 22 .maximumSize(1000) // 最大缓存条目 23 .expireAfterWrite(10, TimeUnit.MINUTES) // 10 分钟自动过期 24 .build(); 25 } 26 27 @Bean 28 public CacheManager cacheManager() { 29 CaffeineCacheManager cacheManager = new CaffeineCacheManager(); 30 cacheManager.setCaffeine(Caffeine.newBuilder() 31 .expireAfterWrite(10, TimeUnit.MINUTES) 32 .maximumSize(1000)); 33 return cacheManager; 34 } 35} 36 37// # ----------- 用法 38@Cacheable(value = \"users\", key = \"#id\") 39public String getUserById(String id) { 40 System.out.println(\"查询数据库：\" + id); 41 return \"User_\" + id; 42} 本地缓存+Redis （多级缓存）\n1public String getData(String key) { 2 // 1. 先查本地缓存 3 String value = localCache.getIfPresent(key); 4 if (value != null) return value; 5 6 // 2. 查 Redis 7 value = redisTemplate.opsForValue().get(key); 8 if (value != null) { 9 // 回写本地缓存 10 localCache.put(key, value); 11 return value; 12 } 13 14 // 3. 查询数据库（模拟） 15 value = queryFromDB(key); 16 17 // 4. 回写 Redis 和本地缓存 18 redisTemplate.opsForValue().set(key, value, 10, TimeUnit.MINUTES); 19 localCache.put(key, value); 20 return value; 21} 660 Redis与MySQL的一致性策略 主要就是网络问题，和请求并发问题造成的不一致性\n⭐ 让redis和mysql数据一样⭐\n先更新Redis，再更新MySQL ❌不推荐 先更新MySQL，再更新Redis ❌不推荐 先删除Redis，再更新MySQL，最后写回Redis ❌不推荐 先更新MySQL，再删除Redis，等请求重新缓存(惰性) ✔️推荐 缓存双删除策略。更新MySQL之前，删除一次Redis；更新完MySQL后，再进行一次延迟删除 ✔️推荐 数据库没问题，但是缓存有问题，等待一段实践\n使用Binlog异步更新缓存，监听数据库的binlog变化，通过异步方式更新Redis缓存 ✔️推荐 # ==========================\nGPT版本：\n📌方案一： 延迟双删(最终一致性)，核心思路如下： 删除Redis缓存 更新MySQL数据 等待一小会时间 再次删除Redis缓存，防止并发请求写回脏数据 1// 1. 先删除 Redis 2redisTemplate.delete(key); 3 4// 2. 更新 MySQL 5databaseService.updateDataInMySQL(key, newValue); 6 7// 3. 延时再删除一次 Redis（解决并发问题） 8new Thread(() -\u003e { 9 try { 10 TimeUnit.MILLISECONDS.sleep(500); 11 redisTemplate.delete(key); 12 } catch (InterruptedException e) { 13 e.printStackTrace(); 14 } 15}).start(); ✅ 适用场景\n✔ 适用于读多写少的场景（如商品详情页） ✔ 不影响数据库写入性能 ✔ 代码简单，容易实现\n🔴 缺点\n❌ 存在 500ms 的数据不一致窗口 ❌ 不能保证强一致性\n📌方案2：异步消息队列（最终一致性）。核心思路如下：\n更新MySQL数据 发送消息到RabbitMQ 消息消费者监听更新，删除Redis缓存 1public void updateData(String key, String newValue) { 2 // 1. 更新 MySQL 3 databaseService.updateDataInMySQL(key, newValue); 4 5 // 2. 发送消息到 MQ，通知消费者删除 Redis 6 rabbitTemplate.convertAndSend(\"cache_update_queue\", key); 7} 8 9@RabbitListener(queues = \"cache_update_queue\") 10public void processCacheUpdate(String key) { 11 redisTemplate.delete(key); 12} ✅ 适用场景\n✔ 适用于高并发场景 ✔ 避免了 Redis 和 MySQL 直接耦合 ✔ 保证最终一致性\n🔴 缺点\n❌ 需要额外的 MQ 服务（Kafka、RabbitMQ） ❌ 增加系统复杂度\n📌方案3：监听MySQL Binlog（强一致性）。\n✅核心思路如下：\n监听MySQL Binlog日志 实时解析SQL变更 删除Redis缓存 保证Redis和MySQL强一致性 ✅实现方式\nCanal 阿里巴巴开源 1public void onMessage(String binlogData) { 2 String changedKey = parseBinlog(binlogData); 3 redisTemplate.delete(changedKey); 4} ✅ 适用场景\n✔ 适用于高一致性要求的业务（如金融、电商支付） ✔ 高吞吐，低延迟，实时清理缓存 ✔ 适用于分布式系统\n🔴 缺点\n❌ 依赖 Canal，运维成本较高 ❌ 需要解析 Binlog，代码实现复杂\n评论：\n661 Redis String 类型底层实现 ❌ Redis String类型底层实现主要基于 SDS(Simple dynamic string)结构，并结合编码方式进行优化存储\n1struct __attribute__ ((__packed__)) sdshdr64 { 2 uint64_t len; /* used */ 3 uint64_t alloc; /* excluding the header and null terminator */ 4 unsigned char flags; /* 3 lsb of type, 5 unused bits */ 5 char buf[]; 6}; flags: SDS类型，SDS有5个类型 =\u003e sdshdr5, sdshdr8 sdshdr16 sdshdr32 sdshdr64\n// simple dynamic string header =\u003e sdshdr\n662 如何使用Redis快速实现排行榜 [(userInfo, liked_star), …, ]\n利用Sorted Set(跳表实现) 存储分数和成员 663 如何利用Redis实现布隆过滤器 利用BitMap: (setBit, getBit)\n1// 添加元素到布隆过滤器 2public void add(String value) 3 for(SimpleHash hashFunc : hashFuncs) { 4 xxx.setbit(BLOOM_FILTER_KEY, hashFUnc(Value)) 5 } 6 7// 检查某个元素是否存在于布隆过滤器中 8public boolean mightContain(String value) { 9 for(SimpleHash hashFunc : hashFuncs) { 10 if(xxx.getBit(BLOOM_FILTER_KEY, hashFunc(value)) !=1) { 11 return false; 12 } 13} 布隆过滤器的适用场景\n爬虫：URL去重\n黑名单：判断\n分布式系统：判断数据是否在某个节点上\n推荐系统：判断用户是否看过某个内容\n664 如何利用Redis统计大量用户唯一访问量 =\u003e HyperLogLog\nPFADD key element =\u003e ADD HyperLogLog中 PFCOUNT key =\u003e return unique number 665 Redis中的Geo数据结构 GEOADD key longitude latitude member GEODIST key member1 member2 GEORADIUS key longitude latitude radius unit; 668 Redis 性能瓶颈 扩容内存、读写分离、集群模式、多级缓存(本地、redis、mysql)\n885 Redis Cluster模式 和Sentinel模式 集群与哨兵模式\n集群 =\u003e 数据切片,每个集群负责一部分数据, 集群内又分为主从模式;\n哨兵：高可用性，当master宕机，根据规则选择最优的slave并晋升为新的master\n1.Cluster集群模式:集群模式用于对数据进行分片，主要用于解决大数据、高吞吐量的场景。将数据自动分不到多个Redis实例上，支持自动故障转移(如果某个实例失效，集群会自动重写配置和平衡，不需要手动进行调整，因为内置了哨兵逻辑) 2.Sentinel哨兵模式: 哨兵模式用于保证主从节点的高可用，读写分离场景。如果主节点宕机，哨兵会将从节点升为主节点.\n6305 Redisson分布式锁的原理 Redisson是基于Redis+lua脚本实现的分布式锁, 使用redis的原子操作来确保多线程…， 只能有一个线程能够获取到锁，实现互斥。\n主要包括：\n获取锁：(setNX + 过期时间) 自动续期：(Watchdog 机制) 可重入性：(线程ID计数器，当值为0表示才真正的删除锁) 释放锁：(Lua脚本保证原子性) 1// ### get lock 2RLock lock = redisson.getLock(\"lock:key\") 3// =\u003e SET mylock thread-id NX PX 30s; thread-id保证可重入 4lock.lock() 5 6// ### 自动续期 watchdog 7// 如果线程未主动释放锁，redisson则每隔10s续期30s 8PEXPIRE lock:key 30s 9 10// ### 可重入性 11// 第一次加锁 12lock.lock(); 13 14// 同一线程再次加锁 15lock.lock(); 16 17// 释放锁 18lock.unlock(); 19lock.unlock(); // 只有 count=0 时才真正释放 分布式锁最佳实践\n1RLock lock = redisson.getLock(\"myLock\"); 2 3try { 4 // 尝试获取锁，最多等待 5 秒，10 秒后自动释放（防止死锁） 5 if (lock.tryLock(5, 10, TimeUnit.SECONDS)) { 6 try { 7 // 执行业务逻辑 8 // ... 9 } finally { 10 lock.unlock(); // 释放锁 11 } 12 } else { 13 System.out.println(\"获取锁失败\"); 14 } 15} catch (InterruptedException e) { 16 e.printStackTrace(); 17} ",
   "wordCount" : "1592",
   "inLanguage": "en",
-  "image": "longcoding.top/papermod-cover.png","datePublished": "2025-03-01T00:00:00Z",
+  "image": "http://longcoding.top/papermod-cover.png","datePublished": "2025-03-01T00:00:00Z",
   "dateModified": "2025-03-01T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -276,14 +276,14 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "longcoding.top/posts/jobs/redis/"
+    "@id": "http://longcoding.top/posts/jobs/redis/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "LongCoding's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "longcoding.top/favicon.ico"
+      "url": "http://longcoding.top/favicon.ico"
     }
   }
 }
@@ -305,8 +305,8 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="longcoding.top/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
-                <img src="longcoding.top/android-icon-48x48.png" alt="" aria-label="logo"
+            <a href="http://longcoding.top/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
+                <img src="http://longcoding.top/android-icon-48x48.png" alt="" aria-label="logo"
                     height="30">𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
@@ -333,32 +333,32 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
         </div>
         <ul id="menu">
             <li>
-                <a href="longcoding.top/index.html" title="🏡 Home">
+                <a href="http://longcoding.top/index.html" title="🏡 Home">
                     <span>🏡 Home</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/archives/" title="📃 Archives">
+                <a href="http://longcoding.top/archives/" title="📃 Archives">
                     <span>📃 Archives</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/tags/" title="📑 Tags">
+                <a href="http://longcoding.top/tags/" title="📑 Tags">
                     <span>📑 Tags</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/categories/" title="🗒️ Categories">
+                <a href="http://longcoding.top/categories/" title="🗒️ Categories">
                     <span>🗒️ Categories</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/search/" title="🔍 Search">
+                <a href="http://longcoding.top/search/" title="🔍 Search">
                     <span>🔍 Search</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/about/" title="👨🏻‍🎓 About Me">
+                <a href="http://longcoding.top/about/" title="👨🏻‍🎓 About Me">
                     <span>👨🏻‍🎓 About Me</span>
                 </a>
             </li>
@@ -369,7 +369,7 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="longcoding.top/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="http://longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="http://longcoding.top/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Redis面试题笔记
     </h1>
@@ -1231,15 +1231,15 @@ UNSUBSCRIBE channel
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="longcoding.top/tags/redis/">Redis</a></li>
+      <li><a href="http://longcoding.top/tags/redis/">Redis</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="longcoding.top/posts/jobs/mysql/">
+  <a class="prev" href="http://longcoding.top/posts/jobs/mysql/">
     <span class="title">« Prev</span>
     <br>
     <span>MySQL面试题笔记</span>
   </a>
-  <a class="next" href="longcoding.top/posts/jobs/java/">
+  <a class="next" href="http://longcoding.top/posts/jobs/java/">
     <span class="title">Next »</span>
     <br>
     <span>Java面试题笔记</span>
@@ -1251,7 +1251,7 @@ UNSUBSCRIBE channel
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="longcoding.top/">LongCoding&#39;s Blog</a></span> · 
+        <span>&copy; 2025 <a href="http://longcoding.top/">LongCoding&#39;s Blog</a></span> · 
 
     <span>
         Powered by

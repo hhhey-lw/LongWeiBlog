@@ -1,4 +1,4 @@
-baseURL: "longcoding.top"
+baseURL: "http://longcoding.top/"
 title: "LongCoding's Blog"
 pagination.pagerSize: "5"
 theme: PaperMod

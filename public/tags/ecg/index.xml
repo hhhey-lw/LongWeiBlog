@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>ECG on LongCoding&#39;s Blog</title>
-    <link>longcoding.top/tags/ecg/</link>
+    <link>http://longcoding.top/tags/ecg/</link>
     <description>Recent content in ECG on LongCoding&#39;s Blog</description>
     <image>
       <title>LongCoding&#39;s Blog</title>
-      <url>longcoding.top/papermod-cover.png</url>
-      <link>longcoding.top/papermod-cover.png</link>
+      <url>http://longcoding.top/papermod-cover.png</url>
+      <link>http://longcoding.top/papermod-cover.png</link>
     </image>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Fri, 19 Apr 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="longcoding.top/tags/ecg/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://longcoding.top/tags/ecg/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ECG论文和实验</title>
-      <link>longcoding.top/posts/learning/ecg_exp/</link>
+      <link>http://longcoding.top/posts/learning/ecg_exp/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>longcoding.top/posts/learning/ecg_exp/</guid>
+      <guid>http://longcoding.top/posts/learning/ecg_exp/</guid>
       <description>ECG心电图论文创新点整理和初步实验</description>
     </item>
   </channel>

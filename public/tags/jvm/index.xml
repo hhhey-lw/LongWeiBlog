@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>JVM on LongCoding&#39;s Blog</title>
-    <link>longcoding.top/tags/jvm/</link>
+    <link>http://longcoding.top/tags/jvm/</link>
     <description>Recent content in JVM on LongCoding&#39;s Blog</description>
     <image>
       <title>LongCoding&#39;s Blog</title>
-      <url>longcoding.top/papermod-cover.png</url>
-      <link>longcoding.top/papermod-cover.png</link>
+      <url>http://longcoding.top/papermod-cover.png</url>
+      <link>http://longcoding.top/papermod-cover.png</link>
     </image>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Sat, 08 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="longcoding.top/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://longcoding.top/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JVM面试题笔记</title>
-      <link>longcoding.top/posts/jobs/jvm/</link>
+      <link>http://longcoding.top/posts/jobs/jvm/</link>
       <pubDate>Sat, 08 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>longcoding.top/posts/jobs/jvm/</guid>
+      <guid>http://longcoding.top/posts/jobs/jvm/</guid>
       <description>&lt;h3 id=&#34;521-java如何实现跨平台的&#34;&gt;521. Java如何实现跨平台的？&lt;/h3&gt;
 &lt;p&gt;Java编译生成的是字节码文件.class文件，而不是特定于某个操作系统的机器码。&lt;/p&gt;
 &lt;p&gt;不同操作系统上都有各自实现的JVM，负责将字节码翻译成特定平台的机器代码并执行。使得JAVA文件可以被不同操作系统上的JVM运行。包装了一层。&lt;/p&gt;

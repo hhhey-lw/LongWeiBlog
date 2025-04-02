@@ -49,16 +49,16 @@ work flow
 minBert
 work flow">
 <meta name="author" content="LongWei">
-<link rel="canonical" href="longcoding.top/posts/learning/minibaseline_learning/">
-<link crossorigin="anonymous" href="longcoding.top/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="longcoding.top/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="longcoding.top/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="longcoding.top/favicon-32x32.png">
-<link rel="apple-touch-icon" href="longcoding.top/apple-touch-icon.png">
-<link rel="mask-icon" href="longcoding.top/safari-pinned-tab.svg">
+<link rel="canonical" href="http://longcoding.top/posts/learning/minibaseline_learning/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://longcoding.top/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://longcoding.top/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://longcoding.top/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://longcoding.top/apple-touch-icon.png">
+<link rel="mask-icon" href="http://longcoding.top/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="longcoding.top/posts/learning/minibaseline_learning/">
+<link rel="alternate" hreflang="en" href="http://longcoding.top/posts/learning/minibaseline_learning/">
 <noscript>
     <style>
         #theme-toggle,
@@ -95,7 +95,7 @@ work flow">
         }
 
     </style>
-</noscript><meta property="og:url" content="longcoding.top/posts/learning/minibaseline_learning/">
+</noscript><meta property="og:url" content="http://longcoding.top/posts/learning/minibaseline_learning/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
   <meta property="og:title" content="DL基准模型训练伪代码">
   <meta property="og:description" content="minGPT author: karpathy Andrej
@@ -107,12 +107,12 @@ work flow
     <meta property="article:published_time" content="2024-10-31T00:00:00+00:00">
     <meta property="article:modified_time" content="2024-10-31T00:00:00+00:00">
     <meta property="article:tag" content="DL">
-      <meta property="og:image" content="longcoding.top/papermod-cover.png">
-      <meta property="og:see_also" content="longcoding.top/posts/learning/ecg_exp/">
-      <meta property="og:see_also" content="longcoding.top/posts/learning/paper_reading1/">
-      <meta property="og:see_also" content="longcoding.top/posts/learning/paper_reading2/">
+      <meta property="og:image" content="http://longcoding.top/papermod-cover.png">
+      <meta property="og:see_also" content="http://longcoding.top/posts/learning/ecg_exp/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/learning/paper_reading1/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/learning/paper_reading2/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="longcoding.top/papermod-cover.png">
+<meta name="twitter:image" content="http://longcoding.top/papermod-cover.png">
 <meta name="twitter:title" content="DL基准模型训练伪代码">
 <meta name="twitter:description" content="minGPT
 author: karpathy Andrej
@@ -166,13 +166,13 @@ work flow">
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "longcoding.top/posts/"
+      "item": "http://longcoding.top/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "DL基准模型训练伪代码",
-      "item": "longcoding.top/posts/learning/minibaseline_learning/"
+      "item": "http://longcoding.top/posts/learning/minibaseline_learning/"
     }
   ]
 }
@@ -190,7 +190,7 @@ work flow">
   "articleBody": "minGPT author: karpathy Andrej\nwork flow\n1String: ['X1', 'X2', ..., 'Xn'] =[dictionary]=\u003e [k1, k2, ..., kn] # word2index 2 3# Train: 4X = [X1, X2, X3, Y1, Y2], Y = [-1, -1, Y1, Y2, Y3] 5Model = {(WordEmbed+PosEmbed) =\u003e (CausalSelfAttention+FFN)xN =\u003e (ClassHead)} 6# attn = A B C 7# A √ × × uni-directional 8# B √ √ × 9# C √ √ √ 10 11Z = Model(X) =\u003e [Z1, Z2, Z3, Z4, Z5] 12Y = [-1, -1, Y1, Y2, Y3] 13# Equal to Parallel Train 14(X1,X2,X3) =predict=\u003e Y1 15(X1,X2,X3,Y1) =predict=\u003e Y2 16(X1,X2,X3,Y1,Y2) =predict=\u003e Y3 17 18loss = crossentropy(Z, Y, ignore=-1) # Zi =\u003e {P1,...,Pclass} multi-class task 19 20# Test: Serial generation 21give inp = [X1, X2, X3] 22Step 1: 23 Z = Model(inp) = [Z1,Z2,Z3] 24 Y = [-1,-1,Y1] 25 inp = inp + Y[-1] = [Z1,Z2,Z3,Y1] 26Step 2: 27 Z = Model(inp) = [Z1,Z2,Z3,Z4] 28 Y = [-1,-1,-1,Y2] 29 inp = inp + Y[-1] = [Z1,Z2,Z3,Y1,Y2] 30Step 3: 31 Z = Model(inp) = [Z1,Z2,Z3,Z4,Z5] 32 Y = [-1,-1,-1,-1,Y3] 33 inp = inp + Y[-1] = [Z1,Z2,Z3,Y1,Y2,Y3] 34 35out: [Z1,Z2,Z3,Y1,Y2,Y3] minBert work flow\npre-trainning\n1# Data preparation 2data = [{\"S1\", \"S2\", ..., \"Sn\"}, [{k1, k2, ..., kn}, 3 {\"S1\", \"S2\", ..., \"Sn\"}, =vocabulary=\u003e [{k1, k2, ..., kn}, 4 {\"S1\", \"S2\", ..., \"Sn\"}] [{k1, k2, ..., kn}, 5 6# Mask-Word \u0026 Predict isNext 7while positive != batch_size / 2 or negative != batch_size / 2: # isNext,notIsNext sample number is equality 8\trandom-sentence-A, random-sentence-B =\u003e tokens_a, tokens_b 9 input_ids = [word_dict['CLS']] + tokens_a + [word_dict['SEP']] + tokens_b + [word_dict['SEP']] 10 seg_ids = [0] * (1 + len(tokens_a) + 1) + [1] * (len(tokens_b) + 1) 11 12 # fixed input length =\u003e padding ['Pad'] 13 input_ids extend [word_dict['Pad']] * num_pad 14 seg_ids extend [0] * num_pad 15 16 =\u003e masked_pos, masked_tokens 17 =\u003e isNext 18=\u003e [{input_ids,seg_ids,masked_pos,masked_tokens,isNext}, 19 {...}...] 20 21attn_pad_mask = [0,..,0,1,..,1] 22 23Bert = {(Token_embed+Pos_embed+Seg_embed) =\u003e {MHSA[attn_pad_mask]=\u003eFFN}xN 24 =\u003e {head1(dim_token-\u003e2)-o1:isNext, head2(dim_token-\u003evocab_len)-o2:predict_masked_word}} 25# attn = A B P P-\u003ePadding 26# A √ √ × bi-directional 27# B √ √ × 28# P √ √ × 29 30loss1 = CrossEntropyLoss(o1,isNext) 31loss2 = CrossEntropyLoss(o2,masked_tokens) fine-tuning\ninput: [CLS] + Token-A + [SEP], get [CLS] # 单独 input: [CLS] + Token-A + [SEP] + Token-B + [SEP], get =\u003e [SEP] + Token-B + [SEP] # 关联关系 minUnet work flow\n1# Model U-shape feature-flow 2input =\u003e [Enc1] =\u003e [Dec6] =\u003e output # Pixel-Level semantic token =\u003e binary classification 3 [Enc2] =\u003e [Dec5] 4 [Enc3] =\u003e [Dec4] 1# Training: 2for data in dataloader: 3 inp, mask = data 4 oup = model(inp) 5 6 loss = BCELoss(oup, inp) 7 ... minYolo 1X:(1,3,H,W) =\u003e Model =\u003e Y:(K,K,B*5+C) 2 3[k1,k2,k3] 4[k4,k5,k6] =\u003e [X,Y,W,H,Confidence,C1,...,Cn] 5[k7,k8,k9] 6 7# Inference (x, y) (w, h) confidence prob-class[0,...,79]{80-category} 8# Step 1 9conf_mask = (prediction[:, :, 4] \u003e confidence).float().unsqueeze(2) # 根据confidence判断该锚框是否存在对象 10prediction = prediction * conf_mask 11# Step 2 12# 处理x,y,w,h =\u003e (x1,y1,x2,y2) 13 14# 若B\u003e1: =\u003e 重塑为 (KK+N,5+C) 15 16# 整理成 [X1,Y1,X2,Y2,idx_class,class_score] \u003c= 存在对象 17 18# 进行NMS非极大值抑制 19for img : per_img: 20 # 根据 class_score 排序 21 # 计算当前预测框与后续预测框的IoU 22 # 根据 iou ? nms_conf 进行去除冗余的框 23 24锚框数据：[X1,Y1,X2,Y2,idx_class,class_score] 25 26 27# Inference 28label: [[idx_class,x,y,w,h],[...]] =\u003e [[X,Y,W,H,Confidence,C1,...,Cn],[...]] 29# Yolo-v1: 将锚框均匀的等分为7×7的Cell 30 31X:(1,3,H,W) =\u003e Model =\u003e P:(K,K,5+C) Y:(K,K,5+C) 32 33# Loss 34分三步： 351. 锚框Loss : x,y and w,h 362. Confidence-Loss: obj and noobj 373. class-loss: Ci 38 39# 具体做法就是 401. 按照Confidence\u003e0.5 =\u003e 是否存在对象 412. 收集所需要的Cell =\u003e 分别计算Loss ",
   "wordCount" : "562",
   "inLanguage": "en",
-  "image": "longcoding.top/papermod-cover.png","datePublished": "2024-10-31T00:00:00Z",
+  "image": "http://longcoding.top/papermod-cover.png","datePublished": "2024-10-31T00:00:00Z",
   "dateModified": "2024-10-31T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -198,14 +198,14 @@ work flow">
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "longcoding.top/posts/learning/minibaseline_learning/"
+    "@id": "http://longcoding.top/posts/learning/minibaseline_learning/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "LongCoding's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "longcoding.top/favicon.ico"
+      "url": "http://longcoding.top/favicon.ico"
     }
   }
 }
@@ -227,8 +227,8 @@ work flow">
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="longcoding.top/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
-                <img src="longcoding.top/android-icon-48x48.png" alt="" aria-label="logo"
+            <a href="http://longcoding.top/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
+                <img src="http://longcoding.top/android-icon-48x48.png" alt="" aria-label="logo"
                     height="30">𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
@@ -255,32 +255,32 @@ work flow">
         </div>
         <ul id="menu">
             <li>
-                <a href="longcoding.top/index.html" title="🏡 Home">
+                <a href="http://longcoding.top/index.html" title="🏡 Home">
                     <span>🏡 Home</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/archives/" title="📃 Archives">
+                <a href="http://longcoding.top/archives/" title="📃 Archives">
                     <span>📃 Archives</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/tags/" title="📑 Tags">
+                <a href="http://longcoding.top/tags/" title="📑 Tags">
                     <span>📑 Tags</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/categories/" title="🗒️ Categories">
+                <a href="http://longcoding.top/categories/" title="🗒️ Categories">
                     <span>🗒️ Categories</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/search/" title="🔍 Search">
+                <a href="http://longcoding.top/search/" title="🔍 Search">
                     <span>🔍 Search</span>
                 </a>
             </li>
             <li>
-                <a href="longcoding.top/about/" title="👨🏻‍🎓 About Me">
+                <a href="http://longcoding.top/about/" title="👨🏻‍🎓 About Me">
                     <span>👨🏻‍🎓 About Me</span>
                 </a>
             </li>
@@ -291,7 +291,7 @@ work flow">
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="longcoding.top/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="http://longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="http://longcoding.top/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       DL基准模型训练伪代码
     </h1>
@@ -462,15 +462,15 @@ work flow">
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="longcoding.top/tags/dl/">DL</a></li>
+      <li><a href="http://longcoding.top/tags/dl/">DL</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="longcoding.top/posts/leetcode/leetcode_sql/">
+  <a class="prev" href="http://longcoding.top/posts/leetcode/leetcode_sql/">
     <span class="title">« Prev</span>
     <br>
     <span>高频SQL50题刷题笔记</span>
   </a>
-  <a class="next" href="longcoding.top/posts/leetcode/leetcode_hot100/">
+  <a class="next" href="http://longcoding.top/posts/leetcode/leetcode_hot100/">
     <span class="title">Next »</span>
     <br>
     <span>LeetCodeHot100刷题笔记</span>
@@ -482,7 +482,7 @@ work flow">
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="longcoding.top/">LongCoding&#39;s Blog</a></span> · 
+        <span>&copy; 2025 <a href="http://longcoding.top/">LongCoding&#39;s Blog</a></span> · 
 
     <span>
         Powered by
