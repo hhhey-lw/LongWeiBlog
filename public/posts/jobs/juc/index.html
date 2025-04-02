@@ -59,16 +59,16 @@ XXXThreadPool.submit(task&hellip;)
 11}, 0, 1, TimeUnit.SECONDS); // 每隔1秒执行一次
 Thread.sleep(0) &lt;= 主动让出CPU控制权">
 <meta name="author" content="LongWei">
-<link rel="canonical" href="http://121.40.252.207/posts/jobs/juc/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://121.40.252.207/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://121.40.252.207/apple-touch-icon.png">
-<link rel="mask-icon" href="http://121.40.252.207/safari-pinned-tab.svg">
+<link rel="canonical" href="longcoding.top/posts/jobs/juc/">
+<link crossorigin="anonymous" href="longcoding.top/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="longcoding.top/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="longcoding.top/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="longcoding.top/favicon-32x32.png">
+<link rel="apple-touch-icon" href="longcoding.top/apple-touch-icon.png">
+<link rel="mask-icon" href="longcoding.top/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://121.40.252.207/posts/jobs/juc/">
+<link rel="alternate" hreflang="en" href="longcoding.top/posts/jobs/juc/">
 <noscript>
     <style>
         #theme-toggle,
@@ -105,7 +105,7 @@ Thread.sleep(0) &lt;= 主动让出CPU控制权">
         }
 
     </style>
-</noscript><meta property="og:url" content="http://121.40.252.207/posts/jobs/juc/">
+</noscript><meta property="og:url" content="longcoding.top/posts/jobs/juc/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
   <meta property="og:title" content="并发面试题笔记">
   <meta property="og:description" content="1 如何创建多线程 1） 实现Runnable接口
@@ -122,14 +122,14 @@ XXXThreadPool.submit(task…)
     <meta property="article:published_time" content="2025-03-05T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-03-05T00:00:00+00:00">
     <meta property="article:tag" content="JUC">
-      <meta property="og:image" content="http://121.40.252.207/papermod-cover.png">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/collection/">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/jvm/">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/mysql/">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/redis/">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/java/">
+      <meta property="og:image" content="longcoding.top/papermod-cover.png">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/collection/">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/jvm/">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/mysql/">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/redis/">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/java/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://121.40.252.207/papermod-cover.png">
+<meta name="twitter:image" content="longcoding.top/papermod-cover.png">
 <meta name="twitter:title" content="并发面试题笔记">
 <meta name="twitter:description" content="1 如何创建多线程
 1） 实现Runnable接口
@@ -193,13 +193,13 @@ Thread.sleep(0) &lt;= 主动让出CPU控制权">
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://121.40.252.207/posts/"
+      "item": "longcoding.top/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "并发面试题笔记",
-      "item": "http://121.40.252.207/posts/jobs/juc/"
+      "item": "longcoding.top/posts/jobs/juc/"
     }
   ]
 }
@@ -217,7 +217,7 @@ Thread.sleep(0) &lt;= 主动让出CPU控制权">
   "articleBody": "1 如何创建多线程 1） 实现Runnable接口\n实现run()方法 1new Thread(MyRunnable()).start(); 2）继承Thread类\n重写run()方法 3）Callable接口\u0026\u0026FutureTask\n实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动 1FutrueTask\u003cReturnType\u003e task = new FutrueTask\u003c\u003e(MyCallable()); 2Thread(task).start 3 4ResultType res = task.get(); // 这里阻塞 4）使用线程池\n通过ExecutorService提交Runnable或者Callable任务 不同方法对比\n1Runnable vs Callable 2Callable:可以返回结果，可以抛出异常 3 4线程池的优势：避免重复创建和销毁线程，减少这部分重复带来的开销； 5ThreadPool =\u003e (FixedThreadPool, CachedThreadPool, ScheduledThreadPool) 6 7虚拟线程：虚拟线程创建和切换开销更低 8Thread.startVirtualThread() ThreadPool实践\nXXXThreadPool.submit(task…)\n1FixedThreadPool: 固定池中线程数量 =\u003e 适合1.执行较长任务；2.控制并发度 2 3CachedThreadPool：池中线程数量不固定，根据需要动态创建线程，空的被回收，少了多创建； 4⭐适用于任务执行时间短且任务数量不确定的场景； 5 6ScheduledThreadPool：适用于需要定时执行或周期性执行任务的场景。 1// 定时任务线程池 2ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5); 3// For 延迟任务 4scheduledThreadPool.schedule(() -\u003e { 5 // 任务逻辑 6}, 10, TimeUnit.SECONDS); // 延迟10秒执行 7 8// For周期执行任务 9scheduledThreadPool.scheduleAtFixedRate(() -\u003e { 10 // 任务逻辑 11}, 0, 1, TimeUnit.SECONDS); // 每隔1秒执行一次 Thread.sleep(0) \u003c= 主动让出CPU控制权\nthread.join() \u003c= 等待该线程完成\n2 创建线程池 1） Executors工厂类\nExecutors.newFixedThreadPool(10) // 2）ThreadPoolExecutor直接创建线程池\n1new ThreadPoolExecutor(corePoolSize, maximumPoolSize, KeepAliveTime,TimeUnit,new LinkedBlockingQueue\u003c\u003e()) 2 3LinkedBlockingQueue: 当提交的任务多于线程数时，会将多余的暂时挂起 线程池相关参数解释\ncorePoolSize：核心线程数，即线程池中始终保存的线程数量； maximumPoolSize：最大线程数，线程池中允许的最大线程数量； KeepAliveTime：线程空闲时间，非核心线程空闲超过这个时间会被销毁； workQueue：工作队列，存放待执行的任务； threadFactory：线程工厂，用于创建新线程； rejectedExecutionHandler：任务拒绝处理器，当前任务无法执行时的处理策略。 工作队列\nSynchronousQueue：不存储任务，直接提交任务给线程； LinkedBlockingQueue：链表结构的阻塞队列，大小无限； ArrayBlockingQueue：数据结构的阻塞队列； PriorityBlockingQueue：带优先级的无界阻塞队列。/ praɪˈɒrəti / 线程池的拒绝策略\n队列满且无空闲线程的添加任务的情况。\nAbortPolicy：抛异常； CallerRunsPolicy：由提交线程本身执行； DiscardOldestPolicy：删除最早提交的任务； DiscardPolicy：直接丢弃当前任务。 3 线程安全的集合 1concurrentHashMap: 同步HashMap\u003cK-\u003eV\u003e 2数据结构=\u003e 使用数组 + 链表 + 红黑树的结构; 3线程安全=\u003e CAS保证操作的原子性 4 5eg:线程不安全的操作： 6// 非线程安全的操作 7int value = map.get(\"key\"); // 这里，如果有其他线程对key-\u003evalue进行了修改！，这里的value是过期了的 8map.put(\"key\", value + 1); 9// ⭐保证原子性 10map.compute(\"key\", (k, v) -\u003e v + 1); // 一次完成 11 12// 如果是方法中创建的Map,每个线程专享，不会有线程间安全问题 13// 如果是类中，且多个线程共享同一个Class实例，则可能出现线程安全问题 14Method中创建：安全 15Class-成员变量：多个线程可能共享同一个map实例，需要保证线程安全 16Class-静态变量：所有线程共享同一个 map 实例 ，需要保证线程安全 17 18BlockingQueue： -数组实现 19LinkedBlockingQueue: 线程安全的阻塞队列-链表实现 4 线程同步 多线程情况下，避免共享资源同时访问，引发数据不一致。=\u003e 加锁，限制访问。\nJAVA中，常见的同步方式：\nsynchronized 同步 // 仅限一个线程访问. 由 JVM 负责管理锁的获取和释放. 非公平锁\n生产-消费 模拟\n1Main： 2// 共享队列，用于生产者和消费者之间的数据传递 3Queue\u003cInteger\u003e queue = new LinkedList\u003c\u003e(); // or BlockingQueue 4int maxSize = 5; // 队列的最大容量 5 6// 创建生产者和消费者线程 7Thread producer = new Thread(new Producer(queue, maxSize), \"Producer\"); 8Thread consumer = new Thread(new Consumer(queue), \"Consumer\"); 9 10// 启动线程 11producer.start(); 12consumer.start(); 1Producer: 实现Runnable interface 2@Override 3public void run() { 4 int i = 0; 5 while (true) { 6 synchronized (queue) { // 对队列加锁 7 // 如果队列已满，生产者等待 8 while (queue.size() == maxSize) { 9 try { 10 System.out.println(\"队列已满，生产者等待...\"); 11 queue.wait(); // 释放锁，进入等待状态 12 } catch (InterruptedException e) { 13 e.printStackTrace(); 14 } 15 } 16 17 // 生产数据并添加到队列 18 System.out.println(\"生产者生产数据: \" + i); 19 queue.add(i++); 20 21 // 通知消费者可以消费了 22 queue.notifyAll(); 23 24 // 模拟生产耗时 25 try { 26 Thread.sleep(500); 27 } catch (InterruptedException e) { 28 e.printStackTrace(); 29 } 30 } 31 } 32} 1Consumer：实现Runnable接口 2@Override 3public void run() { 4 while (true) { 5 synchronized (queue) { // 对队列加锁 6 // 如果队列为空，消费者等待 7 while (queue.isEmpty()) { 8 try { 9 System.out.println(\"队列为空，消费者等待...\"); 10 queue.wait(); // 释放锁，进入等待状态 11 } catch (InterruptedException e) { 12 e.printStackTrace(); 13 } 14 } 15 16 // 消费数据 17 int value = queue.poll(); 18 System.out.println(\"消费者消费数据: \" + value); 19 20 // 通知生产者可以生产了 21 queue.notifyAll(); 22 23 // 模拟消费耗时 24 try { 25 Thread.sleep(1000); 26 } catch (InterruptedException e) { 27 e.printStackTrace(); 28 } 29 } 30 } 31} ⭐⭐⭐\nsynchronized（临界区对象） \u003c= 锁住临界区\nwhile(临界区不可用) =\u003e 重试 =\u003e .wait() 当前线程进入等待状态让出CPU，并且释放锁\n处理完成=\u003e .notifyAll() // 通知等待状态的线程\nsynchronized：通过 Object.wait() 和 Object.notify()/notifyAll() 进行线程间通信\nReentrantLock 可重入锁 Re en trant lock. 需要手动加锁和释放锁\n1lock.lock(); 2try { 3 // 临界区代码 4} finally { 5 lock.unlock(); 6} ReentrantLock：使用 Condition 对象更灵活地控制线程等待和唤醒：\n1Condition condition = lock.newCondition(); 2lock.lock(); 3try { 4 condition.await(); // 线程等待 5 condition.signal(); // 唤醒单个等待的线程 6 condition.signalAll(); // 唤醒所有等待的线程 7} finally { 8 lock.unlock(); 9} 案例\n1// 共享队列，用于生产者和消费者之间的数据传递 2Queue\u003cInteger\u003e queue = new LinkedList\u003c\u003e(); 3// 创建 ReentrantLock 和 Condition 4Lock lock = new ReentrantLock(); 5Condition notFull = lock.newCondition(); // 队列未满的条件 6Condition notEmpty = lock.newCondition(); // 队列非空的条件 7 8Producer: 9while(true) { 10 lock.lock() 11 try{ 12 // 13 while(queue.size == maxSize) { 14 System.out.println(\"队列已满，生产者等待...\"); 15 notFull.await(); // 等待队列未满的条件 16 } 17 18 queue.add(?) 19 notEmpty.signalAll() 20 21 // ... 生产耗时 22 23 }finally{ 24 lock.unlock() 25 } 26} 27 28Consumer: 29while(true) { 30 lock.lock() 31 try { 32 while(queue.size == 0) { 33 sout(\"没东西消费\") 34 notEmpty.await() 35 } 36 37 queue.poll() 38 notFull.signalAll() 39 40 // ...消费时长 41 }finally{ 42\tlock.unlock() 43 } 44} ⭐⭐⭐ 关键用法：\nLock lock = new ReentrantLock(); Condition notFull = lock.newCondition(); // 队列未满的条件 Condition notEmpty = lock.newCondition(); // 队列非空的条件\nlock.lock \u0026\u0026 lock.unlock\nnotFull.await(), notFull.signal(), notFull.signalAll()\n5 线程安全 保证多线程，乱序执行时候，无论怎么执行，都可以得到预期结果\n=\u003e 通过 线程同步 (悲观锁)\n通过Synchronized 和 ReentrantLock ˈsɪŋkrənaɪzd \u0026 riːˈentrənt, lɒk 实现线程同步\n=\u003e 通过原子操作类\nAtomicInteger əˈtɒmɪk 原子， 原子整数\n⭐⭐⭐扩展CAS（乐观锁）：（Compare And Swap，比较并交换）是一种无锁并发编程技术，常用于实现原子操作。它的基本原理是：先比较，再交换，即只有当变量的当前值等于预期值时，才会更新，否则重试。\n1// 当前值, 预期值, 新值 2boolean compareAndSwap(V, E, N) { 3 if (V == E) { // 比较当前值是否等于预期值 4 V = N; // 如果相等，更新为新值 5 return true; // 操作成功 6 } 7 return false; // 操作失败 8} 例子：最佳实践案例=\u003e 线程安全的计数器\n1private AtomicInteger value = new AtomicInteger(0); 2 3// 线程安全的递增方法 4public void increment() { 5 int oldValue; 6 int newValue; 7 do { 8 oldValue = value.get(); // 获取当前值, 先获取修改值 9 newValue = oldValue + 1; // 计算新值 10 } while (!value.compareAndSet(oldValue, newValue)); // CAS 操作 11} 12// CAS compare and swap \u003c=\u003e 访问到修改期间，没有其他线程进行修改的话，就可以执行 13value.compareAndSet(oldValue, newValue) =\u003e oldvalue == value.get() ? value = newValue ：nothing 检查第一次得到的旧值与修改时的值是否一致，判断是否被动过，没动过再改\n=\u003e 线程安全的容器：concurrentHashMap or copyonWriteArrayList❌ 不懂\n=\u003e 局部变量，线程专享\n=\u003e ThreadLocal, 线程本地资源，线程专享\n6 线程生命周期 初始(资源) =\u003e 可运行(CPU队列) =\u003e 运行 =\u003e 终止\n​ 阻塞\u0026等待\n7 线程通信 多线程间的协同工作\n1）**共享变量：**访问共享内存变量来交换信息；\n2）同步机制：\nsynchronized() =\u003e wait =\u003e notify\u0026notifyAll （Object中的方法）\nReentrantLock.lock =\u003e condition.await =\u003e condition.signal\u0026signalAll\nBlockingQueue =\u003e queue.put() 满则阻塞 =\u003e queue.take() 空则阻塞\n1synchronized (lock) { 2 while (conditionNotMet) { 3 lock.wait(); // 释放锁，进入等待状态 4 } 5 // 执行操作 6 lock.notify(); // 唤醒等待的线程 7} 1Lock lock = new ReentrantLock(); 2Condition condition = lock.newCondition(); 3 4lock.lock(); 5try { 6 while (conditionNotMet) { 7 condition.await(); // 等待 8 } 9 // 执行操作 10 condition.signal(); // 唤醒等待的线程 11} finally { 12 lock.unlock(); 13} 1BlockingQueue\u003cString\u003e queue = new LinkedBlockingQueue\u003c\u003e(10); 2 3// 生产者 4new Thread(() -\u003e { 5 try { 6 queue.put(\"Data\"); 7 } catch (InterruptedException e) { 8 Thread.currentThread().interrupt(); 9 } 10}).start(); 11 12// 消费者 13new Thread(() -\u003e { 14 try { 15 String data = queue.take(); 16 } catch (InterruptedException e) { 17 Thread.currentThread().interrupt(); 18 } 19}).start(); 8 线程池 池化技术，预先创建并管理一组线程，避免线程重复创建和销毁带来的开销\n关键配置：核心线程数，最大线程数，空间存活时间，工作队列，拒绝策略\n=\u003e 提交任务才会创建线程，或者设置preStartAllCoreThreads\n=\u003e 核心线程满了不会创建线程，而是把多余的任务放到工作队列中，等待执行\n=\u003e 核心线程满载且工作队列放不下了，才会新增线程执行提交的任务(\u003c最大线程数)\n=\u003e 工作队列满了+已最大线程数了 =\u003e 拒绝策略?新任务\n=\u003e 线程空闲时间超过指定时间 且有多余的非核心线程 =\u003e 释放非核心线程\n工作队列：\nLinkedBlockingQueue 无界队列，链式\nArrayBlockingQueue 有界队列，数组\nPriorityBlockingQueue 带有优先级的无界阻塞队列\n线程池类型：\n1FixedThreadPool: 固定线程数 2CachedThreadPool：变化，动态新建 3SingleThreadPool：单线程的池子 4ScheduledThreadPool：定时任务的池子 shutdown与shutdownNow的区别\nshutdown：提醒关闭，会把已提交的任务执行完毕\nshutdownNow：强制停止\n9 并发工具类 ConcurrentHashMap：线程安全的HashMap，多线程修改临界区时加锁或者其他方法，=\u003e安全\nAtomicInterger：əˈtɒmɪk 线程安全的整型 compareAndSet CAS方法，原子类型\nSemaphore 信号量：acquire() and release()\nBlockingQueue：阻塞队列-通信容器 queue.put() and queue.take()\nCyclicBarrier：循环屏障 barrier.await\nCountDownlatch：计时器 latch.countDown() latch.await()\n497 ReentrantLock实现 =\u003e 可重入锁，允许同一个线程多次获取同一把锁的锁机制，避免线程因为重复获取锁而导致死锁\n案例：1. 递归调用中的锁保护\n1# 非公平锁 2final boolean nonfairTryAcquire(int acquires) { 3 final Thread current = Thread.currentThread(); 4 int c = getState(); 5 if (c == 0) { // 锁未被占用 6 if (compareAndSetState(0, acquires)) { // CAS 尝试获取锁 7 setExclusiveOwnerThread(current); // 设置当前线程为独占线程 8 return true; 9 } 10 } else if (current == getExclusiveOwnerThread()) { // ⭐⭐⭐锁已被当前线程占用（重入） 11 int nextc = c + acquires; // 增加重入次数 12 if (nextc \u003c 0) throw new Error(\"Maximum lock count exceeded\"); 13 setState(nextc); // 更新状态 14 return true; 15 } 16 return false; // 获取锁失败 17} 基于AQS实现的一个可重入锁，支持公平和非公平两种方式\n内部依靠一个State变量和两个等待队列：同步队列和等待队列\n利用CAS修改state来争夺锁\n争抢不到锁就入AQS 等待队列进行等待，AQS 等待队列是一个双向队列\n抢到锁但是条件condition不满足则入条件队列(每个condition维护一个)，单向链表\n是否公平锁 =\u003e 线程获取锁 是加入同步队列尾部还是直接利用CAS争夺锁\nReentrantLock 是基于 AQS 实现的可重入独占锁，支持公平锁和非公平锁两种模式。其核心是通过 AQS 的状态管理（state）和等待队列来实现线程的阻塞和唤醒。非公平锁的性能通常优于公平锁，但公平锁可以避免线程饥饿问题。ReentrantLock 提供了比 synchronized 更灵活的锁操作，是 Java 并发编程中的重要工具\n492 Synchronized实现 依赖于JVM的监视器锁+对象头\n当synchronized修饰在方法或者代码块上时，会对特定的对象或者类加锁，确保只有一个线程能运行加锁的代码块；\nsynchronized修饰方法：方法的标志位会增加一个ACC_SYNCHRONIZED标志，检查标志再获取锁，这部分进行同步控制 synchronized修饰代码块：会在代码块前后插入monitorenter和monitorexit字节码指令，上锁+解锁 synchronized是可重入锁\n491 Synchronized和ReentrantLock 496 如何优化Java中锁的使用？ 减少锁的粒度： 减少加锁的范围，减少锁的持续时间 使用更细粒度的锁：提高并发度 hashTable: 通过方法上添加synchronized实现锁的安全，仅一个线程，性能较差 concurrentHashMap： 通过CAS+synchronized实现线程安全，允许多个线程同时读写，性能更高 减少锁的使用 通过无锁编程、CAS操作和原子类来避免锁的使用，减少锁带来的性能损失 通过减少共享资源的使用，避免对临界区的竞争。(本地变量+线程本地变量) 扩展：\n独占锁：写操作多的场景，仅允许一个线程持有锁 读写锁：允许多个线程并发读，但写的时候需要上锁，适合读多写少的场景 乐观锁和悲观锁：悲观锁每次都加锁；乐观锁假设没有冲突-CAS或版本号实现 499 读写锁 允许多个线程同时读操作，但是写操作需要加锁(单个线程)。\n=\u003e 读写+写写操纵是互斥操作；⭐适合读多写少的情况\n可以利用ReadWriteLock和ReentrantReadWriteLock实现\n1# 代码示例 2 3ReentrantReadWriteLock lock = new ReentrantReadWriteLock() 4Lock readLock = lock.readLock() 5lock writeLock = lock.writeLock() 6 7// 1. 判断写锁(读写互斥)2. 判断读锁,第一个和后续 8readLock.lock() 9try{ 10 ... 11} finally { 12 readLock.unlock() 13} 14 15// 1. 有读锁或写锁且写锁不是当前线程持有，则失败 16// 2. 根据公平性策略（公平锁或非公平锁）决定是否需要阻塞 17// 3. CAS 更新状态 18// 4. 设置写锁持有者 \u003c= 设置可重入 19writeLock.lock() // 互斥 写写互斥 20try{ 21 ... 22} finally { 23 writeLock.unlock() 24} 501 Java JMM java内存模型 java memory model\n用于描述线程何时从主内存中读取数据、何时把数据写回主存中\nJMM核心目标\n可见性：确保某个线程的修改，其他线程及时可见。 使用volatile关键字强制线程每次读写都直接从主内存中获取新值 有序性：指线程执行操作的顺序，JMM允许某些指令通过指令重拍提高性能，且保证线程内的操作顺序不会被破坏，通过happens-before关系保证跨线程的有序性。 **原子性：**指操作不可分割，线程不会在执行过程中被中断。 Why JMM：\n操作系统有自己的内存模型，但JAVA是跨平台实现的，因此需要自己设计一套内存模型屏蔽各操作系统之间的差异。JMM描述了多线程环境下，如何在不通过的线程之间共享变量以及变量的操作顺序。\n主内存和工作内存：\n主内存：JAVA堆内存的一部分，所有的实例变量、静态变量和数组元素都存储在主内存中； 工作内存：每个线程都有自己的工作内存，工作内存存储了主内存中的变量副本，线程的所有操作都在工作内存中进行。 线程之间的变量，必须经过主内存进行传递 506 Why ThreadLocal 每个线程自己独享的独立变量副本，避免多个线程间的变量共享和竞争，解决线程安全问题。\n每个线程维护一个ThreadLocalMap 用于存储线程独立的变量副本，ThreadLocalMap以ThreadLocal实例为键，不同线程通过自己ThreadLocal身份获取各自的变量副本。\n避免同一个ThreadLocalMap的竞争\n517 Java中wait、notify和notifyALL 这三个方法都是Object对象定义的方法，用于线程之间的通信，且需要在Synchronized修饰内使用\nwait =\u003e 线程进入等待状态，释放锁 notify =\u003e 唤醒一个在等待的线程 notifyALL =\u003e 唤醒所有等待的线程 518 死锁 及 避免 条件互斥：独享资源 占有且等待：不放手，等别人放弃 不可抢占：文明 循环等待： A=\u003eB=\u003eC=\u003eA 避免：\n按序申请 =\u003e 锁获取的顺序相同，这样就可以在前面卡住 超时等待时间=\u003e释放手中资源和锁 519 volatile关键字 主要的作用还是保证变量的可见性\n可见性：修改了volatile变量的值，该值会被立刻刷新回主内存中，及时让其他线程可见。 6304 如何知晓子线程是否执行完毕？ ThreadObj.join() 会等待对应子线程执行完毕 FutureTask+Callable futrue.get() 拿到线程执行完成的结果 回调机制：完成后，调用回调函数通知主线程，异步了 481 Semaphore 信号量 ˈseməfɔːr\n主要作用就是确保 只有指定数量的线程能够访问资源，限制同时访问特定资源的线程数量\n基本概念\n许可 permits: 可以访问资源的线程数量。\nAcquire：尝试获取许可；\nrelease：释放许可。\n公平：按照请求顺序获取许可，防止线程饥饿\n非公平：可以提高性能。\n常见用法：\n1Semaphore semaphore = new Semaphore(10); // 允许最多10个线程访问 2semaphore.acquire(); // 失败会阻塞不会往下执行了 3try { 4 // 访问共享资源 5} finally { 6 semaphore.release(); 7} 8 9Semaphore semaphore = new Semaphore(5); // 允许最多5个线程同时执行任务 10for (int i = 0; i \u003c 10; i++) { 11 new Thread(() -\u003e { 12 try { 13 semaphore.acquire(); // 阻塞 14 // 执行任务 15 } catch (InterruptedException e) { 16 Thread.currentThread().interrupt(); 17 } finally { 18 semaphore.release(); 19 } 20 }).start(); 21} 482 CyclicBarrier ˈsaɪklɪk ˈbæriə(r) 循环障碍 // 可以重用，当所有线程到达屏障后，刷新\n允许一组线程在执行某个任务相互等待，直到所有线程都达到了Barrier屏障后才能继续执行 // 直接全卡住\n屏障：调用barrier.await() 阻塞，等待所有线程都到达屏障； 线程数量：预指定的，当所有线程到达屏障，所有线程才被唤醒； 重用性：可以被重用。 1# 示例 2static CyclicBarrier cyclicbarrier; 3cyclicbarrier = new CyclicBarrier(parties=10, () -\u003e Sout(\"全部准备就绪\")) 4 5for(i ...) 6 new Thread(() -\u003e { 7 Thread.sleep(i * 3000 ms) 8 sout(i+\"玩家准备完成\"); 9 cyclicbarrier.await() // ⭐等待全部完成 10 sout(i+\"玩家进入游戏\") 11 }) 483 CountDownLatch 倒计时门闩锁 - 不可复用\n作用：使某线程等待其他线程执行完一组操作完成。每当其他线程完成一个操作，计数器–，到达0则等待的ALL线程会被唤醒\n主要功能：\n等待事件完成：await()； 递减计数器：latch.countdown()； 线程同步：当计数器变为0，唤醒线程。 1CountDownLatch latch = new CountDownLatch(3) 2 3for(int i = 1; i \u003c= 3; i++) { // 异步 4 new Thread(() -\u003e { 5 Thread,sleep(i*3000) 6 sout(i+\"???\") 7 latch.countDown(); // 这里模拟递减计数器 8 }).start() 9} 10 11sout(\"wait all thread finish\") 12latch.await() // 主线程阻塞等待 13sout(\"all thread finish\") // 并行计算结果的汇总\n487 如何控制多个线程的执行顺序呢？ synchronized + awit + notify, A =\u003e B =\u003e C 多组锁 ReentrantLock + condition 多组 Thread.join, 逐步等待 CountDownLatch，等待其他的线程countdown semaphore，限制异步为同步顺序 488 Java阻塞队列 ArrayBlockingQueue LinkedBlockingQueue PriorBlockingQueue praɪə(r) 489 原子类 AtomicInterger əˈtɒmɪk ˈɪntɪdʒə(r) AtomicStampedReference stæmpt 1.get 2.compareAndSet 3.getAndIncrement ˈɪŋkrəmənt 提问 CAS Compare and swap\n比较内存中的值 是否与 之前的预期值(之前拿到的旧值) 相等\n相等 =\u003e 将该变量的值设置为新值\n=\u003e 判断从之前的访问到现在的修改，中间变量的值是否变动过，没变过=\u003e可以修改\n优势：\n无锁并发 + CAS是原子性的(线程安全)\n缺点：\nABA问题，如果变量值 从 A=\u003eB=\u003eA,CAS无法检测到这种变化 自旋(重复)开销：导致CPU资源浪费，因为一直比较，直到能够修改为止 单变量限制：仅支持修改单变量 ABA问题：引入版本号或者时间戳，每次更新变量的同时更新版本号，从而依靠版本号判断变量是否被调整过。\n做法：\n1private AtomicStampedReference\u003cInteger\u003e atomicStampedReference = new AtomicStampedReference\u003c\u003e(0, 0); // 初始值:版本号 == 0:0 2 3public void updateValue(int expected, int newValue) { 4 int[] stampHolder = new int[1]; 5 Integer currentValue = atomicStampedReference.get(stampHolder); 6 int currentStamp = stampHolder[0]; 7\t8 // 9 boolean updated = atomicStampedReference.compareAndSet(expected, newValue, currentStamp, currentStamp + 1); 10 if (updated) { 11 System.out.println(\"Value updated to \" + newValue); 12 } else { 13 System.out.println(\"Update failed\"); 14 } 15} AtomicStampedReference：",
   "wordCount" : "1850",
   "inLanguage": "en",
-  "image": "http://121.40.252.207/papermod-cover.png","datePublished": "2025-03-05T00:00:00Z",
+  "image": "longcoding.top/papermod-cover.png","datePublished": "2025-03-05T00:00:00Z",
   "dateModified": "2025-03-05T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -225,14 +225,14 @@ Thread.sleep(0) &lt;= 主动让出CPU控制权">
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://121.40.252.207/posts/jobs/juc/"
+    "@id": "longcoding.top/posts/jobs/juc/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "LongCoding's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://121.40.252.207/favicon.ico"
+      "url": "longcoding.top/favicon.ico"
     }
   }
 }
@@ -254,8 +254,8 @@ Thread.sleep(0) &lt;= 主动让出CPU控制权">
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://121.40.252.207/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
-                <img src="http://121.40.252.207/android-icon-48x48.png" alt="" aria-label="logo"
+            <a href="longcoding.top/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
+                <img src="longcoding.top/android-icon-48x48.png" alt="" aria-label="logo"
                     height="30">𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
@@ -282,32 +282,32 @@ Thread.sleep(0) &lt;= 主动让出CPU控制权">
         </div>
         <ul id="menu">
             <li>
-                <a href="http://121.40.252.207/index.html" title="🏡 Home">
+                <a href="longcoding.top/index.html" title="🏡 Home">
                     <span>🏡 Home</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/archives/" title="📃 Archive">
-                    <span>📃 Archive</span>
+                <a href="longcoding.top/archives/" title="📃 Archives">
+                    <span>📃 Archives</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/tags/" title="📑 Tags">
+                <a href="longcoding.top/tags/" title="📑 Tags">
                     <span>📑 Tags</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/categories/" title="🗒️ Categories">
+                <a href="longcoding.top/categories/" title="🗒️ Categories">
                     <span>🗒️ Categories</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/search/" title="🔍 Search">
+                <a href="longcoding.top/search/" title="🔍 Search">
                     <span>🔍 Search</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/about/" title="👨🏻‍🎓 About Me">
+                <a href="longcoding.top/about/" title="👨🏻‍🎓 About Me">
                     <span>👨🏻‍🎓 About Me</span>
                 </a>
             </li>
@@ -318,7 +318,7 @@ Thread.sleep(0) &lt;= 主动让出CPU控制权">
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="longcoding.top/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       并发面试题笔记
     </h1>
@@ -1189,15 +1189,15 @@ Condition notEmpty = lock.newCondition(); // 队列非空的条件</p>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://121.40.252.207/tags/juc/">JUC</a></li>
+      <li><a href="longcoding.top/tags/juc/">JUC</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://121.40.252.207/posts/jobs/jvm/">
+  <a class="prev" href="longcoding.top/posts/jobs/jvm/">
     <span class="title">« Prev</span>
     <br>
     <span>JVM面试题笔记</span>
   </a>
-  <a class="next" href="http://121.40.252.207/posts/jobs/mysql/">
+  <a class="next" href="longcoding.top/posts/jobs/mysql/">
     <span class="title">Next »</span>
     <br>
     <span>MySQL面试题笔记</span>
@@ -1209,7 +1209,7 @@ Condition notEmpty = lock.newCondition(); // 队列非空的条件</p>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://121.40.252.207/">LongCoding&#39;s Blog</a></span> · 
+        <span>&copy; 2025 <a href="longcoding.top/">LongCoding&#39;s Blog</a></span> · 
 
     <span>
         Powered by

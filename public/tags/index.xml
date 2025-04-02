@@ -2,92 +2,92 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on LongCoding&#39;s Blog</title>
-    <link>http://121.40.252.207/tags/</link>
+    <link>longcoding.top/tags/</link>
     <description>Recent content in Tags on LongCoding&#39;s Blog</description>
     <image>
       <title>LongCoding&#39;s Blog</title>
-      <url>http://121.40.252.207/papermod-cover.png</url>
-      <link>http://121.40.252.207/papermod-cover.png</link>
+      <url>longcoding.top/papermod-cover.png</url>
+      <link>longcoding.top/papermod-cover.png</link>
     </image>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Sun, 16 Mar 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://121.40.252.207/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="longcoding.top/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Command</title>
-      <link>http://121.40.252.207/tags/command/</link>
+      <link>longcoding.top/tags/command/</link>
       <pubDate>Sun, 16 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/command/</guid>
+      <guid>longcoding.top/tags/command/</guid>
       <description></description>
     </item>
     <item>
       <title>Collection</title>
-      <link>http://121.40.252.207/tags/collection/</link>
+      <link>longcoding.top/tags/collection/</link>
       <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/collection/</guid>
+      <guid>longcoding.top/tags/collection/</guid>
       <description></description>
     </item>
     <item>
       <title>JVM</title>
-      <link>http://121.40.252.207/tags/jvm/</link>
+      <link>longcoding.top/tags/jvm/</link>
       <pubDate>Sat, 08 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/jvm/</guid>
+      <guid>longcoding.top/tags/jvm/</guid>
       <description></description>
     </item>
     <item>
       <title>JUC</title>
-      <link>http://121.40.252.207/tags/juc/</link>
+      <link>longcoding.top/tags/juc/</link>
       <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/juc/</guid>
+      <guid>longcoding.top/tags/juc/</guid>
       <description></description>
     </item>
     <item>
       <title>MySQL</title>
-      <link>http://121.40.252.207/tags/mysql/</link>
+      <link>longcoding.top/tags/mysql/</link>
       <pubDate>Tue, 04 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/mysql/</guid>
+      <guid>longcoding.top/tags/mysql/</guid>
       <description></description>
     </item>
     <item>
       <title>Redis</title>
-      <link>http://121.40.252.207/tags/redis/</link>
+      <link>longcoding.top/tags/redis/</link>
       <pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/redis/</guid>
+      <guid>longcoding.top/tags/redis/</guid>
       <description></description>
     </item>
     <item>
       <title>Java</title>
-      <link>http://121.40.252.207/tags/java/</link>
+      <link>longcoding.top/tags/java/</link>
       <pubDate>Wed, 19 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/java/</guid>
+      <guid>longcoding.top/tags/java/</guid>
       <description></description>
     </item>
     <item>
       <title>SQL</title>
-      <link>http://121.40.252.207/tags/sql/</link>
+      <link>longcoding.top/tags/sql/</link>
       <pubDate>Sun, 24 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/sql/</guid>
+      <guid>longcoding.top/tags/sql/</guid>
       <description></description>
     </item>
     <item>
       <title>DL</title>
-      <link>http://121.40.252.207/tags/dl/</link>
+      <link>longcoding.top/tags/dl/</link>
       <pubDate>Thu, 31 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/dl/</guid>
+      <guid>longcoding.top/tags/dl/</guid>
       <description></description>
     </item>
     <item>
       <title>Hot100</title>
-      <link>http://121.40.252.207/tags/hot100/</link>
+      <link>longcoding.top/tags/hot100/</link>
       <pubDate>Wed, 18 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/hot100/</guid>
+      <guid>longcoding.top/tags/hot100/</guid>
       <description></description>
     </item>
     <item>
       <title>ECG</title>
-      <link>http://121.40.252.207/tags/ecg/</link>
+      <link>longcoding.top/tags/ecg/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://121.40.252.207/tags/ecg/</guid>
+      <guid>longcoding.top/tags/ecg/</guid>
       <description></description>
     </item>
   </channel>

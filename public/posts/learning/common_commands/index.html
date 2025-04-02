@@ -42,16 +42,16 @@ Linux
 5htop  # 显示系统资源使用情况
 网络管理">
 <meta name="author" content="LongWei">
-<link rel="canonical" href="http://121.40.252.207/posts/learning/common_commands/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://121.40.252.207/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://121.40.252.207/apple-touch-icon.png">
-<link rel="mask-icon" href="http://121.40.252.207/safari-pinned-tab.svg">
+<link rel="canonical" href="longcoding.top/posts/learning/common_commands/">
+<link crossorigin="anonymous" href="longcoding.top/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="longcoding.top/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="longcoding.top/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="longcoding.top/favicon-32x32.png">
+<link rel="apple-touch-icon" href="longcoding.top/apple-touch-icon.png">
+<link rel="mask-icon" href="longcoding.top/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://121.40.252.207/posts/learning/common_commands/">
+<link rel="alternate" hreflang="en" href="longcoding.top/posts/learning/common_commands/">
 <noscript>
     <style>
         #theme-toggle,
@@ -88,7 +88,7 @@ Linux
         }
 
     </style>
-</noscript><meta property="og:url" content="http://121.40.252.207/posts/learning/common_commands/">
+</noscript><meta property="og:url" content="longcoding.top/posts/learning/common_commands/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
   <meta property="og:title" content="Linux&Docker&Shell命令">
   <meta property="og:description" content="docker 1service docker start 2 3docker pull &lt;镜像名称&gt;:&lt;标签&gt; 4 5docker rmi &lt;镜像名称或ID&gt; 6 7docker images 8 9docker run [选项] &lt;镜像名称&gt;:&lt;标签&gt; 10 11docker start &lt;容器名称或ID&gt; 12 13docker ps 14 15docker exec -it &lt;容器名称或ID&gt; /bin/bash # execute -it:Interactive and Teletypewriter 交互式&amp;伪终端 Linux 文件和目录
@@ -101,9 +101,9 @@ Linux
     <meta property="article:published_time" content="2025-03-16T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-03-16T00:00:00+00:00">
     <meta property="article:tag" content="Command">
-      <meta property="og:image" content="http://121.40.252.207/papermod-cover.png">
+      <meta property="og:image" content="longcoding.top/papermod-cover.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://121.40.252.207/papermod-cover.png">
+<meta name="twitter:image" content="longcoding.top/papermod-cover.png">
 <meta name="twitter:title" content="Linux&amp;Docker&amp;Shell命令">
 <meta name="twitter:description" content="docker
  1service docker start
@@ -150,13 +150,13 @@ Linux
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://121.40.252.207/posts/"
+      "item": "longcoding.top/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "Linux\u0026Docker\u0026Shell命令",
-      "item": "http://121.40.252.207/posts/learning/common_commands/"
+      "item": "longcoding.top/posts/learning/common_commands/"
     }
   ]
 }
@@ -174,7 +174,7 @@ Linux
   "articleBody": "docker 1service docker start 2 3docker pull \u003c镜像名称\u003e:\u003c标签\u003e 4 5docker rmi \u003c镜像名称或ID\u003e 6 7docker images 8 9docker run [选项] \u003c镜像名称\u003e:\u003c标签\u003e 10 11docker start \u003c容器名称或ID\u003e 12 13docker ps 14 15docker exec -it \u003c容器名称或ID\u003e /bin/bash # execute -it:Interactive and Teletypewriter 交互式\u0026伪终端 Linux 文件和目录\n1ls -l # -l:详细信息 2cd 3pwd # 当前目录 4mkdir/vim 5rm/rmdir 6cp mv 文件权限\n1chmod # Change Mode # chmod u+rwx file.txt x:Execute 2chown 系统命令\n1ps -ef # e:all -f full info 2ps -u $USER 3ps -ef | grep # global regular expression print 4 5htop # 显示系统资源使用情况 网络管理\n1ping 2ifconfig 3netstat # 网络连接信息 压缩解压\n1tar -czvf archive.tar.gz folder_name # 压缩 2tar -xzvf archive.tar.gz # 解压 3 4-c: # create 创建 5-x: # extract解压 6-z: # 使用gzip压缩 7-v: # verbose显示[详细]信息 8-f：# file 指定文件名 杂项\n1history 2echo 3clear Git Git 是一个分布式版本控制系统，支持多人协作开发。\n1git init 2git clone --link 3git status 4添加文件：git add file 或者 git add . 5提交文件：git commit -m \"commit msg\" 6git push 7git pull 8git log 9 10// branch 分支 11git branch \u003c分支名\u003e 12git checkout \u003c分支名\u003e // 切换分支 13git merge \u003c分支名\u003e 14-- 手动编辑冲突文件，然后使用 git add 标记冲突已解决，最后提交更改。 Shell 条件判断\n1#!/bin/bash 2if [ -f \"file.txt\" ]; then 3 echo \"file.txt exists.\" 4else 5 echo \"file.txt not exists.\" 6fi 7 8# -f 检查文件是否存在 9 10#!/bin/bash 11num=10 12if [ $num -gt 5 ]; then 13 echo \"$num is greater than 5.\" 14fi 15 16-gt # greater than 循环\n1#!/bin/bash 2num=(1 2 3 4 5) 3for i in \"${num[@]}\"; do # 是用于引用数组 num 中所有元素的方式 4 echo \"number: $i\" 5done 6------------------------ 7#!/bin/bash 8if [ $# -eq 0 ]; then 9 echo \"Usage: $0 \" 10 exit 1 11fi 12 13for i in \"$@\"; do 14 echo \"number: $i\" 15done 16 17# $# 表示传递给脚本或函数的命令行参数的数量 $@ 所有参数 18=\u003e ./script.sh 1 2 3 Where\n1#!/bin/bash 2count=1 3while [ $count -le 5 ]; do 4 echo \"Count: $count\" 5 count=$((count + 1)) 6done 函数\n1#!/bin/bash 2greet() { 3 echo \"Hello, $1!\" 4} 5greet \"Alice\" 6greet \"Bob\" 读写文件\n1echo \"Hello, File!\" \u003e output.txt # write：\u003e 覆盖 \u003e\u003e 追加 2 3while read line; do 4 echo \"Line: $line\" 5done \u003c file.txt # 读文件 读取输入\n1echo \"Enter your name:\" 2read name # 类似scanf 控制台阻塞等待 3echo \"Hello, $name!\" 4 5read -s -p \"Enter your password: \" password 6echo \"Password entered.\" 7 8# s 静默，不显示信息 p显示提示信息 ",
   "wordCount" : "372",
   "inLanguage": "en",
-  "image": "http://121.40.252.207/papermod-cover.png","datePublished": "2025-03-16T00:00:00Z",
+  "image": "longcoding.top/papermod-cover.png","datePublished": "2025-03-16T00:00:00Z",
   "dateModified": "2025-03-16T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -182,14 +182,14 @@ Linux
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://121.40.252.207/posts/learning/common_commands/"
+    "@id": "longcoding.top/posts/learning/common_commands/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "LongCoding's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://121.40.252.207/favicon.ico"
+      "url": "longcoding.top/favicon.ico"
     }
   }
 }
@@ -211,8 +211,8 @@ Linux
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://121.40.252.207/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
-                <img src="http://121.40.252.207/android-icon-48x48.png" alt="" aria-label="logo"
+            <a href="longcoding.top/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
+                <img src="longcoding.top/android-icon-48x48.png" alt="" aria-label="logo"
                     height="30">𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
@@ -239,32 +239,32 @@ Linux
         </div>
         <ul id="menu">
             <li>
-                <a href="http://121.40.252.207/index.html" title="🏡 Home">
+                <a href="longcoding.top/index.html" title="🏡 Home">
                     <span>🏡 Home</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/archives/" title="📃 Archive">
-                    <span>📃 Archive</span>
+                <a href="longcoding.top/archives/" title="📃 Archives">
+                    <span>📃 Archives</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/tags/" title="📑 Tags">
+                <a href="longcoding.top/tags/" title="📑 Tags">
                     <span>📑 Tags</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/categories/" title="🗒️ Categories">
+                <a href="longcoding.top/categories/" title="🗒️ Categories">
                     <span>🗒️ Categories</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/search/" title="🔍 Search">
+                <a href="longcoding.top/search/" title="🔍 Search">
                     <span>🔍 Search</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/about/" title="👨🏻‍🎓 About Me">
+                <a href="longcoding.top/about/" title="👨🏻‍🎓 About Me">
                     <span>👨🏻‍🎓 About Me</span>
                 </a>
             </li>
@@ -275,7 +275,7 @@ Linux
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="longcoding.top/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Linux&amp;Docker&amp;Shell命令
     </h1>
@@ -441,10 +441,10 @@ Linux
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://121.40.252.207/tags/command/">Command</a></li>
+      <li><a href="longcoding.top/tags/command/">Command</a></li>
     </ul>
 <nav class="paginav">
-  <a class="next" href="http://121.40.252.207/posts/jobs/collection/">
+  <a class="next" href="longcoding.top/posts/jobs/collection/">
     <span class="title">Next »</span>
     <br>
     <span>集合面试题笔记</span>
@@ -456,7 +456,7 @@ Linux
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://121.40.252.207/">LongCoding&#39;s Blog</a></span> · 
+        <span>&copy; 2025 <a href="longcoding.top/">LongCoding&#39;s Blog</a></span> · 
 
     <span>
         Powered by

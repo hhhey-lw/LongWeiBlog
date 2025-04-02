@@ -87,16 +87,16 @@ HashTable,  Key=排序后的Str, Value=List&lt;String&gt;
 283. 移动零
 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序(原始数组位置，非不是重新排序)。">
 <meta name="author" content="LongWei">
-<link rel="canonical" href="http://121.40.252.207/posts/leetcode/leetcode_hot100/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://121.40.252.207/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://121.40.252.207/apple-touch-icon.png">
-<link rel="mask-icon" href="http://121.40.252.207/safari-pinned-tab.svg">
+<link rel="canonical" href="longcoding.top/posts/leetcode/leetcode_hot100/">
+<link crossorigin="anonymous" href="longcoding.top/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="longcoding.top/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="longcoding.top/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="longcoding.top/favicon-32x32.png">
+<link rel="apple-touch-icon" href="longcoding.top/apple-touch-icon.png">
+<link rel="mask-icon" href="longcoding.top/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://121.40.252.207/posts/leetcode/leetcode_hot100/">
+<link rel="alternate" hreflang="en" href="longcoding.top/posts/leetcode/leetcode_hot100/">
 <noscript>
     <style>
         #theme-toggle,
@@ -133,7 +133,7 @@ HashTable,  Key=排序后的Str, Value=List&lt;String&gt;
         }
 
     </style>
-</noscript><meta property="og:url" content="http://121.40.252.207/posts/leetcode/leetcode_hot100/">
+</noscript><meta property="og:url" content="longcoding.top/posts/leetcode/leetcode_hot100/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
   <meta property="og:title" content="LeetCodeHot100刷题笔记">
   <meta property="og:description" content="热题100 哈希 1. 两数之和 给定： 数组nums 和target
@@ -151,9 +151,9 @@ HashTable, Key=排序后的Str, Value=List&lt;String&gt;
     <meta property="article:published_time" content="2024-09-18T00:00:00+00:00">
     <meta property="article:modified_time" content="2024-09-18T00:00:00+00:00">
     <meta property="article:tag" content="Hot100">
-      <meta property="og:image" content="http://121.40.252.207/papermod-cover.png">
+      <meta property="og:image" content="longcoding.top/papermod-cover.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://121.40.252.207/papermod-cover.png">
+<meta name="twitter:image" content="longcoding.top/papermod-cover.png">
 <meta name="twitter:title" content="LeetCodeHot100刷题笔记">
 <meta name="twitter:description" content="热题100
 哈希
@@ -245,13 +245,13 @@ HashTable,  Key=排序后的Str, Value=List&lt;String&gt;
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://121.40.252.207/posts/"
+      "item": "longcoding.top/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "LeetCodeHot100刷题笔记",
-      "item": "http://121.40.252.207/posts/leetcode/leetcode_hot100/"
+      "item": "longcoding.top/posts/leetcode/leetcode_hot100/"
     }
   ]
 }
@@ -269,7 +269,7 @@ HashTable,  Key=排序后的Str, Value=List&lt;String&gt;
   "articleBody": "热题100 哈希 1. 两数之和 给定： 数组nums 和target\n要求：找出两元素之和为target的数组下标\n暴力：\n1for i in range(len(nums)): 2 for j in range(i+1, len(nums)): 3 if ... 4# O(n^2) 题解：\n问题分解 =\u003e 给定x 寻找 target-x(这是复杂度的主要部分)\n用额外结构记录\n1hashtable = dict() 2for i in range(len(nums)): 3 if nums[i] in hashtable: 4 return [i, hashtable[nums[i]]] 5 else: 6 hashtable[nums[i]] = i 7# 保存遍历过的元素，参考过去 49. 字母异位词分组 输入: strs = [\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"]\r输出: [[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]] 思路：condition =\u003e […]\nHashTable, Key=排序后的Str, Value=List\n1HashMap\u003cString, List\u003cString\u003e\u003e hashTable = new HashMap\u003c\u003e(); 2for(String str : strs){ 3 char[] charArray = str.toCharArray(); // 将字符串转换为字符数组 4 Arrays.sort(charArray); // 对字符数组进行排序 5 String orderStr = new String(charArray); 6 if (hashTable.containsKey(orderStr)) { 7 hashTable.get(orderStr).add(str); 8 }else { 9 hashTable.put(orderStr, new ArrayList\u003c\u003e()); 10 hashTable.get(orderStr).add(str); 11 } 12} 13 14List\u003cList\u003cString\u003e\u003e res = new ArrayList\u003c\u003e(); 15 16for (Map.Entry\u003cString, List\u003cString\u003e\u003e entry : hashTable.entrySet()) { 17 res.add(entry.getValue()); 18} 19return res; 128. 最长连续序列 1HashSet\u003cInteger\u003e hashSet = new HashSet\u003c\u003e(); 2// 去重复，并且查询O(1) 3for (int num : nums) { 4 hashSet.add(num); 5} 6 7List\u003cInteger\u003e start_nums = new ArrayList\u003c\u003e(); 8 9// 找所有为起点的数 10for (Iterator\u003cInteger\u003e it = hashSet.iterator(); it.hasNext(); ) { 11 int num = it.next(); 12 if (!hashSet.contains(num-1)){ 13 start_nums.add(num); 14 } 15} 16 17// 遍历起点x, 遍历 x+1, x+2, ... 18int longest_length = 0; 19for(int start : start_nums){ 20 int current_length = 1; 21 int start_i = start; 22 while (hashSet.contains(start_i+1)) { 23 current_length += 1; 24 start_i += 1; 25 } 26 if (current_length \u003e longest_length){ 27 longest_length = current_length; 28 } 29} 30return longest_length; 31} 双指针 283. 移动零 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序(原始数组位置，非不是重新排序)。\n请注意 ，必须在不复制数组的情况下原地对数组进行操作。\n1if (nums.length == 1){ 2 return; 3} 4int i = 0; 5int j = 1; 6for (;j\u003cnums.length;j++) { 7 if (nums[i] == 0 \u0026\u0026 nums[j] != 0){ 8 nums[i] = nums[j]; 9 nums[j] = 0; 10 } 11 while (i\u003c=j) { 12 if (nums[i] != 0) { 13 i+=1; 14 } else { 15 break; 16 } 17 } 18} 19for (;i\u003cnums.length;i++) { 20 nums[i] = 0; 21} 11. 盛最多水的容器 给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。\n找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。\n返回容器可以储存的最大水量。\n**说明：**你不能倾斜容器。\n1// 左右双指针，area = h * w, h限制于最矮的边 \u003c= 漏水 2int i = 0; 3int j = height.length - 1; 4int max = 0; 5while (i \u003c j) { 6 int h = 0; 7 if (height[i] \u003c height[j]) { 8 h = height[i]; 9 } else { 10 h = height[j]; 11 } 12 int area = h * (j - i); 13 if (area \u003e max) { 14 max = area; 15 } 16 if (height[i] \u003c height[j]) { 17 i += 1; 18 } else { 19 j -= 1; 20 } 21} 22return max; 15. 三数之和 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请你返回所有和为 0 且不重复的三元组。\n⭐ 分析：\n先排序，递增\n固定a =\u003e 遍历b 则 c = - a - b\n1 a 2[-4,-1,-1,0,1,2] 3 b c 4// 若b向右，则c向左，因为 c = - a - b，且nums递增, b增大 =\u003e c减小 5 6// e.g. 7 a a 8[-3,-1,0,1,2,3,4,5] =\u003e [-3,-1,0,1,2,3,4,5] 9 b c ✔️ b c||| 10c不比从最右侧开始 1. 1// 固定a, b =\u003e c !!! 由于 nums[b]\u003c=nums[c] 并且nums递增 c不比每次从末尾开始，因为b向右，则c向左。 2Arrays.sort(nums); 3ArrayList\u003cList\u003cInteger\u003e\u003e res = new ArrayList\u003c\u003e(); 4for (int a=0; a\u003cnums.length-2; a++) { 5 if (a-1\u003e=0 \u0026\u0026 nums[a-1] == nums[a]) { 6 continue; 7 } 8 if (nums[a] \u003e 0){ 9 break; 10 } 11 // 最右侧 12 int c = nums.length-1; 13 for (int b=a+1; b\u003cnums.length-1; b++) { 14 if (b-1\u003ea \u0026\u0026 nums[b] == nums[b-1]) { 15 // b+=1; 16 continue; 17 } 18 int target = -nums[a] - nums[b]; 19 20 while (b \u003c c \u0026\u0026 target \u003c= nums[c]) { 21 if (nums[a] + nums[b] + nums[c] == 0) { 22 List\u003cInteger\u003e temp = new ArrayList\u003c\u003e(); 23 temp.add(nums[a]); 24 temp.add(nums[b]); 25 temp.add(nums[c]); 26 res.add(temp); 27 break; 28 } 29 c -= 1; 30 } 31 } 32} 33return res; 42. 接雨水 局部化 =\u003e 每个单位的储水量\n暴力 |_| 查每个单位的左右最大边，看看这个地方是否有存水的资格 1// 暴力 =\u003e 分解为局部某小块[单位长度]聚水量 2if (height.length \u003c 3) 3 return 0; 4int ans = 0; 5for (int i=1; i\u003cheight.length-1; i++) { 6 int max_left = 0; 7 // 左侧最大值 8 for (int left=0; left\u003ci; left++) { 9 if (max_left \u003c height[left]) 10 max_left = height[left]; 11 } 12 if (max_left \u003c height[i]) { 13 continue; 14 } 15 int max_right = 0; 16 // 右侧最大值 17 for (int right=height.length-1; right\u003ei; right--) { 18 if (max_right \u003c height[right]) 19 max_right = height[right]; 20 } 21 if (max_left\u003eheight[i] \u0026\u0026 max_right\u003eheight[i]){ 22 ans += Math.min(max_left, max_right) - height[i]; 23 } 24} 25return ans; 预先计算，避免重复。 预先把每个位置的左右最大高计算出来，直接判断是否被两高边夹住 =\u003e 能存水\n1if (height.length \u003c 3) 2 return 0; 3// 预先存储每个位置的左右最大高，判断该位置是否能蓄水 4int[] per_pos_left_max = new int[height.length]; 5per_pos_left_max[0] = 0; 6int[] per_pos_right_max = new int[height.length]; 7per_pos_right_max[height.length-1] = 0; 8 9for (int i=1; i\u003cheight.length; i++) { 10 per_pos_left_max[i] = Math.max(per_pos_left_max[i-1], height[i-1]); 11} 12for (int i=height.length-2; i \u003e= 0; i--) { 13 per_pos_right_max[i] = Math.max(per_pos_right_max[i+1], height[i+1]); 14} 15int ans = 0; 16for (int i=0; i\u003cheight.length; i++) { 17 int min = Math.min(per_pos_left_max[i], per_pos_right_max[i]); 18 if (min \u003e height[i]) 19 ans += min - height[i]; 20} 21 22return ans; 滑动窗口 3. 无重复字符的最长子串 滑动窗口 =\u003e a[???bca]bcbb =\u003e a???b[cab]cbb\n左边界直接滑动窗口内第一个重复位置的右侧【左边界右滑一大步】\n1char[] chars = s.toCharArray(); 2HashSet\u003cCharacter\u003e hashSet = new HashSet\u003c\u003e(); 3int res = 0; 4for(int left=0, right=0; right\u003cs.length(); right++) { 5 char ch = chars[right]; 6 7 while(hashSet.contains(ch)) { 8 hashSet.remove(chars[left]); 9 left+=1; 10 } 11 12 hashSet.add(ch); 13 res = Math.max(res, right - left + 1); 14} 15 16return res; 438. 找到字符串中所有字母异位词 描述： 给定s,和目标p，找出在s中所有由p随机组合的字串起点\n思路：\n【暴力】遍历数组s，每个元素作为起始点，sortStr([start, start+target.length()-1]).equals(sortStr(target)) 【滑动窗口】 DNA转录？ 1️⃣ 还是遍历整个s数组 2️⃣ 比较方法变为 当前窗口元素出现次数的词频表 1List\u003cInteger\u003e ans = new ArrayList\u003c\u003e(); 2 3// 意外情况 4if (s.length() \u003c p.length()) { 5 return ans; 6} 7 8// 词频表 index-value == alpha-count 9int[] sCount = new int[26]; 10int[] pCount = new int[26]; 11for (int i = 0; i \u003c p.length(); i++) { 12 sCount[s.charAt(i) - 'a'] += 1; 13 pCount[p.charAt(i) - 'a'] += 1; 14} 15// 首个异构词 16if (Arrays.equals(sCount, pCount)) { 17 ans.add(0); 18} 19 20int left = 0; 21int right = p.length()-1; 22for(int i=0; i\u003cs.length()-p.length(); i++) { 23 // 左侧出界 24 sCount[s.charAt(left) - 'a'] -= 1; 25 left += 1; 26 // 右边界添加新元素 27 right += 1; 28 sCount[s.charAt(right) - 'a'] += 1; 29 30 if (Arrays.equals(sCount, pCount)) { 31 ans.add(left); 32 } 33} 34 35return ans; 字串 560. 和为 K 的子数组 给你一个整数数组 nums 和一个整数 k ，请你统计并返回 该数组中和为 k 的子数组的个数 。\n子数组是数组中元素的连续非空序列。\n思路：\n统计个数而非位置 =\u003e 前缀和\n[[???]—?] 利用前缀和-前缀和的差 代表之前的子列和\n例如： nums=[[1,2,3,4,5,6],-2,2,6], k=6\n​ preSum=[0,1,3,6,10,15,21,[19,21],27] , 利用HashMap存储子列前缀和和其次数，如次数大于0，说明子列1与子列2前缀和相等=\u003e它们之间的和为0.\n​ 当preSum=27时，次数num=6, 本身[6]为子列，并且[-2,2,6]也是\n1public static int subarraySum(int[] nums, int k) { 2 int count = 0; 3 // preSum -\u003e count 4 HashMap\u003cInteger, Integer\u003e preSum = new HashMap\u003c\u003e(); 5 preSum.put(0, 1); 6 int sum = 0; 7 for (int i = 0; i \u003c nums.length; i++) { 8 sum += nums[i]; 9 if (preSum.containsKey(sum - k)) { 10 count += preSum.get(sum - k); 11 } 12 preSum.put(sum, preSum.getOrDefault(sum, 0) + 1); 13 } 14 15 return count; 16} 239.滑动窗口中的最大值 给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。\n返回 滑动窗口中的最大值 。\n思路 =\u003e\n?[???]?? 维护一个最大堆，每次删除\u0026添加，记录结果 for(数组)=\u003e{for(窗口大小)=\u003e{挑选出最大的元素}} – 暴力遍历 维护一个单调队列: [max…min] 每次滑动窗口 循环(将右侧新元素与队列min比较，大了，则删除Last_Min)，简单插入排序=\u003e 因为只要窗口内的最大值，那么小的值没有必要维护，删了还减轻比较开销。 将最左侧的元素出队 1int n = nums.length; 2int ans_idx = 0; 3int[] ans = new int[n-k+1]; 4 5Deque\u003cInteger\u003e deque = new LinkedList\u003c\u003e(); // 存储下标就行 6// 第一个窗口 7for (int i = 0; i \u003c k; i++) { 8 while (!deque.isEmpty() \u0026\u0026 nums[i] \u003e nums[deque.peekLast()]) { 9 deque.removeLast(); 10 } 11 deque.offerLast(i); 12} 13 14ans[ans_idx++] = nums[deque.peekFirst()]; 15// 开始移动 16for (int i = k; i \u003c n; i++) { 17 while (!deque.isEmpty() \u0026\u0026 nums[i] \u003e nums[deque.peekLast()]) { 18 deque.removeLast(); 19 } 20 deque.offerLast(i); 21 22 while (deque.peekFirst() \u003c i-k+1) { 23 deque.removeFirst(); 24 } 25 ans[ans_idx++] = nums[deque.peekFirst()]; 26} 27return ans; [X待写X]76. 最小覆盖子串 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 \"\" 。 # 唯一\n示例 1：\n输入：s = \"ADOBECODEBANC\", t = \"ABC\"\r输出：\"BANC\"\r解释：最小覆盖子串 \"BANC\" 包含来自字符串 t 的 'A'、'B' 和 'C'。 扩张[右边界]与收缩[左边界]\n1️⃣利用HashMap进行判断是否重合\n1public boolean isCovered(Map\u003cCharacter, Integer\u003e targetMap, Map\u003cCharacter, Integer\u003e curMap) { 2 Set\u003cCharacter\u003e keySet = targetMap.keySet(); 3 for (Character key : keySet) { 4 Integer tgt = targetMap.getOrDefault(key, 0); 5 Integer crt = curMap.getOrDefault(key, 0); 6 if (tgt \u003e crt) 7 return false; 8 } 9 return true; 10} 11 12public String minWindow(String s, String t) { 13 Map\u003cCharacter, Integer\u003e targetMap = new HashMap\u003c\u003e(); 14 Map\u003cCharacter, Integer\u003e curMap = new HashMap\u003c\u003e(); 15 16 for (int i = 0; i \u003c t.length(); i++) { 17 char c = t.charAt(i); 18 targetMap.put(c, targetMap.getOrDefault(c, 0)+1); 19 } 20 int minLen = Integer.MAX_VALUE; int startLoc = 0; 21 int left = 0, right = 0; 22 for (right = 0; right \u003c s.length(); right++) { 23 char c = s.charAt(right); 24 curMap.put(c, curMap.getOrDefault(c, 0)+1); 25 while (isCovered(targetMap, curMap)) { 26 if (minLen \u003e (right - left)){ 27 minLen = right - left; 28 startLoc = left; 29 } 30 char ch = s.charAt(left); 31 curMap.put(ch, curMap.get(ch)-1); 32 left += 1; 33 } 34 } 35 36 if (minLen \u003c Integer.MAX_VALUE) return s.substring(startLoc, startLoc+minLen+1); 37 else return \"\"; 38} 普通数组 53. 最大子数组和 线段树做法\n1// 例 [-2,4,5,-1][-1,2,3,-4] 2// l:{ 3//\tiSum=6,lSum=7,rSum=8,mSum=9 4// } 5// r:{ 6//\tiSum=0,lSum=4,rSum=1,mSum=5 7// } 8public class Status { 9 public int iSum, lSum, rSum, mSum; 10 11 public Status(int iSum, int lSum, int rSum, int mSum) { 12 this.iSum = iSum; // 区间总和 13 this.lSum = lSum; // 区间从左边界开始最大和 14 this.rSum = rSum; // 区间从右边界开始最大和 15 this.mSum = mSum; // 区间最大和 16 } 17} 18 19public Status getMaxSum(int[] nums, int start, int end) { 20 if (start == end) { 21 return new Status(nums[start], nums[start], nums[start], nums[start]); 22 } 23 int mid = (start + end) \u003e\u003e 1; 24 Status l = getMaxSum(nums, start, mid); 25 Status r = getMaxSum(nums, mid+1, end); 26 return popPush(l, r); 27} 28 29// 30public Status pushUp(Status l, Status r) { 31 int iSum = l.iSum + r.iSum; // 区间总和 32 // 1. [x?][??] or [xx][x?] 33 int lSum = Math.max(l.lSum, l.iSum+r.lSum); 34 // 2. [??][?x] or [?x][xx] 35 int rSum = Math.max(r.rSum, l.rSum+r.iSum); 36 // 1. [?xx?][???] 2. [???][?xx?] 3. [?xx][xx?] 37 int mSum = Math.max(Math.max(l.mSum, r.mSum), l.rSum+r.lSum); 38 return new Status(iSum,lSum,rSum,mSum); 39} 40 41public int maxSubArray(int[] nums) { 42 return getMaxSum(nums, 0, nums.length-1).mSum; 43} 2️⃣ 每次记录符合个数，避免 重复的对两字串进行判断复合关系\n1public String minWindow(String s, String t) { 2 Map\u003cCharacter, Integer\u003e targetMap = new HashMap\u003c\u003e(); 3 Map\u003cCharacter, Integer\u003e curMap = new HashMap\u003c\u003e(); 4 5 for (int i = 0; i \u003c t.length(); i++) { 6 char c = t.charAt(i); 7 targetMap.put(c, targetMap.getOrDefault(c, 0) + 1); 8 } 9 int minLen = Integer.MAX_VALUE; int startLoc = 0; 10 int curLen = 0; int tgtLen = targetMap.keySet().size(); 11 int left = 0, right; 12 13 for (right = 0; right \u003c s.length(); right++) { 14 char c = s.charAt(right); 15 if (targetMap.containsKey(c)) { 16 curMap.put(c, curMap.getOrDefault(c, 0)+1); 17 if (targetMap.get(c).equals(curMap.get(c))) { 18 curLen += 1; 19 } 20 } 21 while (curLen == tgtLen) { 22 if (minLen \u003e (right-left)){ 23 minLen = right-left; 24 startLoc = left; 25 } 26 char ch = s.charAt(left); 27 if (curMap.containsKey(ch)) { 28 curMap.put(ch, curMap.get(ch)-1); 29 if (curMap.get(ch) \u003c targetMap.get(ch)) 30 curLen -=1; 31 } 32 left += 1; 33 } 34 } 35 36 if (minLen \u003c Integer.MAX_VALUE) return s.substring(startLoc, startLoc+minLen+1); 37 else return \"\"; 38} 41. 缺失的第一个正数 示例 1：\r输入：nums = [1,2,0]\r输出：3\r解释：范围 [1,2] 中的数字都在数组中。\r示例 2：\r输入：nums = [3,4,-1,1]\r输出：2\r解释：1 在数组中，但 2 没有。\r示例 3：\r输入：nums = [7,8,9,11,12]\r输出：1\r解释：最小的正数 1 没有出现。\r### 缺失的最小的正整数，给定数组nums, 那么目标一定在[1, N+1]中。\r例子 1. [x?????]? =\u003e 1\r2. [???x??]? =\u003e[-1N+1 # 给定的数组刚好占满[1-N],那么最小的正整数为N+1 暴力：\n将数组放入HashSet(查询时间O(1)=\u003e空间换时间)中，然后检查[1-N]是否在HashSet中，不在返回i，全在返回N+1；\n思路2✔️.\n构建hashMap，映射条件为 i=\u003ei+1, 给定下标i，则元素值为i+1;\n例：\rnums = [3,4,-1,1]\r=\u003e i: 0,1, 2,3\r=\u003enums = [-1,4,3,1] i 0, 1,2,3\r=\u003enums = [-1,1,3,4] =\u003e [1,-1,3,4] =\u003e i=1处异常 =\u003e ans=i+1=2 JAVA语法：\n1// 传递给方法的是引用的拷贝，而不是引用本身 2public void rotate(int[] nums, int k) { 3\tint n = nums.length; 4 int[] ans = new int[n]; 5 // ... 6 nums = ans; //❌❌❌ nums的引用是原数组引用的拷贝 7} 8 9例： a -\u003e [???] 10 rotate(a) =\u003e rotate(nums) { 11 // nums-\u003e[???]\u003c-a 12} 13// nums != a 矩阵 73. 矩阵置零 1使用额外标记数组 col,row 标识某列\\行是否存在0，刷新为0的col或row 2\tcol: 0,1,0 row 判断 mark col[0][j]==0 || row[i][0]==0 3输入：matrix = [[1,1,1], 0 4 [1,0,1], 1 5 [1,1,1]] 0 6额外空间=\u003e O(M+N) 7输出：[[1,0,1], 8 [0,0,0], 9 [1,0,1]] 10 11利用第一行和第一列充当标记数组，并且使用两个变量标识第一列行是否刷为0 空间复杂度O(1) 12 1 1 1 13 输入：matrix = 1[0,1] 14 1[1,1] 54. 螺旋矩阵 1思路： 定义四个边界 top,bottm,left,right 2while() { 3 1.for ➡️ 并且更新边界 + 判断是否退出 4 2.for ⬇️ 5 3.for ⬅️ 6 4.for ⬆️ 7} 48. 旋转图像 11 2 3 4 22 y z 5 33 x k 6 45 6 7 8 5 6分步 先旋转外围 再逐层往内进行旋转 7x ➡️ x 8⬆️ ⬇️ 9x ⬅️ x 1int len = matrix.length; 2int count = len - 2 \u003e 0?len - 2:1; 3for (int i = 0; i \u003c count; i++) { 4 int left=i, top=i, right=len-1-i, bottom=len-1-i; 5 for (int j = i; j \u003c len-i-1; j++) { 6 int temp1, temp2; 7 // 1. matrix[top][left] 8 temp1 = matrix[top][len-1-i]; 9 matrix[top][len-1-i] = matrix[i][left]; 10 11 // 2. matrix[top][right] 12 temp2 = matrix[len-1-i][right]; 13 matrix[len-1-i][right] = temp1; 14 15 // 3. matrix[bottom][right] 16 temp1 = matrix[bottom][i]; 17 matrix[bottom][i] = temp2; 18 19 // 4. matrix[bottom][left] 20 matrix[i][left] = temp1; 21 22 // move 23 left += 1; 24 top += 1; 25 right -= 1; 26 bottom -= 1; 27 } 28} or\n123 147 741\r456 =.T\u003e 258 =filp\u003e 852 789 369 963 240. 搜索二维矩阵 II 编写一个高效的算法来搜索 *m* x *n* 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：\n每行的元素从左到右升序排列。 每列的元素从上到下升序排列。 有序=\u003e二分查找O(logn)\nfor int[]row in nums:\rbinarySearch(row) Z字查询 – 二分查找树\n1// small\u003c-medium-\u003elarge 2[1,4,7,11,{15⭐}] small\u003c- medium 3[2,5,8,12,19] ⬇ 4[3,6,9,16,22] large 链表 ⭐多指针⭐\n142. 环形链表 II 找环的入口 =\u003e\n1head =\u003e 环入口 记为x 2第一次相遇点 =\u003e 环入口 记为z 3环入口 =\u003e 第一次相遇点 记为y 4 5快慢指针 6slow(单步)： x+y 7fast(双步)： x+y + n(y+z) // 多绕了n圈 8 9通过步数建立等式 10 112(x+y) = x+y + n(y+z) 12x+y = n(y+z) 13x = n(y+z) - y 14x = (n-1)(y+z) + z # 当只绕一圈相遇时 n=1 15x = z 16 17第一次相遇点到入口的距离 == 起点到入口的距离 ⭐⭐⭐ 1public ListNode detectCycle(ListNode head) { 2 ListNode fast = head; 3 ListNode slow = head; 4 while (fast != null \u0026\u0026 fast.next != null) { 5 fast = fast.next.next; 6 slow = slow.next; 7 8 if (fast == slow) { 9 ListNode index1 = head; 10 ListNode index2 = fast; 11 while (index1 != index2) { 12 index1 = index1.next; 13 index2 = index2.next; 14 } 15 16 return index1; 17 } 18 } 19 return null; 20} 160. 相交链表 任务：找到第一个相交点\n1// 暴力 2// for(nodeA: A) 3// for(nodeB: B) =\u003e nodeA?nodeB 4// 利用空间替换时间 =\u003e 查找时间利用hashSet O(1) 5// All nodeA =\u003e hashSet 6// for(nodeB:B) nodeB?hashSet 填充长度，=\u003e 相等长度\n1X-?-?-√-√-√ 2?-?-?-√-√-√ 3同时遍历 4or 5从尾部开始？ 知道第一个不相等的Node？ 交叉遍历\n1-lenA- 2 -lenC- 3-lenB- 4// A+C+B =\u003e 循环后 可视为 B+A+C 5// B+C+A A+B+C 234. 回文链表 判断对称\n暴力：\n读出来=\u003e array =\u003e left,right=\u003e 进行判断\n⭐ 快慢指针\n1// 快慢指针：快一次走一步；慢一次走两步 2head: 1-2-3-[3-2-1]-null 偶数 3 p q 4head: 1-2-3-4-[3-2-1]-null 奇数 5 p q 6 7head - [1-2-3] 8newHead - [1-2-3] // 头插，逆序 9判断完 10头插回去，进行复原 翻转链表 尾插法：顺序构建链表 头插法：逆序构建链表 可以构建空的头结点 =\u003e 无需判断第一个节点还是后续节点\n138. 随机链表的复制 给你一个长度为 n 的链表，每个节点包含一个额外增加的随机指针 random ，该指针可以指向链表中的任何节点或空节点。\n构造这个链表的 深拷贝。 深拷贝应该正好由 n 个 全新 节点组成，其中每个新节点的值都设为其对应的原节点的值。新节点的 next 指针和 random 指针也都应指向复制链表中的新节点，并使原链表和复制链表中的这些指针能够表示相同的链表状态。复制链表中的指针都不应指向原链表中的节点 。\n⭐利用hash，空间换时间⭐\n思路：\r1. 顺序构建深拷贝链表，利用hashMap (oldNode) -\u003e (new Node)\r2. 填充random point 146. LRU 缓存 请你设计并实现一个满足 LRU (最近最少使用) 缓存 约束的数据结构。\n实现 LRUCache 类：\nLRUCache(int capacity) 以 正整数 作为容量 capacity 初始化 LRU 缓存 int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。 void put(int key, int value) 如果关键字 key 已经存在，则变更其数据值 value ；如果不存在，则向缓存中插入该组 key-value 。如果插入操作导致关键字数量超过 capacity ，则应该 逐出 最久未使用的关键字。 函数 get 和 put 必须以 O(1) 的平均时间复杂度运行。\n## 分析:\n函数 get 和 put 必须以 O(1) 的平均时间复杂度运行 =\u003e 直接定位 要么数组要么hash 数量超过 capacity ，则应该 逐出 最久未使用的关键字 ## 做法\nhashMap ",
   "wordCount" : "7397",
   "inLanguage": "en",
-  "image": "http://121.40.252.207/papermod-cover.png","datePublished": "2024-09-18T00:00:00Z",
+  "image": "longcoding.top/papermod-cover.png","datePublished": "2024-09-18T00:00:00Z",
   "dateModified": "2024-09-18T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -277,14 +277,14 @@ HashTable,  Key=排序后的Str, Value=List&lt;String&gt;
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://121.40.252.207/posts/leetcode/leetcode_hot100/"
+    "@id": "longcoding.top/posts/leetcode/leetcode_hot100/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "LongCoding's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://121.40.252.207/favicon.ico"
+      "url": "longcoding.top/favicon.ico"
     }
   }
 }
@@ -306,8 +306,8 @@ HashTable,  Key=排序后的Str, Value=List&lt;String&gt;
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://121.40.252.207/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
-                <img src="http://121.40.252.207/android-icon-48x48.png" alt="" aria-label="logo"
+            <a href="longcoding.top/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
+                <img src="longcoding.top/android-icon-48x48.png" alt="" aria-label="logo"
                     height="30">𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
@@ -334,32 +334,32 @@ HashTable,  Key=排序后的Str, Value=List&lt;String&gt;
         </div>
         <ul id="menu">
             <li>
-                <a href="http://121.40.252.207/index.html" title="🏡 Home">
+                <a href="longcoding.top/index.html" title="🏡 Home">
                     <span>🏡 Home</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/archives/" title="📃 Archive">
-                    <span>📃 Archive</span>
+                <a href="longcoding.top/archives/" title="📃 Archives">
+                    <span>📃 Archives</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/tags/" title="📑 Tags">
+                <a href="longcoding.top/tags/" title="📑 Tags">
                     <span>📑 Tags</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/categories/" title="🗒️ Categories">
+                <a href="longcoding.top/categories/" title="🗒️ Categories">
                     <span>🗒️ Categories</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/search/" title="🔍 Search">
+                <a href="longcoding.top/search/" title="🔍 Search">
                     <span>🔍 Search</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/about/" title="👨🏻‍🎓 About Me">
+                <a href="longcoding.top/about/" title="👨🏻‍🎓 About Me">
                     <span>👨🏻‍🎓 About Me</span>
                 </a>
             </li>
@@ -370,7 +370,7 @@ HashTable,  Key=排序后的Str, Value=List&lt;String&gt;
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="longcoding.top/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       LeetCodeHot100刷题笔记
     </h1>
@@ -2710,15 +2710,15 @@ rose -&gt; ros (删除 &#39;e&#39;)
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://121.40.252.207/tags/hot100/">Hot100</a></li>
+      <li><a href="longcoding.top/tags/hot100/">Hot100</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://121.40.252.207/posts/learning/minibaseline_learning/">
+  <a class="prev" href="longcoding.top/posts/learning/minibaseline_learning/">
     <span class="title">« Prev</span>
     <br>
     <span>DL基准模型训练伪代码</span>
   </a>
-  <a class="next" href="http://121.40.252.207/posts/learning/ecg_exp/">
+  <a class="next" href="longcoding.top/posts/learning/ecg_exp/">
     <span class="title">Next »</span>
     <br>
     <span>ECG论文和实验</span>
@@ -2730,7 +2730,7 @@ rose -&gt; ros (删除 &#39;e&#39;)
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://121.40.252.207/">LongCoding&#39;s Blog</a></span> · 
+        <span>&copy; 2025 <a href="longcoding.top/">LongCoding&#39;s Blog</a></span> · 
 
     <span>
         Powered by

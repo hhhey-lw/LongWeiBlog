@@ -63,16 +63,16 @@ abstract class(自下而上): 有许多类，它们有共同点，很多代码�
 
 hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置；">
 <meta name="author" content="LongWei">
-<link rel="canonical" href="http://121.40.252.207/posts/jobs/java/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://121.40.252.207/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://121.40.252.207/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://121.40.252.207/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://121.40.252.207/apple-touch-icon.png">
-<link rel="mask-icon" href="http://121.40.252.207/safari-pinned-tab.svg">
+<link rel="canonical" href="longcoding.top/posts/jobs/java/">
+<link crossorigin="anonymous" href="longcoding.top/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="longcoding.top/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="longcoding.top/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="longcoding.top/favicon-32x32.png">
+<link rel="apple-touch-icon" href="longcoding.top/apple-touch-icon.png">
+<link rel="mask-icon" href="longcoding.top/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://121.40.252.207/posts/jobs/java/">
+<link rel="alternate" hreflang="en" href="longcoding.top/posts/jobs/java/">
 <noscript>
     <style>
         #theme-toggle,
@@ -109,7 +109,7 @@ hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置�
         }
 
     </style>
-</noscript><meta property="og:url" content="http://121.40.252.207/posts/jobs/java/">
+</noscript><meta property="og:url" content="longcoding.top/posts/jobs/java/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
   <meta property="og:title" content="Java面试题笔记">
   <meta property="og:description" content="415 序列化&amp;反序列化 将Object转为字节流，或反之
@@ -127,14 +127,14 @@ JVM内存模型 ❗❗❗内存堆和数据结构堆不是同一个东西(不是
     <meta property="article:published_time" content="2025-02-19T00:00:00+00:00">
     <meta property="article:modified_time" content="2025-02-19T00:00:00+00:00">
     <meta property="article:tag" content="Java">
-      <meta property="og:image" content="http://121.40.252.207/papermod-cover.png">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/collection/">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/jvm/">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/juc/">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/mysql/">
-      <meta property="og:see_also" content="http://121.40.252.207/posts/jobs/redis/">
+      <meta property="og:image" content="longcoding.top/papermod-cover.png">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/collection/">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/jvm/">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/juc/">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/mysql/">
+      <meta property="og:see_also" content="longcoding.top/posts/jobs/redis/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://121.40.252.207/papermod-cover.png">
+<meta name="twitter:image" content="longcoding.top/papermod-cover.png">
 <meta name="twitter:title" content="Java面试题笔记">
 <meta name="twitter:description" content="415 序列化&amp;反序列化
 将Object转为字节流，或反之
@@ -202,13 +202,13 @@ hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置�
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://121.40.252.207/posts/"
+      "item": "longcoding.top/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "Java面试题笔记",
-      "item": "http://121.40.252.207/posts/jobs/java/"
+      "item": "longcoding.top/posts/jobs/java/"
     }
   ]
 }
@@ -226,7 +226,7 @@ hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置�
   "articleBody": "415 序列化\u0026反序列化 将Object转为字节流，或反之\n普通：实现serializable接口 ˈsɪərɪəlaɪzəbl 使用Jackon，Obj =\u003e json格式 416 Java中的不可变类 final 修饰，例如String类\n🎉优点：\n线程安全 缓存友好 缺点\n性能问题，因为不能修改，所有每次状态变化，都需要生成新的对象。 411 多态特性 继承 方法重载，函数名相同，但是函数签名需要有差异(参数类型\u0026数量) 重写，子类重写父类方法，通过父类调用方法时，调用的是子类重写后的函数。 412 Java参数传值是副本还是引用呢？ 基本类型是传值副本，int… 引用数据类型是传引用副本。 including：obj，array 425 Java中 包装类型和基本类型 🏷️基本类型 =\u003e int long float double … 位于栈上(局部变量的话) ，性能好，但不支持为null\n（局部变量在栈上，成员变量在堆上，静态字段在方法区）\n🏷️包装类型 =\u003e 每一个基本类型都对应一个包装类型。包装类型是类，在堆中，支持null\nJVM内存模型 ❗❗❗内存堆和数据结构堆不是同一个东西(不是堆的结构)\n1+--------------------------------------------+ 2| 方法区（Method Area） | ← 线程共享 3| - 类元数据（Class 信息） | 4| - 静态变量（static 变量） | 5| - 常量池（字符串常量等） | 6+--------------------------------------------+ 7 ↑ ↑ 8 | | 9+----------------+ +-----------------+ 10| 栈（Stack） | | 堆（Heap） | ← 线程共享 11| - 局部变量 | | - Java 对象实例 | 12| - 方法调用栈 | | - 数组 | 13+----------------+ +-----------------+ 413 interface \u0026 abstract class interface(自上而下) 知晓某一种行为，基于这些行为约束定义的接口， 一些类需要有这些行为的话，需要实现这些接口 abstract class(自下而上): 有许多类，它们有共同点，很多代码可以复用，因此将公共逻辑封装为抽象对象。 100 hashCode \u0026 equals \u0026 == hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置；\nequals比较对象内容是否相等，默认是==。 可能需要重写equals方法逻辑，实现对象成员变量的比较；\n== 引用类型比较两个引用是否指向同一个对象(内存地址)，基本类型则比较值。\n431 Java注解 注解就是一个标记，提供元数据机制，给予代码添加说明信息。可以在类，方法，成员变量…上标记，标记本身可以设置一些值。\n1 @Target(Class,...) 2@Retention(RetentionPolicy.RUNTIME) // 注解保留时间 3public @interface MyInterface { 4 String value(); 5} 6 7// 运行时，通过反射机制拿到对应的注解 -- 结合AOP做事情 8...Obj.getAnnotation(\"MyInterface\")... 432 Java反射 运行时获取类的信息，并操作对象\n1Person person = new Person(\"Emma\", 28); 2Class\u003c?\u003e cls = person.getClass(); 3 4// 调用无参方法 5Method greetMethod = cls.getDeclaredMethod(\"greet\"); 6greetMethod.invoke(person); 7 8// 调用有参方法 9Method setAgeMethod = cls.getDeclaredMethod(\"setAge\", int.class); 10setAgeMethod.invoke(person, 35); 11 12System.out.println(person); // Person{name='Emma', age=35} 434 Java泛型 通过在编译时检查类型安全，使得代码更加通用和灵活，避免运行时发生类型转换错误。 简单理解=\u003e 将运行时的类型转换异常上升到编译时候\n类型安全 代码重用 消除显示类型转换，一开始指定好 🏷️泛型类\n1public class Box\u003cT\u003e { 2 private T value; 3 public Box(T value) { this.value = value; } 4 public T getValue() { return value; } 5} 6// 这样的话 getValue()就不需要(Type)getValue()了， 直接告诉调用者返回类型 =\u003e 避免类型转换,且提高代码复用性 🏷️泛型方法\n1// 泛型方法 2public static \u003cT\u003e T getFirst(T[] array) { 3 return array[0]; 4} 5 6// 是申明T是泛型哦， 不然谁知道它是不是一个类的名称 7// 🎉更加灵活 8String[] words = {\"Hello\", \"World\"}; 9Integer[] numbers = {1, 2, 3}; 10 11System.out.println(getFirst(words)); // Hello 12System.out.println(getFirst(numbers)); // 1 🏷️限制参数类型 防止非法类型使用\n1class Calculator\u003cT extends Number\u003e 6306 Java泛型擦除 Java编译器在编译代码的时候，将所有泛型信息删除的过程。 擦除是为了确保与旧版本兼容\n1Class Box\u003cT\u003e {} =\u003e class Box {} (T =\u003e Object) 2Class Box\u003cT extends Number\u003e {} =\u003e class Box {} (T =\u003e Number) 泛型类型上界 ? extends T\n泛型类型下届 ? super T\n限制类型\n436 Java深拷贝\u0026浅拷贝 深拷贝：不仅复制当前对象本身，而且递归的复制对象内的引用。 重写clone方法，或许序列化和反序列化生成新的对象； 浅拷贝：只复制对象的本身和基本类型的成员变量，而不复制引用类型的对象。 Object.clone()； 引用拷贝：仅复制对应引用 **Object o1 = o2; ** 。 438 Java类加载过程 类加载过程：\n加载：二进制流读入内存，生成Class对象 连接 验证：格式是否规范 准备：为静态变量设置初始值，为它们在方法区开辟。 解析：将常量池的符号引用转化为直接引用。 初始化：执行静态代码块，为静态变量赋值(代码逻辑里面的)。 440 BigDecimal 高精度的计算类，处理任意精度的数值。 涉及到钱，用这个\n442 Java中的final、finally final修饰符，指类和变量不能再修改。\n1class final MyClass { 2 3} 不论是否异常，都会执行finally代码块\n1try{ 2 3}catch() { 4 5} finally { 6 7} 825 Java调用外部可执行程序 使用Runtime.exec()\n1try { 2 // 执行命令 3 Process process = Runtime.getRuntime().exec(\"notepad.exe\"); 4 // 等待外部进程结束 5 int exitCode = process.waitFor(); 6 // 检查执行情况 7 if ... else ... 8} 使用ProcessBuilder\n1// 配置程序信息 2ProcessBuilder builder = new ProcessBuilder(\"cmd.exe\", \"/c\", \"dir\"); 3// builder.xxx() ... 配置信息 4 5// 启动进程 6Process process = builder.start(); 7 8// 获取进程输出 9InputStream is = process.getInputStream(); 10// ... 11 12// 等待结束 13int code = process.waitFor() 14 15// 检查执行情况 938 如果一个线程在Java中被两次调用start方法，会发生什么？ 报错 =\u003e Java中，一个线程只能被启动一次。\n943 IO流 读取数据和输出数据\n字节流，用于处理二进制文件, InputStream\u0026OutputStream; InputStream 子类如下： FileInputStream BufferedInputStream // 提供缓冲区，提高性能 字符流，用于处理文本。 Reader\u0026Writer； Reader 子类如下： FileReader BufferedReader 945 Java网络编程 🏷️用于网络通信，网络编程基本概念\nIP地址 端口号 socket(ip:port) 协议，TCP \u0026 UDP 等等 TCP实践\n1// 服务器代码 2class ServerThread extends Thread { 3 private Socket socket = new ServerSocket(\"localhost\", 8080); 4 5 @overwrite 6 public void run() { 7 try { 8 PrintWriter out = new PrintWriter(socket.getOutputStream() ... ); 9 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); 10 11 String message = in.readLine(); 12 out.println(\"Hello, client!\"); 13 } 14 } 15} 16 17// Client 18Socket socket = new Socket(\"localhost\", 8080) 19 20// ServerSocket \u0026 Socket 949 Java中的自动装箱和拆箱 自动装箱/拆箱让 Java 更加易用，减少了手动转换的冗余代码，同时保持了类型安全\n自动拆箱和装箱 , 解决泛型不支持基本类型 1List\u003cInteger\u003e list = new ArrayList\u003c\u003e(); // ✅ 使用包装类 Integer 2 3// 手动装箱和拆箱 4list.add(Integer.valueOf(10)); // int =\u003e Integer 5int a = list.get(0).intValue(); // Integer =\u003e int 手动实现 6 7// 自动装箱和拆箱 8list.add(10) 9int a = list.get(0) 基本类型当作对象使用 1Map\u003cInteger,String\u003e map = new HashMap\u003c\u003e(); 2map.put(1, \"One\") \u003c= 自动装箱 3String value = map.get(1) \u003c= 自动装箱 简化基本类型和包装类型 1public static int add(Integer a, Integer b) { 2 return a + b; // 这里的 a 和 b 需要自动拆箱 3} 4 5// 手动拆箱 6public static int add(Integer a, Integer b) { 7 return a.intValue() + b.intValue(); // 这里的 a 和 b 需要自动拆箱 8} 988 Java中的迭代器 Iterator ɪtəˈreɪtə 作用用于遍历集合\nhasNext(): 返回是否存在下一个元素 next(): 返回下一个元素 1Iterator iterator = list.iterator() 2while(iterator.hasNext()) { 3 // ... 4 iterator.next(); 5} 993 Java特性 封装：将对象的状态和行为封装在一个类内部，并通过公开的接口与外部进行交互。只暴露必要功能。\n继承：子类继承父类，可以继承它的属性和方法，提高代码重用和扩展。\n多态：重写\u0026重载\n994 Java中访问修饰符 public：All private：当前类 protected：当前类，同一包(package声明一致)，子类 default，当前类，同一包 995 静态方法\u0026实例方法 静态方法 static声明：属于类而非具体的实例，通过类名调用。\n工厂方法，工具类 当类的字节码文件加载到内存，类方法的入口地址就会被分配完成，所以类方法不仅仅被该类的对象调用，也可以直接通过类名称完成调用，类方法的入口地址只有程序退出才消失。 实例方法：属于实例，通过实例调用；\n当类的字节码加载到内存中的时候，类的实例方法并没有被分配到入口地址，只有当类的对象创建之后，实例方法才分配了入口地址，从而实例方法可以被类创建的所有的对象所调用，还有一点要注意，当我们创建第一个类的对象时，实例方法的入口地址会完成分配，当后续在创建对象时，不会被分配新的入口地址，该类的所有的对象共享实例方法的入口地址，当该类的所有的对象被销毁，入口的地址才会消失。 990 java中for和for-each for，下标遍历 for-each，遍历集合，不提供下标，且不能修改集合，否则报错 5900 wait()和sleep() wait() 需要和 notify()搭配使用。 用于在同步代码块同，阻塞和唤醒\nsleep() 使线程进行休眠状态，让出CPU使用权，时间到了自动恢复为就绪态等待系统分配CPU\n5908 Java Object类有什么方法及对应作用 hashCode() 计算哈希值\nequals() 默认引用是否一致\n根据需求重写这个，实现指定对象属性比较 toString() 默认返回对象的类名+hashCode的16进制表示\n重写使其更有描述意义。 getClass() 返回对象的Class类对象\nwait() 挂起当前线程，使其变为等待状态。\nnotify\u0026notifyAll() 唤醒在对象监视器上等待的一个or全部线程\nclone() 浅拷贝对象，其中引用属性不拷贝\n重写实现深拷贝，保证完整性 5909 Java字节码是什么？❌ 处于 源代码.java 和 JVM.bin 执行的机器代码.exe(windows)之间的中间表示。\n.class 文件 可以被JVM解释器编译为机器码\n🎉通过Java反射Api，可以在运行时动态生成或者修改字节码，从而创建代理对象或实现动态方法调用\n166 BIO、NIO、AIO BIO:人一直盯着水烧开，水烧开之后亲自关火 NIO:人在烧水的时候去干别的事情，时不时看着水烧没烧开，烧开之后亲自关火 AIO:人找了一个帮手，帮手在烧水的时候一直盯着，水烧开之后帮手关火，然后提醒人水烧开了。人全程不管烧水的事情\nBIO：Blocking IO。传统阻塞式IO模式，调用方调用BIO会被阻塞，直到IO服务完成才被唤醒。 场景：同步、阻塞，适合并发连接较少的场景，小型服务。 1// 客户端 2// 1. 创建服务器 socket，监听端口 3serverSocket = 创建 ServerSocket(端口); 4 5// 2. 服务器循环等待客户端连接 6while (true) { 7 // 3. 阻塞等待客户端连接 8 socket = serverSocket.accept(); ⭐这里会卡住 9 10 // 4. 每个连接创建新线程 11 启动新线程(() -\u003e { 12 inputStream = socket.getInputStream(); 13 outputStream = socket.getOutputStream(); 14 15 while (true) { 16 // 5. 读取数据（阻塞） 17 data = 读取数据(inputStream); 18 if (data == null) break; 19 20 // 6. 处理数据 21 处理数据(data); 22 23 // 7. 响应客户端（阻塞） 24 outputStream.write(响应数据); 25 } 26 // 8. 关闭连接 27 socket.close(); 28 }); 29} 30 31 32// 客户端 33// 1. 创建 Socket 连接服务器 34socket = 创建 Socket(服务器IP, 端口); 35 36// 2. 获取输入输出流 37inputStream = socket.getInputStream(); 38outputStream = socket.getOutputStream(); 39 40// 3. 发送数据（阻塞） 41outputStream.write(请求数据); 42outputStream.flush(); 43 44// 4. 读取服务器响应（阻塞） 45response = 读取数据(inputStream); 46 47// 5. 处理响应 48处理数据(response); 49 50// 6. 关闭连接 51socket.close(); 一连接一线程\nNIO：Non-blocking IO。非阻塞IO模式，调用方发起IO操作即返回，不论任务是否完成。通常结合IO多路复用技术，使得一个线程可以同时管理多个连接。 1// 1. 创建 Selector（事件选择器） 2selector = 创建 Selector(); 3 4// 2. 创建非阻塞 ServerSocketChannel，绑定端口 5serverChannel = 创建 ⭐ServerSocketChannel(端口)⭐; 6serverChannel.configureBlocking(false); 7 8// 3. 注册到 Selector，监听 \"accept\" 事件 9serverChannel.register(selector, OP_ACCEPT); 10 11// 4. 服务器循环监听事件 12while (true) { 13 // 5. 轮询监听已准备好的 I/O 事件， 监视多个Channel 14 selector.select(); 15 16 // 6. 遍历所有发生事件的通道 17 for (key : selector.selectedKeys()) { 18 if (key.isAcceptable()) { // 7. 处理新连接 19 socketChannel = serverChannel.accept(); 20 socketChannel.configureBlocking(false); 21 socketChannel.register(selector, OP_READ | OP_WRITE); 22 } 23 else if (key.isReadable()) { // 8. 读取数据 24 socketChannel = key.channel(); 25 buffer = 创建 ByteBuffer(); 26 bytesRead = socketChannel.read(buffer); 27 if (bytesRead \u003e 0) { 28 处理数据(buffer); 29 } 30 } 31 else if (key.isWritable()) { // 9. 响应客户端 32 socketChannel = key.channel(); 33 buffer = 创建 ByteBuffer(响应数据); 34 socketChannel.write(buffer); 35 } 36 } 37} 38 39 40// 客户端 41// 1. 创建 Selector（事件管理器） 42selector = 创建 Selector(); 43 44// 2. 创建非阻塞 SocketChannel 45socketChannel = 创建 ⭐SocketChannel()⭐; 46socketChannel.configureBlocking(false); 47 48// 3. 连接服务器（非阻塞） 49socketChannel.connect(服务器IP, 端口); 50 51// 4. 注册到 Selector，监听 \"连接完成\" 事件 52socketChannel.register(selector, OP_CONNECT | OP_READ | OP_WRITE); 53 54// 5. 轮询 Selector 监听事件 55while (true) { 56 selector.select(); // 轮询等待事件 57 for (key : selector.selectedKeys()) { 58 if (key.isConnectable()) { // 6. 处理连接完成事件 59 if (socketChannel.finishConnect()) { 60 socketChannel.register(selector, OP_READ | OP_WRITE); 61 } 62 } 63 else if (key.isWritable()) { // 7. 发送数据 64 buffer = 创建 ByteBuffer(请求数据); 65 socketChannel.write(buffer); 66 } 67 else if (key.isReadable()) { // 8. 读取服务器响应 68 buffer = 创建 ByteBuffer(); 69 bytesRead = socketChannel.read(buffer); 70 if (bytesRead \u003e 0) { 71 处理数据(buffer); 72 } 73 } 74 } 75} ​\nAIO：Asynchronous IO 异步IO 利用回调or通知的方式告知调用方 1// 1. 创建异步 ServerSocketChannel 2serverChannel = 创建 AsynchronousServerSocketChannel(端口); 3serverChannel.bind(端口); 4 5// 2. 监听客户端连接（异步回调） 6serverChannel.accept(null, new CompletionHandler\u003c\u003e() { 7 // 3. 处理新连接 8 completed(socketChannel, attachment) { 9 // 4. 继续监听新的客户端 10 serverChannel.accept(null, this); 11 12 // 5. 读取数据（异步回调） 13 buffer = 创建 ByteBuffer(); 14 socketChannel.read(buffer, buffer, new CompletionHandler\u003c\u003e() { 15 // 6. 读取完成，处理数据 16 completed(bytesRead, buffer) { 17 if (bytesRead \u003e 0) { 18 处理数据(buffer); 19 20 // 7. 响应客户端（异步回调） 21 socketChannel.write(ByteBuffer.wrap(响应数据), null, new CompletionHandler\u003c\u003e() { 22 completed(bytesWritten, attachment) { 23 // 响应完成 24 } 25 }); 26 } 27 } 28 }); 29 } 30}); 31 32// 客户端 33// 1. 创建异步 SocketChannel 34socketChannel = 创建 AsynchronousSocketChannel(); 35 36// 2. 连接服务器（异步回调） 37socketChannel.connect(服务器IP, 端口, null, new CompletionHandler\u003c\u003e() { 38 // 3. 连接成功回调 39 completed(attachment) { 40 // 4. 发送数据（异步） 41 buffer = 创建 ByteBuffer(请求数据); 42 socketChannel.write(buffer, buffer, new CompletionHandler\u003c\u003e() { 43 completed(bytesWritten, buffer) { 44 // 5. 继续读取服务器响应（异步） 45 buffer.clear(); 46 socketChannel.read(buffer, buffer, new CompletionHandler\u003c\u003e() { 47 completed(bytesRead, buffer) { 48 处理数据(buffer); 49 } 50 }); 51 } 52 }); 53 } 54}); 439 Java双亲委派模型 ❌❌❌ Java类加载机制的设计模式之一。 核心思想：类加载器在加载某个类时，先委派父类去加载，父类无法加载时，才由当前类加载器加载。 自定义ClassLoader继承系统的\u0026重写findClass即可\nGPT: 双亲委派模型（Parent Delegation Model） 是 Java 类加载机制 的一个规则。 当一个类加载器要加载某个类时，先让父类加载器尝试加载，只有当父类加载器无法加载该类时，才由自身加载\n1【Bootstrap ClassLoader】（引导类加载器） 2 ↑ 加载-1，不行的话到2 3【ExtClassLoader】（扩展类加载器） 4 ↑ 加载-2，不行的话到3 5【AppClassLoader】（应用类加载器） 6 ↑ 加载-3，不行的话到4 7【自定义 ClassLoader】（用户自定义加载器） 加载-4 8 9// 倒着的U字形 它解决的问题\n避免类重复加载，如果没有该机制 =\u003e 每个类加载器都可以自行加载同一个类，可能导致 ClassCastException（类转换异常） 1ClassLoader cl1 = new MyClassLoader(); // 自定义类加载器 2ClassLoader cl2 = new MyClassLoader(); 3 4Class\u003c?\u003e class1 = cl1.loadClass(\"com.example.MyClass\"); 5Class\u003c?\u003e class2 = cl2.loadClass(\"com.example.MyClass\"); 6 7// class1 和 class2 虽然名字相同，但是两个不同的类 8Object obj = class1.newInstance(); 9MyClass myObj = (MyClass) obj; // 可能抛出 ClassCastException 10// 每个类加载器都有自己独立的类加载空间。如果你使用多个类加载器加载同一个类，它们会认为这是两个不同的类，尽管类的名字和内容完全相同。 保证Java核心类的安全 因为委托父类加载\n例如\n1package java.lang; 2public class String { 3 public static void hack() { 4 System.out.println(\"Java 被黑了！\"); 5 } 6} 如果没有双亲委派，那么加载的是自定义的类，可能导致安全漏洞。\n",
   "wordCount" : "1389",
   "inLanguage": "en",
-  "image": "http://121.40.252.207/papermod-cover.png","datePublished": "2025-02-19T00:00:00Z",
+  "image": "longcoding.top/papermod-cover.png","datePublished": "2025-02-19T00:00:00Z",
   "dateModified": "2025-02-19T00:00:00Z",
   "author":{
     "@type": "Person",
@@ -234,14 +234,14 @@ hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置�
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://121.40.252.207/posts/jobs/java/"
+    "@id": "longcoding.top/posts/jobs/java/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "LongCoding's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://121.40.252.207/favicon.ico"
+      "url": "longcoding.top/favicon.ico"
     }
   }
 }
@@ -263,8 +263,8 @@ hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置�
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://121.40.252.207/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
-                <img src="http://121.40.252.207/android-icon-48x48.png" alt="" aria-label="logo"
+            <a href="longcoding.top/" accesskey="h" title="𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰 (Alt + H)">
+                <img src="longcoding.top/android-icon-48x48.png" alt="" aria-label="logo"
                     height="30">𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰&#39;𝓼 𝓑𝓵𝓸𝓰</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
@@ -291,32 +291,32 @@ hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置�
         </div>
         <ul id="menu">
             <li>
-                <a href="http://121.40.252.207/index.html" title="🏡 Home">
+                <a href="longcoding.top/index.html" title="🏡 Home">
                     <span>🏡 Home</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/archives/" title="📃 Archive">
-                    <span>📃 Archive</span>
+                <a href="longcoding.top/archives/" title="📃 Archives">
+                    <span>📃 Archives</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/tags/" title="📑 Tags">
+                <a href="longcoding.top/tags/" title="📑 Tags">
                     <span>📑 Tags</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/categories/" title="🗒️ Categories">
+                <a href="longcoding.top/categories/" title="🗒️ Categories">
                     <span>🗒️ Categories</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/search/" title="🔍 Search">
+                <a href="longcoding.top/search/" title="🔍 Search">
                     <span>🔍 Search</span>
                 </a>
             </li>
             <li>
-                <a href="http://121.40.252.207/about/" title="👨🏻‍🎓 About Me">
+                <a href="longcoding.top/about/" title="👨🏻‍🎓 About Me">
                     <span>👨🏻‍🎓 About Me</span>
                 </a>
             </li>
@@ -327,7 +327,7 @@ hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置�
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://121.40.252.207/">Home</a>&nbsp;»&nbsp;<a href="http://121.40.252.207/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="longcoding.top/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Java面试题笔记
     </h1>
@@ -1019,15 +1019,15 @@ AIO:人找了一个帮手，帮手在烧水的时候一直盯着，水烧开之�
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://121.40.252.207/tags/java/">Java</a></li>
+      <li><a href="longcoding.top/tags/java/">Java</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://121.40.252.207/posts/jobs/redis/">
+  <a class="prev" href="longcoding.top/posts/jobs/redis/">
     <span class="title">« Prev</span>
     <br>
     <span>Redis面试题笔记</span>
   </a>
-  <a class="next" href="http://121.40.252.207/posts/leetcode/leetcode_sql/">
+  <a class="next" href="longcoding.top/posts/leetcode/leetcode_sql/">
     <span class="title">Next »</span>
     <br>
     <span>高频SQL50题刷题笔记</span>
@@ -1039,7 +1039,7 @@ AIO:人找了一个帮手，帮手在烧水的时候一直盯着，水烧开之�
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://121.40.252.207/">LongCoding&#39;s Blog</a></span> · 
+        <span>&copy; 2025 <a href="longcoding.top/">LongCoding&#39;s Blog</a></span> · 
 
     <span>
         Powered by
