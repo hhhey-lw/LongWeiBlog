@@ -1,4 +1,4 @@
-baseURL: "http://121.40.252.207/"
+baseURL: "longcoding.top"
 title: "LongCoding's Blog"
 pagination.pagerSize: "5"
 theme: PaperMod
@@ -27,7 +27,7 @@ languages:
                 - name: 🏡 Home
                   url: index.html
                   weight: 4 # 控制在页面上展示的前后顺序
-                - name: 📃 Archive
+                - name: 📃 Archives
                   url: archives/
                   weight: 5
                 - name: 🗒️ Categories

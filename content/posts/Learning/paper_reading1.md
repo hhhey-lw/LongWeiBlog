@@ -248,7 +248,7 @@ token数量⬇，token维度⬆(信息更加丰富)
 
    ![image-20240225203343221](http://sthda9dn6.hd-bkt.clouddn.com/FqREIlEPMZW522A1Gjxl0GAtrJ9T)
 
-利用conv局部性，将相邻的Token进行合并  | 或者利用Pool进行窗口内Token合并
+利用conv局部性，将相邻的Token进行合并  | 或者利用Pool进行窗口内Token合并 （图示稍微有点问题）
 
 ***计算量降低sr_ratio平方倍*** -- Conv2D中的stride
 

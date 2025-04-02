@@ -508,7 +508,7 @@ Decoder：Mask Patch是自学习的向量，并且和Encoded Patch在位置上�
 
 ***对比损失***
 
-		![image-20240411210912407](http://sthda9dn6.hd-bkt.clouddn.com/FqYwQ0MDlAXtdrK4q6VHMuWRn3km)
+![image-20240411210912407](http://sthda9dn6.hd-bkt.clouddn.com/FqYwQ0MDlAXtdrK4q6VHMuWRn3km)
 
 包括 qt 和 K 个干扰项
 
@@ -670,22 +670,22 @@ $$
 
 ***描述：***
 
-- 虚线上是CLIP架构(文本和图像的联合表示空间)，学习图文对的关联信息
+- 虚线上是CLIP架构(文本和图像的联合表示空间)，学习图文对的关联信息（图文对关联关系）
 - 虚线下是生成框架，prior模型根据Text Embedding生成出CLIP对应的Image Embedding， decoder(diffussion model)根据Image Embedding进行重建
 
 
 
 *⭐分步训练*
 
-***prior*** 
+***训练prior组件*** 
 
-生成CLIP image Embedding (diffusion model)
+目的：生成CLIP image Embedding
 
 ![image-20240416194435205](http://sthda9dn6.hd-bkt.clouddn.com/FlbLpzwV8mvw-N7XcRUxXpKN_tVX)
 
 
 
-***decoder***
+***训练decoder***
 
 是根据image Embedding生成图片 -- 并且这个decoder是多个堆叠，先生成低分辨率，再高清化  -  (diffusion model)
 
@@ -1087,9 +1087,11 @@ loss = loss/loss_terms
 
 - ***instance & temporal contrastive loss***  
 
-		![image-20240425172445164](http://sthda9dn6.hd-bkt.clouddn.com/FjeDH748BsrYQtTOEOmSjYW_SEMr)
-		
-		*用 -F.log_softmax(x, dim=-1) 实现*
+![image-20240425172445164](http://sthda9dn6.hd-bkt.clouddn.com/FjeDH748BsrYQtTOEOmSjYW_SEMr)
+
+```
+*用 -F.log_softmax(x, dim=-1) 实现*
+```
 
 - z1 = F.max_pool1d(z1.transpose(1, 2), kernel_size=2).transpose(1, 2)
   z2 = F.max_pool1d(z2.transpose(1, 2), kernel_size=2).transpose(1, 2)
@@ -1105,6 +1107,8 @@ loss = loss/loss_terms
 子序列是从原始信号中裁剪下来的，并且**有重叠部分**
 
 ![image-20240425175053049](http://sthda9dn6.hd-bkt.clouddn.com/Fk0G8jM8ufq4FezR7WIn1MKEPHow)
+
+同色是相同样本，深浅色表示同一样本重叠的两段
 
 
 
