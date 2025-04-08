@@ -1,6 +1,6 @@
 ---
 date: '2025-03-23T19:36:21+08:00'
-draft: true
+draft: false
 title: 'Grouptradingproject'
 tags: ["Projects"]
 categories: ["Projects"]
@@ -791,4 +791,406 @@ public Response<Boolean> updateConfig(@RequestParam String key, @RequestParam St
 // 6. 拼团锁单 => 仓储业务
 // 7. 返回结果
 ```
+
+
+
+### 第2-10节 责任链抽象模板设计
+
+25/4/8/ 15:53
+
+先前的责任链模板都是写死的。本章内容为：将每个节点的执行逻辑和链接逻辑解耦。
+
+抽象
+
+![image-20250408155522466](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250408155522466.png)
+
+简单的单例链
+
+```java
+// 1. IlogicChainArmory:   装配链，提供添加节点方法和获取节点
+// 		next()
+//		appendNext()
+// 2. ILogicLink extends IlogicChainArmory:  并提供一个受理业务逻辑的方法
+//		apply()
+// 3. AbstractLogicLink extends ILogicLink:  封装添加节点和执行 next 下一个节点的方法
+//      next()
+//		appendNext()
+// 		apply()
+```
+
+这里是由统一的**类**维护责任链，也就是一份责任链。如果有2个独立的链要处理，就需要使用到非单例的类进行填充，否则会修改同一份链。也就是 `ILogicLink<T, D, R> next `被几份链反复调整，也就不是一个单独的链了。
+
+
+
+多例-链路模式
+
+多例链的设计要解耦链路和执行，把链路当做一个 LinkedList 列表处理，之后执行当做是单独的 for 循环。
+
+```java
+// 需要设计的类
+// 1. Node & LinkedList extends ILink
+// 双向链表节点 & 双向链表
+
+// 2. BusinessLinkedList extends LinkedList
+// 从头到尾执行各个节点
+
+// 3. ILogicHandler  -- 定义任务
+
+// 4. LinkArmory -- 创建链表并装配节点
+// public LinkArmory(String linkName, ILogicHandler<T, D, R>... logicHandlers)
+// private final BusinessLinkedList<T, D, R> logicLink;
+```
+
+```java
+// 用法
+// 1. 定义 RuleLogicNode extends ILogicHandler
+// 2. new LinkArmory<>("demo01", ruleLogic201, ruleLogic202, ...);
+```
+
+具体伪代码
+
+```java
+public class LinkedList<E> implements ILink<E> {
+
+    /**
+     * 责任链名称
+     * */
+    @Getter
+    private final String name;
+    transient int size = 0;
+    transient Node<E> first;
+    transient Node<E> last;
+
+    public LinkedList(String name) {
+        this.name = name;
+    }
+
+    // 头插节点
+    void linkFirst(E e) {
+        final Node<E> f = first;
+        final Node<E> newNode = new Node<>(null, e, f);
+        first = newNode;
+        if (f == null)
+            last = newNode;
+        else
+            f.prev = newNode;
+        size++;
+    }
+
+    // 尾插法
+    void linkLast(E e) {
+        final Node<E> l = last;
+        final Node<E> newNode = new Node<>(l, e, null);
+        last = newNode;
+        if (l == null) {
+            first = newNode;
+        } else {
+            l.next = newNode;
+        }
+        size++;
+    }
+
+    @Override
+    public boolean add(E e) {
+        linkLast(e);
+        return true;
+    }
+
+    @Override
+    public boolean addFirst(E e) {
+        linkFirst(e);
+        return true;
+    }
+
+    @Override
+    public boolean addLast(E e) {
+        linkLast(e);
+        return true;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        if (o == null) {
+            for (Node<E> x=first; x!=null; x=x.next) {
+                if (x.item == null) {
+                    unlink(x);
+                    return true;
+                }
+            }
+        } else {
+            for (Node<E> x=first; x!=null; x=x.next) {
+                if (o.equals(x.item)) {
+                    unlink(x);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+	
+    // 删除节点，注意是双向链表
+    E unlink(Node<E> x) {
+        final E element = x.item;
+        final Node<E> next = x.next;
+        final Node<E> prev = x.prev;
+
+        // x为头节点
+        if (prev == null) {
+            first = next;
+        } else {
+            prev.next = next;
+            x.prev = null;
+        }
+
+        // x为末尾
+        if (next == null) {
+            last = x.prev;
+        } else {
+            next.prev = prev;
+            x.next = null;
+        }
+
+        x.item = null;
+        size--;
+        return element;
+    }
+
+    @Override
+    public E get(int index) {
+        return node(index).item;
+    }	
+	
+    // 根据index，判断是前向还是后向
+    private Node<E> node(int index) {
+        if (index < (size >> 1)) {
+            Node<E> x = first;
+            for (int i = 0; i < index; i++) {
+                x = x.next;
+            }
+            return x;
+        } else {
+            Node<E> x = last;
+            for (int i = size-1; i > index; i--) {
+                x = x.prev;
+            }
+            return x;
+        }
+    }
+
+    @Override
+    public void printLinkList() {
+        if (this.size == 0) {
+            System.out.printf("链表为空");
+        } else {
+            Node<E> temp = first;
+            System.out.print("目前的列表，头节点：" + first.item + " 尾节点：" + last.item + " 整体：");
+            while (temp != null) {
+                System.out.print(temp.item + "，");
+                temp = temp.next;
+            }
+            System.out.println();
+        }
+    }
+}
+```
+
+
+
+### 第2-11节 交易规则责任链过滤
+
+2025-4-8 17:30
+
+![image-20250408175143439](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250408175143439.png)
+
+该章节补充：过滤拼团活动配置的规则。包括；活动的有效期、状态，以及个人参与拼团的次数。
+
+```java
+// Logic chain
+// 1. 检查参数
+// 2. 检查是否存在交易记录，根据外部OrderId
+// 3. 判断拼团活动是否满
+// 4. 营销试算 -- 给出折扣价格
+// 5. 人群限定 -- 特定人群才能拼团
+// 6. 拼团锁单 -- 1. 修改活动表对应的信息 2. 插入一条拼团记录
+// 6.1. 交易规则过滤  -- 检查活动时间 + 检查拼团次数  ⭐本节主要这部分
+```
+
+具体就是定义一些 责任链节点(拦截器)
+
+```java
+@Slf4j
+@Service
+public class ActivityUsabilityRuleFilter implements ILogicHandler<TradeRuleCommandEntity, TradeRuleFilterFactory.DynamicContext, TradeRuleFilterBackEntity> {
+
+    @Resource
+    private ITradeRepository repository;
+
+    @Override
+    public TradeRuleFilterBackEntity apply(TradeRuleCommandEntity requestParameter, TradeRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
+        log.info("交易规则过滤-活动的可用性校验{} activityId:{}", requestParameter.getUserId(), requestParameter.getActivityId());
+
+        // 查询拼团活动
+        GroupBuyActivityEntity groupBuyActivityEntity = repository.queryGroupBuyActivityEntityByActivityId(requestParameter.getActivityId());
+
+        // 校验：活动状态
+        if (!ActivityStatusEnumVO.EFFECTIVE.equals(groupBuyActivityEntity.getStatus())) {
+            log.info("活动的可用性校验，非生效状态 activityId:{}", requestParameter.getActivityId());
+            throw new AppException(ResponseCode.E0101);
+        }
+
+        // 校验；活动时间
+        Date now = new Date();
+        if (now.before(groupBuyActivityEntity.getStartTime()) || now.after(groupBuyActivityEntity.getEndTime())) {
+            log.info("活动的可用性校验，非可参与时间范围 activityId:{}", requestParameter.getActivityId());
+            throw new AppException(ResponseCode.E0102);
+        }
+
+        dynamicContext.setGroupBuyActivity(groupBuyActivityEntity);
+
+        // 走到下一个责任链节点
+        return next(requestParameter, dynamicContext);
+    }
+}
+```
+
+```java
+@Slf4j
+@Service
+public class UserTakeLimitRuleFilter implements ILogicHandler<TradeRuleCommandEntity, TradeRuleFilterFactory.DynamicContext, TradeRuleFilterBackEntity> {
+
+    @Resource
+    private ITradeRepository repository;
+
+    @Override
+    public TradeRuleFilterBackEntity apply(TradeRuleCommandEntity requestParameter, TradeRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
+        log.info("交易规则过滤-用户参与次数校验{} activityId{}", requestParameter.getUserId(), requestParameter.getActivityId());
+
+        GroupBuyActivityEntity groupBuyActivity = dynamicContext.getGroupBuyActivity();
+
+        Integer count = repository.queryOrderCountByActivityId(requestParameter.getActivityId(), requestParameter.getUserId());
+
+        if (groupBuyActivity.getTakeLimitCount() != null && count >= groupBuyActivity.getTakeLimitCount()) {
+            log.info("用户参数次数校验，已达可参与上限 activityId:{}", requestParameter.getActivityId());
+            throw new AppException(ResponseCode.E0103);
+        }
+
+        return TradeRuleFilterBackEntity.builder()
+                .userTakeOrderCount(count)
+                .build();
+    }
+}
+```
+
+组装责任链  -- BusinessLinkedList 具体业务
+
+```java
+@Bean("tradeRuleFilter")
+public BusinessLinkedList<TradeRuleCommandEntity, TradeRuleFilterFactory.DynamicContext, TradeRuleFilterBackEntity>
+    tradeRuleFilter(ActivityUsabilityRuleFilter activityUsabilityRuleFilter, UserTakeLimitRuleFilter userTakeLimitRuleFilter) {
+    // 组装链
+    LinkArmory<TradeRuleCommandEntity, DynamicContext, TradeRuleFilterBackEntity> filter = new LinkArmory<>("交易规则过滤链", activityUsabilityRuleFilter, userTakeLimitRuleFilter);
+    // 链对象
+    return filter.getLogicLink();
+}
+```
+
+LinkArmory  -- 真正的抽象装配责任链
+
+```java
+@SafeVarargs
+public LinkArmory(String linkName, ILogicHandler<T, D, R>... logicHandlers) {
+    logicLink = new BusinessLinkedList<>(linkName);
+    for (ILogicHandler<T, D, R> logicHandler: logicHandlers){
+        logicLink.add(logicHandler);
+    }
+}
+public BusinessLinkedList<T, D, R> getLogicLink() {
+    return logicLink;
+}
+```
+
+
+
+用法
+
+```java
+@Resource
+private BusinessLinkedList<TradeRuleCommandEntity, TradeRuleFilterFactory.DynamicContext, TradeRuleFilterBackEntity> tradeRuleFilter;
+
+tradeRuleFilter.aaply(...)
+```
+
+
+
+---
+
+### 第2-12节：拼团组队结算统计
+
+25/4/8 21:19
+
+ ![image-20250408224034286](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250408224034286.png)
+
+拼团的过程是用户在商城下单，锁定拼团优惠（也就是拼团系统里锁单的过程）。之后就是用户给这笔商品完成支付交易，交易后不会直接发货，直至拼团组队完成后才会发货。
+
+那么，这里有一个流程，就是支付完成后，需要做拼团数量的统计结算。如，拼团需要3个用户一起下单，那么每完成一笔支付，就要给拼团的组队加上一笔记录。这个就是本节要实现的流程。
+
+⭐⭐⭐ 所有用户完成支付后, 最后一个用户的结算触发回调事件!
+
+```java
+@Transactional(timeout = 500)
+@Override
+public void settlementMarketPayOrder(GroupBuyTeamSettlementAggregate groupBuyTeamSettlementAggregate) {
+    UserEntity userEntity = groupBuyTeamSettlementAggregate.getUserEntity();
+    GroupBuyTeamEntity groupBuyTeamEntity = groupBuyTeamSettlementAggregate.getGroupBuyTeamEntity();
+    TradePaySuccessEntity tradePaySuccessEntity = groupBuyTeamSettlementAggregate.getTradePaySuccessEntity();
+
+    // 1. 更新拼团订单明细状态
+    GroupBuyOrderList groupBuyOrderList = new GroupBuyOrderList();
+    groupBuyOrderList.setUserId(userEntity.getUserId());
+    groupBuyOrderList.setOutTradeNo(tradePaySuccessEntity.getOutTradeNo());
+    int updateOrderStatus2COMPLETE = groupBuyOrderListDao.updateOrderStatus2COMPLETE(groupBuyOrderList);
+    if (1 != updateOrderStatus2COMPLETE) {
+        throw new AppException(ResponseCode.UPDATE_ZERO);
+    }
+	
+    // 2. 更新拼团达成数量
+    int updateAddCount = groupBuyOrderDao.updateAddCompleteCount(groupBuyTeamEntity.getTeamId());
+    if (1 != updateAddCount) {
+        throw new AppException(ResponseCode.UPDATE_ZERO);
+    }
+
+    // 3. 更新拼团完成状态
+    if (groupBuyTeamEntity.getTargetCount() - groupBuyTeamEntity.getCompleteCount() == 1) {
+        int i = groupBuyOrderDao.updateOrderStatus2COMPLETE(groupBuyTeamEntity.getTeamId());
+        if (1 != i) {
+            throw new AppException(ResponseCode.UPDATE_ZERO);
+        }
+
+        // 查询拼团交易外部订单号列表
+        List<String> outOrderNoList = groupBuyOrderListDao.queryGroupBuyCompleteOrderOutTradeNoListByTeamId(groupBuyTeamEntity.getTeamId());
+
+        // 拼团完成写入回调任务记录
+        NotifyTask notifyTask = NotifyTask.builder()
+            .activityId(groupBuyTeamEntity.getActivityId())
+            .teamId(groupBuyTeamEntity.getTeamId())
+            .notifyUrl("暂无")
+            .notifyCount(0)
+            .notifyStatus(0)
+            .build();
+        notifyTask.setParameterJson(JSON.toJSONString(new HashMap<String, Object>() {{
+            put("teamId", groupBuyTeamEntity.getTeamId());
+            put("outTradeNoList", outOrderNoList);
+        }}));
+
+        notifyTaskDao.insert(notifyTask);
+    }
+
+}
+```
+
+这里算是支付成功后的回调
+
+
+
+---
 

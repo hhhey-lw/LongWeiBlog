@@ -129,7 +129,7 @@ for data in dataloader:
     inp, mask = data
     oup = model(inp)
     
-    loss = BCELoss(oup, inp)
+    loss = BCELoss(oup, mask)
     ...
 ```
 

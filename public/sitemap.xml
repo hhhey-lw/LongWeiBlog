@@ -2,14 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://longcoding.top/categories/</loc>
+    <lastmod>2025-03-23T19:36:21+08:00</lastmod>
+  </url><url>
+    <loc>http://longcoding.top/posts/jobs/groupbuymarketproject/</loc>
+    <lastmod>2025-03-23T19:36:21+08:00</lastmod>
+  </url><url>
     <loc>http://longcoding.top/</loc>
     <lastmod>2025-03-23T19:36:21+08:00</lastmod>
   </url><url>
     <loc>http://longcoding.top/posts/</loc>
     <lastmod>2025-03-23T19:36:21+08:00</lastmod>
   </url><url>
-    <loc>http://longcoding.top/categories/</loc>
-    <lastmod>2025-03-16T00:00:00+00:00</lastmod>
+    <loc>http://longcoding.top/categories/projects/</loc>
+    <lastmod>2025-03-23T19:36:21+08:00</lastmod>
+  </url><url>
+    <loc>http://longcoding.top/tags/projects/</loc>
+    <lastmod>2025-03-23T19:36:21+08:00</lastmod>
+  </url><url>
+    <loc>http://longcoding.top/tags/</loc>
+    <lastmod>2025-03-23T19:36:21+08:00</lastmod>
   </url><url>
     <loc>http://longcoding.top/tags/command/</loc>
     <lastmod>2025-03-16T00:00:00+00:00</lastmod>
@@ -18,9 +30,6 @@
     <lastmod>2025-03-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://longcoding.top/posts/learning/common_commands/</loc>
-    <lastmod>2025-03-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://longcoding.top/tags/</loc>
     <lastmod>2025-03-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://longcoding.top/tags/collection/</loc>

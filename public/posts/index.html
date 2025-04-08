@@ -168,6 +168,35 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Grouptradingproject
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>拼团交易平台系统 **项目背景：**为了盘活沉睡用户，需要适当降低商品价格。但为了达到传播的效果，所以需要引入拼团方式，以客带客，靠用户自身传播的方式进行交易拉新。这样的处理方式对比于 KOL，会让利商品价值到用户自身。
+第1-2节 拼团库表设计 业务流程：
+运营角度： 1. 给哪些商品配置拼单；2. 拼团商品提供的规则信息：折扣、时间、人数等。 用户角度： 1. 参与拼团，首次发起or参与现有，拼单完成回调通知。 库表设计： 1. 人群设计，将所有符合某个条件的用户ID，全部写入特定Redis记录中。 拼团活动，折扣的多种迭代。 库表设计：
+拼团配置表：
+拼团活动表：设定了拼团的成团规则，人群标签的使用可以限定哪些人可见，哪些人可参与。 折扣配置表：拆分出拼团优惠到一个新的表进行多条配置。如果折扣还有更多的复杂规则，则可以配置新的折扣规则表进行处理。 人群标签表：专门来做人群设计记录的，这3张表就是为了把符合规则的人群ID，也就是用户ID，全部跑任务到一个记录下进行使用。 比如黑玫瑰人群、高净值人群、拼团履约率90%以上的人群等。 参与拼团表：
+拼团账户表：记录用户的拼团参与数据，一个是为了限制用户的参与拼团次数，另外是为了人群标签任务统计数据。 用户拼单表：当有用户发起首次拼单的时候，产生拼单id，并记录所需成团的拼单记录，另外是写上拼团的状态、唯一索引、回调接口等。这样拼团完成就可以回调对接的平台，通知完成了。【微信支付也是这样的设计，回调支付结果，这样的设计可以方便平台化对接】当再有用户参与后，则写入用户拼单明细表。直至达成拼团 回调任务表：当拼团完成后，要做回调处理。但可能会有失败，所以加入任务的方式进行补偿。如果仍然失败，则需要对接的平台，自己查询拼团结果。 第1-3节 研发系统设计 进行研发系统设计。包括：库表设计、用例图、系统建模、工程模型、功能流程、UML时序图。
+用例图：用户与系统交互最简表示形式； 流程图：功能节点的串联关系； 时序图：展示了整个拼团过程所涉及的系统模块和流转关系 系统架构：
+MVC架构
+DDD架构
+第2-2节 试算模型抽象模板设计 引入设计模式进行解耦和实现，提高工程代码的扩展性
+=&gt; 设计模式抽象模板的通用结构定义，添加一个 tree规则树抽象模型，在引入到工程中进行使用。这样后续工程中就可以不断的定义通用的设计模式被不同的场景统一使用了。
+模型设计
+链式的多分支规则树模型结构，由功能节点自行决定后续流程的执行链路。它的设计比责任链的扩展性更好，自由度也更高
+首先，定义抽象的通用规则树模型结构 涵盖：StrategyMapper, StrategyHandler /ˈstrætədʒi/、AbstractStrategyRouter&lt;T, D, R&gt;。 通过泛型设计允许使用方可以自定义出入参和动态上下文，让抽象模板模型具有通用性。 之后，由使用方自定义出工厂、功能抽象类和一个个流程流转的节点。 编码实现
+项目工程的Types模块中，添加通用设计模式模板
+1.1 策略映射器
+1public interface StrategyMapper&lt;T, D, R&gt; { 2 3 /** 4 * 获取待执行策略 5 * 6 * @param requestParameter 入参 7 * @param dynamicContext 上下文 8 * @return 返参 9 * @throws Exception 异常 10 */ 11 StrategyHandler&lt;T, D, R&gt; get(T requestParameter, D dynamicContext) throws Exception; 12 13} 用于获取每个执行的节点，责任链加强版 T，D，R：入参，上下文，反参 1.2 策略受理器
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-03-23 19:36:21 +0800 CST'>March 23, 2025</span>&nbsp;·&nbsp;14 min&nbsp;·&nbsp;2800 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei</footer>
+  <a class="entry-link" aria-label="post link to Grouptradingproject" href="http://longcoding.top/posts/jobs/groupbuymarketproject/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Linux&amp;Docker&amp;Shell命令
     </h2>
   </header>
@@ -355,27 +384,6 @@ work flow
   </div>
   <footer class="entry-footer"><span title='2024-10-31 00:00:00 +0000 UTC'>October 31, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;562 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to DL基准模型训练伪代码" href="http://longcoding.top/posts/learning/minibaseline_learning/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">LeetCodeHot100刷题笔记
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>热题100 哈希 1. 两数之和 给定： 数组nums 和target
-要求：找出两元素之和为target的数组下标
-暴力：
-1for i in range(len(nums)): 2 for j in range(i&#43;1, len(nums)): 3 if ... 4# O(n^2) 题解：
-问题分解 =&gt; 给定x 寻找 target-x(这是复杂度的主要部分)
-用额外结构记录
-1hashtable = dict() 2for i in range(len(nums)): 3 if nums[i] in hashtable: 4 return [i, hashtable[nums[i]]] 5 else: 6 hashtable[nums[i]] = i 7# 保存遍历过的元素，参考过去 49. 字母异位词分组 输入: strs = [&#34;eat&#34;, &#34;tea&#34;, &#34;tan&#34;, &#34;ate&#34;, &#34;nat&#34;, &#34;bat&#34;]输出: [[&#34;bat&#34;],[&#34;nat&#34;,&#34;tan&#34;],[&#34;ate&#34;,&#34;eat&#34;,&#34;tea&#34;]] 思路：condition =&gt; […]
-HashTable, Key=排序后的Str, Value=List&lt;String&gt;
-1HashMap&lt;String, List&lt;String&gt;&gt; hashTable = new HashMap&lt;&gt;(); 2for(String str : strs){ 3 char[] charArray = str.toCharArray(); // 将字符串转换为字符数组 4 Arrays.sort(charArray); // 对字符数组进行排序 5 String orderStr = new String(charArray); 6 if (hashTable.containsKey(orderStr)) { 7 hashTable.get(orderStr).add(str); 8 }else { 9 hashTable.put(orderStr, new ArrayList&lt;&gt;()); 10 hashTable.get(orderStr).add(str); 11 } 12} 13 14List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;(); 15 16for (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : hashTable.entrySet()) { 17 res.add(entry.getValue()); 18} 19return res; 128. 最长连续序列 1HashSet&lt;Integer&gt; hashSet = new HashSet&lt;&gt;(); 2// 去重复，并且查询O(1) 3for (int num : nums) { 4 hashSet.add(num); 5} 6 7List&lt;Integer&gt; start_nums = new ArrayList&lt;&gt;(); 8 9// 找所有为起点的数 10for (Iterator&lt;Integer&gt; it = hashSet.iterator(); it.hasNext(); ) { 11 int num = it.next(); 12 if (!hashSet.contains(num-1)){ 13 start_nums.add(num); 14 } 15} 16 17// 遍历起点x, 遍历 x&#43;1, x&#43;2, ... 18int longest_length = 0; 19for(int start : start_nums){ 20 int current_length = 1; 21 int start_i = start; 22 while (hashSet.contains(start_i&#43;1)) { 23 current_length &#43;= 1; 24 start_i &#43;= 1; 25 } 26 if (current_length &gt; longest_length){ 27 longest_length = current_length; 28 } 29} 30return longest_length; 31} 双指针 283. 移动零 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序(原始数组位置，非不是重新排序)。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-09-18 00:00:00 +0000 UTC'>September 18, 2024</span>&nbsp;·&nbsp;35 min&nbsp;·&nbsp;7397 words&nbsp;·&nbsp;LongWei</footer>
-  <a class="entry-link" aria-label="post link to LeetCodeHot100刷题笔记" href="http://longcoding.top/posts/leetcode/leetcode_hot100/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
