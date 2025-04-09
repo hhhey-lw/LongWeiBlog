@@ -1,7 +1,7 @@
 ---
 date: '2025-03-23T19:36:21+08:00'
 draft: false
-title: 'Grouptradingproject'
+title: '拼团营销交易拼团'
 tags: ["Projects"]
 categories: ["Projects"]
 description: 'Grouptradingproject'
@@ -675,6 +675,7 @@ public RTopic dccRedisTopicListener(RedissonClient redissonClient) {
 }
 
 
+// implements BeanPostProcessor 重写方法  -- 并在每个 bean 初始化完成后自动调用该方法。
 @Override
 public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
     // 注意：增加 AOP 代理后，获得类的方式要通过 AopProxyUtils.getTargetClass(bean); 不能直接 bean.class 因为代理后类的结构发生了变化，这样不能获得自己的自定义注解了
@@ -684,7 +685,8 @@ public Object postProcessAfterInitialization(Object bean, String beanName) throw
         targetBeanClass = AopUtils.getTargetClass(targetBeanObject);
         targetBeanObject = AopProxyUtils.getSingletonTarget(bean);
     }
-
+	
+    // 这里判断该类是否有对应的自定义注解
     Field[] fields = targetBeanClass.getDeclaredFields();
     for (Field field : fields) {
         if (!field.isAnnotationPresent(DCCValue.class)) {
@@ -1193,4 +1195,524 @@ public void settlementMarketPayOrder(GroupBuyTeamSettlementAggregate groupBuyTea
 
 
 ---
+
+### **第2-13节：交易结算责任链过滤**
+
+⏱️25/4/9 12:31
+
+![image-20250409152543493](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409152543493.png)
+
+本节诉求：
+
+拼团交易结算的过程，需要一些列的规则过滤。包括；我们上一节提到的校验外部交易单的时间是否在拼团有效时间内，同时还有关于这笔外部交易单是否为有效的拼团锁单订单。另外像是 SC 渠道的有效性也需要在结算时进行校验。
+
+所以，本节我们需要实现一套规则链，来处理这些业务规则。因为规则链已经被抽取为通用的模板了，那么本节使用起来会非常容易。
+
+
+
+责任链流程：1. 校验渠道是否为黑名单 2. 外部订单号是否正确 3. 交易时间是否在拼团有效期内 4. 打包信息到上下文
+
+***责任链包装对象***
+
+```java
+@Bean("tradeSettlementRuleFilter")
+public BusinessLinkedList<TradeSettlementRuleCommandEntity,
+TradeSettlementRuleFilterFactory.DynamicContext, TradeSettlementRuleFilterBackEntity> tradeSettlementRuleFilter(
+    SCRuleFilter scRuleFilter, OutTradeNoRuleFilter outTradeNoRuleFilter, SettableRuleFilter settableRuleFilter, EndRuleFilter endRuleFilter
+) {
+    LinkArmory<TradeSettlementRuleCommandEntity, DynamicContext, TradeSettlementRuleFilterBackEntity> tradeSettlementFilter =
+        new LinkArmory<>("交易结算规则过滤链", scRuleFilter, outTradeNoRuleFilter, settableRuleFilter, endRuleFilter);
+
+    return tradeSettlementFilter.getLogicLink();
+
+}
+```
+
+1 SC过滤器
+
+```java
+@Slf4j
+@Service
+public class SCRuleFilter  implements ILogicHandler<TradeSettlementRuleCommandEntity,
+        TradeSettlementRuleFilterFactory.DynamicContext, TradeSettlementRuleFilterBackEntity> {
+
+    @Resource
+    private ITradeRepository repository;
+
+    @Override
+    public TradeSettlementRuleFilterBackEntity apply(TradeSettlementRuleCommandEntity requestParameter, TradeSettlementRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
+        // 1. 打印函数流程信息
+        log.info("结算规则过滤-渠道黑名单校验{} outTradeNo:{}", requestParameter.getUserId(), requestParameter.getOutTradeNo());
+
+        // 2. 校验黑名单信息
+        Boolean intercept = repository.isSCBlackIntercept(requestParameter.getSource(), requestParameter.getChannel());
+        if (intercept) {
+            log.info("{}-{} 渠道黑名单拦截", requestParameter.getSource(), requestParameter.getChannel());
+            throw new AppException(ResponseCode.E0105);
+        }
+
+        return next(requestParameter, dynamicContext);
+    }
+}
+```
+
+2 订单号校验过滤器
+
+```java
+@Slf4j
+@Service
+public class OutTradeNoRuleFilter  implements ILogicHandler<TradeSettlementRuleCommandEntity,
+        TradeSettlementRuleFilterFactory.DynamicContext, TradeSettlementRuleFilterBackEntity> {
+
+    @Resource
+    private ITradeRepository repository;
+
+    @Override
+    public TradeSettlementRuleFilterBackEntity apply(TradeSettlementRuleCommandEntity requestParameter, TradeSettlementRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
+        log.info("结算规则过滤-外部单号校验{} outTradeNo:{}", requestParameter.getUserId(), requestParameter.getOutTradeNo());
+
+        MarketPayOrderEntity marketPayOrderEntity = repository.queryMarketPayOrderEntityByOutTradeNo(requestParameter.getUserId(), requestParameter.getOutTradeNo());
+
+        if (null == marketPayOrderEntity) {
+            log.info("不存在的外部交易单号或用户已退单，不需要做支付订单结算：{} outTradeNo:{}", requestParameter.getUserId(), requestParameter.getOutTradeNo());
+            throw new AppException(ResponseCode.E0104);
+        }
+
+        dynamicContext.setMarketPayOrderEntity(marketPayOrderEntity);
+
+        return next(requestParameter, dynamicContext);
+    }
+}
+```
+
+3 有效期校验器
+
+```java
+@Slf4j
+@Service
+public class SettableRuleFilter  implements ILogicHandler<TradeSettlementRuleCommandEntity,
+        TradeSettlementRuleFilterFactory.DynamicContext, TradeSettlementRuleFilterBackEntity> {
+
+    @Resource
+    private ITradeRepository repository;
+
+    @Override
+    public TradeSettlementRuleFilterBackEntity apply(TradeSettlementRuleCommandEntity requestParameter, TradeSettlementRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
+        log.info("结算规则过滤-有效时间校验：{}, {}", requestParameter.getUserId(), requestParameter.getOutTradeNo());
+
+        // 1. 上下文获取数据
+        MarketPayOrderEntity marketPayOrderEntity = dynamicContext.getMarketPayOrderEntity();
+
+        // 2. 查询拼团对象
+        GroupBuyTeamEntity groupBuyTeamEntity = repository.queryGroupBuyTeamByTeamId(marketPayOrderEntity.getTeamId());
+
+        // 3. 外部交易时间 - 支付时间需要在拼团有效时间内完成
+        if (requestParameter.getOutTradeTime().after(groupBuyTeamEntity.getValidEndTime())){
+            // 4. 判断，外部交易时间是否小于拼团结束时间
+            log.info("订单交易时间不在拼团有效时间范围内");
+            throw new AppException(ResponseCode.E0106);
+        }
+
+        // 5. 设置上下文
+        dynamicContext.setGroupBuyTeamEntity(groupBuyTeamEntity);
+
+        return next(requestParameter, dynamicContext);
+    }
+}
+```
+
+4 打包节点
+
+```java
+@Slf4j
+@Service
+public class EndRuleFilter implements ILogicHandler<TradeSettlementRuleCommandEntity,
+        TradeSettlementRuleFilterFactory.DynamicContext, TradeSettlementRuleFilterBackEntity> {
+    @Override
+    public TradeSettlementRuleFilterBackEntity apply(TradeSettlementRuleCommandEntity requestParameter, TradeSettlementRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
+        log.info("结算规则过滤-结束节点{} outTradeNo:{}", requestParameter.getUserId(), requestParameter.getOutTradeNo());
+
+        GroupBuyTeamEntity groupBuyTeamEntity = dynamicContext.getGroupBuyTeamEntity();
+
+        return TradeSettlementRuleFilterBackEntity.builder()
+                .teamId(groupBuyTeamEntity.getTeamId())
+                .activityId(groupBuyTeamEntity.getActivityId())
+                .completeCount(groupBuyTeamEntity.getCompleteCount())
+                .targetCount(groupBuyTeamEntity.getTargetCount())
+                .validStartTime(groupBuyTeamEntity.getValidStartTime())
+                .validEndTime(groupBuyTeamEntity.getValidEndTime())
+                .lockCount(groupBuyTeamEntity.getLockCount())
+                .status(groupBuyTeamEntity.getStatus())
+                .build();
+    }
+}
+```
+
+5 SC来源渠道黑名单动态配置
+
+```java
+@Slf4j
+@Service
+public class DCCService 
+
+@DCCValue("scBlacklist:s02c02")  // 默认黑名单渠道
+private String scBlacklist;
+
+public Boolean isSCBlackIntercept(String source, String channel) {
+    List<String> list = Arrays.asList(scBlacklist.split(Constants.SPLIT));
+    return list.contains(source + channel);
+}
+
+// Http请求key=scBlacklist&value=s02c02;s03c03
+
+// => Redis (scBlacklist) => scBlacklist,s02c02;s03c03 
+```
+
+
+
+---
+
+### **第2-14节：拼团回调通知任务**
+
+⏱️25/4/9 15:32
+
+拼团组队交易结算完结后，实现一个回调通知的任务处理。告知另外的微服务系统可以进行后续的流程了。
+
+RPC、MQ，这一类的都是需要有一个公用的注册中心，它的技术架构比较适合于公司内部的统一系统使用。如果是有和外部其他系统的对接，通常我们会使用 HTTP 这样统一标准协议的接口进行使用。
+
+注意：微信支付，支付宝支付，也是在完成支付后，做的这样的回调处理。
+
+![image-20250409153440408](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409153440408.png)
+
+💡**流程逻辑 1：锁单**
+
+```java
+// 1. 检查锁单请求信息 - 请求参数是否为Null or 空串
+// 2. 检查outTradeNo是否重复锁单 - 检查检查outTradeNo是否重复锁单是否存在
+// 3. 拼团是否能够加入 - 判断拼团当前人数小于目标人数
+// 4. 营销优惠试算
+// 	  4.1. RootNode => SwitchRoot => MarketNode => TagNode => EndNode
+//                                              => ErrorNode
+// 		4.1.1 RootNode检查信息
+// 		4.1.2 SwitchRoot 降级和限流
+// 		4.1.3 MarketNode 1:异步查询商品信息+活动信息 2:进行折扣验算(根据Map拿到对应的折扣对象 - 每个折扣对象实现同一接口)
+// 		4.1.4-1 TagNode：根据bitset，检查用户Id是否有资格参与or可见该折扣活动
+//		4.1.4-2 ErrorNode：无折扣活动返回
+// 		4.1.5 EndNode 组装试算结果
+// 5. 根据试算结果判断是否可见和可参与
+// 6. 进行锁单
+//	  6.1. 交易规则检查 - 校验活动状态+活动时间 && 校验参与次数  -责任链
+//      LinkArmory(BusinessLinkedList:ActivityUsabilityRuleFilter+UserTakeLimitRuleFilter)
+//		6.1.1 ActivityUsabilityRuleFilter: 检查活动状态和时间
+//		6.1.2 UserTakeLimitRuleFilter:     检查用户参与次数
+//    6.2. 判断是否有团 - 生成拼团订单 or 加入别人的订单  => 插入or修改记录 GroupBuyOrder
+//    6.3. 生成订单明细  => 插入记录到GroupBuyOrderList
+```
+
+**💡流程逻辑 2：结算**
+
+```java
+// 1. 检查拼团信息 - 结算规则
+// 	  1.1 检查 渠道合法性=>外部订单合法性=>拼团时间合法性=>包装检查结果
+//    		1.1.1 SCRuleFilter: 检查source和channel是否在黑名单中，@DCCValue("scBlacklist:s02c02"), 可动态配置
+//   		1.1.2 OutTradeNoRuleFilter：检查OutTradeNo是否合法，是否GroupBuyOrderList存在初始锁单的拼团订单 
+//			(这里，外部进行了支付，但是系统还没修改结算状态呢)
+// 			1.1.3 SettableRuleFilter：检查订单交易时间是否在拼团有效时间内
+// 			1.1.4 EndRuleFilter：包装结果
+// 2. 进行拼团结算
+// 	  2.1 更新拼团订单明细 => GroupBuyOrderList对应用户的完成状态
+//    2.2 更新拼团达成数量 => GroupBuyOrder对应的用户完成支付数量
+//    2.3 更新拼团完成状态 => 最后一个人支付完成触发 => GroupBuyOrder拼团信息状态 => 写入回调任务记录(包装TeamId+所有的外部订单ID)
+// 3. 组队回调处理 - 这里显示的执行，使得实时性比较好，只有最后一个人完成才会执行成功，不过有定时任务进行兜底
+// 	  3.1 发送Http远程调用，将(TeamId+所有的外部订单ID)发送给第三方服务，通知发货or其他
+//    3.2 定时任务：查询所有初始状态和重试状态的 通知任务
+```
+
+🏷️**本章节完成 3 触发回调部分**
+
+```java
+// 指定触发回调通知任务  - 实时性
+@Override 
+public Map<String, Integer> execSettlementNotifyJob(String teamId) throws Exception {
+    log.info("拼团交易-执行结算通知回调，指定 teamId:{}", teamId);
+
+    List<NotifyTaskEntity> notifyTaskEntityList = repository.queryUnExecutedNotifyTaskList(teamId);
+    return execSettlementNotifyJob(notifyTaskEntityList);
+}
+
+// 辅助定时扫描，进行通知 - 兜底
+@Override
+public Map<String, Integer> execSettlementNotifyJob() throws Exception {
+    log.info("拼团交易-执行结算通知任务");
+
+    // 查询未执行任务
+    List<NotifyTaskEntity> notifyTaskEntities = repository.queryUnExecutedNotifyTaskList();
+
+    return execSettlementNotifyJob(notifyTaskEntities);
+}
+
+// 公用通知函数
+private Map<String, Integer> execSettlementNotifyJob(List<NotifyTaskEntity> notifyTaskEntities) throws Exception {
+    int successCount = 0, errorCount = 0, retryCount = 0;
+    for (NotifyTaskEntity notifyTask : notifyTaskEntities) {
+        // 回调处理
+        String response = port.groupBuyNotify(notifyTask);
+
+        if (NotifyTaskHTTPEnumVO.SUCCESS.getCode().equals(response)) {
+            int i = repository.updateNotifyTaskStatusSuccess(notifyTask.getTeamId());
+            if (1 == i) {
+                successCount += 1;
+            }
+        } else if (NotifyTaskHTTPEnumVO.ERROR.getCode().equals(response)) {
+            int i = repository.updateNotifyTaskStatusError(notifyTask.getTeamId());
+            if (1 == i) {
+                errorCount += 1;
+            }
+        } else {
+            int i = repository.updateNotifyTaskStatusRetry(notifyTask.getTeamId());
+            if (1 == i) {
+                retryCount += 1;
+            }
+        }
+    }
+
+    Map<String, Integer> resultMap = new HashMap<>();
+    resultMap.put("waitCount", notifyTaskEntities.size());
+    resultMap.put("successCount", successCount);
+    resultMap.put("errorCount", errorCount);
+    resultMap.put("retryCount", retryCount);
+
+    return resultMap;
+}
+
+// 远程调用
+@Override
+public String groupBuyNotify(NotifyTaskEntity notifyTask) throws Exception {
+    RLock lock = redisService.getLock(notifyTask.lockKey());
+    try {
+        // 拼团服务器部署在多台应用服务器上，多任务执行，避免任务被多次执行，锁的粒度 xxx:teamId
+        if (lock.tryLock(3, 0, TimeUnit.SECONDS)) {
+            try {
+                if (StringUtils.isBlank(notifyTask.getNotifyUrl()) || "暂无".equals(notifyTask.getNotifyUrl())) {
+                    return NotifyTaskHTTPEnumVO.SUCCESS.getCode();
+                }
+                return ⭐groupBuyNotifyService.groupBuyNotify(notifyTask.getNotifyUrl(), notifyTask.getParameterJson());⭐ // 这里进行远程调用
+            } finally {
+                if (lock.isLocked() && lock.isHeldByCurrentThread())
+                    lock.unlock();
+            }
+        }
+        return NotifyTaskHTTPEnumVO.NULL.getCode();
+    }catch (Exception e) {
+        Thread.currentThread().interrupt();
+        return NotifyTaskHTTPEnumVO.NULL.getCode();
+    }
+}
+
+// OKHttp发送请求
+public String groupBuyNotify(String apiUrl, String notifyRequestDTOJSON) {
+    try {
+        // 1. 构建参数
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, notifyRequestDTOJSON);
+        Request request = new Request.Builder()
+            .url(apiUrl)
+            .post(body)
+            .addHeader("content-type", "application/json")
+            .build();
+
+        // 2. 调用接口
+        Response response = okHttpClient.newCall(request).execute();
+
+        // 3. 返回结果
+        return response.body().string();
+    } catch (IOException e) {
+        log.info("拼团回调 HTTP 接口服务异常 {}", apiUrl, e);
+        throw new AppException(ResponseCode.HTTP_EXCEPTION);
+    }
+}
+```
+
+
+
+---
+
+### 第2-15节：根据UI展示封装接口
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409202305147.png" alt="image-20250409202305147" style="zoom:60%;" />
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409202122844.png" alt="image-20250409202122844" style="zoom:50%;" />
+
+
+
+- 紫色圈：拼团的统计信息；
+- 灰色圈：商品信息；
+- 红色圈：参与拼团，随机挑选几个团；
+- 绿色圈：参与拼团；单独开始一个新的团，还是参与其他人的团
+
+- 黄色圈：拼团结算。
+
+**ResponseDTO**
+
+```java
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class GoodsMarketResponseDTO {
+
+    private Goods goods;
+    private List<Team> teamList;
+    private TeamStatistic teamStatistic;
+
+    /**
+     * 商品信息
+     */
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Goods {
+        // 商品ID
+        private String goodsId;
+        // 原始价格
+        private BigDecimal originalPrice;
+        // 折扣金额
+        private BigDecimal deductionPrice;
+        // 支付价格
+        private BigDecimal payPrice;
+    }
+
+    /**
+     * 组队信息
+     */
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Team {
+        // 用户ID
+        private String userId;
+        // 拼单组队ID
+        private String teamId;
+        // 活动ID
+        private Long activityId;
+        // 目标数量
+        private Integer targetCount;
+        // 完成数量
+        private Integer completeCount;
+        // 锁单数量
+        private Integer lockCount;
+        // 拼团开始时间 - 参与拼团时间
+        private Date validStartTime;
+        // 拼团结束时间 - 拼团有效时长
+        private Date validEndTime;
+        // 倒计时(字符串) validEndTime - validStartTime
+        private String validTimeCountdown;
+        /** 外部交易单号-确保外部调用唯一幂等 */
+        private String outTradeNo;
+
+        public static String differenceDateTime2Str(Date validStartTime, Date validEndTime) {
+            if (validStartTime == null || validEndTime == null) {
+                return "无效的时间";
+            }
+
+            long diffInMilliseconds = validEndTime.getTime() - validStartTime.getTime();
+
+            if (diffInMilliseconds < 0) {
+                return "已结束";
+            }
+
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(diffInMilliseconds) % 60;
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMilliseconds) % 60;
+            long hours = TimeUnit.MILLISECONDS.toHours(diffInMilliseconds) % 24;
+            long days = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
+
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        }
+
+    }
+
+
+    /**
+     * 组队统计
+     */
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class TeamStatistic {
+        // 开团队伍数量
+        private Integer allTeamCount;
+        // 成团队伍数量
+        private Integer allTeamCompleteCount;
+        // 参团人数总量 - 一个商品的总参团人数
+        private Integer allTeamUserCount;
+    }
+
+}
+```
+
+```java
+// 增删改查
+// 注意：Team的查询
+// 1. 先查自己的拼团
+// 2. 查其他人的拼团。对应活动，非当前用户，状态为可加入拼团，时间有效，队伍in(对应活动，且锁单人数小于目标人数)
+
+@Override
+public List<UserGroupBuyOrderDetailEntity> queryInProgressUserGroupBuyOrderDetailListByRandom(Long activityId, String userId, Integer randomCount) {
+    // 1. 根据用户ID、活动ID、查询非当前用户参与的拼团队伍
+    GroupBuyOrderList buyOrderListReq = GroupBuyOrderList.builder()
+        .activityId(activityId)
+        .userId(userId)
+        .build();
+    buyOrderListReq.setCount(randomCount * 2); // 查询两倍的量，再随机取一半
+
+    // 1. ==ActivityId; 2. !=userId 3; status == 0 or 1; 4. endTime > now(); 5. teamId in (select teamId from group_buy_order where status = 0 and activity = #{activity})
+    List<GroupBuyOrderList> groupBuyOrderLists = groupBuyOrderListDao.queryInProgressUserGroupBuyOrderDetailListByRandom(buyOrderListReq);
+    if (groupBuyOrderLists == null || groupBuyOrderLists.isEmpty())
+        return null;
+
+    // 随机选 randomCount 条
+    if (groupBuyOrderLists.size() > randomCount) {
+        Collections.shuffle(groupBuyOrderLists);
+        groupBuyOrderLists = groupBuyOrderLists.subList(0, randomCount);
+    }
+
+    // 2. 过滤队伍获取 TeamId
+    Set<String> teamIds = groupBuyOrderLists.stream().map(GroupBuyOrderList::getTeamId)
+        .filter(teamId -> teamId != null && !teamId.isEmpty())
+        .collect(Collectors.toSet());
+
+
+    // 3. 查询队伍明细，组装Map结构
+    List<GroupBuyOrder> groupBuyOrders = groupBuyOrderDao.queryGroupBuyProgressByTeamIds(teamIds);
+    if (groupBuyOrders == null || groupBuyOrders.isEmpty()) return null;
+
+    Map<String, GroupBuyOrder> groupBuyOrderMap = groupBuyOrders.stream()
+        .collect(Collectors.toMap(GroupBuyOrder::getTeamId, order -> order));
+
+    // 4. 转换数据
+    ArrayList<UserGroupBuyOrderDetailEntity> userGroupBuyOrderDetailEntities = new ArrayList<>();
+ 	// ... 根据 groupBuyOrders 和 groupBuyOrderLists组装结果
+
+    return userGroupBuyOrderDetailEntities;
+}
+```
+
+```java
+// 锁单 接口
+⬇️
+// outTradeNo - 调用第三方支付生成
+⬇️
+// 结算 接口
+```
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250410001830020.png" alt="image-20250410001830020" style="zoom:50%;" />
+
+
+
+---
+
+
 

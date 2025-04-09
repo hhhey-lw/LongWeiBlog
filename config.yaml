@@ -65,7 +65,7 @@ params:
         favicon16x16: favicon-16x16.png
     profileMode:
         enabled: true
-        title: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰"
+        title: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰"
         imageUrl: "images/avatar.png"
         imageTitle: "LongWei image"
         imageWidth: 200
