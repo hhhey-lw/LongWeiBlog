@@ -21,7 +21,7 @@ TocOpen: true
 
 ***业务流程：***
 
-![image-20250323194301660](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323194301660.png)
+![image-20250323194301660](http://sthda9dn6.hd-bkt.clouddn.com/FiI6jzJ8l7NKoKgTZcSoz3LzJqL1)
 
 - *运营角度：* 1. 给哪些商品配置拼单；2. 拼团商品提供的规则信息：折扣、时间、人数等。
 - *用户角度：* 1. 参与拼团，首次发起or参与现有，拼单完成回调通知。
@@ -32,7 +32,7 @@ TocOpen: true
 
 *拼团配置表*：
 
-![image-20250323194814202](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323194814202.png)
+![image-20250323194814202](http://sthda9dn6.hd-bkt.clouddn.com/FkAG47W_Dvi0nh84V_dSOYU0Ljd2)
 
 - 拼团活动表：设定了拼团的成团规则，人群标签的使用可以限定哪些人可见，哪些人可参与。
 - 折扣配置表：拆分出拼团优惠到一个新的表进行多条配置。如果折扣还有更多的复杂规则，则可以配置新的折扣规则表进行处理。
@@ -42,7 +42,7 @@ TocOpen: true
 
 ***参与拼团表：***
 
-![image-20250323195108167](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323195108167.png)
+![image-20250323195108167](http://sthda9dn6.hd-bkt.clouddn.com/FqOAEF4N91PNEdxvKoW0qT4GLpgt)
 
 - 拼团账户表：记录用户的拼团参与数据，一个是为了限制用户的参与拼团次数，另外是为了人群标签任务统计数据。
 - 用户拼单表：当有用户发起首次拼单的时候，产生拼单id，并记录所需成团的拼单记录，另外是写上拼团的状态、唯一索引、回调接口等。这样拼团完成就可以回调对接的平台，通知完成了。【微信支付也是这样的设计，回调支付结果，这样的设计可以方便平台化对接】当再有用户参与后，则写入用户拼单明细表。直至达成拼团
@@ -62,11 +62,11 @@ TocOpen: true
 
 *MVC架构*
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323200411716.png" alt="image-20250323200411716" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FputTQmCOc_DT9IHR_Tue1UphgiB" alt="image-20250323200411716" style="zoom:50%;" />
 
 *DDD架构*
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323200448795.png" alt="image-20250323200448795" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FtLoDQWtMfo0Tws2aSwFoLOq9d4a" alt="image-20250323200448795" style="zoom:50%;" />
 
 
 
@@ -84,7 +84,7 @@ TocOpen: true
 
 链式的多分支规则树模型结构，由功能节点自行决定后续流程的执行链路。它的设计比责任链的扩展性更好，自由度也更高
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323212011895.png" alt="image-20250323212011895" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fs14rhSCUv1G2iJDaNAYovqrgCtI" alt="image-20250323212011895" style="zoom:50%;" />
 
 - 首先，定义抽象的通用规则树模型结构
   - 涵盖：StrategyMapper, StrategyHandler /ˈstrætədʒi/、AbstractStrategyRouter\<T, D, R>。 通过泛型设计允许使用方可以自定义出入参和动态上下文，让抽象模板模型具有通用性。
@@ -162,7 +162,7 @@ public abstract class AbstractStrategyRouter<T, D, R> implements StrategyMapper<
 
 **1. Model定义对象； 2. 服务功能实现，trial试算模块；3. 业务流转的功能节点**
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323214143312.png" alt="image-20250323214143312" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FmCp8w1NlRoVcELrPMSLgz_FOgTt" alt="image-20250323214143312" style="zoom:50%;" />
 
 
 
@@ -379,7 +379,7 @@ private Map<String, IDiscountCalculateService> discountCalculateServiceMap;
 
 精准的对这些用户做定向活动投放，比如；特定的券、特定的通知等。以此达到更加精准的运营效果
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250324161606013.png" alt="image-20250324161606013" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fl7ziKeBDxruQ3SdNIT9zf-9gfB5" alt="image-20250324161606013" style="zoom:50%;" />
 
 人群标签是根据用户业务行为采集的
 
@@ -391,7 +391,7 @@ crowd_tags_detail：tag_id => user_id;  具体每个人群都有谁；
 
 crowd_tags_job：tag_id => batch_id, tag_relu:消费规则;
 
-![image-20250324170251768](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250324170251768.png)
+![image-20250324170251768](http://sthda9dn6.hd-bkt.clouddn.com/FmlVSVsIZIR9I2OvUixXEBJMm5wu)
 
 流程：
 
@@ -443,7 +443,7 @@ public void addCrowdTagsUserId(String tagId, String userId) {
 
 将商品SKU与活动表 解耦 => SKU&Activity关联表。使得多个商品可以绑定同一个活动ID(优惠拼团活动)
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250324185432351.png" alt="image-20250324185432351" style="zoom: 67%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fpmlq6rL3i5VfewYyQm4iFQjKvGa" alt="image-20250324185432351" style="zoom: 67%;" />
 
 ```java
 # Market节点 判断 商品是否存在优惠活动
@@ -494,7 +494,7 @@ return TrialBalanceEntity.builder().build();
 
 限制拼团的人群
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250324214800601.png" alt="image-20250324214800601" style="zoom:67%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fq0dYRQTWGX5WxsW8ayFT00f_f9c" alt="image-20250324214800601" style="zoom:67%;" />
 
 流程1：
 
@@ -547,7 +547,7 @@ return bitSet.get(redisService.getIndexFromUserId(userId));
 
 **使用Redis作为集中化储存系统的好处，方便一处修改变量，通知所有的实例进行变更！**
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250324220542463.png" alt="image-20250324220542463" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpD9HrVow32o0uQLmC8s38KAvj-m" alt="image-20250324220542463" style="zoom:50%;" />
 
 
 
@@ -765,7 +765,7 @@ public Response<Boolean> updateConfig(@RequestParam String key, @RequestParam St
 
 完整的业务流程如下：
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250325203753717.png" alt="image-20250325203753717" style="zoom: 80%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fn3pgRYz7BPBei64sWeiiob2YqQH" alt="image-20250325203753717" style="zoom: 80%;" />
 
 - 首先，团购商品下单。下单过程分为：创建流水单、锁定营销优惠（拼团、积分、卷），创建支付订单、唤起收银台支付、用户扫码支付、支付完成核销优惠等。
 - 用户以拼团的方式下单，创建流水单完成后，需要与拼团系统交互，锁定营销优惠。更新流水单优惠金额和支付金额。创建订单使用最终的支付金额。
@@ -804,7 +804,7 @@ public Response<Boolean> updateConfig(@RequestParam String key, @RequestParam St
 
 抽象
 
-![image-20250408155522466](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250408155522466.png)
+![image-20250408155522466](http://sthda9dn6.hd-bkt.clouddn.com/FsBb-DMhMAt2eLcNHGwKRX-tpaAG)
 
 简单的单例链
 
@@ -1002,7 +1002,7 @@ public class LinkedList<E> implements ILink<E> {
 
 2025-4-8 17:30
 
-![image-20250408175143439](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250408175143439.png)
+![image-20250408175143439](http://sthda9dn6.hd-bkt.clouddn.com/Ft7mFa7SSNbeW7WIK6nSRUaiACK0)
 
 该章节补充：过滤拼团活动配置的规则。包括；活动的有效期、状态，以及个人参与拼团的次数。
 
@@ -1130,7 +1130,7 @@ tradeRuleFilter.aaply(...)
 
 25/4/8 21:19
 
- ![image-20250408224034286](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250408224034286.png)
+ ![image-20250408224034286](http://sthda9dn6.hd-bkt.clouddn.com/FibqNji0Ee0IfoFnGG-u4FK-BHvJ)
 
 拼团的过程是用户在商城下单，锁定拼团优惠（也就是拼团系统里锁单的过程）。之后就是用户给这笔商品完成支付交易，交易后不会直接发货，直至拼团组队完成后才会发货。
 
@@ -1200,7 +1200,7 @@ public void settlementMarketPayOrder(GroupBuyTeamSettlementAggregate groupBuyTea
 
 ⏱️25/4/9 12:31
 
-![image-20250409152543493](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409152543493.png)
+![image-20250409152543493](http://sthda9dn6.hd-bkt.clouddn.com/FpSGuYmWq4FZbzRFomQj6MM06Xvm)
 
 本节诉求：
 
@@ -1382,7 +1382,7 @@ RPC、MQ，这一类的都是需要有一个公用的注册中心，它的技术
 
 注意：微信支付，支付宝支付，也是在完成支付后，做的这样的回调处理。
 
-![image-20250409153440408](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409153440408.png)
+![image-20250409153440408](http://sthda9dn6.hd-bkt.clouddn.com/FoxjZpAuwMdJMA1Pw0ySfe_zrWpx)
 
 💡**流程逻辑 1：锁单**
 
@@ -1539,9 +1539,9 @@ public String groupBuyNotify(String apiUrl, String notifyRequestDTOJSON) {
 
 ### 第2-15节：根据UI展示封装接口
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409202305147.png" alt="image-20250409202305147" style="zoom:60%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FkdkTAEsaBL2GhNuwdj2tG7ffvcw" alt="image-20250409202305147" style="zoom:60%;" />
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409202122844.png" alt="image-20250409202122844" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fme4e2W89LK_zNSWZM_cgIPgFi5Q" alt="image-20250409202122844" style="zoom:50%;" />
 
 
 
@@ -1708,7 +1708,7 @@ public List<UserGroupBuyOrderDetailEntity> queryInProgressUserGroupBuyOrderDetai
 // 结算 接口
 ```
 
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250410001830020.png" alt="image-20250410001830020" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FkDcIvtAlVhuiv8qwR_H_GNQcGtm" alt="image-20250410001830020" style="zoom:50%;" />
 
 
 

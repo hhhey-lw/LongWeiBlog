@@ -272,7 +272,7 @@
 <p>**项目背景：**为了盘活沉睡用户，需要适当降低商品价格。但为了达到传播的效果，所以需要引入拼团方式，以客带客，靠用户自身传播的方式进行交易拉新。这样的处理方式对比于 KOL，会让利商品价值到用户自身。</p>
 <h3 id="第1-2节-拼团库表设计">第1-2节 拼团库表设计<a hidden class="anchor" aria-hidden="true" href="#第1-2节-拼团库表设计">#</a></h3>
 <p><em><strong>业务流程：</strong></em></p>
-<p><img alt="image-20250323194301660" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250323194301660.png"></p>
+<p><img alt="image-20250323194301660" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FiI6jzJ8l7NKoKgTZcSoz3LzJqL1"></p>
 <ul>
 <li><em>运营角度：</em> 1. 给哪些商品配置拼单；2. 拼团商品提供的规则信息：折扣、时间、人数等。</li>
 <li><em>用户角度：</em> 1. 参与拼团，首次发起or参与现有，拼单完成回调通知。</li>
@@ -281,14 +281,14 @@
 </ul>
 <p><strong>库表设计：</strong></p>
 <p><em>拼团配置表</em>：</p>
-<p><img alt="image-20250323194814202" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250323194814202.png"></p>
+<p><img alt="image-20250323194814202" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FkAG47W_Dvi0nh84V_dSOYU0Ljd2"></p>
 <ul>
 <li>拼团活动表：设定了拼团的成团规则，人群标签的使用可以限定哪些人可见，哪些人可参与。</li>
 <li>折扣配置表：拆分出拼团优惠到一个新的表进行多条配置。如果折扣还有更多的复杂规则，则可以配置新的折扣规则表进行处理。</li>
 <li>人群标签表：专门来做人群设计记录的，这3张表就是为了把符合规则的人群ID，也就是用户ID，全部跑任务到一个记录下进行使用。 比如黑玫瑰人群、高净值人群、拼团履约率90%以上的人群等。</li>
 </ul>
 <p><em><strong>参与拼团表：</strong></em></p>
-<p><img alt="image-20250323195108167" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250323195108167.png"></p>
+<p><img alt="image-20250323195108167" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqOAEF4N91PNEdxvKoW0qT4GLpgt"></p>
 <ul>
 <li>拼团账户表：记录用户的拼团参与数据，一个是为了限制用户的参与拼团次数，另外是为了人群标签任务统计数据。</li>
 <li>用户拼单表：当有用户发起首次拼单的时候，产生拼单id，并记录所需成团的拼单记录，另外是写上拼团的状态、唯一索引、回调接口等。这样拼团完成就可以回调对接的平台，通知完成了。【微信支付也是这样的设计，回调支付结果，这样的设计可以方便平台化对接】当再有用户参与后，则写入用户拼单明细表。直至达成拼团</li>
@@ -303,15 +303,15 @@
 </ul>
 <p><strong>系统架构：</strong></p>
 <p><em>MVC架构</em></p>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323200411716.png" alt="image-20250323200411716" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FputTQmCOc_DT9IHR_Tue1UphgiB" alt="image-20250323200411716" style="zoom:50%;" />
 <p><em>DDD架构</em></p>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323200448795.png" alt="image-20250323200448795" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FtLoDQWtMfo0Tws2aSwFoLOq9d4a" alt="image-20250323200448795" style="zoom:50%;" />
 <h3 id="第2-2节-试算模型抽象模板设计">第2-2节 试算模型抽象模板设计<a hidden class="anchor" aria-hidden="true" href="#第2-2节-试算模型抽象模板设计">#</a></h3>
 <p><em><strong>引入设计模式进行解耦和实现，提高工程代码的扩展性</strong></em></p>
 <p>=&gt; 设计模式抽象模板的通用结构定义，添加一个 tree规则树抽象模型，在引入到工程中进行使用。这样后续工程中就可以不断的定义通用的设计模式被不同的场景统一使用了。</p>
 <p><strong>模型设计</strong></p>
 <p>链式的多分支规则树模型结构，由功能节点自行决定后续流程的执行链路。它的设计比责任链的扩展性更好，自由度也更高</p>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323212011895.png" alt="image-20250323212011895" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fs14rhSCUv1G2iJDaNAYovqrgCtI" alt="image-20250323212011895" style="zoom:50%;" />
 <ul>
 <li>首先，定义抽象的通用规则树模型结构
 <ul>
@@ -373,7 +373,7 @@
 <p><strong>首页试算</strong></p>
 <p>当一个用户进入到购物首页查看商品的优惠信息，我们可以把这个过程定义为试算过程。试算；试试算一下，这个用户进入到首页看这个商品的时候，商品的营销优惠信息。包括：原始价格、折扣价格、拼团目标、拼团时效、是否可见优惠、是否可参与拼团等，这些东西都是试算拿到的结果。</p>
 <p><strong>1. Model定义对象； 2. 服务功能实现，trial试算模块；3. 业务流转的功能节点</strong></p>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250323214143312.png" alt="image-20250323214143312" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FmCp8w1NlRoVcELrPMSLgz_FOgTt" alt="image-20250323214143312" style="zoom:50%;" />
 <p><strong>模型链路</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">IIndexGroupBuyMarketService</span><span class="w"> 
 </span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="o">=&gt;</span><span class="w"> </span><span class="n">RootNode</span><span class="w"> 
@@ -535,13 +535,13 @@
 </span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">IDiscountCalculateService</span><span class="o">&gt;</span><span class="w"> </span><span class="n">discountCalculateServiceMap</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><h3 id="第2-5节-人群标签数据采集">第2-5节 人群标签数据采集<a hidden class="anchor" aria-hidden="true" href="#第2-5节-人群标签数据采集">#</a></h3>
 <p>精准的对这些用户做定向活动投放，比如；特定的券、特定的通知等。以此达到更加精准的运营效果</p>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250324161606013.png" alt="image-20250324161606013" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fl7ziKeBDxruQ3SdNIT9zf-9gfB5" alt="image-20250324161606013" style="zoom:50%;" />
 <p>人群标签是根据用户业务行为采集的</p>
 <p><strong>数据库表：</strong></p>
 <p>crowd_tags ：统计功能；</p>
 <p>crowd_tags_detail：tag_id =&gt; user_id;  具体每个人群都有谁；</p>
 <p>crowd_tags_job：tag_id =&gt; batch_id, tag_relu:消费规则;</p>
-<p><img alt="image-20250324170251768" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250324170251768.png"></p>
+<p><img alt="image-20250324170251768" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FmlVSVsIZIR9I2OvUixXEBJMm5wu"></p>
 <p>流程：</p>
 <ol>
 <li>根据tag_id, batch_id 查询crowd_tags_job得到对应批次任务</li>
@@ -572,7 +572,7 @@
 </span></span></span></code></pre></div><hr>
 <h3 id="第2-6节-库表拆分">第2-6节 库表拆分<a hidden class="anchor" aria-hidden="true" href="#第2-6节-库表拆分">#</a></h3>
 <p>将商品SKU与活动表 解耦 =&gt; SKU&amp;Activity关联表。使得多个商品可以绑定同一个活动ID(优惠拼团活动)</p>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250324185432351.png" alt="image-20250324185432351" style="zoom: 67%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fpmlq6rL3i5VfewYyQm4iFQjKvGa" alt="image-20250324185432351" style="zoom: 67%;" />
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="err">#</span><span class="w"> </span><span class="n">Market节点</span><span class="w"> </span><span class="n">判断</span><span class="w"> </span><span class="n">商品是否存在优惠活动</span><span class="w">
 </span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="o">=&gt;</span><span class="w"> </span><span class="n">ErrorNode</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">不存在优惠活动</span><span class="w">
 </span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="o">=&gt;</span><span class="w"> </span><span class="n">EndNode</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">返回优惠的试算价格</span><span class="w">    
@@ -602,7 +602,7 @@
 </span></span></span></code></pre></div><hr>
 <h3 id="第2-7节-人群标签节点过滤">第2-7节 人群标签节点过滤<a hidden class="anchor" aria-hidden="true" href="#第2-7节-人群标签节点过滤">#</a></h3>
 <p>限制拼团的人群</p>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250324214800601.png" alt="image-20250324214800601" style="zoom:67%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fq0dYRQTWGX5WxsW8ayFT00f_f9c" alt="image-20250324214800601" style="zoom:67%;" />
 <p>流程1：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">MarketNode</span><span class="w"> </span><span class="o">=&gt;</span><span class="w">  </span><span class="n">TagNode</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">EndNode</span><span class="w">
 </span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// TagNode 检查请求的用户是否 能看见拼团，是否参与拼团  tag_scope = {1,2} 第一位限制是否可见，第二位是否限制参与</span><span class="w">
@@ -640,7 +640,7 @@
 <p>目的：如何不停车就给汽车换个轮子？</p>
 <p>=&gt; 在程序运行过程中，直接动态变更某些属性配置。这些动态变更的配置包括降级和切量的开关，也包括一些功能程序的白名单用户测试。</p>
 <p><strong>使用Redis作为集中化储存系统的好处，方便一处修改变量，通知所有的实例进行变更！</strong></p>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250324220542463.png" alt="image-20250324220542463" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpD9HrVow32o0uQLmC8s38KAvj-m" alt="image-20250324220542463" style="zoom:50%;" />
 <p><strong>流量降级或切量</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// 自定义注解</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span><span class="w">
@@ -836,7 +836,7 @@
 <h3 id="第2-9节-拼团交易营销锁单">第2-9节 拼团交易营销锁单<a hidden class="anchor" aria-hidden="true" href="#第2-9节-拼团交易营销锁单">#</a></h3>
 <p>25/3/25/ 20:37</p>
 <p>完整的业务流程如下：</p>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250325203753717.png" alt="image-20250325203753717" style="zoom: 80%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fn3pgRYz7BPBei64sWeiiob2YqQH" alt="image-20250325203753717" style="zoom: 80%;" />
 <ul>
 <li>首先，团购商品下单。下单过程分为：创建流水单、锁定营销优惠（拼团、积分、卷），创建支付订单、唤起收银台支付、用户扫码支付、支付完成核销优惠等。</li>
 <li>用户以拼团的方式下单，创建流水单完成后，需要与拼团系统交互，锁定营销优惠。更新流水单优惠金额和支付金额。创建订单使用最终的支付金额。</li>
@@ -865,7 +865,7 @@
 <p>25/4/8/ 15:53</p>
 <p>先前的责任链模板都是写死的。本章内容为：将每个节点的执行逻辑和链接逻辑解耦。</p>
 <p>抽象</p>
-<p><img alt="image-20250408155522466" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250408155522466.png"></p>
+<p><img alt="image-20250408155522466" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FsBb-DMhMAt2eLcNHGwKRX-tpaAG"></p>
 <p>简单的单例链</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// 1. IlogicChainArmory:   装配链，提供添加节点方法和获取节点</span><span class="w">
 </span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="c1">// 		next()</span><span class="w">
@@ -1039,7 +1039,7 @@
 </span></span></span><span class="line"><span class="ln">142</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><h3 id="第2-11节-交易规则责任链过滤">第2-11节 交易规则责任链过滤<a hidden class="anchor" aria-hidden="true" href="#第2-11节-交易规则责任链过滤">#</a></h3>
 <p>2025-4-8 17:30</p>
-<p><img alt="image-20250408175143439" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250408175143439.png"></p>
+<p><img alt="image-20250408175143439" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Ft7mFa7SSNbeW7WIK6nSRUaiACK0"></p>
 <p>该章节补充：过滤拼团活动配置的规则。包括；活动的有效期、状态，以及个人参与拼团的次数。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// Logic chain</span><span class="w">
 </span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="c1">// 1. 检查参数</span><span class="w">
@@ -1136,7 +1136,7 @@
 </span></span></span></code></pre></div><hr>
 <h3 id="第2-12节拼团组队结算统计">第2-12节：拼团组队结算统计<a hidden class="anchor" aria-hidden="true" href="#第2-12节拼团组队结算统计">#</a></h3>
 <p>25/4/8 21:19</p>
-<p><img alt="image-20250408224034286" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250408224034286.png"></p>
+<p><img alt="image-20250408224034286" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FibqNji0Ee0IfoFnGG-u4FK-BHvJ"></p>
 <p>拼团的过程是用户在商城下单，锁定拼团优惠（也就是拼团系统里锁单的过程）。之后就是用户给这笔商品完成支付交易，交易后不会直接发货，直至拼团组队完成后才会发货。</p>
 <p>那么，这里有一个流程，就是支付完成后，需要做拼团数量的统计结算。如，拼团需要3个用户一起下单，那么每完成一笔支付，就要给拼团的组队加上一笔记录。这个就是本节要实现的流程。</p>
 <p>⭐⭐⭐ 所有用户完成支付后, 最后一个用户的结算触发回调事件!</p>
@@ -1193,7 +1193,7 @@
 <hr>
 <h3 id="第2-13节交易结算责任链过滤"><strong>第2-13节：交易结算责任链过滤</strong><a hidden class="anchor" aria-hidden="true" href="#第2-13节交易结算责任链过滤">#</a></h3>
 <p>⏱️25/4/9 12:31</p>
-<p><img alt="image-20250409152543493" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250409152543493.png"></p>
+<p><img alt="image-20250409152543493" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FpSGuYmWq4FZbzRFomQj6MM06Xvm"></p>
 <p>本节诉求：</p>
 <p>拼团交易结算的过程，需要一些列的规则过滤。包括；我们上一节提到的校验外部交易单的时间是否在拼团有效时间内，同时还有关于这笔外部交易单是否为有效的拼团锁单订单。另外像是 SC 渠道的有效性也需要在结算时进行校验。</p>
 <p>所以，本节我们需要实现一套规则链，来处理这些业务规则。因为规则链已经被抽取为通用的模板了，那么本节使用起来会非常容易。</p>
@@ -1336,7 +1336,7 @@
 <p>拼团组队交易结算完结后，实现一个回调通知的任务处理。告知另外的微服务系统可以进行后续的流程了。</p>
 <p>RPC、MQ，这一类的都是需要有一个公用的注册中心，它的技术架构比较适合于公司内部的统一系统使用。如果是有和外部其他系统的对接，通常我们会使用 HTTP 这样统一标准协议的接口进行使用。</p>
 <p>注意：微信支付，支付宝支付，也是在完成支付后，做的这样的回调处理。</p>
-<p><img alt="image-20250409153440408" loading="lazy" src="c:\\Users\\韦龙\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250409153440408.png"></p>
+<p><img alt="image-20250409153440408" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FoxjZpAuwMdJMA1Pw0ySfe_zrWpx"></p>
 <p>💡<strong>流程逻辑 1：锁单</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// 1. 检查锁单请求信息 - 请求参数是否为Null or 空串</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="c1">// 2. 检查outTradeNo是否重复锁单 - 检查检查outTradeNo是否重复锁单是否存在</span><span class="w">
@@ -1476,8 +1476,8 @@
 </span></span></span><span class="line"><span class="ln">100</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><hr>
 <h3 id="第2-15节根据ui展示封装接口">第2-15节：根据UI展示封装接口<a hidden class="anchor" aria-hidden="true" href="#第2-15节根据ui展示封装接口">#</a></h3>
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409202305147.png" alt="image-20250409202305147" style="zoom:60%;" />
-<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250409202122844.png" alt="image-20250409202122844" style="zoom:50%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/FkdkTAEsaBL2GhNuwdj2tG7ffvcw" alt="image-20250409202305147" style="zoom:60%;" />
+<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fme4e2W89LK_zNSWZM_cgIPgFi5Q" alt="image-20250409202122844" style="zoom:50%;" />
 <ul>
 <li>
 <p>紫色圈：拼团的统计信息；</p>
@@ -1641,7 +1641,7 @@
 </span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="c1">// outTradeNo - 调用第三方支付生成</span><span class="w">
 </span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="err">⬇</span><span class="n">️</span><span class="w">
 </span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="c1">// 结算 接口</span><span class="w">
-</span></span></span></code></pre></div><img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250410001830020.png" alt="image-20250410001830020" style="zoom:50%;" />
+</span></span></span></code></pre></div><img src="http://sthda9dn6.hd-bkt.clouddn.com/FkDcIvtAlVhuiv8qwR_H_GNQcGtm" alt="image-20250410001830020" style="zoom:50%;" />
 <hr>
 
 
