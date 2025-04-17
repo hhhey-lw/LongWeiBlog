@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://longcoding.top/categories/</loc>
-    <lastmod>2025-03-23T19:36:21+08:00</lastmod>
-  </url><url>
     <loc>http://longcoding.top/</loc>
-    <lastmod>2025-03-23T19:36:21+08:00</lastmod>
+    <lastmod>2025-04-11T16:45:11+08:00</lastmod>
   </url><url>
     <loc>http://longcoding.top/posts/</loc>
+    <lastmod>2025-04-11T16:45:11+08:00</lastmod>
+  </url><url>
+    <loc>http://longcoding.top/posts/jobs/mq/</loc>
+    <lastmod>2025-04-11T16:45:11+08:00</lastmod>
+  </url><url>
+    <loc>http://longcoding.top/categories/</loc>
     <lastmod>2025-03-23T19:36:21+08:00</lastmod>
   </url><url>
     <loc>http://longcoding.top/categories/projects/</loc>
@@ -46,6 +49,9 @@
   </url><url>
     <loc>http://longcoding.top/posts/jobs/collection/</loc>
     <lastmod>2025-03-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://longcoding.top/posts/jobs/java_project_highlight/</loc>
+    <lastmod>2025-03-11T16:45:11+08:00</lastmod>
   </url><url>
     <loc>http://longcoding.top/tags/jvm/</loc>
     <lastmod>2025-03-08T00:00:00+00:00</lastmod>
@@ -118,6 +124,10 @@
   </url><url>
     <loc>http://longcoding.top/posts/learning/paper_reading2/</loc>
     <lastmod>2024-04-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://longcoding.top/posts/jobs/scene_interview_ques/</loc>
+  </url><url>
+    <loc>http://longcoding.top/posts/jobs/spring/</loc>
   </url><url>
     <loc>http://longcoding.top/archives/</loc>
   </url><url>

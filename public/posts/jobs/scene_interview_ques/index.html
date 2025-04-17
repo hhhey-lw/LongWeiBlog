@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>LeetCode | LongCoding&#39;s Blog</title>
+<title>LongCoding&#39;s Blog</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
+<meta name="description" content=" - LongCoding&#39;s Blog">
 <meta name="author" content="👨🏻‍🎓 LongWei">
-<link rel="canonical" href="http://longcoding.top/series/leetcode/">
+<link rel="canonical" href="http://longcoding.top/posts/jobs/scene_interview_ques/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://longcoding.top/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://longcoding.top/favicon-16x16.png">
@@ -18,8 +18,7 @@
 <link rel="mask-icon" href="http://longcoding.top/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://longcoding.top/series/leetcode/index.xml">
-<link rel="alternate" hreflang="en" href="http://longcoding.top/series/leetcode/">
+<link rel="alternate" hreflang="en" href="http://longcoding.top/posts/jobs/scene_interview_ques/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,20 +55,75 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="http://longcoding.top/series/leetcode/">
+</noscript><meta property="og:url" content="http://longcoding.top/posts/jobs/scene_interview_ques/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
-  <meta property="og:title" content="LeetCode">
+  <meta property="og:title" content="LongCoding&#39;s Blog">
   <meta property="og:locale" content="en">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
       <meta property="og:image" content="http://longcoding.top/papermod-cover.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://longcoding.top/papermod-cover.png">
-<meta name="twitter:title" content="LeetCode">
+<meta name="twitter:title" content="">
 <meta name="twitter:description" content="">
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://longcoding.top/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "",
+      "item": "http://longcoding.top/posts/jobs/scene_interview_ques/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "",
+  "name": "",
+  "description": "",
+  "keywords": [
+    
+  ],
+  "articleBody": "",
+  "wordCount" : "0",
+  "inLanguage": "en",
+  "image": "http://longcoding.top/papermod-cover.png","datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "👨🏻‍🎓 LongWei"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://longcoding.top/posts/jobs/scene_interview_ques/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LongCoding's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://longcoding.top/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -144,24 +198,37 @@
         </ul>
     </nav>
 </header>
-<main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="http://longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="http://longcoding.top/series/">Series</a></div>
-  <h1>
-    LeetCode
-  </h1>
-</header>
+<main class="main">
 
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">高频SQL50题刷题笔记
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>高频SQL50题 查询 Where&amp;GroupBy&amp;HAVING 1SELECT id, revenue # 某个用户2021年可能有多项记录 2FROM users 3Where year = 2021 4 5SELECT id, SUM(revenue) 6FROM users 7Where year = 2021 # 1. 先筛选出此年份所有记录 8Group By id # 2. 再根据id分组 3. 必须结合SUM() 或者其他聚合函数，因此这个有多列，需要处理为单值。 9 10SELECT id 11FROM users 12Where year = 2021 # 1. 先筛选记录 13Group By id # 2. 分组 14HAVING SUM(revenue) &gt; 1000 # 3. 聚合分组字段记录 并 判断 查找没买过东西的顾客 1# 1. NOT EXISTS 2SELECT `name` AS `Customers` 3FROM `Customers` AS c 4WHERE NOT EXISTS ( 5 SELECT `customerId` 6 FROM `Orders` AS o 7 Where o.customerId = c.id 8) 1# 2. Left Join 2# example 3SELECT c.id AS id, c.name, o.id AS oid 4FROM customers AS c LEFT JOIN orders AS o 5on c.id = o.customerId 6 7SELECT `name` as `Customers` 8FROM customers AS c LEFT JOIN orders AS o 9on c.id = o.customerId 10WHERE o.id is NULL 计算特殊奖金 编写解决方案，计算每个雇员的奖金。如果一个雇员的 id 是 奇数 并且他的名字不是以 &#39;M&#39; 开头，那么他的奖金是他工资的 100% ，否则奖金为 0 。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-11-24 00:00:00 +0000 UTC'>November 24, 2024</span>&nbsp;·&nbsp;14 min&nbsp;·&nbsp;2965 words&nbsp;·&nbsp;LongWei</footer>
-  <a class="entry-link" aria-label="post link to 高频SQL50题刷题笔记" href="http://longcoding.top/posts/leetcode/leetcode_sql/"></a>
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="http://longcoding.top/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      
+    </h1>
+    <div class="post-meta">0 min&nbsp;·&nbsp;0 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei
+
+</div>
+  </header> 
+
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://longcoding.top/posts/learning/paper_reading2/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>深度学习论文汇总2</span>
+  </a>
+  <a class="next" href="http://longcoding.top/posts/jobs/spring/">
+    <span class="title">Next »</span>
+    <br>
+    <span></span>
+  </a>
+</nav>
+
+  </footer>
 </article>
     </main>
     
@@ -233,6 +300,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 

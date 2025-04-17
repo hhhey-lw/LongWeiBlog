@@ -65,7 +65,7 @@ params:
         favicon16x16: favicon-16x16.png
     profileMode:
         enabled: true
-        title: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰"
+        title: "𝓗𝓮𝓵𝓵𝓸 𝓦𝓸𝓻𝓵𝓭"
         imageUrl: "images/avatar.png"
         imageTitle: "LongWei image"
         imageWidth: 200
@@ -81,10 +81,8 @@ params:
     socialIcons:
         - name: github
           url: "https://github.com/hhhey-lw"
-        - name: tiktok
-          url: " https://v.douyin.com/IsEQU-ZVnik/ 9@7.com :3pm"
     label:
-        text: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰'𝓼 𝓑𝓵𝓸𝓰"
+        text: "𝓛𝓸𝓷𝓰𝓒𝓸𝓭𝓲𝓷𝓰"
         icon: "android-icon-48x48.png"
         iconHeight: 30
   
