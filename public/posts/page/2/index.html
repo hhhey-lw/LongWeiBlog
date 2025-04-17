@@ -168,6 +168,27 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Java面试题笔记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>415 序列化&amp;反序列化 将Object转为字节流，或反之
+普通：实现serializable接口 ˈsɪərɪəlaɪzəbl 使用Jackon，Obj =&gt; json格式 416 Java中的不可变类 final 修饰，例如String类
+🎉优点：
+线程安全 缓存友好 缺点
+性能问题，因为不能修改，所有每次状态变化，都需要生成新的对象。 411 多态特性 继承 方法重载，函数名相同，但是函数签名需要有差异(参数类型&amp;数量) 重写，子类重写父类方法，通过父类调用方法时，调用的是子类重写后的函数。 412 Java参数传值是副本还是引用呢？ 基本类型是传值副本，int… 引用数据类型是传引用副本。 including：obj，array 425 Java中 包装类型和基本类型 🏷️基本类型 =&gt; int long float double … 位于栈上(局部变量的话) ，性能好，但不支持为null
+（局部变量在栈上，成员变量在堆上，静态字段在方法区）
+🏷️包装类型 =&gt; 每一个基本类型都对应一个包装类型。包装类型是类，在堆中，支持null
+JVM内存模型 ❗❗❗内存堆和数据结构堆不是同一个东西(不是堆的结构)
+1&#43;--------------------------------------------&#43; 2| 方法区（Method Area） | ← 线程共享 3| - 类元数据（Class 信息） | 4| - 静态变量（static 变量） | 5| - 常量池（字符串常量等） | 6&#43;--------------------------------------------&#43; 7 ↑ ↑ 8 | | 9&#43;----------------&#43; &#43;-----------------&#43; 10| 栈（Stack） | | 堆（Heap） | ← 线程共享 11| - 局部变量 | | - Java 对象实例 | 12| - 方法调用栈 | | - 数组 | 13&#43;----------------&#43; &#43;-----------------&#43; 413 interface &amp; abstract class interface(自上而下) 知晓某一种行为，基于这些行为约束定义的接口， 一些类需要有这些行为的话，需要实现这些接口 abstract class(自下而上): 有许多类，它们有共同点，很多代码可以复用，因此将公共逻辑封装为抽象对象。 100 hashCode &amp; equals &amp; == hashCode用于散列表(hashMap)用于计算hash值，从而计算存储位置；
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-19 00:00:00 +0000 UTC'>February 19, 2025</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;1389 words&nbsp;·&nbsp;LongWei</footer>
+  <a class="entry-link" aria-label="post link to Java面试题笔记" href="http://longcoding.top/posts/jobs/java/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">高频SQL50题刷题笔记
     </h2>
   </header>
@@ -308,41 +329,6 @@ ReLU的作用，只对对感兴趣的类别有积极影响的特征感兴趣。�
   </div>
   <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;19 min&nbsp;·&nbsp;3878 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 深度学习论文汇总2" href="http://longcoding.top/posts/learning/paper_reading2/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p></p>
-  </div>
-  <footer class="entry-footer">0 min&nbsp;·&nbsp;0 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei</footer>
-  <a class="entry-link" aria-label="post link to " href="http://longcoding.top/posts/jobs/scene_interview_ques/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>1. 什么是循环依赖 两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。
-=&gt; 多个Bean循环引用导致Spring容器无法正常初始化它们。
-延迟某些Bean的初始化时间，使用@Lazy进行懒加载，只有当实际使用了该对象才创建。
-2. Spring如何解决循环依赖 提前暴露未完全创建的Bean
-三级缓存解决：
-一级缓存(Single Objects Map)：用于初始化单例Bean； (成品) 二级缓存(Early Singleton Objects Map): 用于存储尚未完全初始化，但实例化的Bean，用于提取暴露对象，避免循环依赖问题；(半成品，成员变量未初始化) 三级缓存(Singleton Factories Map): 用于存储对象工厂，可以通过工厂创建早期Bean **解决步骤：**例如AB两个相互依赖，三级缓存策略
-创建A，查询一级缓存看看有没有完全体B，没有则看看二级缓存有没有半成品B，都没有则创建A的Bean，调用ceateBean方法(实例化，属性注入，初始化)； 之后，A往三级缓存加入一个A的getObject方法 到了属性注入，因为A依赖B，那么需要创建B。同样的路线，B查询到二级缓存都没发现A，调用createBean创建B实例。到了B的属性注入，发现三级缓存有A工厂，调用getObject创建半成品A，放到二级缓存中，完成B的第二步属性注入。后面initializeBean完成B的创建，并放到一级缓存中。 回到A，A调用一级缓存的B完成注入。 未解决的问题：
-而如果说 A 是构造器注入，B 是 set 注入。则说明 A 需要 B 的时刻提前了，在实例化 new A(B b)的时候就需要 B。此时 A 没有往三级缓存放getObject，因此到了创建依赖 B的时候，无法获取 A的 getObject 工厂方法，只能继续 new A，造成循环依赖的死循环。
-4. Spring重要的模块组成 Core Container 核心容器：
-Spring Core：提供依赖注入DI和控制反转IOC的实现。 Spring Beans：负责管理Bean的定义和生命周期，通过IOC完成Bean的创建、依赖注入、初始化、销毁等操作； Spring Context：基于Core和Beans的高级容器，提供类似JNDI的上下文功能，包含国际化、事件传播、资源访问等功能； Spring Expression Language：用于运行时查询和操作对象的值。 AOP面向切面编程
-Spring AOP：提供面向切面编程的功能，可以在方法执行前后或抛出异常时动态插入额外的业务逻辑。 Data Access 数据访问
-...</p>
-  </div>
-  <footer class="entry-footer">3 min&nbsp;·&nbsp;516 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei</footer>
-  <a class="entry-link" aria-label="post link to " href="http://longcoding.top/posts/jobs/spring/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -410,6 +410,46 @@
 &lt;p&gt;&lt;img alt=&#34;image-20250307175456538&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/Fo9jCIPyRQ866mnZdasVsUwqao1j&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Spring笔记</title>
+      <link>http://longcoding.top/posts/jobs/spring/</link>
+      <pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>http://longcoding.top/posts/jobs/spring/</guid>
+      <description>&lt;h3 id=&#34;1-什么是循环依赖&#34;&gt;1. 什么是循环依赖&lt;/h3&gt;
+&lt;p&gt;两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。&lt;/p&gt;
+&lt;p&gt;=&amp;gt; 多个Bean循环引用导致Spring容器无法正常初始化它们。&lt;/p&gt;
+&lt;p&gt;延迟某些Bean的初始化时间，使用@Lazy进行懒加载，只有当实际使用了该对象才创建。&lt;/p&gt;
+&lt;h3 id=&#34;2-spring如何解决循环依赖&#34;&gt;2. Spring如何解决循环依赖&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;提前暴露未完全创建的Bean&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;三级缓存解决：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一级缓存(Single Objects Map)：用于初始化单例Bean； (成品)&lt;/li&gt;
+&lt;li&gt;二级缓存(Early Singleton Objects Map): 用于存储尚未完全初始化，但实例化的Bean，用于提取暴露对象，避免循环依赖问题；(半成品，成员变量未初始化)&lt;/li&gt;
+&lt;li&gt;三级缓存(Singleton Factories Map): 用于存储对象工厂，可以通过工厂创建早期Bean&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;**解决步骤：**例如AB两个相互依赖，三级缓存策略&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建A，查询一级缓存看看有没有完全体B，没有则看看二级缓存有没有半成品B，都没有则创建A的Bean，调用ceateBean方法(实例化，属性注入，初始化)；&lt;/li&gt;
+&lt;li&gt;之后，A往&lt;strong&gt;三级缓存&lt;/strong&gt;加入一个A的getObject方法&lt;/li&gt;
+&lt;li&gt;到了属性注入，因为A依赖B，那么需要创建B。同样的路线，B查询到二级缓存都没发现A，调用createBean创建B实例。到了B的属性注入，发现三级缓存有A工厂，调用getObject创建半成品A，放到二级缓存中，完成B的第二步属性注入。后面initializeBean完成B的创建，并放到一级缓存中。&lt;/li&gt;
+&lt;li&gt;回到A，A调用一级缓存的B完成注入。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;未解决的问题：&lt;/p&gt;
+&lt;p&gt;而如果说 A 是构造器注入，B 是 set 注入。则说明 A 需要 B 的时刻提前了，在实例化 new A(B b)的时候就需要 B。此时 A 没有往三级缓存放getObject，因此到了创建依赖 B的时候，无法获取 A的 getObject 工厂方法，只能继续 new A，造成循环依赖的死循环。&lt;/p&gt;
+&lt;h3 id=&#34;4-spring重要的模块组成&#34;&gt;4. Spring重要的模块组成&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Core Container 核心容器：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Spring Core：提供依赖注入DI和控制反转IOC的实现。&lt;/li&gt;
+&lt;li&gt;Spring Beans：负责管理Bean的定义和生命周期，通过IOC完成Bean的创建、依赖注入、初始化、销毁等操作；&lt;/li&gt;
+&lt;li&gt;Spring Context：基于Core和Beans的高级容器，提供类似JNDI的上下文功能，包含国际化、事件传播、资源访问等功能；&lt;/li&gt;
+&lt;li&gt;Spring Expression Language：用于运行时查询和操作对象的值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;AOP面向切面编程&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Spring AOP：提供面向切面编程的功能，可以在方法执行前后或抛出异常时动态插入额外的业务逻辑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Data Access 数据访问&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Java面试题笔记</title>
       <link>http://longcoding.top/posts/jobs/java/</link>
       <pubDate>Wed, 19 Feb 2025 00:00:00 +0000</pubDate>
@@ -793,53 +833,6 @@ $$&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;				  但缺乏显示细粒度重要性的能力 （能区分猫狗，但对为什么识别为猫，不够精确）
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;通过点乘法融合 &lt;strong&gt;引导反向传播&lt;/strong&gt; 和 &lt;strong&gt;Grad-CAM&lt;/strong&gt; =&amp;gt; 可视化&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://longcoding.top/posts/jobs/scene_interview_ques/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://longcoding.top/posts/jobs/scene_interview_ques/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://longcoding.top/posts/jobs/spring/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://longcoding.top/posts/jobs/spring/</guid>
-      <description>&lt;h3 id=&#34;1-什么是循环依赖&#34;&gt;1. 什么是循环依赖&lt;/h3&gt;
-&lt;p&gt;两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。&lt;/p&gt;
-&lt;p&gt;=&amp;gt; 多个Bean循环引用导致Spring容器无法正常初始化它们。&lt;/p&gt;
-&lt;p&gt;延迟某些Bean的初始化时间，使用@Lazy进行懒加载，只有当实际使用了该对象才创建。&lt;/p&gt;
-&lt;h3 id=&#34;2-spring如何解决循环依赖&#34;&gt;2. Spring如何解决循环依赖&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;提前暴露未完全创建的Bean&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;三级缓存解决：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;一级缓存(Single Objects Map)：用于初始化单例Bean； (成品)&lt;/li&gt;
-&lt;li&gt;二级缓存(Early Singleton Objects Map): 用于存储尚未完全初始化，但实例化的Bean，用于提取暴露对象，避免循环依赖问题；(半成品，成员变量未初始化)&lt;/li&gt;
-&lt;li&gt;三级缓存(Singleton Factories Map): 用于存储对象工厂，可以通过工厂创建早期Bean&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;**解决步骤：**例如AB两个相互依赖，三级缓存策略&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;创建A，查询一级缓存看看有没有完全体B，没有则看看二级缓存有没有半成品B，都没有则创建A的Bean，调用ceateBean方法(实例化，属性注入，初始化)；&lt;/li&gt;
-&lt;li&gt;之后，A往&lt;strong&gt;三级缓存&lt;/strong&gt;加入一个A的getObject方法&lt;/li&gt;
-&lt;li&gt;到了属性注入，因为A依赖B，那么需要创建B。同样的路线，B查询到二级缓存都没发现A，调用createBean创建B实例。到了B的属性注入，发现三级缓存有A工厂，调用getObject创建半成品A，放到二级缓存中，完成B的第二步属性注入。后面initializeBean完成B的创建，并放到一级缓存中。&lt;/li&gt;
-&lt;li&gt;回到A，A调用一级缓存的B完成注入。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;未解决的问题：&lt;/p&gt;
-&lt;p&gt;而如果说 A 是构造器注入，B 是 set 注入。则说明 A 需要 B 的时刻提前了，在实例化 new A(B b)的时候就需要 B。此时 A 没有往三级缓存放getObject，因此到了创建依赖 B的时候，无法获取 A的 getObject 工厂方法，只能继续 new A，造成循环依赖的死循环。&lt;/p&gt;
-&lt;h3 id=&#34;4-spring重要的模块组成&#34;&gt;4. Spring重要的模块组成&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Core Container 核心容器：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Spring Core：提供依赖注入DI和控制反转IOC的实现。&lt;/li&gt;
-&lt;li&gt;Spring Beans：负责管理Bean的定义和生命周期，通过IOC完成Bean的创建、依赖注入、初始化、销毁等操作；&lt;/li&gt;
-&lt;li&gt;Spring Context：基于Core和Beans的高级容器，提供类似JNDI的上下文功能，包含国际化、事件传播、资源访问等功能；&lt;/li&gt;
-&lt;li&gt;Spring Expression Language：用于运行时查询和操作对象的值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;AOP面向切面编程&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Spring AOP：提供面向切面编程的功能，可以在方法执行前后或抛出异常时动态插入额外的业务逻辑。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Data Access 数据访问&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>About Me</title>

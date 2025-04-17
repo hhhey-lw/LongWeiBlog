@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>LongCoding&#39;s Blog</title>
-<meta name="keywords" content="">
+<title>Spring笔记 | LongCoding&#39;s Blog</title>
+<meta name="keywords" content="spring">
 <meta name="description" content="1. 什么是循环依赖
 两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。
 =&gt; 多个Bean循环引用导致Spring容器无法正常初始化它们。
@@ -41,7 +41,7 @@ AOP面向切面编程
 Spring AOP：提供面向切面编程的功能，可以在方法执行前后或抛出异常时动态插入额外的业务逻辑。
 
 Data Access 数据访问">
-<meta name="author" content="👨🏻‍🎓 LongWei">
+<meta name="author" content="LongWei">
 <link rel="canonical" href="http://longcoding.top/posts/jobs/spring/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://longcoding.top/favicon.ico">
@@ -90,7 +90,7 @@ Data Access 数据访问">
     </style>
 </noscript><meta property="og:url" content="http://longcoding.top/posts/jobs/spring/">
   <meta property="og:site_name" content="LongCoding&#39;s Blog">
-  <meta property="og:title" content="LongCoding&#39;s Blog">
+  <meta property="og:title" content="Spring笔记">
   <meta property="og:description" content="1. 什么是循环依赖 两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。
 =&gt; 多个Bean循环引用导致Spring容器无法正常初始化它们。
 延迟某些Bean的初始化时间，使用@Lazy进行懒加载，只有当实际使用了该对象才创建。
@@ -105,10 +105,19 @@ Spring AOP：提供面向切面编程的功能，可以在方法执行前后或�
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-01T00:00:00+00:00">
+    <meta property="article:tag" content="Spring">
       <meta property="og:image" content="http://longcoding.top/papermod-cover.png">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/collection/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/jvm/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/juc/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/mysql/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/redis/">
+      <meta property="og:see_also" content="http://longcoding.top/posts/jobs/java/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://longcoding.top/papermod-cover.png">
-<meta name="twitter:title" content="">
+<meta name="twitter:title" content="Spring笔记">
 <meta name="twitter:description" content="1. 什么是循环依赖
 两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。
 =&gt; 多个Bean循环引用导致Spring容器无法正常初始化它们。
@@ -159,7 +168,7 @@ Data Access 数据访问">
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "",
+      "name": "Spring笔记",
       "item": "http://longcoding.top/posts/jobs/spring/"
     }
   ]
@@ -169,20 +178,20 @@ Data Access 数据访问">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "",
-  "name": "",
+  "headline": "Spring笔记",
+  "name": "Spring笔记",
   "description": "1. 什么是循环依赖 两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。\n=\u0026gt; 多个Bean循环引用导致Spring容器无法正常初始化它们。\n延迟某些Bean的初始化时间，使用@Lazy进行懒加载，只有当实际使用了该对象才创建。\n2. Spring如何解决循环依赖 提前暴露未完全创建的Bean\n三级缓存解决：\n一级缓存(Single Objects Map)：用于初始化单例Bean； (成品) 二级缓存(Early Singleton Objects Map): 用于存储尚未完全初始化，但实例化的Bean，用于提取暴露对象，避免循环依赖问题；(半成品，成员变量未初始化) 三级缓存(Singleton Factories Map): 用于存储对象工厂，可以通过工厂创建早期Bean **解决步骤：**例如AB两个相互依赖，三级缓存策略\n创建A，查询一级缓存看看有没有完全体B，没有则看看二级缓存有没有半成品B，都没有则创建A的Bean，调用ceateBean方法(实例化，属性注入，初始化)； 之后，A往三级缓存加入一个A的getObject方法 到了属性注入，因为A依赖B，那么需要创建B。同样的路线，B查询到二级缓存都没发现A，调用createBean创建B实例。到了B的属性注入，发现三级缓存有A工厂，调用getObject创建半成品A，放到二级缓存中，完成B的第二步属性注入。后面initializeBean完成B的创建，并放到一级缓存中。 回到A，A调用一级缓存的B完成注入。 未解决的问题：\n而如果说 A 是构造器注入，B 是 set 注入。则说明 A 需要 B 的时刻提前了，在实例化 new A(B b)的时候就需要 B。此时 A 没有往三级缓存放getObject，因此到了创建依赖 B的时候，无法获取 A的 getObject 工厂方法，只能继续 new A，造成循环依赖的死循环。\n4. Spring重要的模块组成 Core Container 核心容器：\nSpring Core：提供依赖注入DI和控制反转IOC的实现。 Spring Beans：负责管理Bean的定义和生命周期，通过IOC完成Bean的创建、依赖注入、初始化、销毁等操作； Spring Context：基于Core和Beans的高级容器，提供类似JNDI的上下文功能，包含国际化、事件传播、资源访问等功能； Spring Expression Language：用于运行时查询和操作对象的值。 AOP面向切面编程\nSpring AOP：提供面向切面编程的功能，可以在方法执行前后或抛出异常时动态插入额外的业务逻辑。 Data Access 数据访问\n",
   "keywords": [
-    
+    "spring"
   ],
   "articleBody": "1. 什么是循环依赖 两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。\n=\u003e 多个Bean循环引用导致Spring容器无法正常初始化它们。\n延迟某些Bean的初始化时间，使用@Lazy进行懒加载，只有当实际使用了该对象才创建。\n2. Spring如何解决循环依赖 提前暴露未完全创建的Bean\n三级缓存解决：\n一级缓存(Single Objects Map)：用于初始化单例Bean； (成品) 二级缓存(Early Singleton Objects Map): 用于存储尚未完全初始化，但实例化的Bean，用于提取暴露对象，避免循环依赖问题；(半成品，成员变量未初始化) 三级缓存(Singleton Factories Map): 用于存储对象工厂，可以通过工厂创建早期Bean **解决步骤：**例如AB两个相互依赖，三级缓存策略\n创建A，查询一级缓存看看有没有完全体B，没有则看看二级缓存有没有半成品B，都没有则创建A的Bean，调用ceateBean方法(实例化，属性注入，初始化)； 之后，A往三级缓存加入一个A的getObject方法 到了属性注入，因为A依赖B，那么需要创建B。同样的路线，B查询到二级缓存都没发现A，调用createBean创建B实例。到了B的属性注入，发现三级缓存有A工厂，调用getObject创建半成品A，放到二级缓存中，完成B的第二步属性注入。后面initializeBean完成B的创建，并放到一级缓存中。 回到A，A调用一级缓存的B完成注入。 未解决的问题：\n而如果说 A 是构造器注入，B 是 set 注入。则说明 A 需要 B 的时刻提前了，在实例化 new A(B b)的时候就需要 B。此时 A 没有往三级缓存放getObject，因此到了创建依赖 B的时候，无法获取 A的 getObject 工厂方法，只能继续 new A，造成循环依赖的死循环。\n4. Spring重要的模块组成 Core Container 核心容器：\nSpring Core：提供依赖注入DI和控制反转IOC的实现。 Spring Beans：负责管理Bean的定义和生命周期，通过IOC完成Bean的创建、依赖注入、初始化、销毁等操作； Spring Context：基于Core和Beans的高级容器，提供类似JNDI的上下文功能，包含国际化、事件传播、资源访问等功能； Spring Expression Language：用于运行时查询和操作对象的值。 AOP面向切面编程\nSpring AOP：提供面向切面编程的功能，可以在方法执行前后或抛出异常时动态插入额外的业务逻辑。 Data Access 数据访问\nSpring JDBC：操作数据库 Spring ORM：支持注意ORM框架，简化持久层开发 Spring Transaction事务管理：提供声明式事务和编程式的事务管理机制 Web层\nSpring Web：提供基础Web开发支持，包括Servlet Api的集成\nSpring MVC：实现了Model-View——Controller(MVC)模式的框架，用于构建HTTP请求的Web应用；\n5. Spring IOC 控制反转，通过依赖注入让容器负责管理对象的创建和管理\n核心：对象的创建和依赖关系交由IOC容器进行负责。 依赖注入：构造器注入，setter注入或接口注入。 控制：控制对象的创建过程\n反转：创建对象的主题变为Spring\n6. Spring Bean Spring应用中的对象\n生命周期\n实例化 依赖注入：将依赖的其他对象注入进来 初始化：如果Bean实现了Initializing接口或者@PostConstruct，Spring依赖注入后会调用该初始化方法； 销毁 创建方式：\nXML配置 基于注解：@Component @Service @Repository @Controller等 Java配置类：通过结合@Configuration和@Bean实现 7. Spring注入方式 构造器注入 setter注入 字段注入 @Autowired 方法注入 @Autowired 接口回调注入：注入实现类 8. AOP面向切面 核心：将与业务逻辑无关的横切关注点抽取出来，通过声明式动态的应用到业务方法中，而不是嵌入业务逻辑中。\n关键概念：切面(Aspect)、连接点(Joint Point)、通知(advice)、切入点(PointCut)和织入(Weaving)\n1@Aspect 2@Component 3public class LoggingAspect { 4 5 @Before(\"execution(* UserService.createUser(..))\") 6 public void logBefore() { 7 System.out.println(\"准备创建用户...\"); 8 } 9} 9. Spring拦截链的实现 责任链模式，指一系列拦截器依次生效\nHandlerInterceptor（MVC拦截器）：用于拦截HTTP请求 Filter（过滤器）：基于Servlet API的过滤器 AOP拦截链（切面）：实现方法的前后处理。@Before @After @Around 💡在Spring AOP中，@before和@after注解都对应一个Interceptor拦截器，\n责任链模式\n10. Spring MVC知识点 基于经典的MVC模式 (Model-View-Controller)来开发Web应用的模块。\n基于Servlet API构建，核心是DispatcherServlet, 即请求分发器，将HTTP请求映射到控制器方法中，并将数据返回给视图层进行渲染\nModel：业务模型和数据模型 分别是Servie、Repository；\nController：分别是DispatcherServlet和Controller；(分发\u0026处理)\n主要功能： 请求映射、数据绑定、视图解析、表单处理、异常处理等。\n工作流程：\nHTTP请求 =\u003e DispatcherServlet 根据URL进行分发 HandlerMapping：缓存URL到具体处理器对象的映射关系 HandlerAdapter：DispatcherServlet通过该适配器间接调用Handler URL =\u003e Controller 接收请求并进行业务处理 ModelAndView：数据封装到模型对象中。 ViewResolver:负责呈现数据，前后端分离，不需要这个。 11. Spring MVC的具体工作原理 DispatcherServlet接收请求\n请求映射：根据请求URL查询HandlerMapping，返回Handler执行链(拦截器和处理器)\n依次执行拦截器preHandle()xN=\u003eController，若中断则直接转到afterComplete()\n获取HandlerAdapter：通过HandlerAdapter执行handle方法，解决不同处理器的差异\n拦截器postHandle()\nAfterCompletion()\n返回响应数据\n12. Spring中的设计模式 工厂模式：BeanFactory\n模板方法：RestTemplate、JDBCTemplate，RedisStringTemplate\n代理模式：AOP\n单例模式：IOC下的Bean\n责任链模式：SpringMVC拦截器\n观察者模式：Spring中的监听器\n适配器模式：handlerAdapter\n13 Spring中的事务传播行为 父事务与子事务之间的关系？一个事务被另一个事务调用\n作用：定义和管理事务边界，定义多个事务方法嵌套时，是否开启新事务、复用事务还是挂起事务。。。\nPropagation_Required 必须传播 最常用的事务传播行为，如果存在事务，执行的方法会加入到该事务中，若不存在，则会创建一个新事务； 例如下单场景，扣减库存、生产订单记录、更新用户积分等多个操作，应该在一个事务中，以保证数据的一致性 Propagation_SUPPORTS 支持的传播行为 当前存在事务则加入，否则非事务方式执行 例如电商场景下，用户查看商品评论列表，这是正常操作。但是在一个事务中调用该方法(进行商品推广活动统计时，同时查看商品评论列表)，则可以加入该事务。 Propagation_MANDATORY 强制的传播行为 必须要求存在当前事务，否则抛出异常 场景：促销活动中，进行优惠计算并更新订单金额和扣减库存时，必须在同一个事务中。因为这两是紧密关联的。 Propagation_REQUIRES_NEW 需要新事务的传播行为 无论是否存在事务，调用的子方法都会创建一个新的事务。 独立小团体 例子：业务操作和日志操作，这俩相对独立的操作，即使业务失败，日志也应该成功 Propagation_NOT_SUPPORTED 不支持事务的传播行为 子方法以非事务的方式执行，若存在事务，先挂起 场景：xxx Propagation_NERVER 不允许事务的传播 要求当前绝对不能存在事务，否则抛出异常 例如: 计算商品的推荐指数时，不涉及事务操作 Propagation_NESTED 嵌套传播行为 若当前存在事务，方法将在嵌套事务中执行，否则创建新事务 例子：多个步骤，检查库存，生成订单，发送通知等。生成订单时异常，仅回滚这个子事务，不影响前面的检查库存操作。 14. Spring IOC容器初始化过程 四阶段\n启动阶段 配置加载：加载配置文件or配置类，XML配置文件、JAVA配置类或配置注解 创建容器：Spring创建IOC容器(BeanFactory\\ApplicationContext), 加载和管理Bean Bean定义和注册阶段 解析Bean定义，注册到容器中 实例化和依赖注入 实例化：根据BeanDefinition创建Bean实例 依赖注入：根据构造函数、Setter方法、字段注入，将依赖注入到Bean中 初始化 BeanPostProcessor：处理器会在Bean初始化完成后执行 @Post Construct Bean的初始化方法 15 Qualifier注解 例如：当多个接口有多个实现时，指定哪个具体的Bean，消除歧义\n1@Component 2public class Client { 3 4 private final Service service; 5 6 @Autowired 7 public Client(@Qualifier(\"serviceImpl1\") Service service) { 8 this.service = service; 9 } 10 11 public void doSomething() { 12 service.serve(); 13 } 14} @Primary 多个Bean实现了继承了某个类，依赖注入优先为带有@Primary的类\n1@Component 2@Primary 3public class DefaultService implements Service { 4 public void serve() { 5 System.out.println(\"Default Service\"); 6 } 7} 8 9@Component 10@Qualifier(\"specificService\") 11public class SpecificService implements Service { 12 public void serve() { 13 System.out.println(\"Specific Service\"); 14 } 15} 16 17@Component 18public class Client { 19 20 private final Service service; 21 22 @Autowired 23 public Client(@Qualifier(\"specificService\") Service service) { 24 this.service = service; 25 } 26 27 public void doSomething() { 28 service.serve(); 29 } 30} 16 事务的失效场景 使用@Transactional声明式事务时，存在以下事务失效情况\n⭐rollbackFor：没设置对，默认为(RuntimeException or Error回滚才生效)，而自定义异常和IOException等并不会回滚\n1@Transactional(rollbackFor = Exception.class) ⭐异常被捕获了，异常被catch了，仅打印log，并没有将异常往回抛出。\n⭐同一个类中方法调用，因为事务是基于动态代理实现的，自己调用自己的方法不会走代理方法\n只有通过代理对象调用的方法才会被事务拦截器增强 当类内部方法A调用方法B时，实际上是this.methodB()调用，而不是proxy.methodB() 1((XXXService)AopContext.currentProxy()) 2 .applyMethod(xxx); @Transactional应用在非public修饰上，Spring事务判断非公开方法不执行事务\n⭐事务传播设置不当，设置为Requires_new，会创建子事务，两个无关\n多线程环境，@Transactional基于ThreadLocal，因此多线程不能保持事务同步。\n17. Spring 启动过程 创建\u003c容器\u003e： 根据配置文件中的信息创建容器 ApplicationContext，容器启动阶段实例化BeanFactory，并加载容器总的BeanDefinitions 加载\u003c配置\u003e： 读取XML配置文件，JAVA Config类，和基于注解的Bean，包括数据库连接配置、AOP配置等等。 注册Bean\u003c定义\u003e 解析配置文件中定义的BeanDefinition和声明的Bean元数据 **\u003c实例化\u003e**Bean：实例化Bean对象，并放入容器中进行管理 \u003c注入依赖\u003e： 注入Bean对象中的依赖对象，构造器，setter，字段注入 \u003c初始化\u003eBean InitializingBean，or afterPropertiesSet ? 这是什么呢 \u0026 BeanPostProcessors 18. @Value注解 注入外部资源的值\n配置文件注入 例子：\n1app.name=MyApp 2app.version=1.0.0 1import org.springframework.beans.factory.annotation.Value; 2import org.springframework.stereotype.Component; 3 4@Component 5public class AppConfig { 6 7 @Value(\"${app.name}\") 8 private String appName; 9 10 @Value(\"${app.version}\") 11 private String appVersion; 12 13 public String getAppName() { 14 return appName; 15 } 16 17 public String getAppVersion() { 18 return appVersion; 19 } 20} 19 常用的注解 @PostConstruct：Bean初始化完成后调用\n提前加载数据 @PreDestory： Bean销毁前调用\n关闭连接，释放资源 @Scheduled 定时任务\n@Conditional 有条件的装配Bean对象\n1@Conditional(OnLinuxCondition.class) // 仅这个类存在时才装配这个Bean到容器中 2@Bean 3public MyService myService() { 4 return new MyService(); 5} @ControllerAdvice 全局异常处理\n1@ControllerAdvice 2public class GlobalExceptionHandler { 3 4 @ExceptionHandler(Exception.class) 5 public ResponseEntity\u003cString\u003e handleAllExceptions(Exception ex) { 6 return new ResponseEntity\u003c\u003e(\"An error occurred: \" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); 7 } 8} ",
   "wordCount" : "516",
   "inLanguage": "en",
-  "image": "http://longcoding.top/papermod-cover.png","datePublished": "0001-01-01T00:00:00Z",
-  "dateModified": "0001-01-01T00:00:00Z",
+  "image": "http://longcoding.top/papermod-cover.png","datePublished": "2025-03-01T00:00:00Z",
+  "dateModified": "2025-03-01T00:00:00Z",
   "author":{
     "@type": "Person",
-    "name": "👨🏻‍🎓 LongWei"
+    "name": "LongWei"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
@@ -281,13 +290,13 @@ Data Access 数据访问">
   <header class="post-header">
     <div class="breadcrumbs"><a href="http://longcoding.top/">Home</a>&nbsp;»&nbsp;<a href="http://longcoding.top/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
-      
+      Spring笔记
     </h1>
-    <div class="post-meta">3 min&nbsp;·&nbsp;516 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei
+    <div class="post-meta"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;516 words&nbsp;·&nbsp;LongWei
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
             <span class="details">Table of Contents</span>
         </summary>
@@ -748,12 +757,18 @@ Data Access 数据访问">
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="http://longcoding.top/tags/spring/">Spring</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://longcoding.top/posts/jobs/scene_interview_ques/">
+  <a class="prev" href="http://longcoding.top/posts/jobs/redis/">
     <span class="title">« Prev</span>
     <br>
-    <span></span>
+    <span>Redis面试题笔记</span>
+  </a>
+  <a class="next" href="http://longcoding.top/posts/jobs/java/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Java面试题笔记</span>
   </a>
 </nav>
 

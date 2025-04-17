@@ -1,3 +1,13 @@
+---
+author: "LongWei"
+title: "Spring笔记"
+date: "2025-03-01"
+tags: ["spring"]
+categories: ["Jobs"]
+series: ["JobLearning"]
+ShowToc: true
+TocOpen: true
+---
 
 
 ### 1. 什么是循环依赖
