@@ -168,6 +168,27 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">LeetCodeHot100刷题笔记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>热题100 哈希 1. 两数之和 给定： 数组nums 和target
+要求：找出两元素之和为target的数组下标
+暴力：
+1for i in range(len(nums)): 2 for j in range(i&#43;1, len(nums)): 3 if ... 4# O(n^2) 题解：
+问题分解 =&gt; 给定x 寻找 target-x(这是复杂度的主要部分)
+用额外结构记录
+1hashtable = dict() 2for i in range(len(nums)): 3 if nums[i] in hashtable: 4 return [i, hashtable[nums[i]]] 5 else: 6 hashtable[nums[i]] = i 7# 保存遍历过的元素，参考过去 49. 字母异位词分组 输入: strs = [&#34;eat&#34;, &#34;tea&#34;, &#34;tan&#34;, &#34;ate&#34;, &#34;nat&#34;, &#34;bat&#34;]输出: [[&#34;bat&#34;],[&#34;nat&#34;,&#34;tan&#34;],[&#34;ate&#34;,&#34;eat&#34;,&#34;tea&#34;]] 思路：condition =&gt; […]
+HashTable, Key=排序后的Str, Value=List&lt;String&gt;
+1HashMap&lt;String, List&lt;String&gt;&gt; hashTable = new HashMap&lt;&gt;(); 2for(String str : strs){ 3 char[] charArray = str.toCharArray(); // 将字符串转换为字符数组 4 Arrays.sort(charArray); // 对字符数组进行排序 5 String orderStr = new String(charArray); 6 if (hashTable.containsKey(orderStr)) { 7 hashTable.get(orderStr).add(str); 8 }else { 9 hashTable.put(orderStr, new ArrayList&lt;&gt;()); 10 hashTable.get(orderStr).add(str); 11 } 12} 13 14List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;(); 15 16for (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : hashTable.entrySet()) { 17 res.add(entry.getValue()); 18} 19return res; 128. 最长连续序列 1HashSet&lt;Integer&gt; hashSet = new HashSet&lt;&gt;(); 2// 去重复，并且查询O(1) 3for (int num : nums) { 4 hashSet.add(num); 5} 6 7List&lt;Integer&gt; start_nums = new ArrayList&lt;&gt;(); 8 9// 找所有为起点的数 10for (Iterator&lt;Integer&gt; it = hashSet.iterator(); it.hasNext(); ) { 11 int num = it.next(); 12 if (!hashSet.contains(num-1)){ 13 start_nums.add(num); 14 } 15} 16 17// 遍历起点x, 遍历 x&#43;1, x&#43;2, ... 18int longest_length = 0; 19for(int start : start_nums){ 20 int current_length = 1; 21 int start_i = start; 22 while (hashSet.contains(start_i&#43;1)) { 23 current_length &#43;= 1; 24 start_i &#43;= 1; 25 } 26 if (current_length &gt; longest_length){ 27 longest_length = current_length; 28 } 29} 30return longest_length; 31} 双指针 283. 移动零 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序(原始数组位置，非不是重新排序)。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-04-13 00:00:00 +0000 UTC'>April 13, 2025</span>&nbsp;·&nbsp;35 min&nbsp;·&nbsp;7397 words&nbsp;·&nbsp;LongWei</footer>
+  <a class="entry-link" aria-label="post link to LeetCodeHot100刷题笔记" href="http://longcoding.top/posts/leetcode/leetcode_hot100/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">消息队列面试题
     </h2>
   </header>
@@ -230,7 +251,7 @@ DDD架构
 1public interface StrategyMapper&lt;T, D, R&gt; { 2 3 /** 4 * 获取待执行策略 5 * 6 * @param requestParameter 入参 7 * @param dynamicContext 上下文 8 * @return 返参 9 * @throws Exception 异常 10 */ 11 StrategyHandler&lt;T, D, R&gt; get(T requestParameter, D dynamicContext) throws Exception; 12 13} 用于获取每个执行的节点，责任链加强版 T，D，R：入参，上下文，反参 1.2 策略受理器
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-23 19:36:21 +0800 CST'>March 23, 2025</span>&nbsp;·&nbsp;20 min&nbsp;·&nbsp;4245 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-23 19:36:21 +0800 CST'>March 23, 2025</span>&nbsp;·&nbsp;22 min&nbsp;·&nbsp;4572 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei</footer>
   <a class="entry-link" aria-label="post link to 拼团营销交易拼团" href="http://longcoding.top/posts/jobs/groupbuymarketproject/"></a>
 </article>
 
@@ -279,12 +300,12 @@ hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突
     <p> 黑马点评： 登录相关 使用 JWT 实现无状态认证，登录成功后生成一个包含用户信息的 Token 返回给前端，由前端每次请求时携带在请求头中。后端通过拦截器统一拦截请求，解析并校验 Token 的合法性。 &lt;用户信息只包括：userId，username，role等必要信息 =&gt; 安全&gt;
 校验通过后，我们会将解析出来的用户信息保存到 ThreadLocal 中，构建一个线程级的用户上下文，在整个请求处理流程中都可以方便地获取当前登录用户，避免层层传参，提升代码整洁度和可维护性。
 ThreadLocal原理：每个线程拥有独立的ThreadLocalMap对象。所有线程使用同一个 ThreadLocal 对象作为键，但值互不影响。通过线程级别的变量隔离，避免多线程竞争，实现线程安全。
-超卖问题： 数据库层面： 悲观锁（FOR UPDATE-行锁） 乐观锁（版本号法） 应用层面： 分布式锁（互斥） 缓存&#43;消息队列 限流&#43;熔断 1.1 行锁
+超卖问题： 需要先判断是否有库存，有则扣减库存并返回成功；没有则返回失败。这包括两步操作
+1.如何解决卖超问题 --在sql加上判断防止数据变为负数 =乐观锁--redis预减库存减少数据库访问　内存标记(过滤掉无库存的访问)减少redis访问　请求先入队列缓冲，异步下单，增强用户体验异步下单：-- 请求先入队缓冲，异步下单，增强用户体验-- 请求出队，生成订单，减少库存-- &#34;客户端&#34;定时轮询检查是否秒杀成功 数据库层面： 悲观锁（FOR UPDATE-行锁） ❌ 别提，浪费时间 乐观锁（版本号法 - SQL加上判断防止数据变成负数） ⭐⭐⭐ 应用层面： 分布式锁（互斥） ❌ 别提，浪费时间 缓存&#43;消息队列 ⭐⭐⭐ 限流&#43;熔断 ❌❌❌1.1 行锁
 1BEGIN; 2SELECT stock FROM products WHERE id = 1 FOR UPDATE; 3-- 业务逻辑：检查库存是否足够，执行扣减操作 4UPDATE products SET stock = stock - 1 WHERE id = 1; 5COMMIT; 10000条(10线程循环1000次)请求，吞吐量：791.2/sec 互斥锁，串行访问
-1Integer stock = baseMapper.selectSecKillStockForUpdate(voucherId); // Fordate加行锁，事务结束会释放 2if (stock &lt;= 0){ 3 throw new BusinessException(500, &#34;fail&#34;); 4} 5 6boolean update = lambdaUpdate().set(SeckillVoucher::getStock, stock - 1) 7 .eq(SeckillVoucher::getVoucherId, voucherId) 8 .update(); 1.2 CAS方法
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-11 16:45:11 +0800 CST'>March 11, 2025</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;2706 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-11 16:45:11 +0800 CST'>March 11, 2025</span>&nbsp;·&nbsp;14 min&nbsp;·&nbsp;2859 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei</footer>
   <a class="entry-link" aria-label="post link to 项目重难点" href="http://longcoding.top/posts/jobs/java_project_highlight/"></a>
 </article>
 
@@ -321,7 +342,7 @@ ThreadLocal原理：每个线程拥有独立的ThreadLocalMap对象。所有线�
     </h2>
   </header>
   <div class="entry-content">
-    <p>1 如何创建多线程 1） 实现Runnable接口
+    <p>1 如何创建线程 1） 实现Runnable接口
 实现run()方法 1new Thread(MyRunnable()).start(); 2）继承Thread类
 重写run()方法 3）Callable接口&amp;&amp;FutureTask
 实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动 1FutrueTask&lt;ReturnType&gt; task = new FutrueTask&lt;&gt;(MyCallable()); 2Thread(task).start 3 4ResultType res = task.get(); // 这里阻塞 4）使用线程池
@@ -331,7 +352,7 @@ XXXThreadPool.submit(task…)
 1FixedThreadPool: 固定池中线程数量 =&gt; 适合1.执行较长任务；2.控制并发度 2 3CachedThreadPool：池中线程数量不固定，根据需要动态创建线程，空的被回收，少了多创建； 4⭐适用于任务执行时间短且任务数量不确定的场景； 5 6ScheduledThreadPool：适用于需要定时执行或周期性执行任务的场景。 1// 定时任务线程池 2ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5); 3// For 延迟任务 4scheduledThreadPool.schedule(() -&gt; { 5 // 任务逻辑 6}, 10, TimeUnit.SECONDS); // 延迟10秒执行 7 8// For周期执行任务 9scheduledThreadPool.scheduleAtFixedRate(() -&gt; { 10 // 任务逻辑 11}, 0, 1, TimeUnit.SECONDS); // 每隔1秒执行一次 Thread.sleep(0) &lt;= 主动让出CPU控制权
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-05 00:00:00 +0000 UTC'>March 5, 2025</span>&nbsp;·&nbsp;9 min&nbsp;·&nbsp;1858 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-05 00:00:00 +0000 UTC'>March 5, 2025</span>&nbsp;·&nbsp;11 min&nbsp;·&nbsp;2162 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 并发面试题笔记" href="http://longcoding.top/posts/jobs/juc/"></a>
 </article>
 
@@ -341,7 +362,7 @@ XXXThreadPool.submit(task…)
     </h2>
   </header>
   <div class="entry-content">
-    <p>617 MySQL 数据排序 实现？ Order By 命中索引(包括索引字段)，使用索引排序(有序)，效率最高效 否则使用文件排序，文件少=&gt; 内存排序 sort_buffer 文件大=&gt;外部排序，归并排序 内部排序细节：
+    <p>617 MySQL 数据排序 实现？ Order By 命中索引(包括索引字段)，使用索引排序(⭐有序⭐)，效率最高效 否则使用文件排序，文件少=&gt; 内存排序 sort_buffer 文件大=&gt;外部排序，归并排序 内部排序细节：
 双路排序(待排序的列数据太大了)：使用row_id(回查表) &#43; sort_field
 ​	排好序后，使用row_id将完整的记录取出来
 单路排序(待排序数据大小能接受)
@@ -356,7 +377,7 @@ SQL =&gt; Server层连接器，权限校验，账号是否有资格获取。无=
 语法分析：SQL : Select类型✔️ user表✔️ id列 ✔️拆分成词，再组装为解析树。 语义分析：语法是否有误 =&gt; you have an error in your SQL syntax (字段、表|存在？) 分析解析树语法正确性 优化器(查询优化)=&gt;
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-04 00:00:00 +0000 UTC'>March 4, 2025</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;994 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-04 00:00:00 +0000 UTC'>March 4, 2025</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;1103 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to MySQL面试题笔记" href="http://longcoding.top/posts/jobs/mysql/"></a>
 </article>
 
@@ -390,31 +411,8 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
 特性
 实现数据分布式存储，对数据进行分片，将不同数据储存在不同节点中 去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。 内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能) ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1592 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1601 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to Redis面试题笔记" href="http://longcoding.top/posts/jobs/redis/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Spring笔记
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>1. 什么是循环依赖 两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。
-=&gt; 多个Bean循环引用导致Spring容器无法正常初始化它们。
-延迟某些Bean的初始化时间，使用@Lazy进行懒加载，只有当实际使用了该对象才创建。
-2. Spring如何解决循环依赖 提前暴露未完全创建的Bean
-三级缓存解决：
-一级缓存(Single Objects Map)：用于初始化单例Bean； (成品) 二级缓存(Early Singleton Objects Map): 用于存储尚未完全初始化，但实例化的Bean，用于提取暴露对象，避免循环依赖问题；(半成品，成员变量未初始化) 三级缓存(Singleton Factories Map): 用于存储对象工厂，可以通过工厂创建早期Bean **解决步骤：**例如AB两个相互依赖，三级缓存策略
-创建A，查询一级缓存看看有没有完全体B，没有则看看二级缓存有没有半成品B，都没有则创建A的Bean，调用ceateBean方法(实例化，属性注入，初始化)； 之后，A往三级缓存加入一个A的getObject方法 到了属性注入，因为A依赖B，那么需要创建B。同样的路线，B查询到二级缓存都没发现A，调用createBean创建B实例。到了B的属性注入，发现三级缓存有A工厂，调用getObject创建半成品A，放到二级缓存中，完成B的第二步属性注入。后面initializeBean完成B的创建，并放到一级缓存中。 回到A，A调用一级缓存的B完成注入。 未解决的问题：
-而如果说 A 是构造器注入，B 是 set 注入。则说明 A 需要 B 的时刻提前了，在实例化 new A(B b)的时候就需要 B。此时 A 没有往三级缓存放getObject，因此到了创建依赖 B的时候，无法获取 A的 getObject 工厂方法，只能继续 new A，造成循环依赖的死循环。
-4. Spring重要的模块组成 Core Container 核心容器：
-Spring Core：提供依赖注入DI和控制反转IOC的实现。 Spring Beans：负责管理Bean的定义和生命周期，通过IOC完成Bean的创建、依赖注入、初始化、销毁等操作； Spring Context：基于Core和Beans的高级容器，提供类似JNDI的上下文功能，包含国际化、事件传播、资源访问等功能； Spring Expression Language：用于运行时查询和操作对象的值。 AOP面向切面编程
-Spring AOP：提供面向切面编程的功能，可以在方法执行前后或抛出异常时动态插入额外的业务逻辑。 Data Access 数据访问
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;516 words&nbsp;·&nbsp;LongWei</footer>
-  <a class="entry-link" aria-label="post link to Spring笔记" href="http://longcoding.top/posts/jobs/spring/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

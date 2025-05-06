@@ -48,7 +48,7 @@ WHERE NOT EXISTS (
 )
 ```
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FlT4eqfOPSYMmcNCB5mh_bpamx5B" alt="Image" style="float:left; margin-right: 10px;" />
+<img src="http://verification.longcoding.top/FlT4eqfOPSYMmcNCB5mh_bpamx5B" alt="Image" style="float:left; margin-right: 10px;" />
 
 ```mysql
 # 2. Left Join 
@@ -196,7 +196,7 @@ LEFT JOIN orders as o
 ON c.id = o.customerId
 ```
 
-![image-20241119220005030](http://sthda9dn6.hd-bkt.clouddn.com/FpSCM4lwemQYDfDXFZaf_m9G1knV)
+![image-20241119220005030](http://verification.longcoding.top/FpSCM4lwemQYDfDXFZaf_m9G1knV)
 
 
 
@@ -781,7 +781,7 @@ WHERE (e1.departmentId,e1.salary) in (
 )
 ```
 
-![image-20241123202209491](http://sthda9dn6.hd-bkt.clouddn.com/Fic8qb3rJO4MKNDEcSJxAHSLTfx8)
+![image-20241123202209491](http://verification.longcoding.top/Fic8qb3rJO4MKNDEcSJxAHSLTfx8)
 
 
 
@@ -830,7 +830,7 @@ ROW_NUMBER() OVER (
 )
 ```
 
-![image-20241123210524866](http://sthda9dn6.hd-bkt.clouddn.com/FuHsPK9Jy0sbdBP2KV1F8HIHvJwm)
+![image-20241123210524866](http://verification.longcoding.top/FuHsPK9Jy0sbdBP2KV1F8HIHvJwm)
 
 ```mysql
 WITH ORDER_INFO AS (
@@ -938,7 +938,7 @@ WHERE idx = 1
 
 #### [每位顾客最经常订购的商品](https://leetcode.cn/problems/the-most-frequently-ordered-products-for-each-customer/)
 
-![image-20241123220011980](http://sthda9dn6.hd-bkt.clouddn.com/FrHfIlb60X2tBlwp4ZKyTO3Gjq_b)
+![image-20241123220011980](http://verification.longcoding.top/FrHfIlb60X2tBlwp4ZKyTO3Gjq_b)
 
 主SQL GROUP BY 之后，与 RANK() 的操作
 
@@ -954,7 +954,7 @@ GROUP BY customer_id, product_id;
 
 结果：
 
-![image-20241123220106683](http://sthda9dn6.hd-bkt.clouddn.com/Fr4AA3oRXuQHg-x2t0VztB5gF9kd)
+![image-20241123220106683](http://verification.longcoding.top/Fr4AA3oRXuQHg-x2t0VztB5gF9kd)
 
 添加 PARTITION BY customer_id 进行隔离
 
@@ -970,7 +970,7 @@ GROUP BY customer_id, product_id;
 
 结果：
 
-![image-20241123220202936](http://sthda9dn6.hd-bkt.clouddn.com/FiZarXoCwCQwP7-J8FqBhWKmZPxb)
+![image-20241123220202936](http://verification.longcoding.top/FiZarXoCwCQwP7-J8FqBhWKmZPxb)
 
 
 

@@ -11,7 +11,7 @@ TocOpen: true
 
 ### 617 MySQL 数据排序 实现？
 
-1. Order By 命中索引(包括索引字段)，使用索引排序(有序)，效率最高效
+1. Order By 命中索引(包括索引字段)，使用索引排序(**⭐有序⭐**)，效率最高效
 2. 否则使用文件排序，文件少=> 内存排序 sort_buffer
 3. 文件大=>外部排序，归并排序
 
@@ -50,7 +50,7 @@ TocOpen: true
 
 具体：Select * from user where id = 1;
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FssKKPCKzeVJv4TEPdMldct1M8z4" alt="image-20250305222939319" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FssKKPCKzeVJv4TEPdMldct1M8z4" alt="image-20250305222939319" style="zoom:50%;" />
 
 - SQL => Server层**连接器**，权限校验，账号是否有资格获取。无=> Access denied for user。  连接成功后，空闲一段时间会断开
 
@@ -218,10 +218,12 @@ WHERE last_name = ? AND first_name = ?
 在SQL语句前，使用EXPLAIN关键字，查看SQL语句的执行信息
 
 - 联合索引 => 符合最左前缀顺序
-- 索引中使用运算或者函数，like进行全盘扫描，对值进行了处理，则会使索引失效
-- 破坏最左匹配
-- in字段
-- order by 为使用索引
+- 索引中使用运算或者函数，**like进行全盘扫描**，对值进行了处理，则会使索引失效
+- **破坏最左匹配**
+- **in字段**
+- **order by** 为使用索引
+
+1 全盘扫描 2 索引失败
 
 
 
@@ -246,6 +248,12 @@ WHERE last_name = ? AND first_name = ?
 
 
 
+1. 根节点到叶子节点均一样高
+2. 叶子节点是双向链表，支持范围查询
+3. 非叶子节点仅存放索引记录，每页大小能存放更多的索引值，减少IO
+
+
+
 B树
 
 - 每个节点都存储了完整的数据
@@ -259,11 +267,11 @@ B树
 
 1. 利用**锁**(行锁、间隙锁等)机制，控制数据的并发修改，满足事务的**隔离性**
 
-2. **Redo Log**(重做日志)，它记录事务对数据库的修改，当MySQL宕机了，通过重放redo log可以恢复数据，满足事务的持久性
+2. **Redo Log**(重做日志)，它记录事务对**数据库的修改**，当MySQL宕机了，通过重放redo log可以**恢复数据**，满足事务的持久性
 
-3. **Undo Log**(回滚日志)，记录事务的反向操作，保持数据的历史版本，用于事务的回滚，使事务执行失败后可以恢复到之前的样子。实现原子性和隔离性
+3. **Undo Log**(回滚日志)，记录事务的**反向操作**，保持数据的**历史版本**，用于事务的**回滚**，使事务执行失败后可以恢复到之前的样子。实现原子性和隔离性
 
-4. **MVCC 多版本并发控制**，满足非锁读的需求，提供读写并发，实现了读已提交和可重复读两种隔离级别
+4. **MVCC 多版本并发控制**，满足非锁读的需求，提供**读写并发**，实现了读已提交和可重复读两种隔离级别
 
 - 读已提交：每次查询生成新的 ReadView，可能导致多次查询结果不一致
 - 可重复读：事务启动时生成 ReadView，保证整个事务中查询结果一致
@@ -272,7 +280,7 @@ B树
 
 事务工作流程：
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FuXst7sZuH37L19aO7agTeEDTtlN" alt="image-20250306141944766" style="zoom:33%;" />
+<img src="http://verification.longcoding.top/FuXst7sZuH37L19aO7agTeEDTtlN" alt="image-20250306141944766" style="zoom:33%;" />
 
 Redo Log(重做日志)：
 
@@ -282,7 +290,7 @@ Redo Log(重做日志)：
 
 **版本链**示意
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpWNTahmxnM3lVx0o9SRR3SffRym" alt="image-20250306142039417" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FpWNTahmxnM3lVx0o9SRR3SffRym" alt="image-20250306142039417" style="zoom:50%;" />
 
 
 
@@ -357,6 +365,8 @@ SELECT ... FOR UPDATE;
 
 ### 604 MVCC
 
+⭐事务的数据快照 + 版本链
+
 [数据版本控制**隐藏字段和指针**、事务**视图ReadView**]
 
 Multi-Version Concurrency Control 多版本并发控制 => **允许事务同时读写数据库，而无需相互等待**
@@ -407,7 +417,7 @@ MVCC优势：
 - db_trx_id：最近对这个记录修改的事务ID
 - db_roll_ptr: 回滚指针，指向这个记录的上一个版本，指向Undo Log中的上一个快照版本的地址
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FjlK-zxw1Ywj_ETnzc4o3_1y5Yu9" alt="image-20250306211450491" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/FjlK-zxw1Ywj_ETnzc4o3_1y5Yu9" alt="image-20250306211450491" style="zoom: 50%;" />
 
 
 
@@ -508,11 +518,11 @@ MVCC
 核心是基于二进制日志(BinLog File)进行数据同步
 
 - 主库(Master)记录变更
-  - 任何对数据库进行变更的操作都会被记录到BinLog中。Update Delete Insert
+  - 任何对数据库进行变更的操作都会被记录到**BinLog**中。Update Delete Insert
 - 从库Slave获取Binlog
-  - 从库通过IO线程连接主库，读取Binlog，并存入本地**中继日志**中(Relay log)
+  - 从库通过**IO线程**连接主库，读取Binlog，并存入本地**中继日志**中(**Relay log**)
 - 从库Slave 回放Binlog
-  - 从库SQL线程解析Relay Log，执行相同的SQL语句，进而保持与主库相同的数据
+  - 从库**SQL线程**解析Relay Log，执行相同的SQL语句，进而保持与主库相同的数据
 
 
 
@@ -540,14 +550,31 @@ MVCC
 
 ​                     
 
+### 612 ❌❌❌MySQL EXPLAIN
+
+
+
+
+
 ### 616 MySQL SQL调优
 
 通过分析慢SQL，利用explain分析查询语句的执行计划，识别性能瓶颈，优化查询语句
 
+
+
+1. 设计：索引覆盖，避免回表
+
+2. 索引利用：一定利用上索引，利用索引的有序性<=最左原则  **命中索引**
+3. 查询范围：扫描范围尽可能小<= 避免全盘扫描  **减少回表**
+
+4. 返回内容：仅返回必要的信息  **减少IO**
+
+
+
 - 合理设计索引，利用联合索引进行覆盖索引的优化
 
   - 覆盖索引：让常用的字段都在索引中，这样就可以减少回表查询的开销
-  - 索引下层：**过滤掉不符合查询条件的数据**，减少回表操作 **自动的**
+  - 索引下沉：**过滤掉不符合查询条件的数据**，减少回表操作 **自动的**
 
 - 避免 SELECT *，只查询必要的字段
 
@@ -626,11 +653,13 @@ MVCC
 
 ### 620 MySQL主从复制机制
 
+客户端 <=> 主MYSQL <=> 从MYSQL
+
 应用场景数据备份or主从数据同步
 
-- 同步复制：将binlog file复制到所有从库，等所有从库响应了，主库才响应客户端 （性能差，数据一致性高）
-- 半同步复制：主库等待至少一个从库确认收到数据（性能折中，数据一致性较高）
-- 异步复制：主库不用等待从库确认（性能高，数据一致性差）
+- **同步**复制：将binlog file复制到所有从库，等所有从库响应了，主库才响应客户端 （性能差，数据一致性高）
+- **半同步**复制：主库等待至少一个从库确认收到数据（性能折中，数据一致性较高）
+- **异步**复制：主库不用等待从库确认（性能高，数据一致性差）
 
 如何实现同步过程
 
@@ -639,7 +668,15 @@ MVCC
 - 从库**IO线程**接收binlog，并写入Relay log(中继日志)中，缓冲
 - 从库**SQL线程**从Relay log重写事件到从库数据库中。
 
-![image-20250321101913192](http://sthda9dn6.hd-bkt.clouddn.com/Fnipxneje3YSIkxYJSlw7XNF833G)
+![image-20250321101913192](http://verification.longcoding.top/Fnipxneje3YSIkxYJSlw7XNF833G)
+
+
+
+### 621 如何处理MySQL的主从同步延迟
+
+- 二次查询: 查询MySQL从节点数据 未命中 ,再次查询MysQL主节点
+- 关键业务走主节点: 直接规避掉不一致问题
+- 使用缓存,缓解,但又引入缓存一致性问题
 
 
 
@@ -681,7 +718,7 @@ MySQL中，并不总是从磁盘中读取。利用缓存机制，提高读取性
 
 mysql8.0中有查询缓存，只有sql相同时才会命中，命中率低，在8.0后移除了
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FkN2goD3UXaVgUTWStD5Ek0vhRbU" alt="image-20250321102938732" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FkN2goD3UXaVgUTWStD5Ek0vhRbU" alt="image-20250321102938732" style="zoom:50%;" />
 
 buffer pool(old sublist, young sublist), 里面存储了一个一个的数据页，mysql会从buffer pool中找，找到就返回。
 
@@ -705,7 +742,7 @@ buffer pool(old sublist, young sublist), 里面存储了一个一个的数据页
 
 JOIN连接表的时候，需要关注**被驱动表**的**查询**是否能够命中索引，不然会导致全表扫描。
 
-**尽可能让小表做驱动表**，因为驱动表需要全表扫描，而被驱动表是通过索引查询的。且被驱动表最好能够命中索引。
+⭐⭐⭐**尽可能让小表做驱动表**，因为驱动表需要全表扫描，而被驱动表是通过索引查询的。且被驱动表最好能够命中索引。
 
 例子
 
@@ -730,11 +767,15 @@ JOIN SQL查询的流程
 深度分页是指数据量很大的时候，按照分页访问后面的数据，例如`limit 99999, 10`，这回使得数据库扫描前面的99999条数据，才能得到最终的10条数据。
 
 ```sql
-LIMIT num1, num2;  -- 偏移量， 返回行数。 会扫描起点到num1整段记录
-LIMIT num1;        -- 返回行数
+❌❌❌LIMIT num1, num2;  -- 偏移量， 返回行数。 会扫描起点到num1整段记录
+✔️✔️✔️LIMIT num1;        -- 返回行数
 ```
 
+尽量避免LIMIT num1, num2;写法.这样会遍历前面的num1行,再取num2行
 
+
+
+Where 中 添加**⭐走索引+范围限制⭐+Limit**
 
 **解决方法：**
 
@@ -750,6 +791,34 @@ order by id limit 10;
 -- 传递上一次查询的最后一个ID
 SELECT * FROM users WHERE id > last_id ORDER BY id LIMIT 10;
 ```
+
+
+
+### 627 MySQL的Doublewrite Buffer双写
+
+确保数据安全的,因为MysQL是基于硬盘的,万一写数据时宕机了,没写完那么就会出现问题.因此,先写入内存中(快),这样MySQL写操作异常了,恢复后可以进行弥补. => **内存页不损害**(没写完)
+
+
+
+### 628 MySQL的LogBuffer作用
+
+利用内存缓存Redog Log,再批量写入硬盘. 减少IO,使得每次IO数据量更大,降低申请IO所需要切换进程的开销
+
+
+
+### 631 优化慢SQL
+
+使用EXPLAIN分析SQL的执行计划
+
+查看SQL的执行顺序, 索引的使用, 扫描的行数等.
+
+=> 利用索引
+
+=> 复杂的JOIN查询,拆分成多个简单查询,利用小表作为驱动表
+
+=> 避免SELECT *
+
+**1. 索引 2. 回表 3. IO**
 
 
 
@@ -771,6 +840,20 @@ JOIN
     
 -- CREATE VIEW view__ AS    
 ```
+
+
+
+### 1214 MySQL中 Limit 100000, 10 和 Limit 10; 执行速度
+
+Limit 100000, 10 会遍历前面100000再返回后面的10条记录
+
+而 Limit 10 只返回第一个记录和后面的10条
+
+
+
+Limit 100000, 10就是深度分页的元凶!!!
+
+解决:通过索引定位到第一个记录再Limit num;
 
 
 
@@ -880,5 +963,11 @@ B+树：数据结构
 
 
 
+### 9498 MySQL事务的二阶段提交
 
+为的是保证redolog 和 bin log的一致性
+
+事务开始 => redolog(预备) => bin log => 事务完成
+
+​                                   这里可能中间回滚 
 

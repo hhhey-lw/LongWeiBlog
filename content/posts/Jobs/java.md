@@ -205,7 +205,7 @@ Class Box<T extends Number> {}      =>      class Box {}  (T => Number)
 - 浅拷贝：只复制对象的本身和基本类型的成员变量，而不复制引用类型的对象。 **Object.clone()**；
 - 引用拷贝：仅复制对应引用  **Object o1 = o2; ** 。
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpC7CiMvtO7t2ecq3_e95NzCHKx1" alt="image-20250310152342480" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FpC7CiMvtO7t2ecq3_e95NzCHKx1" alt="image-20250310152342480" style="zoom:50%;" />
 
 
 

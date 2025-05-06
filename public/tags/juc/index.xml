@@ -18,7 +18,7 @@
       <link>http://longcoding.top/posts/jobs/juc/</link>
       <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate>
       <guid>http://longcoding.top/posts/jobs/juc/</guid>
-      <description>&lt;h3 id=&#34;1-如何创建多线程&#34;&gt;1 如何创建多线程&lt;/h3&gt;
+      <description>&lt;h3 id=&#34;1-如何创建线程&#34;&gt;1 如何创建线程&lt;/h3&gt;
 &lt;p&gt;1） 实现&lt;strong&gt;Runnable&lt;/strong&gt;接口&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;实现run()方法&lt;/li&gt;
@@ -28,7 +28,7 @@
 &lt;ul&gt;
 &lt;li&gt;重写run()方法&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;3）Callable接口&amp;amp;&amp;amp;FutureTask&lt;/p&gt;
+&lt;p&gt;3）&lt;strong&gt;Callable接口&lt;/strong&gt;&amp;amp;&amp;amp;FutureTask&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动&lt;/li&gt;
 &lt;/ul&gt;

@@ -1,7 +1,7 @@
 ---
 author: "LongWei"
 title: "LeetCodeHot100刷题笔记"
-date: "2024-09-18"
+date: "2025-04-13"
 tags: ["Hot100"]
 categories: ["LeetCode"]
 ShowToc: true
@@ -840,11 +840,11 @@ for int[]row in nums:
 
 #### [142. 环形链表 II](https://leetcode.cn/problems/linked-list-cycle-ii/)
 
-![image-20241127231431488](http://sthda9dn6.hd-bkt.clouddn.com/FuXdTJ06VOfgokxTEMjy9iYRhsSE)
+![image-20241127231431488](http://verification.longcoding.top/FuXdTJ06VOfgokxTEMjy9iYRhsSE)
 
 找环的入口 => 
 
-![image-20241127231535959](http://sthda9dn6.hd-bkt.clouddn.com/FozNZ7M_zfZTUTh3cRyRdHbIZtAk)
+![image-20241127231535959](http://verification.longcoding.top/FozNZ7M_zfZTUTh3cRyRdHbIZtAk)
 
 ```python
 head => 环入口       记为x
@@ -895,7 +895,7 @@ public ListNode detectCycle(ListNode head) {
 
 任务：找到第一个相交点
 
-![image-20240922195913092](http://sthda9dn6.hd-bkt.clouddn.com/FuOt9Xa-A-yghnu9986qECvHxhdM)
+![image-20240922195913092](http://verification.longcoding.top/FuOt9Xa-A-yghnu9986qECvHxhdM)
 
 ```java
 // 暴力
@@ -932,7 +932,7 @@ or
 
 判断对称
 
-![image-20240922201339289](http://sthda9dn6.hd-bkt.clouddn.com/FsQh04lB2Mg2GWh-2m0q62hqYypr)
+![image-20240922201339289](http://verification.longcoding.top/FsQh04lB2Mg2GWh-2m0q62hqYypr)
 
 暴力：
 
@@ -1166,7 +1166,7 @@ while(!queue.isEmpty) {
 
 #### 验证二叉搜索树
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FtTjZ9S7R5uo-MFqFDISn0iCa6d-" alt="image-20240927182031344" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FtTjZ9S7R5uo-MFqFDISn0iCa6d-" alt="image-20240927182031344" style="zoom:50%;" />
 
 node.left.val < node.val < node.right.val
 
@@ -1213,7 +1213,7 @@ public boolean isValidBST(TreeNode node, long leftMax, long rightLower) {
 
 每次把左子树插在右子树上，进行递归
 
-![image-20240927182649806](http://sthda9dn6.hd-bkt.clouddn.com/FkzQ3mBG8fCq_JY-mHuc37DEDQyS)
+![image-20240927182649806](http://verification.longcoding.top/FkzQ3mBG8fCq_JY-mHuc37DEDQyS)
 
 
 
@@ -1459,7 +1459,7 @@ children => [abcd..xyz]
 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 ```
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fovg4-r41PreH64RrAkLr7SWlGr2" alt="image-20241003170308450" style="zoom: 67%;" />
+<img src="http://verification.longcoding.top/Fovg4-r41PreH64RrAkLr7SWlGr2" alt="image-20241003170308450" style="zoom: 67%;" />
 
 ```java
 public void dfs(int[] nums, int depth, Deque<Integer> path, Set<Integer> used, List<List<Integer>> ans) {
@@ -1490,7 +1490,7 @@ public void dfs(int[] nums, int depth, Deque<Integer> path, Set<Integer> used, L
 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
 ```
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FsOj2YHVApDomp34RzhK29B9gya6" alt="image-20241003171606558" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/FsOj2YHVApDomp34RzhK29B9gya6" alt="image-20241003171606558" style="zoom: 50%;" />
 
 从{}开始，遍历所有元素，分加入或者不加入
 
@@ -1511,7 +1511,7 @@ public void recur(int i, int[] nums, Deque<Integer> path) {
 
 #### [17. 电话号码的字母组合](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)
 
-![image-20241003171820684](http://sthda9dn6.hd-bkt.clouddn.com/FkHkEuV7AkJoQJAlUzHTHGFAw9N7)
+![image-20241003171820684](http://verification.longcoding.top/FkHkEuV7AkJoQJAlUzHTHGFAw9N7)
 
 ```
 输入：digits = "23"
@@ -1564,7 +1564,7 @@ public void recur(int i, String str, String path) {
 输出：[[2,2,3],[7]]
 ```
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fp7v4_n9O8moVkKhVS73GqSwERVZ" alt="image-20241003173238544" style="zoom:67%;" />
+<img src="http://verification.longcoding.top/Fp7v4_n9O8moVkKhVS73GqSwERVZ" alt="image-20241003173238544" style="zoom:67%;" />
 
 要去重复
 
@@ -1680,7 +1680,7 @@ private Deque<String> path = new ArrayDeque<>();
 
 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FijSDwV2-lxsa82DOeBSmacT0pcd" alt="image-20241003174040179" style="zoom: 67%;" />
+<img src="http://verification.longcoding.top/FijSDwV2-lxsa82DOeBSmacT0pcd" alt="image-20241003174040179" style="zoom: 67%;" />
 
 ```java
 public boolean exist(char[][] board, String word) {
@@ -1736,7 +1736,7 @@ private void help(char[][] board, int i, int j, String word) {
 
 
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fqa3uAsWP1n72GA12Wqkom0ns0Vx" alt="image-20241003174230414" style="zoom:67%;" />
+<img src="http://verification.longcoding.top/Fqa3uAsWP1n72GA12Wqkom0ns0Vx" alt="image-20241003174230414" style="zoom:67%;" />
 
 ```java
 {[????]}
@@ -1969,7 +1969,7 @@ private int searchFirstLoc(int[] nums, int target) {
 
 
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fg-E0yML6gnID_NIv4G-v1ujTd2z" alt="image-20241003211758160" style="zoom:67%;" />
+<img src="http://verification.longcoding.top/Fg-E0yML6gnID_NIv4G-v1ujTd2z" alt="image-20241003211758160" style="zoom:67%;" />
 
 坐标i,j => 转换为一维左边 i*col+j
 
@@ -2060,7 +2060,7 @@ private int getKth(int[] nums1, int start1, int end1, int[] nums2, int start2, i
 }
 ```
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fqiwp7YIZNR9tals3QewyhcdJqP5" alt="image-20241201141540488" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/Fqiwp7YIZNR9tals3QewyhcdJqP5" alt="image-20241201141540488" style="zoom:50%;" />
 
 逻辑：
 
@@ -2135,7 +2135,7 @@ res:[74(1),75(2), 76(6), 72(5),72(5), 76(6), x, x]
 
 [84. 柱状图中最大的矩形](https://leetcode.cn/problems/largest-rectangle-in-histogram/)
 
-![image-20241031142355410](http://sthda9dn6.hd-bkt.clouddn.com/FksEznZYvvRvLC3SxHCG9uI3Bfgp)
+![image-20241031142355410](http://verification.longcoding.top/FksEznZYvvRvLC3SxHCG9uI3Bfgp)
 
 从该点出发 => 向左找左边界 >=该点
 
@@ -2348,7 +2348,7 @@ dp[i] = dp[i-1] + dp[i-2]
 
 #### [118. 杨辉三角](https://leetcode.cn/problems/pascals-triangle/)
 
-![image-20241117154256102](http://sthda9dn6.hd-bkt.clouddn.com/FvE6njpkfqfJ5ZGeKRNxc7bLctR_)
+![image-20241117154256102](http://verification.longcoding.top/FvE6njpkfqfJ5ZGeKRNxc7bLctR_)
 
 
 
@@ -2446,7 +2446,7 @@ dp[i] = min(1. 2. 3.)
 
 
 
-![image-20241117155502397](http://sthda9dn6.hd-bkt.clouddn.com/FnVQo6XwDgecqWsYzZTCkheeKEc-)
+![image-20241117155502397](http://verification.longcoding.top/FnVQo6XwDgecqWsYzZTCkheeKEc-)
 
 ```python
 # 思路
@@ -2473,7 +2473,7 @@ dp[i] = min(1. 2. 3.)
 
 **子序列** 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，`[3,6,2,7]` 是数组 `[0,3,1,6,2,2,7]` 的子序列。
 
-![image-20241118151828079](http://sthda9dn6.hd-bkt.clouddn.com/Fj5EbplWH-n3fozPHBRzsiw71jLr)
+![image-20241118151828079](http://verification.longcoding.top/Fj5EbplWH-n3fozPHBRzsiw71jLr)
 
 ```python
 # 思路
@@ -2534,7 +2534,7 @@ result = Max(Max_dp[0,...,n])
 
 有n件物品和一个最多能背重量为w 的背包。第i件物品的重量是weight[i]，得到的价值是value[i] 。**每件物品只能用一次**，求解将哪些物品装入背包里物品价值总和最大。
 
-![image-20241118152821399](http://sthda9dn6.hd-bkt.clouddn.com/FkaMTah1gqgk50TrO_qMrJJKVjN4)
+![image-20241118152821399](http://verification.longcoding.top/FkaMTah1gqgk50TrO_qMrJJKVjN4)
 
 
 
@@ -2571,7 +2571,7 @@ for (int i = 1; i < n; i++) {  // 物品
 
 #### 0-1背包问题 (1维)
 
-![image-20241118155137608](http://sthda9dn6.hd-bkt.clouddn.com/Fl9b5IAbYdqcFTPX1NTI0U8gEB8d)
+![image-20241118155137608](http://verification.longcoding.top/Fl9b5IAbYdqcFTPX1NTI0U8gEB8d)
 
 ```python
    j    0, 1, 2, 3, 4  # 背包容量
@@ -2678,7 +2678,7 @@ public int longestValidParentheses(String s) {
 
 dp[i]  子串长度为i的 字符串     的 最长有效括号
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Ft2JzSWTCd8Cz17U9QW517Q7iKYX" alt="image-20241128194352774" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/Ft2JzSWTCd8Cz17U9QW517Q7iKYX" alt="image-20241128194352774" style="zoom:50%;" />
 
 
 
@@ -2845,7 +2845,7 @@ input: [1,3,4,2,2]   // 顺序表，数组作为链表
 
 
 
-![image-20241127235324909](http://sthda9dn6.hd-bkt.clouddn.com/Ftu4CotzKz2NyoyYeU0nisidJ50O)
+![image-20241127235324909](http://verification.longcoding.top/Ftu4CotzKz2NyoyYeU0nisidJ50O)
 
 等价于找环的入口。
 

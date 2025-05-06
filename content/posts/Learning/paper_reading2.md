@@ -31,11 +31,11 @@ TocOpen: true
 
 **缺陷**：卷积特征图→全局平均池化→softmax层  // 特定网络结构
 
-![image-20240322134603157](http://sthda9dn6.hd-bkt.clouddn.com/FizSzlSfuX9fZOO_3HduKDclEzcI)
+![image-20240322134603157](http://verification.longcoding.top/FizSzlSfuX9fZOO_3HduKDclEzcI)
 
 <center style="color: red; font-weight: bold;">做法图示</center>
 
-![image-20240322134441902](http://sthda9dn6.hd-bkt.clouddn.com/FiBRel9zde6IJ3STCIWgQtDspaZx)
+![image-20240322134441902](http://verification.longcoding.top/FiBRel9zde6IJ3STCIWgQtDspaZx)
 
 <center style="color: red; font-weight: bold;">数学公式</center>
 
@@ -55,15 +55,15 @@ TocOpen: true
 
 但论文提到在CNN+LSTM的也能定位有区别的图像区域
 
-![image-20240322141249072](http://sthda9dn6.hd-bkt.clouddn.com/FjU70VichK5n125Mrm0J9kJnVy43)
+![image-20240322141249072](http://verification.longcoding.top/FjU70VichK5n125Mrm0J9kJnVy43)
 
 
 
-![image-20240322141305661](http://sthda9dn6.hd-bkt.clouddn.com/FpssA7XV30OJ4BKmn1aDL-1GNYSa)
+![image-20240322141305661](http://verification.longcoding.top/FpssA7XV30OJ4BKmn1aDL-1GNYSa)
 
 α 捕获**特征图** k 对于目标**类** c 的**重要性**  // 与CAM的分类线性层权重作用一致
 
-![image-20240322141314248](http://sthda9dn6.hd-bkt.clouddn.com/FoLeKuhJnfw8veLYf18fRWRhEy09)
+![image-20240322141314248](http://verification.longcoding.top/FoLeKuhJnfw8veLYf18fRWRhEy09)
 
 **ReLU**的作用，只对对感兴趣的类别有积极影响的特征感兴趣。负像素可能属于图像中的其他类别
 
@@ -95,11 +95,11 @@ Guided Backprop： 细节纹理重要程序。 做法：将梯度值小于等于
 
 
 
-![image-20240322202435323](http://sthda9dn6.hd-bkt.clouddn.com/FuvmZgAnU9ncG2a5qW5EUCNP48H1)
+![image-20240322202435323](http://verification.longcoding.top/FuvmZgAnU9ncG2a5qW5EUCNP48H1)
 
 <center style="color: red; font-weight: bold;">前向流程</center>
 
-![image-20240322202514460](http://sthda9dn6.hd-bkt.clouddn.com/FgwVYzzA9oyIF86-03QbkEQU8bms)
+![image-20240322202514460](http://verification.longcoding.top/FgwVYzzA9oyIF86-03QbkEQU8bms)
 
 <center style="color: red; font-weight: bold;">模型框架</center>
 
@@ -149,7 +149,7 @@ Transformer Decoder中由于进行的是Masked Multi Head Self Attention，所�
 
 **总体结构**
 
-![image-20240327160149024](http://sthda9dn6.hd-bkt.clouddn.com/Fl4-SrUiEyrZ5ep1hsySNk5hJ6Yz)
+![image-20240327160149024](http://verification.longcoding.top/Fl4-SrUiEyrZ5ep1hsySNk5hJ6Yz)
 
 [CLS] 分类Token，凝聚全局语义信息
 
@@ -157,7 +157,7 @@ Transformer Decoder中由于进行的是Masked Multi Head Self Attention，所�
 
 用的某个语料库进行词嵌入
 
-![image-20240327202952064](http://sthda9dn6.hd-bkt.clouddn.com/FtNYoVsEqoeq74FY2SO4dBDE2WyO)
+![image-20240327202952064](http://verification.longcoding.top/FtNYoVsEqoeq74FY2SO4dBDE2WyO)
 
 
 
@@ -185,7 +185,7 @@ generative pretrain transformer
 
 模型图：(Transformer Decoder -仅Masked Attention版)
 
-![image-20240505163406185](http://sthda9dn6.hd-bkt.clouddn.com/FkZKmDcVtOr6qyohAj5rVJdX6s7T)
+![image-20240505163406185](http://verification.longcoding.top/FkZKmDcVtOr6qyohAj5rVJdX6s7T)
 
 ⭐ *input:*  word => index(查找词汇表) => embedding   +  position embedding
 
@@ -235,7 +235,7 @@ x1, x2, x3 => x4
 
 #### **对比学习方法** **（Train）**
 
-![image-20240327200843127](http://sthda9dn6.hd-bkt.clouddn.com/Fu1kXHXwvqyJvl-W0nklKpmttZ44)
+![image-20240327200843127](http://verification.longcoding.top/Fu1kXHXwvqyJvl-W0nklKpmttZ44)
 
 1.  Text Encoder (resnet/vit) 学习文本描述的 深度特征  - 单模态内特征 // T_i == 一个文本特征
 2.  Image Encoder(transformer) 学习图片的 深度特征  - 单模态内特征  // I_i == 一个图像特征
@@ -252,7 +252,7 @@ encoder均从头开始训练
 
 #### 预测
 
-![image-20240327201936442](http://sthda9dn6.hd-bkt.clouddn.com/FhcxDiV_Ii24QNK9mAIQFKmvrVAK)
+![image-20240327201936442](http://verification.longcoding.top/FhcxDiV_Ii24QNK9mAIQFKmvrVAK)
 
 - 创建一个标签全集， [f'A photo of a {object}' for object in dataset_labels]
 - Text Encoder 学习上述 模板文字描述 的 深度特征
@@ -307,7 +307,7 @@ encoder均从头开始训练
 
 **模型框架**（双模态）
 
-![image-20240328154319036](http://sthda9dn6.hd-bkt.clouddn.com/Fv9O6s0-ISjzOZYNWYnsWeFDMD9H)
+![image-20240328154319036](http://verification.longcoding.top/Fv9O6s0-ISjzOZYNWYnsWeFDMD9H)
 
 
 
@@ -341,7 +341,7 @@ m ∈ [0, 1) 是动量系数。论文中Query Encoder 和Key Encoder是一样配
 
 
 
-![image-20240408212751319](http://sthda9dn6.hd-bkt.clouddn.com/FlwCsI3Y0anvjZAw_Uhq4q_lirYh)
+![image-20240408212751319](http://verification.longcoding.top/FlwCsI3Y0anvjZAw_Uhq4q_lirYh)
 
 **框架伪代码**  
 
@@ -428,7 +428,7 @@ CV领域的Bert
 
 ***框架：***
 
-![image-20240409131436588](http://sthda9dn6.hd-bkt.clouddn.com/Frag5yZW-mr5iE-Qq9Dg3Mj9TQQ5)
+![image-20240409131436588](http://verification.longcoding.top/Frag5yZW-mr5iE-Qq9Dg3Mj9TQQ5)
 
 Encoder：位置编码所有Patch都加上。但仅输入未被Mask的Patch。并且Mask比例很高(论文mask75%patch)，迫使模型学到高维的特征，而非捷径。
 
@@ -474,7 +474,7 @@ Decoder：Mask Patch是自学习的向量，并且和Encoded Patch在位置上�
 
 ***总体框架：***
 
-![image-20240411195125065](http://sthda9dn6.hd-bkt.clouddn.com/FqUfVASNdBKkGcmm0F4GiZWIQKjb)
+![image-20240411195125065](http://verification.longcoding.top/FqUfVASNdBKkGcmm0F4GiZWIQKjb)
 
 1️⃣ 原始信号[X] =CNN=> 浅在特征表示 [Z]
 
@@ -486,9 +486,9 @@ Decoder：Mask Patch是自学习的向量，并且和Encoded Patch在位置上�
 - 然后分别在每个子空间里面聚类（K-mean什么的），一共获得V个中心和其中心特征。
 - 每个类别的特征用其中心特征代替。
 
-![image-20240411204733337](http://sthda9dn6.hd-bkt.clouddn.com/FmcVQRp_69PpmPRTef5A9RL5WkXm)
+![image-20240411204733337](http://verification.longcoding.top/FmcVQRp_69PpmPRTef5A9RL5WkXm)
 
-![image-20240411204739181](http://sthda9dn6.hd-bkt.clouddn.com/FjLxT0_K3dukPMzGasHHX8RUkVYI)
+![image-20240411204739181](http://verification.longcoding.top/FjLxT0_K3dukPMzGasHHX8RUkVYI)
 
 量化qt和对应ct
 
@@ -498,17 +498,17 @@ Decoder：Mask Patch是自学习的向量，并且和Encoded Patch在位置上�
 
 **Mask**
 
-![image-20240411210825518](http://sthda9dn6.hd-bkt.clouddn.com/FlRfun5vPoin9xqspVf4f0lzVOZO)
+![image-20240411210825518](http://verification.longcoding.top/FlRfun5vPoin9xqspVf4f0lzVOZO)
 
 随机起点，遮挡后面t个时间步
 
-![image-20240411210806211](http://sthda9dn6.hd-bkt.clouddn.com/FnkR4fVzwbvuq6RjaCs_dndb6v5h)
+![image-20240411210806211](http://verification.longcoding.top/FnkR4fVzwbvuq6RjaCs_dndb6v5h)
 
 
 
 ***对比损失***
 
-![image-20240411210912407](http://sthda9dn6.hd-bkt.clouddn.com/FqYwQ0MDlAXtdrK4q6VHMuWRn3km)
+![image-20240411210912407](http://verification.longcoding.top/FqYwQ0MDlAXtdrK4q6VHMuWRn3km)
 
 包括 qt 和 K 个干扰项
 
@@ -532,7 +532,7 @@ Decoder：Mask Patch是自学习的向量，并且和Encoded Patch在位置上�
 
 ***模型结构***
 
-![image-20240411211708389](http://sthda9dn6.hd-bkt.clouddn.com/FrJeqrQ_ZkI5Dq1CvF8QkRfMxcaH)
+![image-20240411211708389](http://verification.longcoding.top/FrJeqrQ_ZkI5Dq1CvF8QkRfMxcaH)
 
 
 
@@ -577,7 +577,7 @@ Decoder：Mask Patch是自学习的向量，并且和Encoded Patch在位置上�
 
 ***CPC框架***
 
-![image-20240412150754949](http://sthda9dn6.hd-bkt.clouddn.com/Fkg2K2xjA7uBbk6vyr6jA7lWejzG)
+![image-20240412150754949](http://verification.longcoding.top/Fkg2K2xjA7uBbk6vyr6jA7lWejzG)
 $$
 g_{enc}:  local\ feature\ learning\\
 g_{ar}:  global\ context\ learning
@@ -619,15 +619,15 @@ $$
 
 *正相关*
 
-![image-20240415213652095](http://sthda9dn6.hd-bkt.clouddn.com/Fld0d7f2o5eYFLT27mG-kwpf69p9)
+![image-20240415213652095](http://verification.longcoding.top/Fld0d7f2o5eYFLT27mG-kwpf69p9)
 
 *近似计算互信息*
 
-![image-20240415213622018](http://sthda9dn6.hd-bkt.clouddn.com/FiE2tChXaZTae_EuLA5UxEl-BwbM)
+![image-20240415213622018](http://verification.longcoding.top/FiE2tChXaZTae_EuLA5UxEl-BwbM)
 
 *Loss*
 
-![image-20240415213722239](http://sthda9dn6.hd-bkt.clouddn.com/Frw_sTw_6jzv57J91HJTXwqKjVN-)
+![image-20240415213722239](http://verification.longcoding.top/Frw_sTw_6jzv57J91HJTXwqKjVN-)
 
 X = {x1, x2, ..., xN} N个负样本，从batch中其他数据中采样
 
@@ -637,7 +637,7 @@ E/X  表示似然概率
 
 最大化互信息 => 最小化Loss  (互信息下界)
 
-![image-20240415213954622](http://sthda9dn6.hd-bkt.clouddn.com/Fmr-VnocMhPJJtXfiZGyk_JrBuo1)
+![image-20240415213954622](http://verification.longcoding.top/Fmr-VnocMhPJJtXfiZGyk_JrBuo1)
 
 
 
@@ -666,7 +666,7 @@ $$
 
 **模型架构**
 
-![image-20240416192447568](http://sthda9dn6.hd-bkt.clouddn.com/Fl5NOQ7na3jY5w-4oMbQClRzwjgn)
+![image-20240416192447568](http://verification.longcoding.top/Fl5NOQ7na3jY5w-4oMbQClRzwjgn)
 
 ***描述：***
 
@@ -681,7 +681,7 @@ $$
 
 目的：生成CLIP image Embedding
 
-![image-20240416194435205](http://sthda9dn6.hd-bkt.clouddn.com/FlbLpzwV8mvw-N7XcRUxXpKN_tVX)
+![image-20240416194435205](http://verification.longcoding.top/FlbLpzwV8mvw-N7XcRUxXpKN_tVX)
 
 
 
@@ -695,7 +695,7 @@ $$
 
 ***简洁表示：***
 
-![image-20240416193905706](http://sthda9dn6.hd-bkt.clouddn.com/FkLqbQZZdzkbNQsmfckYUFfbO7OI)
+![image-20240416193905706](http://verification.longcoding.top/FkLqbQZZdzkbNQsmfckYUFfbO7OI)
 
 *y - 文字*
 
@@ -719,7 +719,7 @@ $$
 
 ***加噪 + 去噪(还原)***
 
-![image-20240417165835467](http://sthda9dn6.hd-bkt.clouddn.com/Fq1ieN5eRAPoPKJz9gRb3UUVXuEa)
+![image-20240417165835467](http://verification.longcoding.top/Fq1ieN5eRAPoPKJz9gRb3UUVXuEa)
 
 
 
@@ -727,21 +727,21 @@ $$
 
 1️⃣ Xt 是 前一张图片加噪生成的，Z1是服从正太分布的噪声
 
-![image-20240417170233229](http://sthda9dn6.hd-bkt.clouddn.com/Fu4Ef01QR3UNTEVo22lrQcOAktpQ)
+![image-20240417170233229](http://verification.longcoding.top/Fu4Ef01QR3UNTEVo22lrQcOAktpQ)
 
-![image-20240417170238304](http://sthda9dn6.hd-bkt.clouddn.com/Fi78LTSVdR9ki7Tkg_P3-MXWSP-U)
+![image-20240417170238304](http://verification.longcoding.top/Fi78LTSVdR9ki7Tkg_P3-MXWSP-U)
 
 βt是超参数=范围为[0.0001,0.02]递增，则αt 是随时间减少， 表示公式一中原图信息越来越少，噪声越来越重
 
 2️⃣ 递推带入一下
 
-![image-20240417170436248](http://sthda9dn6.hd-bkt.clouddn.com/FiHTiSdVmNrgDsNfKd8o8ajxz5g3)
+![image-20240417170436248](http://verification.longcoding.top/FiHTiSdVmNrgDsNfKd8o8ajxz5g3)
 
-![image-20240417170509368](http://sthda9dn6.hd-bkt.clouddn.com/FjGR-X-OPfIzkMdjwnKR3-BwDzMq)
+![image-20240417170509368](http://verification.longcoding.top/FjGR-X-OPfIzkMdjwnKR3-BwDzMq)
 
 最后可得···
 
-![image-20240417170704121](http://sthda9dn6.hd-bkt.clouddn.com/FhFVZkEeHGk4XHiNcobYmz_Kyx1p)
+![image-20240417170704121](http://verification.longcoding.top/FhFVZkEeHGk4XHiNcobYmz_Kyx1p)
 
 Zt_hat 是一个服从正太分布的随机噪声，at_hat = at\*at-1\*···*a1, **可由X0直接产生任意时间步的加噪图片**
 
@@ -751,27 +751,27 @@ Zt_hat 是一个服从正太分布的随机噪声，at_hat = at\*at-1\*···*a1
 
 *核心基础*
 
-![image-20240417171006179](http://sthda9dn6.hd-bkt.clouddn.com/FuLyZjUK_C7OzaR_Sx5izsv8qVfm)
+![image-20240417171006179](http://verification.longcoding.top/FuLyZjUK_C7OzaR_Sx5izsv8qVfm)
 
 
 
 1️⃣ 用Xt生成Xt-1 ，按贝叶斯公式转换
 
-![image-20240417171023360](http://sthda9dn6.hd-bkt.clouddn.com/FlPyQq-wecfnCuAKSYOq9yDXtvWy)
+![image-20240417171023360](http://verification.longcoding.top/FlPyQq-wecfnCuAKSYOq9yDXtvWy)
 
 
 
 2️⃣ q(Xt|Xt-1) == q(Xt|Xt-1, X0)， 而q(Xt-1) == q(Xt-1|X0) **任意步加噪图可由原图直接产生**
 
-![image-20240417171223592](http://sthda9dn6.hd-bkt.clouddn.com/FrLTV45PiHS6n-plx9FCssOtXc8E)
+![image-20240417171223592](http://verification.longcoding.top/FrLTV45PiHS6n-plx9FCssOtXc8E)
 
 3️⃣ 反解公式7， X0可由Xt进行估计
 
-![image-20240417171845271](http://sthda9dn6.hd-bkt.clouddn.com/FhkEASm1Lj9tDI7fDu3WnhzbDeTS)
+![image-20240417171845271](http://verification.longcoding.top/FhkEASm1Lj9tDI7fDu3WnhzbDeTS)
 
 4️⃣ 带入并整理
 
-![image-20240417172918885](http://sthda9dn6.hd-bkt.clouddn.com/Fp8r3kgTbQNu6B5nUdKDOQt0Lzfj)
+![image-20240417172918885](http://verification.longcoding.top/Fp8r3kgTbQNu6B5nUdKDOQt0Lzfj)
 
 
 
@@ -785,7 +785,7 @@ $$
 
 *Ɛθ表示预测模型*
 
-![image-20240417175432578](http://sthda9dn6.hd-bkt.clouddn.com/FiJbpIpLJ6S2emRh_Rh6kg19Dhyp)
+![image-20240417175432578](http://verification.longcoding.top/FiJbpIpLJ6S2emRh_Rh6kg19Dhyp)
 
 ***代码逻辑***
 
@@ -914,7 +914,7 @@ pretext task：实例判别 (一对正样本，其余负样本)
 
 ***框架***
 
-![image-20240423132039482](http://sthda9dn6.hd-bkt.clouddn.com/FiQwWmZiTaA80GpxZ_cP6LoWQBnD)
+![image-20240423132039482](http://verification.longcoding.top/FiQwWmZiTaA80GpxZ_cP6LoWQBnD)
 
 时域增强：基于时间特性从 xi 扩充，包括抖动、缩放、时移和邻域分段；
 
@@ -924,7 +924,7 @@ pretext task：实例判别 (一对正样本，其余负样本)
 
 Loss：
 
-![image-20240423133548048](http://sthda9dn6.hd-bkt.clouddn.com/Fv5GblVwR6sTQrzRmi3mkPCEiVeA)
+![image-20240423133548048](http://verification.longcoding.top/Fv5GblVwR6sTQrzRmi3mkPCEiVeA)
 
 余弦相似度：衡量两个向量之间相似性，范围[-1, 1]
 
@@ -932,7 +932,7 @@ Loss：
 
 **// 补充 2025/1/14**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fhfw9iENvupdYltnGP1TnIoanttM" alt="image-20250114163629763" style="zoom:40%;" />
+<img src="http://verification.longcoding.top/Fhfw9iENvupdYltnGP1TnIoanttM" alt="image-20250114163629763" style="zoom:40%;" />
 
 样本越相似  => sim(i, j) 越大 => exp(sim) 越大 =>  exp(sim)/\sum(exp) 越接近于1 => log(·)越接近于0 
 
@@ -961,13 +961,13 @@ Loss：
 
 **⭐⭐⭐多级信息**
 
-![image-20240424172452759](http://sthda9dn6.hd-bkt.clouddn.com/FszIdIHqJYTLaVVMaDJ3SiLhuUQ4)
+![image-20240424172452759](http://verification.longcoding.top/FszIdIHqJYTLaVVMaDJ3SiLhuUQ4)
 
 
 
 **多级对比学习框架**
 
-![image-20240424172549571](http://sthda9dn6.hd-bkt.clouddn.com/FgCOlLyo72rghf4TuKsLoY_a4KtI)
+![image-20240424172549571](http://verification.longcoding.top/FgCOlLyo72rghf4TuKsLoY_a4KtI)
 
 
 
@@ -986,7 +986,7 @@ y_train  # 心肌梗塞二分类标签， patient_id， segment_id
 
 ***Patient-Level Loss***
 
-![image-20240424205635784](http://sthda9dn6.hd-bkt.clouddn.com/FmojCp5VGez0QwxsX3dFyUHUCK__)
+![image-20240424205635784](http://verification.longcoding.top/FmojCp5VGez0QwxsX3dFyUHUCK__)
 
 ```python
 x = [Batch, channels, segment]
@@ -1056,7 +1056,7 @@ loss = loss/loss_terms
 
 之前工作的问题
 
-![image-20240425195237484](http://sthda9dn6.hd-bkt.clouddn.com/Fl7FFxGPcEP-7YFmsNf9PYHpZVDj)
+![image-20240425195237484](http://verification.longcoding.top/Fl7FFxGPcEP-7YFmsNf9PYHpZVDj)
 
 正样本对会误判
 
@@ -1074,7 +1074,7 @@ loss = loss/loss_terms
 
 ***框架***
 
-![image-20240425171329665](http://sthda9dn6.hd-bkt.clouddn.com/FmF0LTUTFGsYXsZSjO1Es3CsVaFK)
+![image-20240425171329665](http://verification.longcoding.top/FmF0LTUTFGsYXsZSjO1Es3CsVaFK)
 
 流程：
 
@@ -1087,7 +1087,7 @@ loss = loss/loss_terms
 
 - ***instance & temporal contrastive loss***  
 
-![image-20240425172445164](http://sthda9dn6.hd-bkt.clouddn.com/FjeDH748BsrYQtTOEOmSjYW_SEMr)
+![image-20240425172445164](http://verification.longcoding.top/FjeDH748BsrYQtTOEOmSjYW_SEMr)
 
 ```
 *用 -F.log_softmax(x, dim=-1) 实现*
@@ -1102,11 +1102,11 @@ loss = loss/loss_terms
 
 ***图示Loss过程***
 
-![image-20240425193417634](http://sthda9dn6.hd-bkt.clouddn.com/Fu8OeKZvY8TQ-hCVmTs7laVuLNnM)
+![image-20240425193417634](http://verification.longcoding.top/Fu8OeKZvY8TQ-hCVmTs7laVuLNnM)
 
 子序列是从原始信号中裁剪下来的，并且**有重叠部分**
 
-![image-20240425175053049](http://sthda9dn6.hd-bkt.clouddn.com/Fk0G8jM8ufq4FezR7WIn1MKEPHow)
+![image-20240425175053049](http://verification.longcoding.top/Fk0G8jM8ufq4FezR7WIn1MKEPHow)
 
 同色是相同样本，深浅色表示同一样本重叠的两段
 
@@ -1130,7 +1130,7 @@ loss = loss/loss_terms
 
 *观察*
 
-![image-20240427213825901](http://sthda9dn6.hd-bkt.clouddn.com/FlxcLu-nrG0hZ5m6BeQMnfJk4BjQ)
+![image-20240427213825901](http://verification.longcoding.top/FlxcLu-nrG0hZ5m6BeQMnfJk4BjQ)
 
 
 
@@ -1169,7 +1169,7 @@ loss = loss/loss_terms
 
 ***框架：***
 
-![image-20240427213747206](http://sthda9dn6.hd-bkt.clouddn.com/FiK4E0Rba4I2lpP2fIpxQ8rFyuFb)
+![image-20240427213747206](http://verification.longcoding.top/FiK4E0Rba4I2lpP2fIpxQ8rFyuFb)
 
 
 
@@ -1187,7 +1187,7 @@ loss = loss/loss_terms
 	
 	loss:  俩视图对应段为正样本(分子)
 
-![image-20240427220130014](http://sthda9dn6.hd-bkt.clouddn.com/FqUjTPyOQ_WkWJxxkJ0GpzCsSAAB)
+![image-20240427220130014](http://verification.longcoding.top/FqUjTPyOQ_WkWJxxkJ0GpzCsSAAB)
 
 负样本在母分，x_mix做负样本增强。
 
@@ -1239,15 +1239,15 @@ CV: 图像的邻近区域定义为其水平反射、轻微旋转和轻微缩放�
 
 ***方法：***
 
-![image-20240428175535852](http://sthda9dn6.hd-bkt.clouddn.com/FqaLaOdoIr-cpS9l6zmtNSzR-Vqq)
+![image-20240428175535852](http://verification.longcoding.top/FqaLaOdoIr-cpS9l6zmtNSzR-Vqq)
 
 ***框架伪代码*：**
 
-![image-20240428175500700](http://sthda9dn6.hd-bkt.clouddn.com/FpPy-mOfvDy30xYu8K1sC1Q5zOAp)
+![image-20240428175500700](http://verification.longcoding.top/FpPy-mOfvDy30xYu8K1sC1Q5zOAp)
 
 *图例：*
 
-![image-20240428175951150](http://sthda9dn6.hd-bkt.clouddn.com/Fg1UhIVdFoUyTZUNKCNOy5NVzP-o)
+![image-20240428175951150](http://verification.longcoding.top/Fg1UhIVdFoUyTZUNKCNOy5NVzP-o)
 
 虚拟数据，让数据边界过渡； 当不在Train数据的分布出现时，降低不确定性。 稍微清晰化边界
 
@@ -1269,11 +1269,11 @@ CV: 图像的邻近区域定义为其水平反射、轻微旋转和轻微缩放�
 
 *Model:*
 
-![image-20240429203859825](http://sthda9dn6.hd-bkt.clouddn.com/FhxSE95ivo_u62hu7k5pAhAamgQZ)
+![image-20240429203859825](http://verification.longcoding.top/FhxSE95ivo_u62hu7k5pAhAamgQZ)
 
 *input: [3, 448, 448]  => output: [30, 7, 7]*
 
-![image-20240429204129869](http://sthda9dn6.hd-bkt.clouddn.com/FlwDkypmqQ3dpDIVV3Dvc4rqnrcd)
+![image-20240429204129869](http://verification.longcoding.top/FlwDkypmqQ3dpDIVV3Dvc4rqnrcd)
 
 *置信度(confidence): 这个值代表了模型认为预测的边界框内存在对象的概率*
 
@@ -1283,7 +1283,7 @@ CV: 图像的邻近区域定义为其水平反射、轻微旋转和轻微缩放�
 
 
 
-![image-20240429210124912](http://sthda9dn6.hd-bkt.clouddn.com/FtrEL1xVvt9z-KAIvxuRVYLmLS_J)
+![image-20240429210124912](http://verification.longcoding.top/FtrEL1xVvt9z-KAIvxuRVYLmLS_J)
 
 ***非极大值抑制***  （最佳：每个类别独立执行非极大值抑制，从而更精确地处理多类别情况）
 
@@ -1298,7 +1298,7 @@ CV: 图像的邻近区域定义为其水平反射、轻微旋转和轻微缩放�
 
 ***训练：***
 
-![image-20240429210707202](http://sthda9dn6.hd-bkt.clouddn.com/FoYarO_WymLCMWJzy9ShWN6l4FAd)
+![image-20240429210707202](http://verification.longcoding.top/FoYarO_WymLCMWJzy9ShWN6l4FAd)
 
 λcoord = 5,   λnoobj = 0.5,  调整各个部分的重要性
 $$
@@ -1329,7 +1329,7 @@ $$
 
 **框架对比**
 
-![image-20240504141408686](http://sthda9dn6.hd-bkt.clouddn.com/FvRDJcCTiZLB2TSscRE047d6YZYv)
+![image-20240504141408686](http://verification.longcoding.top/FvRDJcCTiZLB2TSscRE047d6YZYv)
 
 ⭐ ***End to End***
 
@@ -1337,7 +1337,7 @@ $$
 
 **框架**
 
-![image-20240504141522823](http://sthda9dn6.hd-bkt.clouddn.com/FntDu8y-SPWRFtWIEWiahhJImAax)
+![image-20240504141522823](http://verification.longcoding.top/FntDu8y-SPWRFtWIEWiahhJImAax)
 
 Unlabeled Sample : 使用两个增强视图作为positive pair，与其他sample为negative pair (标准的对比学习)
 
@@ -1373,13 +1373,13 @@ Labeled Sample：1️⃣ 同类型的sample为positive pair，不同类型的sam
 
 *框架*
 
-![image-20240504192858744](http://sthda9dn6.hd-bkt.clouddn.com/FtXMJSSYglENTuecQD7bhMyV1xVo)
+![image-20240504192858744](http://verification.longcoding.top/FtXMJSSYglENTuecQD7bhMyV1xVo)
 
 共享参数 shared weight
 
 *Loss*
 
-![image-20240504192936596](http://sthda9dn6.hd-bkt.clouddn.com/FnYcuZnuiDcvvR3ajLOAq4DShL2R)
+![image-20240504192936596](http://verification.longcoding.top/FnYcuZnuiDcvvR3ajLOAq4DShL2R)
 
 上面是正样本对，下面是负样本对
 -log_softmax() => 挑选出需要的值
@@ -1388,7 +1388,7 @@ Labeled Sample：1️⃣ 同类型的sample为positive pair，不同类型的sam
 
 *算法*
 
-![image-20240504193222346](http://sthda9dn6.hd-bkt.clouddn.com/FtXUBR7a_alxoHOMOf_A6CuFi92w)
+![image-20240504193222346](http://verification.longcoding.top/FtXUBR7a_alxoHOMOf_A6CuFi92w)
 
 
 
@@ -1406,11 +1406,11 @@ Labeled Sample：1️⃣ 同类型的sample为positive pair，不同类型的sam
 
 速度限制-问题分析
 
-![image-20240506202622982](http://sthda9dn6.hd-bkt.clouddn.com/FophrEolg_pY22h3f06TApCOn7vU)
+![image-20240506202622982](http://verification.longcoding.top/FophrEolg_pY22h3f06TApCOn7vU)
 
 归纳总结：
 
-![image-20240506201201840](http://sthda9dn6.hd-bkt.clouddn.com/Ft9OjzVqwvKABcvbEdV0-NdHWT3y)
+![image-20240506201201840](http://verification.longcoding.top/Ft9OjzVqwvKABcvbEdV0-NdHWT3y)
 
 (a) vision embedding 参数量 > Text Embedding > Modality Interaction  # 缺点，视觉嵌入太重(比重太大)，并且融合非常简单即点乘算相似度
 
@@ -1426,7 +1426,7 @@ Labeled Sample：1️⃣ 同类型的sample为positive pair，不同类型的sam
 
 模型框架：
 
-![image-20240506202930648](http://sthda9dn6.hd-bkt.clouddn.com/Fk4qZVe2Ed-ezQCm2RoOZuE3J0Ha)
+![image-20240506202930648](http://verification.longcoding.top/Fk4qZVe2Ed-ezQCm2RoOZuE3J0Ha)
 
 *初始化参数-ViT，而不是bert*
 
@@ -1463,13 +1463,13 @@ text token set 和 visual token set：进行对齐Loss
 
 **结果非常好**
 
-![image-20240506221847766](http://sthda9dn6.hd-bkt.clouddn.com/FvdT24-GqGPwRnm3KHtiyZK8rTtO)
+![image-20240506221847766](http://verification.longcoding.top/FvdT24-GqGPwRnm3KHtiyZK8rTtO)
 
 
 
 *基础块*
 
-![image-20240506221730469](http://sthda9dn6.hd-bkt.clouddn.com/FlsZ16a9K6-0aI8vE7dcRGRmqc4V)
+![image-20240506221730469](http://verification.longcoding.top/FlsZ16a9K6-0aI8vE7dcRGRmqc4V)
 
 共享注意力矩阵(都是一个物体的不同视角)，但是最后的FFN各个模态专享
 
@@ -1477,7 +1477,7 @@ text token set 和 visual token set：进行对齐Loss
 
 *拓展到不同的模态*：
 
-![image-20240506221937618](http://sthda9dn6.hd-bkt.clouddn.com/FvuKOj42D1UKUyfgc9DhAB_kHSUm)
+![image-20240506221937618](http://verification.longcoding.top/FvuKOj42D1UKUyfgc9DhAB_kHSUm)
 
 
 
@@ -1521,7 +1521,7 @@ text token set 和 visual token set：进行对齐Loss
 
 *框架：*
 
-![image-20240507195518743](http://sthda9dn6.hd-bkt.clouddn.com/Fm8rrHfMoDMFD44WkrXWbLfBZWsO)
+![image-20240507195518743](http://verification.longcoding.top/Fm8rrHfMoDMFD44WkrXWbLfBZWsO)
 
 image encoder: ViT(ImageNet预训练参数)  - CLS token
 
@@ -1587,11 +1587,11 @@ Targets = (0, 0, ..., 0)
 
 
 
-![image-20240507203423762](http://sthda9dn6.hd-bkt.clouddn.com/Fo5QVCCNEHnTtRVHiD9VTTtG2NhB)
+![image-20240507203423762](http://verification.longcoding.top/Fo5QVCCNEHnTtRVHiD9VTTtG2NhB)
 
 目的：缓解noisy web data的不足，真正的label不一定有momentum的好
 
-![image-20250115224719284](http://sthda9dn6.hd-bkt.clouddn.com/FlfwuaqgM0F6HxRI8NLy9yX0qlBH)
+![image-20250115224719284](http://verification.longcoding.top/FlfwuaqgM0F6HxRI8NLy9yX0qlBH)
 
 真实label不一定比momentum model给出的predict label好，=> 使用KL散度进行约束 一致性
 
@@ -1607,17 +1607,17 @@ Targets = (0, 0, ..., 0)
 
 InfoNCE Loss
 
-![image-20240507201135974](http://sthda9dn6.hd-bkt.clouddn.com/Fn6k4nYEeCC98gdG9m20Ny9q11Kt)
+![image-20240507201135974](http://verification.longcoding.top/Fn6k4nYEeCC98gdG9m20Ny9q11Kt)
 
 ***Image-Text Contrastive Loss***
 
-![image-20240507201202181](http://sthda9dn6.hd-bkt.clouddn.com/Foi0D0DMVUtxzsHTL76RXZKMh3jo)
+![image-20240507201202181](http://verification.longcoding.top/Foi0D0DMVUtxzsHTL76RXZKMh3jo)
 
 最大化Text和Image中的互信息， ITC 将两个单独的模态（即 I 和 T）视为图像-文本对的两个视图
 
 ***MLM:***
 
-![image-20240507201419353](http://sthda9dn6.hd-bkt.clouddn.com/FhfVA9APbraPAhcN-2iDpbkpMlSA)
+![image-20240507201419353](http://verification.longcoding.top/FhfVA9APbraPAhcN-2iDpbkpMlSA)
 
 MLM 将图像-文本对的两个视图视为：(1) 随机选择的单词标记，以及 (2) 图像 + 带有该单词屏蔽的上下文文本。
 
@@ -1635,7 +1635,7 @@ MLM 将图像-文本对的两个视图视为：(1) 随机选择的单词标记�
 
 观察：
 
-![image-20240508125442186](http://sthda9dn6.hd-bkt.clouddn.com/FvT1Zpo3nQTgy2ZEOa9t67cXuVDQ)
+![image-20240508125442186](http://verification.longcoding.top/FvT1Zpo3nQTgy2ZEOa9t67cXuVDQ)
 
 在监督学习中。在预测'花豹'时，预测概率除了'花豹'，**剩余**预测得分比较高的是'美洲虎'、'猎豹'； **最不相似**的是'救生艇'、'购物车'、'书柜';
 
@@ -1661,7 +1661,7 @@ MLM 将图像-文本对的两个视图视为：(1) 随机选择的单词标记�
 
 **方法：**
 
-![image-20240508130437824](http://sthda9dn6.hd-bkt.clouddn.com/FgTn1HJ9-x4YmL1t8ikulVrn2ZpY)
+![image-20240508130437824](http://verification.longcoding.top/FgTn1HJ9-x4YmL1t8ikulVrn2ZpY)
 
 用一个memory bank存储4096个样本embed feature(128-dimention) 随着网络更新, 目的是让特征在嵌入空间中远离(每一个样本都是一个类)，学习那种有监督时类和类之间相似聚集的现象。
 
@@ -1688,7 +1688,7 @@ MLM 将图像-文本对的两个视图视为：(1) 随机选择的单词标记�
 
 ***方法：***
 
-![image-20240508172636506](http://sthda9dn6.hd-bkt.clouddn.com/Fgnq_P3obfLx4Ys4EVFMcEvtdv14)
+![image-20240508172636506](http://verification.longcoding.top/Fgnq_P3obfLx4Ys4EVFMcEvtdv14)
 
 在线网络θ + 目标网络γ(提供回归目标，γ = α×γ + (1-α)×θ ，指数移动平均 )
 
@@ -1727,7 +1727,7 @@ $$
 
 
 
-![image-20240508213644391](http://sthda9dn6.hd-bkt.clouddn.com/FgmNTLztdwi5Fz9jueQRIveYY2PT)
+![image-20240508213644391](http://verification.longcoding.top/FgmNTLztdwi5Fz9jueQRIveYY2PT)
 
 ViT最后的CLS注意力图示⭐⭐⭐
 
@@ -1739,7 +1739,7 @@ ViT最后的CLS注意力图示⭐⭐⭐
 
 框架：(借鉴BYOL)
 
-![image-20240508213533118](http://sthda9dn6.hd-bkt.clouddn.com/FoMugd-rgr0cSAJqhDni4V7Xx0mV)
+![image-20240508213533118](http://verification.longcoding.top/FoMugd-rgr0cSAJqhDni4V7Xx0mV)
 
 教师是在训练过程中动态构建的。知识蒸馏就不再被用作自监督预训练的后处理步骤，而是直接作为自监督目标。
 
@@ -1756,7 +1756,7 @@ ViT最后的CLS注意力图示⭐⭐⭐
 
 伪代码：
 
-![image-20240508213511774](http://sthda9dn6.hd-bkt.clouddn.com/FpwbfqXQctKIAjN6nzEdScMiH1Tv)
+![image-20240508213511774](http://verification.longcoding.top/FpwbfqXQctKIAjN6nzEdScMiH1Tv)
 
 防止模型坍塌：
 
@@ -1768,13 +1768,13 @@ ViT最后的CLS注意力图示⭐⭐⭐
 
 图示：
 
-![image-20240508215946714](http://sthda9dn6.hd-bkt.clouddn.com/Fm-JcH7RKbGtr4JmV6THi9pBZpzJ)
+![image-20240508215946714](http://verification.longcoding.top/Fm-JcH7RKbGtr4JmV6THi9pBZpzJ)
 
 *不同颜色是不同的注意力头*
 
 
 
-![image-20240508220018510](http://sthda9dn6.hd-bkt.clouddn.com/FpiUx2RoGk6ES3YqU1cacRQmhQug)
+![image-20240508220018510](http://verification.longcoding.top/FpiUx2RoGk6ES3YqU1cacRQmhQug)
 
 无监督注意力更能学到本质！
 
@@ -1790,7 +1790,7 @@ ViT最后的CLS注意力图示⭐⭐⭐
 
 简单设计的Siamese(孪生)网络。 我们的极简主义方法的竞争力表明
 
-![image-20240509130843870](http://sthda9dn6.hd-bkt.clouddn.com/Fuh4i3VZlmz43UK5fCBeVdASTTui)
+![image-20240509130843870](http://verification.longcoding.top/Fuh4i3VZlmz43UK5fCBeVdASTTui)
 
 1️⃣ “没有动量编码器的 BYOL”
 
@@ -1800,7 +1800,7 @@ ViT最后的CLS注意力图示⭐⭐⭐
 
 *方法：*
 
-![image-20240509131933070](http://sthda9dn6.hd-bkt.clouddn.com/Fjpwyna05L85B-6wGDYZmz_Qw0MA)
+![image-20240509131933070](http://verification.longcoding.top/Fjpwyna05L85B-6wGDYZmz_Qw0MA)
 
 一幅图像的两个增强视图由同一编码器网络 f（主干网络加投影 MLP）处理。 然后在一侧应用预测 MLP-h，在另一侧应用停止梯度操作。 该模型最大化了双方之间的相似性。 它既不使用负对也不使用动量编码器。
 
@@ -1808,7 +1808,7 @@ ViT最后的CLS注意力图示⭐⭐⭐
 
 *伪代码：*
 
-![image-20240509132032286](http://sthda9dn6.hd-bkt.clouddn.com/Fn0nqir1DgxbNEJEZxTwwyAticNl)
+![image-20240509132032286](http://verification.longcoding.top/Fn0nqir1DgxbNEJEZxTwwyAticNl)
 
 
 
@@ -1822,31 +1822,31 @@ ViT最后的CLS注意力图示⭐⭐⭐
 
 *负的余弦相似度 和 交叉熵*
 
-相似度：![image-20240509132907059](http://sthda9dn6.hd-bkt.clouddn.com/Fvq2llOYgXiD8my85xmHV4Qfciy2)
+相似度：![image-20240509132907059](http://verification.longcoding.top/Fvq2llOYgXiD8my85xmHV4Qfciy2)
 
-交叉熵：![image-20240509132841007](http://sthda9dn6.hd-bkt.clouddn.com/Fo-Wyh7xSpg3IJLeTKwtQKrrnJg0)
+交叉熵：![image-20240509132841007](http://verification.longcoding.top/Fo-Wyh7xSpg3IJLeTKwtQKrrnJg0)
 
-![image-20240509132922553](http://sthda9dn6.hd-bkt.clouddn.com/Fi1FIOIJnexoaKUFVFunkW1ACLD0)
+![image-20240509132922553](http://verification.longcoding.top/Fi1FIOIJnexoaKUFVFunkW1ACLD0)
 
-![image-20240509132830913](http://sthda9dn6.hd-bkt.clouddn.com/FqfhYzetpsM5M-7uRQ67CWI2eeol)
+![image-20240509132830913](http://verification.longcoding.top/FqfhYzetpsM5M-7uRQ67CWI2eeol)
 
 
 
 ***BatchNorm的影响：***
 
-![image-20240509132146667](http://sthda9dn6.hd-bkt.clouddn.com/Fovin_S7qt5lFb027We7eEvPRQPd)
+![image-20240509132146667](http://verification.longcoding.top/Fovin_S7qt5lFb027We7eEvPRQPd)
 
 ***BatchSize的影响：***
 
-![image-20240509132226252](http://sthda9dn6.hd-bkt.clouddn.com/FohojIt8WTiIjRV1Pg1dgQVdX22J)
+![image-20240509132226252](http://verification.longcoding.top/FohojIt8WTiIjRV1Pg1dgQVdX22J)
 
 ***预测头的影响：***
 
-![image-20240509132304829](http://sthda9dn6.hd-bkt.clouddn.com/Fr8ykXKTMCL8sJr1AioPfrb10cgi)
+![image-20240509132304829](http://verification.longcoding.top/Fr8ykXKTMCL8sJr1AioPfrb10cgi)
 
 ***Loss的对称性：***
 
-![image-20240509132550886](http://sthda9dn6.hd-bkt.clouddn.com/Fn0qB0BgCd8qAYGtw508QP7TYPGY)
+![image-20240509132550886](http://verification.longcoding.top/Fn0qB0BgCd8qAYGtw508QP7TYPGY)
 
 sym对称；asym非对称；asym. 2×(每个图像采样两对来粗略地补偿对称性)
 
@@ -1868,13 +1868,13 @@ sym对称；asym非对称；asym. 2×(每个图像采样两对来粗略地补偿
 
 *模型组件*
 
-![image-20240615220259186](http://sthda9dn6.hd-bkt.clouddn.com/Fo1ZZ7uXEYg4FF6zhXP22Wb00GRI)
+![image-20240615220259186](http://verification.longcoding.top/Fo1ZZ7uXEYg4FF6zhXP22Wb00GRI)
 
 
 
 模型框架：
 
-![image-20240615220352268](http://sthda9dn6.hd-bkt.clouddn.com/Fr4-lV5r1l6wvGHaV5X7ttwK-v-B)
+![image-20240615220352268](http://verification.longcoding.top/Fr4-lV5r1l6wvGHaV5X7ttwK-v-B)
 
 *prompt encoder：*
 
@@ -1889,7 +1889,7 @@ sym对称；asym非对称；asym. 2×(每个图像采样两对来粗略地补偿
 
 *mask decoder：*
 
-![image-20240615220440257](http://sthda9dn6.hd-bkt.clouddn.com/FjIJbCLSSY9RpRdpfUBwRHKDZ11H)
+![image-20240615220440257](http://verification.longcoding.top/FjIJbCLSSY9RpRdpfUBwRHKDZ11H)
 
 
 
@@ -1944,11 +1944,11 @@ sym对称；asym非对称；asym. 2×(每个图像采样两对来粗略地补偿
 
 **Overview**
 
-![image-20240801210057622](http://sthda9dn6.hd-bkt.clouddn.com/Fq0nT1xy9-5ka1qxWndHierUZxTr)
+![image-20240801210057622](http://verification.longcoding.top/Fq0nT1xy9-5ka1qxWndHierUZxTr)
 
 
 
-![image-20240801205504650](http://sthda9dn6.hd-bkt.clouddn.com/FoubmWQSlQXo0ibNAHq6LdsmBlGT)
+![image-20240801205504650](http://verification.longcoding.top/FoubmWQSlQXo0ibNAHq6LdsmBlGT)
 
 
 
@@ -1983,7 +1983,7 @@ TRANSFORMER UTILIZING CROSSDIMENSION DEPENDENCY FOR MULTIVARIATE TIME SERIES FOR
 
 嵌入方式 and 依据：
 
-![image-20240802201801644](http://sthda9dn6.hd-bkt.clouddn.com/FmcGiYT9kC7WvvSf5RRFZuugHNPj)
+![image-20240802201801644](http://verification.longcoding.top/FmcGiYT9kC7WvvSf5RRFZuugHNPj)
 
 自注意力呈现小局部一致性，一坨而不是一个。
 
@@ -2037,9 +2037,9 @@ ECG与多变量的异同：
 
 观察：(Q&K 是等价的)
 
-![image-20240803141041758](http://sthda9dn6.hd-bkt.clouddn.com/FsuQLyF7-jRZhDX_VBbBjyVuOJYE)
+![image-20240803141041758](http://verification.longcoding.top/FsuQLyF7-jRZhDX_VBbBjyVuOJYE)
 
-![image-20240803141402493](http://sthda9dn6.hd-bkt.clouddn.com/FrWzYw4K5yiCpTHywdjy8lbdsTJc)
+![image-20240803141402493](http://verification.longcoding.top/FrWzYw4K5yiCpTHywdjy8lbdsTJc)
 
 注意力呈现长尾分布：
 
@@ -2049,7 +2049,7 @@ Query分为活跃于惰性Token
 
 衡量指标：
 
-![image-20240803141306326](http://sthda9dn6.hd-bkt.clouddn.com/FnyVbctz6tBWyu_6v-9eFxtgAmsL)
+![image-20240803141306326](http://verification.longcoding.top/FnyVbctz6tBWyu_6v-9eFxtgAmsL)
 
 
 
@@ -2075,7 +2075,7 @@ contex[:, :, M_top, :] = attn_active@V
 
 结构优化：
 
-![image-20240803142458572](http://sthda9dn6.hd-bkt.clouddn.com/FjJea7jjH25S7tZe7BywKypEuXlv)
+![image-20240803142458572](http://verification.longcoding.top/FjJea7jjH25S7tZe7BywKypEuXlv)
 
 ```python
 # Encoder:
@@ -2135,7 +2135,7 @@ exp.train(setting)
 exp.test(setting)
 ```
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fr4gDWDQ5ks4NCuXHRCQ-UOBW3f6" alt="image-20240817204741361" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/Fr4gDWDQ5ks4NCuXHRCQ-UOBW3f6" alt="image-20240817204741361" style="zoom: 50%;" />
 
 
 
@@ -2149,7 +2149,7 @@ Transcending the Limit of Local Window: Advanced Super-Resolution Transformer wi
 
 扩展局部窗口的限制
 
-![image-20240919153745713](http://sthda9dn6.hd-bkt.clouddn.com/FvL2v53zt2HNJxfaf6DoqKEZxUQv)
+![image-20240919153745713](http://verification.longcoding.top/FvL2v53zt2HNJxfaf6DoqKEZxUQv)
 
 1. window-based self-attention
 2. token dictionary cross-attention => Attention(Q(XW),K(TW), V(TW))
@@ -2157,13 +2157,13 @@ Transcending the Limit of Local Window: Advanced Super-Resolution Transformer wi
 
 
 
-![image-20240919154126696](http://sthda9dn6.hd-bkt.clouddn.com/Fm6YWCM2vD3r3UYGENn7woDqo_2r)
+![image-20240919154126696](http://verification.longcoding.top/Fm6YWCM2vD3r3UYGENn7woDqo_2r)
 
 
 
 **Architecture**
 
-![image-20240919154258809](http://sthda9dn6.hd-bkt.clouddn.com/FsliGkn-Ia9KlymRQrFUZZaff_H5)
+![image-20240919154258809](http://verification.longcoding.top/FsliGkn-Ia9KlymRQrFUZZaff_H5)
 
 
 
@@ -2182,7 +2182,7 @@ Poly Kernel Inception Network for Remote Sensing Detection
 
 
 
-![image-20240919154538153](http://sthda9dn6.hd-bkt.clouddn.com/FjXAvi5BOhnK1vn-qVoFbI57Ajvo)
+![image-20240919154538153](http://verification.longcoding.top/FjXAvi5BOhnK1vn-qVoFbI57Ajvo)
 
 ```python
 # 十字架型汇聚 => 近似标准的DWConvKxK => 降低参数量
@@ -2203,7 +2203,7 @@ Dual Attention Network for Scene Segmentation
 
 
 
-![image-20240925140803581](http://sthda9dn6.hd-bkt.clouddn.com/Fv2w3idnvTYq2ouUvrQMtxqlfucH)
+![image-20240925140803581](http://verification.longcoding.top/Fv2w3idnvTYq2ouUvrQMtxqlfucH)
 
 At the end of the model, we use the dual attention mechanism to explicitly capture position and channel dependencies.
 
@@ -2287,7 +2287,7 @@ class CAM_Module(Module):
 
 
 
-![image-20240925145109345](http://sthda9dn6.hd-bkt.clouddn.com/FtRY7ZtihlPgnE0gXKTYRzWioi9l)
+![image-20240925145109345](http://verification.longcoding.top/FtRY7ZtihlPgnE0gXKTYRzWioi9l)
 
 convulution => capture local pattern
 
@@ -2312,7 +2312,7 @@ Multimodal Learning With Transformers: A Survey
 
 **融合策略**
 
-![image-20240925151957579](http://sthda9dn6.hd-bkt.clouddn.com/Fpkl7hX0gQn4hTn-9pCn7v0eSDsx)
+![image-20240925151957579](http://verification.longcoding.top/Fpkl7hX0gQn4hTn-9pCn7v0eSDsx)
 
 
 
@@ -2326,9 +2326,9 @@ Dual Aggregation Transformer for Image Super-Resolution
 
 Motivation: 现有方法利用自我注意沿着不同的维度，空间或通道，并取得了令人印象深刻的性能。这启发我们将Transformer中的两个维度结合起来，以获得更强大的表示能力。
 
-![image-20241004172905131](http://sthda9dn6.hd-bkt.clouddn.com/FkgqHcOiU-RhuZ2OuevAk2UbTecu)
+![image-20241004172905131](http://verification.longcoding.top/FkgqHcOiU-RhuZ2OuevAk2UbTecu)
 
-![image-20241004172825801](http://sthda9dn6.hd-bkt.clouddn.com/Fr9yfe5d0MlT-gv6julT2CWe0wme)
+![image-20241004172825801](http://verification.longcoding.top/Fr9yfe5d0MlT-gv6julT2CWe0wme)
 
 
 
@@ -2342,9 +2342,9 @@ Motivation: 现有方法利用自我注意沿着不同的维度，空间或通�
 
 分解和集成的全局语义和本地功能
 
-![image-20250114144508261](http://sthda9dn6.hd-bkt.clouddn.com/FioBD2_JVUt1b_3OHzNhyt1y4Qyx)
+![image-20250114144508261](http://verification.longcoding.top/FioBD2_JVUt1b_3OHzNhyt1y4Qyx)
 
-![image-20241030220700886](http://sthda9dn6.hd-bkt.clouddn.com/FuAjYWuMPbxeo1UKHwCopbn3dyf8)
+![image-20241030220700886](http://verification.longcoding.top/FuAjYWuMPbxeo1UKHwCopbn3dyf8)
 
 
 
@@ -2358,7 +2358,7 @@ Text-to-Speech End2End Model
 
 **两阶段训练策略：**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fl0WmE6EneKMjE67yM20TWC7qsrz" alt="image-20250215131815505" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/Fl0WmE6EneKMjE67yM20TWC7qsrz" alt="image-20250215131815505" style="zoom: 50%;" />
 
 *Stage 1:*
 
@@ -2415,7 +2415,7 @@ Bootstrapping Language-Image Pre-training for Unified Vision-Language Understand
 
 
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpPP6kQ3PE7BEtpByp9YYxMRML6v" alt="image-20250215133226745" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FpPP6kQ3PE7BEtpByp9YYxMRML6v" alt="image-20250215133226745" style="zoom:50%;" />
 
 相同颜色共享参数
 
@@ -2469,11 +2469,11 @@ BEVFormer: Learning Bird’s-Eye-View Representation from Multi-Camera Images vi
 
 网络架构信息流思路：
 
-![image-20250310223908226](http://sthda9dn6.hd-bkt.clouddn.com/FhrytoVkAZHPxv74ssV8XYRfxwe-)
+![image-20250310223908226](http://verification.longcoding.top/FhrytoVkAZHPxv74ssV8XYRfxwe-)
 
 具体：
 
-![image-20250310223507001](http://sthda9dn6.hd-bkt.clouddn.com/FiHzv4f6t8ftO97JsQ2A8Kqg4ad_)
+![image-20250310223507001](http://verification.longcoding.top/FiHzv4f6t8ftO97JsQ2A8Kqg4ad_)
 
 - 一组可学习的BEV Queries，二维网格，模拟鸟瞰图；
 - Spatial Cross Attention，每个视图经过backone提取，拿其中多个层级的输出，拼接为多尺度特征(多个层的特征图，校准通道)。然后每个位置的q，只查询对应几个视图的周边几个k；
@@ -2487,11 +2487,11 @@ BEVFormer: Learning Bird’s-Eye-View Representation from Multi-Camera Images vi
 
 architecture figure：
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FsCz6WFOAG-lyH--baQzssLcXHQl" alt="image-20250310230354425" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FsCz6WFOAG-lyH--baQzssLcXHQl" alt="image-20250310230354425" style="zoom:50%;" />
 
 Attn figure：
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fj3SPOZCjcvybFaLv1hoUNeGlail" alt="image-20250310230305133" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/Fj3SPOZCjcvybFaLv1hoUNeGlail" alt="image-20250310230305133" style="zoom: 50%;" />
 
 ```python
 # 伪代码 - 单尺度的
@@ -2547,3 +2547,305 @@ class DeformableAttention(nn.Module):
 
         return output
 ```
+
+
+
+### 位置编码
+
+#### 绝对位置编码
+
+```java
+patch_embedding: [batch, num_token, dim_token]
+pos_embedding: [batch, num_token, info_pos]
+token = patch_embedding + pos_embedding  
+# 1. pos_embedding可为一组可以学习的位置向量
+# 2. Sin\Cos方式
+```
+
+二进制下的位置编码<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114125707538.png" alt="image-20250114125707538" style="zoom: 50%;" />
+
+Sin\Cos方式(浮点下连续的编码)：
+
+公式：<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114125801575.png" alt="image-20250114125801575" style="zoom:50%;" />
+
+例如：<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114125750131.png" alt="image-20250114125750131" style="zoom:50%;" />
+
+#### 相对位置编码
+
+Swin-Transformer中的
+
+```java
+Attention_score = Q@K.T + B
+B: pos_embedding    
+```
+
+1 生成相对位置索引
+
+2 定义相对位置编码表
+
+3 将相对位置偏置加到注意力分数上
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114130407892.png" alt="image-20250114130407892" style="zoom:50%;" />
+
+#### 隐式位置编码(CV)
+
+```python
+x = DWConv(X) + X
+```
+
+
+
+#### Rope 旋转位置编码
+
+$$
+\theta_m = m\cdot \theta_0, \theta_n = n\cdot \theta_0\\
+q'_m = R(\theta_m) \cdot q_m, \ \ k'n = R(\theta_n) \cdot k_n \\
+attn\_score_m^n = q'_m \cdot k'_n = q_m\cdot k_n\cdot R(\theta_m-\theta_n)\\
+根据位置 => 角度差 => 嵌入相对位置信息
+$$
+
+其中，位置q与k的相对位置信息通过 以下嵌入：
+$$
+Why \ \  R(\theta_1) \cdot R(\theta_2) = R(\theta_1 + \theta_2) \ \ ?
+$$
+我们可以通过矩阵乘法来验证这一点。假设有两个旋转矩阵：
+
+$$
+R(\theta_1) = \begin{pmatrix}
+\cos(\theta_1) & -\sin(\theta_1) \\
+\sin(\theta_1) & \cos(\theta_1)
+\end{pmatrix}, \quad
+R(\theta_2) = \begin{pmatrix}
+\cos(\theta_2) & -\sin(\theta_2) \\
+\sin(\theta_2) & \cos(\theta_2)
+\end{pmatrix}
+$$
+
+它们的乘积为：
+
+$$
+R(\theta_1) \cdot R(\theta_2) = \begin{pmatrix}
+\cos(\theta_1)\cos(\theta_2) - \sin(\theta_1)\sin(\theta_2) & -\cos(\theta_1)\sin(\theta_2) - \sin(\theta_1)\cos(\theta_2) \\
+\sin(\theta_1)\cos(\theta_2) + \cos(\theta_1)\sin(\theta_2) & -\sin(\theta_1)\sin(\theta_2) + \cos(\theta_1)\cos(\theta_2)
+\end{pmatrix}
+$$
+
+利用三角函数的加法公式：
+
+$$
+\cos(\theta_1 + \theta_2) = \cos(\theta_1)\cos(\theta_2) - \sin(\theta_1)\sin(\theta_2)
+$$
+
+$$
+\sin(\theta_1 + \theta_2) = \sin(\theta_1)\cos(\theta_2) + \cos(\theta_1)\sin(\theta_2)
+$$
+
+因此，乘积矩阵可以简化为：
+
+$$
+R(\theta_1) \cdot R(\theta_2) = \begin{pmatrix}
+\cos(\theta_1 + \theta_2) & -\sin(\theta_1 + \theta_2) \\
+\sin(\theta_1 + \theta_2) & \cos(\theta_1 + \theta_2)
+\end{pmatrix} = R(\theta_1 + \theta_2)
+$$
+
+---
+
+### DeepSeek-v3
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114131442101.png" alt="image-20250114131442101" style="zoom:50%;" />
+
+#### DeepSeek-MoE
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114130604367.png" alt="image-20250114130604367" style="zoom:50%;" />
+
+router score 生成：相当于每个路由专家维护自己的向量表示；然后输入与输入x计算点击相似度，softmax生成百分比；
+
+[batch*num_token, dim_token] => [batch*num_token, num_expert] 作为融合时的权重
+
+
+
+```python
+# 1. Gate => router score
+scores = linear(x)  # [batch*num_token, dim_token] => [batch*num_token, num_expert]
+scores = scores.softmax(dim=-1)
+
+original_scores = scores
+indices = torch.topk(scores, self.topk, dim=-1)[1]  # Top索引
+weights = original_scores.gather(1, indices)   # 分数权重
+
+counts = torch.bincount(indices.flatten(), minlength=self.n_routed_experts).tolist() # 计数， 统计每个专家被引用的次数
+
+# 专家路由
+for i in range(self.experts_start_idx, self.experts_end_idx):
+    if counts[i] == 0:
+        continue
+    expert = self.experts[i]
+    idx, top = torch.where(indices == i)
+    y[idx] += expert(x[idx]) * weights[idx, top, None]  # router expert
+z = self.shared_experts(x)  # share expert
+return (y + z).view(shape)  # 联合   
+```
+
+router-score使用linear生成，可以理解为每个expert有自己的向量表示
+
+score = WX => 输入向量跟expert计算点积相似度，进行信息汇聚
+
+
+
+#### Multi-Head Latent Attention (MLA)
+
+一部分使用Lora思路计算高效但表示受限，另一部分则使用正常
+
+q分为：[低秩q:位置q]
+
+k分为：[低秩kv:位置k]
+
+v：低秩kv
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114131506836.png" alt="image-20250114131506836" style="zoom:50%;" />
+
+```python
+bsz, seqlen, _ = x.size()
+end_pos = start_pos + seqlen
+
+# query投影：分为无位置部分 和 带位置的部分
+q = self.wq(x)  
+q = q.view(bsz, seqlen, self.n_local_heads, self.qk_head_dim)
+q_nope, q_pe = torch.split(q, [self.qk_nope_head_dim, self.qk_rope_head_dim], dim=-1)
+q_pe = apply_rotary_emb(q_pe, freqs_cis)
+
+# kv投影：分为低秩kv联合部分 和 带位置的k部分
+kv = self.wkv_a(x)
+kv, k_pe = torch.split(kv, [self.kv_lora_rank, self.qk_rope_head_dim], dim=-1)
+k_pe = apply_rotary_emb(k_pe.unsqueeze(2), freqs_cis)
+
+# q无位置部分投影到low-rank低秩空间
+wkv_b = self.wkv_b.weight
+wkv_b = wkv_b.view(self.n_local_heads, -1, self.kv_lora_rank)
+q_nope = torch.einsum("bshd,hdc->bshc", q_nope, wkv_b[:, :self.qk_nope_head_dim])
+
+# 缓存低秩kv联合部分 和 带位置的k部分
+self.kv_cache[:bsz, start_pos:end_pos] = kv
+self.pe_cache[:bsz, start_pos:end_pos] = k_pe.squeeze(2)
+
+# (低秩q矩阵 乘 低秩kv联合部分) + (带位置的q部分 乘 带位置的k部分)
+scores = (torch.einsum("bshc,btc->bsht", q_nope, self.kv_cache[:bsz, :end_pos]) +
+          torch.einsum("bshr,btr->bsht", q_pe, self.pe_cache[:bsz, :end_pos])) * self.softmax_scale
+
+if mask is not None:
+    scores += mask.unsqueeze(1)  # Decoder核心，mask-score
+scores = scores.softmax(dim=-1, dtype=torch.float32).type_as(x)
+
+# score 矩阵乘 低秩kv联合部分 (attn@Value)
+x = torch.einsum("bsht,btc->bshc", scores, self.kv_cache[:bsz, :end_pos])  # 完整的kv
+x = torch.einsum("bshc,hdc->bshd", x, wkv_b[:, -self.v_head_dim:])  # Lora-升维
+x = self.wo(x.flatten(2)) # 投影
+return x
+```
+
+
+
+---
+
+### LoRA
+
+LORA: **LOW-RANK** ADAPTATION OF LARGE LANGUAGE MODELS
+
+**overview**
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114154225224.png" alt="image-20250114154225224" style="zoom:33%;" />
+
+思路：(添加额外的参数进行微调 => 训练结束后再Fusion)
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114154800501.png" alt="image-20250114154800501" style="zoom:33%;" />
+
+大大节省参数：
+
+1000x1000的矩阵 => 1000,000 参数
+
+1000x10 @ 10x1000 => 20,000参数
+
+节约50倍参数量
+
+(进行近似操作)
+
+
+
+---
+
+### llama3
+
+**overview**
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114160536297.png" alt="image-20250114160536297" style="zoom:40%;" />
+
+⭐adding multi-modal capabilities
+
+<img src="C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114215153162.png" alt="image-20250114215153162" style="zoom:50%;" />
+
+Image => Image Encoder => image embedding
+
+Text => Text Encoder  + Cross-Attn(Image embedding) => enhanced text embedding
+
+Speech => Speech Encoder => Speech Embedding 直接与Text Embeddings前期融合(拼接？)
+
+
+
+**GQA** (Grouped query attention):
+
+========>  Head
+
+<img src="https://pica.zhimg.com/v2-504dfc607eb5f607b7c8834c07052dd4_1440w.jpg" alt="img" style="zoom:50%;" />
+
+图示中，两个Head中，独立投影生成Queries，但共享一组Key和Value  -- 减少模型参数(减少投影使用的Linear层)
+
+
+
+**Training**:
+
+Step 1: pre-training. **Next Token Predict** [Good Knowledge]
+
+Step 2: Post Training => [**DPO**|direction performance optimizition **OR** RLHF|Reinforcement Learning from Human Feedback]
+$$
+y_w:优选项; \ \ y_l:次优项;\\
+P(y_w > y_l|x) = \frac{e^{r(x,y_w)}}{e^{r(x,y_w)}+e^{r(x,y_l)}} = \frac{1}{1+e^{r(x,y_l)-r(x,y_w)}} \\
+= σ(r(x,y_w)-r(x,y_l)), σ=Sigmoid(\cdot)\\
+Max Reward: \frac{1}{num\_sample}\cdot-log\prod_{(x,y_w,y_l \in D)}{σ(r(x,y_w)-r(x,y_l))}
+$$
+优化目标：![image-20250114212216387](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250114212216387.png)
+
+前半：最大化偏好项
+
+后半：保持相似性(别偏移太狠，别只顾着回答Train的数据，其他不管了)
+
+
+
+---
+
+Step 3: multi-modal encoder pre-training:
+
+- image encoder(ViT-H) => text-image pairs representation Alignment [**CLIP**], 先在224x224的图片上进行预训练，再微调对齐图文一致性
+
+- speech encoder(Conformer) => [**MAE**] method. masks out parts of the speech inputs and tries to reconstruct the masked out parts 
+
+  => 性能更好的image and speech Encoder
+
+Step 4:  
+
+- Vision adapter training: 
+
+  每4层之后添加Cross-Attention[**训练这部分**]，引入image-token给core model(llama3)
+
+- Speech adapter training
+
+​		encoder: Conformer => [1/2FFN=>MSA=>ConvFFN=>1/2FFN].  完形填空pre-training
+
+​		adapter: [Conv-layer => Transformer-layer => Linear => speech token] \[**训练这部分**]
+
+​        直接作为外语单词嵌入 给 LLM(llama3)的输入。更好的使用core model的能力
+
+
+
+---
+

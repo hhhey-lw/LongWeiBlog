@@ -90,7 +90,7 @@ Why 需要主和从
 - 去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。
 - 内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能)
 
-![image-20250307175456538](http://sthda9dn6.hd-bkt.clouddn.com/Fo9jCIPyRQ866mnZdasVsUwqao1j)
+![image-20250307175456538](http://verification.longcoding.top/Fo9jCIPyRQ866mnZdasVsUwqao1j)
 
 
 
@@ -131,7 +131,7 @@ hash(key)%N  N:服务器数量， N一旦变了，大部分数据都需要重新
   - Redis主线程很快，但是网络IO处理不一定更得上它的速度，可能成为累赘。
   - 使用多个IO进程加快网络IO速度(数据序列号&反序列化，客户端请求的解析...)
 
-![image-20250307181554873](http://sthda9dn6.hd-bkt.clouddn.com/Fp7r8RqwKZyeOXh1NE2-FJK7m5jX)
+![image-20250307181554873](http://verification.longcoding.top/Fp7r8RqwKZyeOXh1NE2-FJK7m5jX)
 
 ### 638 跳表
 
@@ -349,6 +349,7 @@ Big Memory Key，key对应的value超级大
 - RDB(redis database)快照
   - 通过生成某一时刻的数据快照来实现持久化，间隔一定时间
   - 二进制文件，数据紧凑，恢复数据快
+  - 写时复制技术
 - AOP(Append only file)日志
   - AOP通过将每个写操作追加到日志中实现持久化，以便根据操作日志进行恢复，重放
   - 恢复精确，但文件体积大
@@ -412,16 +413,16 @@ Redis主节点选举
 
 分布式系统中，由于**网络分区问题**导致系统多个节点误认为自己是主节点，导致多个主节点提供写入服务，导致数据不一致。
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FoJtPGv_EEQhK52jNYmr48X8KsQ6" alt="image-20250319220151017" style="zoom:40%;" />
+<img src="http://verification.longcoding.top/FoJtPGv_EEQhK52jNYmr48X8KsQ6" alt="image-20250319220151017" style="zoom:40%;" />
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fkn14hzuMQ9at05iEg8_XSrQXZLh" alt="image-20250319220208573" style="zoom:40%;" />
+<img src="http://verification.longcoding.top/Fkn14hzuMQ9at05iEg8_XSrQXZLh" alt="image-20250319220208573" style="zoom:40%;" />
 
 🏷️避免脑裂问题：
 
 - 【`min-slaves-to-write`】设置主节点至少有指定的从节点的情况下才执行写操作。
 - 【`min-slaves-max-lag`】设置从节点的最大延迟，如果从节点的延迟超过这个值，则不计入`min-slaves-to-write`。
 
-这样当脑裂后，某个主节点的从节点数量不够或者延迟较大，就无法写入，避免多个主节点写入造成的数据不一致。 【并不能完全解决】
+这样当脑裂后，某个主节点的从节点数量不够或者延迟较大，就无法写入，避免多个主节点写入造成的数据不一致。 从节点与主节点延迟大，则不计数为从节点【并不能完全解决】
 
 
 
@@ -443,13 +444,13 @@ else
 end
 ```
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FikBBRYAuFGNcOcNoQmgE4um1X2l" alt="image-20250307223835242" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/FikBBRYAuFGNcOcNoQmgE4um1X2l" alt="image-20250307223835242" style="zoom: 50%;" />
 
 
 
 ### 656 分布式锁在未完成业务时，过期了怎么办
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FtTngD_Cgbl4xrWxHwGDcclIA0Gf" alt="image-20250307224018962" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FtTngD_Cgbl4xrWxHwGDcclIA0Gf" alt="image-20250307224018962" style="zoom:50%;" />
 
 => 逻辑途中，给它续期
 
@@ -481,6 +482,16 @@ SUBSCRIBE channel
 PUBLISH channel message
 UNSUBSCRIBE channel
 ```
+
+
+
+### Redis Red Lock
+
+主从+哨兵模式下呢，进行主从切换时，从节点可能没有完全复制主节点信息。锁没有同步过来。
+
+资源的竞争
+
+=> 至少一半的Redis节点拿到了锁才算上锁成功。 性能比较差。
 
 
 
@@ -666,20 +677,20 @@ public String getData(String key) {
 
 - 先更新Redis，再更新MySQL ❌不推荐
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FmGqn7lzt08zg5oJu4hJH-WsIxYk" alt="image-20250308135639431" style="zoom:66%;" />
+<img src="http://verification.longcoding.top/FmGqn7lzt08zg5oJu4hJH-WsIxYk" alt="image-20250308135639431" style="zoom:66%;" />
 
 - 先更新MySQL，再更新Redis ❌不推荐
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fp0jO35q6BMqKyzIsrb0NXRI8o6P" alt="image-20250308140251136" style="zoom:66%;" />
+<img src="http://verification.longcoding.top/Fp0jO35q6BMqKyzIsrb0NXRI8o6P" alt="image-20250308140251136" style="zoom:66%;" />
 
 - 先删除Redis，再更新MySQL，最后写回Redis ❌不推荐
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FmEB4Dj9_pgrOuyHLfHhGqK04wHb" alt="image-20250308140614242" style="zoom:66%;" />
+<img src="http://verification.longcoding.top/FmEB4Dj9_pgrOuyHLfHhGqK04wHb" alt="image-20250308140614242" style="zoom:66%;" />
 
 - 先更新MySQL，再删除Redis，等请求重新缓存(惰性) ✔️推荐
 - 缓存双删除策略。更新MySQL之前，删除一次Redis；更新完MySQL后，再进行一次延迟删除 ✔️推荐
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FsUaIXIOz9NnJkJ0Lf1fUebBQpHI" alt="image-20250308140849778" style="zoom:67%;" />
+<img src="http://verification.longcoding.top/FsUaIXIOz9NnJkJ0Lf1fUebBQpHI" alt="image-20250308140849778" style="zoom:67%;" />
 
 数据库没问题，但是缓存有问题，等待一段实践
 
@@ -795,7 +806,7 @@ public void onMessage(String binlogData) {
 
 评论：
 
-![image-20250308143904146](http://sthda9dn6.hd-bkt.clouddn.com/FoIDpjjifc5pHMUPM-N05X4v1Skz)
+![image-20250308143904146](http://verification.longcoding.top/FoIDpjjifc5pHMUPM-N05X4v1Skz)
 
 
 

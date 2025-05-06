@@ -29,7 +29,7 @@ Java编译生成的是字节码文件.class文件，而不是特定于某个操�
 - 执行引擎(命令解释器)：将字节码文件翻译成机器码，并交给CPU执行；
 - 本地方法接口：过程中会调用不同语言提供的接口，比如驱动和..，调用本地方法接口，例如操作系统级别的功能或者高性能库。
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FtrSjvLjXEixufKxk9avjPMmQNpg" alt="image-20250314162756632" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FtrSjvLjXEixufKxk9avjPMmQNpg" alt="image-20250314162756632" style="zoom:50%;" />
 
 
 
@@ -74,7 +74,7 @@ JVM运行时的数据区分为：1. **方法区** 2. **堆** 3. **虚拟机栈**
 - 程序计数器
   - 保存**当前线程**执行的字节码指令地址或行号。
 
-![image-20250314165936676](http://sthda9dn6.hd-bkt.clouddn.com/FirLgeEVeLb4N108rU7mpuX1BdPY)
+![image-20250314165936676](http://verification.longcoding.top/FirLgeEVeLb4N108rU7mpuX1BdPY)
 
 
 
@@ -138,7 +138,7 @@ Java中的常量池是用于存储运行时的常量或符号的区域
 
 动态加载类文件的组件。将.class文件的字节码加载到内存中，并将其转换为Class对象，以供JVM执行。
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FvxRCwC5JzQCqkej05UF1KI1ruz0" alt="image-20250314172641438" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FvxRCwC5JzQCqkej05UF1KI1ruz0" alt="image-20250314172641438" style="zoom:50%;" />
 
 🏷️***类加载器的作用：***
 

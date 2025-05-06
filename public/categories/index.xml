@@ -11,8 +11,15 @@
     </image>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 23 Mar 2025 19:36:21 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 13 Apr 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://longcoding.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode</title>
+      <link>http://longcoding.top/categories/leetcode/</link>
+      <pubDate>Sun, 13 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>http://longcoding.top/categories/leetcode/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Projects</title>
       <link>http://longcoding.top/categories/projects/</link>
@@ -32,13 +39,6 @@
       <link>http://longcoding.top/categories/jobs/</link>
       <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
       <guid>http://longcoding.top/categories/jobs/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>LeetCode</title>
-      <link>http://longcoding.top/categories/leetcode/</link>
-      <pubDate>Sun, 24 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>http://longcoding.top/categories/leetcode/</guid>
       <description></description>
     </item>
   </channel>

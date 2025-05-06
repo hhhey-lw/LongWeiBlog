@@ -101,7 +101,7 @@ newTabel[0] => [1]->[3]->[2]->[1]
                 ⬆️  ⬅️      ⬅️
 ```
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FmtTH6S92haO65uNpE51bzyvFmy0" alt="image-20250308200751105" style="zoom:70%;" />
+<img src="http://verification.longcoding.top/FmtTH6S92haO65uNpE51bzyvFmy0" alt="image-20250308200751105" style="zoom:70%;" />
 
 
 
@@ -270,7 +270,7 @@ static class Entry<K,V> extends HashMap.Node<K,V> {
 
 🏷️图示：
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FgiN-yE6NKTgTyTo8lwgP6bAlHwY" alt="image-20250308215346671" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FgiN-yE6NKTgTyTo8lwgP6bAlHwY" alt="image-20250308215346671" style="zoom:50%;" />
 
 构想=> 由于可以根据插入时间排序，因此可以模拟LRU(least recently used)算法，进行淘汰最不常用的节点。
 
@@ -289,7 +289,7 @@ static class Entry<K,V> extends HashMap.Node<K,V> {
 - JDK1.7之前，采用**分段锁**，即每个**Segment**是独立的，将锁的粒度下方，提高线程并发度
   - 利用数组+链表实现
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpkreN_HAJJZ5eBpsILirxXMj-Lx" alt="image-20250308220417373" style="zoom: 33%;" />
+<img src="http://verification.longcoding.top/FpkreN_HAJJZ5eBpsILirxXMj-Lx" alt="image-20250308220417373" style="zoom: 33%;" />
 
 => 锁的粒度是segment；
 
@@ -298,7 +298,7 @@ static class Entry<K,V> extends HashMap.Node<K,V> {
 - JDK1.8后，移除Segment，锁的粒度更加细化，锁只在链表or红黑树**节点级别**上竞争锁。通过CAS进行插入操作，只有在更新链表or红黑树时才使用synchronized关键字加锁，并且只锁住链表的头节点。
   - 同步HashMap，数组+链表+红黑树实现；
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FlB1SjHxwwX53SerODlPwBfEXLjP" alt="image-20250308220632518" style="zoom:33%;" />
+<img src="http://verification.longcoding.top/FlB1SjHxwwX53SerODlPwBfEXLjP" alt="image-20250308220632518" style="zoom:33%;" />
 
 🏷️添加节点过程
 

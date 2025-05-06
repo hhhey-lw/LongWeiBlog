@@ -31,15 +31,33 @@ TocOpen: true
 
 #### 超卖问题：
 
+需要先判断是否有库存，有则扣减库存并返回成功；没有则返回失败。这包括**两步操作**
+
+
+
+#### [1.如何解决卖超问题](https://github.com/qiurunze123/miaosha/blob/master/docs)
+
+```
+--在sql加上判断防止数据变为负数 =乐观锁
+--redis预减库存减少数据库访问　内存标记(过滤掉无库存的访问)减少redis访问　请求先入队列缓冲，异步下单，增强用户体验
+
+异步下单：
+-- 请求先入队缓冲，异步下单，增强用户体验
+-- 请求出队，生成订单，减少库存
+-- "客户端"定时轮询检查是否秒杀成功 
+```
+
+
+
 1. ***数据库层面：***
-   - ***悲观锁（FOR UPDATE-行锁）***
-   - ***乐观锁（版本号法）***
+   - ***悲观锁（FOR UPDATE-行锁）*** ❌ 别提，浪费时间
+   - ***乐观锁（版本号法 - SQL加上判断防止数据变成负数）***  ⭐⭐⭐
 2. ***应用层面：***
-   - ***分布式锁（互斥）***
-   - ***缓存+消息队列***
+   - ***分布式锁（互斥）*** ❌ 别提，浪费时间
+   - ***缓存+消息队列***   ⭐⭐⭐
    - ***限流+熔断***
 
-***1.1 行锁***
+❌❌❌***1.1 行锁*** 
 
 ```sql
 BEGIN;
@@ -62,12 +80,33 @@ boolean update = lambdaUpdate().set(SeckillVoucher::getStock, stock - 1)
     .update();
 ```
 
-***1.2 CAS方法***
+多事务的并发逻辑
 
 ```sql
+-- 事务1（加X锁）
+BEGIN;
+SELECT * FROM accounts WHERE id = 1 FOR UPDATE; -- 持有X锁
+
+-- 事务2（普通SELECT）
+BEGIN;
+SELECT * FROM accounts WHERE id = 1; -- ✅ 正常读取（MVCC快照）
+                                  -- ❌ 如果事务2也执行 FOR UPDATE 则被阻塞
+
+-- 事务3（尝试修改）
+UPDATE accounts SET balance = 100 WHERE id = 1; -- ❌ 被阻塞（X锁互斥）
+```
+
+
+
+⭐⭐⭐***1.2 CAS方法***
+
+SQL加上防止为负数
+
+```sql
+-- （X锁互斥）
 UPDATE products 
 SET stock = stock - 1
-WHERE id = 1 AND stock > 0;
+WHERE id = 1 AND stock > 0;  
 ```
 
 10000条(10线程循环1000次)请求，吞吐量：944.7/sec
@@ -90,24 +129,18 @@ boolean update = lambdaUpdate()
 
 
 
-***2.1 🏷️ JVM锁（单体）：***
-
-```java
-// 该方法每次只会有一个线程执行，互斥
-synchronized (VoucherOrderService.class) {
-	// 查 
-    // 改
-}    
-```
-
-10000条(10线程循环1000次)请求，吞吐量：715.5/sec       互斥锁，串行访问
-
-***2.2 🏷️分布式锁：***
+🎉🎉🎉讲库存加载到Redis中，在Redis中进行扣减库存
 
 ```java
 // seckill_key = "seckill:product:1"
 // =Lua脚本(判断+扣减)=> 再处理MySQL   // 原子化查询+修改 
 ```
+
+然后，也不需要扣减MySQL中的库存，这样减少锁竞争，修改为直接插入订单(根据订单和Redis数据，进行核对)。
+
+为了进一步加速响应，引入MQ，解耦下单的库存校验和写入MySQL操作。
+
+
 
 ***2.3 🏷️缓存+消息队列 （服务解耦）:***
 
@@ -118,11 +151,7 @@ synchronized (VoucherOrderService.class) {
 Long ok = redisTemplate.execute(SECKILL_SCRIPT, Collections.emptyList(), "1");
 rabbitTemplate.convertAndSend(exchangerName, routingKey, message);
 
-// 订单异步处理(MQ):扣减成功 => MQ => 订单处理接口 => Redis&MySQL一致。
-lambdaUpdate()
-                .setSql("stock = stock - 1")
-                .eq(SeckillVoucher::getVoucherId, Integer.valueOf(msg.get("voucherId")))
-                .update();
+// 订单异步处理(MQ):扣减成功 => MQ => 订单处理接口 => 插入新订单。
 ```
 
 10000条(10线程循环1000次)请求，吞吐量：1485.7/sec
@@ -153,7 +182,7 @@ now = time.time()
 last_time = float(r.get(last_time_key) or now)
 elapsed = now - last_time    
     
-# 计算补充的令牌
+// 计算补充的令牌
 tokens_to_add = int(elapsed * rate)
 current_tokens = min(capacity, int(r.get(bucket_key) or capacity) + tokens_to_add)
     
@@ -178,19 +207,18 @@ return False
 ***（首先不能重复下单，还要扣减库存，并且新增订单）***
 
 - ***单体架构* **
-
-  - *** Redis-Lua脚本原子化查询库存+重复下单***
-  - ***synchronized加锁*** - UserId.toString().intern() 字符串常量池引用
-
+  - ***synchronized加锁***   +  插入时的唯一索引
 - ***集群架构***
-
-  - ***分布式锁实现***
-
+  - *** Redis-Lua脚本原子化查询库存+重复下单***
   
 
-***1.1 🏷️Redis实现：***
+
+
+***1.1 🏷️Redis预扣减+检查：*** 使用set结构存储购买过的用户，避免重复下单
 
 ```lua
+-- 检查库存
+-- 检查重复下单
 if (redis.call('exists', orderKey) == 0) then
     redis.call('sadd', orderKey, '')  -- ！！！初始化需要从MySQL中加载已经买过的用户
     return 2
@@ -203,78 +231,56 @@ redis.call('sadd', orderKey, userId)
 -- 在Redis中，使用Set集合存储买过的用户
 ```
 
-***1.2 🏷️JVM锁+MySQL实现：***
+
+
+***1.2 🏷️JVM锁+MySQL唯一索引实现：***
+
+唯一索引减少查询是否重复下单的时间，直接融入到插入操作成功or失败中
+
+```sql
+ALTER TABLE orders ADD UNIQUE INDEX idx_uid_item (user_id, item_id);
+```
+
+实际场景中，我们需要的是 **"同一用户对同一商品只能购买一次"**，而非单纯限制用户或商品ID的唯一性。 唯一索引为商品ID+用户ID
 
 ```java
 @Transactional
-public Result seckillVoucherMySQLAndMQUnique(Long voucherId, Long userId) throws JsonProcessingException {
-    Integer stock = lambdaQuery()
-        .select(SeckillVoucher::getStock)
-        .eq(SeckillVoucher::getVoucherId, voucherId)
-        .oneOpt()
-        .map(SeckillVoucher::getStock).orElse(null);
-    if (stock <= 0) {
-        throw new BusinessException(500, "已经卖完了！");
-    }
+public Result createOrder(Long userId, Long itemId) {
+    boolean stockReduced = false; // 标记是否已扣减库存
+    try {
+        // 1. 检查库存（加锁）
+        Item item = itemMapper.selectForUpdate(itemId);
+        if (item.getStock() <= 0) {
+            return Result.fail("库存不足");
+        }
 
-    synchronized(userId.toString().intern()) {
-        transactionPostChannel(userId, voucherId);
-    }
+        // 2. 扣减库存（捕获可能异常）
+        int affectedRows = itemMapper.reduceStock(itemId);
+        if (affectedRows == 0) { // 扣减失败（如库存不足）
+            throw new BusinessException("库存不足");
+        }
+        stockReduced = true; // 标记已扣减
 
-    return Result.ok();
-}
+        // 3. 创建订单
+        orderMapper.insert(new Order(userId, itemId));
+        return Result.success();
 
-@Transactional
-public void transactionPostChannel(Long userId, Long voucherId) {
-    boolean isOrder = voucherOrderService.findVoucherOrderByUserId(userId);
-    if (isOrder) {
-        throw new BusinessException(500, "您买过了！");
-    }
+    } catch (DuplicateKeyException e) {
+        // 仅当库存已扣减时才回滚
+        if (stockReduced) {
+            itemMapper.recoverStock(itemId);
+        }
+        throw new BusinessException("请勿重复购买");
 
-    boolean update = lambdaUpdate()
-        .setSql("stock = stock - 1")
-        .eq(SeckillVoucher::getVoucherId, voucherId)
-        .update();
-    if (!update) {
-        throw new BusinessException(500, "MySQL库存更新失败");
-    }
-
-    VoucherOrder voucherOrder = new VoucherOrder();
-    voucherOrder.setUserId(userId);
-    voucherOrder.setVoucherId(voucherId);
-    boolean b = voucherOrderService.setVoucherOrder(voucherOrder);
-    if (!b) {
-        throw new BusinessException(500, "MySQL插入失败");
+    } catch (Exception e) {
+        // 仅当库存已扣减时才回滚
+        if (stockReduced) {
+            itemMapper.recoverStock(itemId);
+        }
+        throw new BusinessException("下单失败，请重试");
     }
 }
-
-// 下面只使用一个@Transactional
-@Transactional
-public Result seckillVoucherMySQLAndMQUnique(Long voucherId, Long userId) throws JsonProcessingException {
-    Integer stock = lambdaQuery()
-        .select(SeckillVoucher::getStock)
-        .eq(SeckillVoucher::getVoucherId, voucherId)
-        .oneOpt()
-        .map(SeckillVoucher::getStock).orElse(null);
-    if (stock <= 0) {
-        throw new BusinessException(500, "已经卖完了！");
-    }
-
-    synchronized(userId.toString().intern()) {
-        VoucherSecKillService o = (VoucherSecKillService) AopContext.currentProxy();
-        o.transactionPostChannel(userId, voucherId);
-    }
-
-    return Result.ok();
-}
-//⭐⭐⭐嵌套执行方法，且主方法没有@Transactional，需要代理对象来执行才能使业务生效
 ```
-
-🏷️1 ***synchronized*** 锁的粒度降级了，变为当前用户Id 【userId.toString().intern() 添加到常量池，并返回常量池的引用】 ❌❌❌**这里锁的单机，多个JVM的情况下，就寄了**
-
-🏷️2 VoucherSecKillService o = (VoucherSecKillService) **AopContext.currentProxy()**;  拿到执行事务的代理对象
-
-🏷️3  boolean isOrder = voucherOrderService.findVoucherOrderByUserId(userId); **需要把是否下单锁住**，否则，可能重复下单，因为这个条件可能多个线程同时满足！！！
 
 
 
@@ -336,9 +342,25 @@ try {
 
 
 
-最开始我们的遇到自增ID问题，我们通过实现分布式ID解决了问题；后面我们在**单体系统**下遇到了**一人多单超卖**问题，我们通过**乐观锁/悲观锁**解决了；我们对业务进行了变更，将一人多单变成了**一人一单**，结果在**高并发**场景下同一用户发送相同请求仍然出现了超卖问题，我们通过**悲观锁**解决了；由于用户量的激增，我们将单体系统升级成了**集群**，结果由于**锁只能在一个JVM中可见**导致又出现了，在高并发场景下同一用户发送下单请求出现超卖问题，我们通过实现**分布式锁**成功解决集群下的**超卖**问题；释放锁时，**判断锁是否是当前线程 和 删除锁两个操作**不是原子性的，可能导致超卖问题，我们通过将两个操作封装到一个**Lua脚本**成功解决了；
+超卖问题:
 
-为了解决锁的不可重入性，我们通过将锁以hash结构的形式存储，每次释放锁都value-1，获取锁value+1，从而实现锁的可重入性，并且将释放锁和获取锁的操作封装到Lua脚本中以确保原子性。
+- 一开始我们是使用synchronzied在扣减库存的代码块中加锁，进行互斥，讲查询MySQL库存和扣减库存原子化。但是这样并发的性能不高。然后我们调整为CAS乐观锁的形式，我们不加锁，修改sql语句，给where条件中添加上库存大于0的条件，当库存不足时，update操作(**会加行锁**)就执行失败，表示扣减失败
+
+- 之后，为了提高并发效率，我们使用redis，预扣减库存提高秒杀商品的并发，我们先讲秒杀商品的库存缓存到redis中，在redis中进行 库存的检查和扣减(原子化)，因为是基于内存的，效率会比mysql快的多。
+
+一人一单问题：
+
+- 在redis预扣减缓存中进行了修改，我们使用redis中的set集合，存储购买过的用户Id，判断用户是否重复购买。 因为redis是单线程的，因此我们使用lua脚本，讲这一个操作，打包成一个脚本文件，给redis执行，保证操作的原子性。
+- 然后我们发现当库存不足的时候，用户会一直点击下单，给redis带来了不必要的查询，因此我们在服务中引入一个布尔变量，标识是否有库存，当没有时，直接返回，降低redis的请求量。
+- 另一种不使用redis的解决方法： 
+
+
+
+
+
+后面我们在**单体系统**下遇到了**一人多单超卖**问题，我们通过**乐观锁(update sql添加库存不能为负)**解决；我们对业务进行了变更，将一人多单变成了**一人一单**，结果在**高并发**场景下同一用户发送相同请求仍然出现了超卖问题，我们通过**悲观锁**解决了；由于用户量的激增，我们将单体系统升级成了**集群**，结果由于**锁只能在一个JVM中可见**导致又出现了，在高并发场景下同一用户发送下单请求出现超卖问题，我们通过实现**分布式锁**成功解决集群下的**超卖**问题；释放锁时，**判断锁是否是当前线程 和 删除锁两个操作**不是原子性的，可能导致超卖问题，我们通过将两个操作封装到一个**Lua脚本**成功解决了；
+
+为了解决锁的不可重入性，我们通过将锁以hash结构的形式存储，锁的值为线程ID拼接锁重入次数，每次释放锁都value-1，获取锁value+1，从而实现锁的可重入性，并且将释放锁和获取锁的操作封装到Lua脚本中以确保原子性。
 
 最最后，我们发现可以直接使用现有比较成熟的方案Redisson来解决上诉出现的所有问题🤣，什么不可重试、不可重入、超市释放、原子性等问题Redisson都提供相对应的解决方法（。＾▽＾）
 
@@ -359,7 +381,7 @@ try {
                返回1            返回2
 
 // 子线程
-队列中取出订单信息 => 扣减卷库存 => 是否付款 => 更新成功
+队列中取出订单信息 => 插入订单 => 是否付款 => 更新成功
                             => End
 ```
 
@@ -578,24 +600,86 @@ public Shop queryWithLogicExpire(Long id) {
 
 - 先更新Redis，再更新MySQL ❌不推荐
 
-![image-20250308135639431](http://sthda9dn6.hd-bkt.clouddn.com/FmGqn7lzt08zg5oJu4hJH-WsIxYk)
+![image-20250308135639431](http://verification.longcoding.top/FmGqn7lzt08zg5oJu4hJH-WsIxYk)
 
 - 先更新MySQL，再更新Redis ❌不推荐
 
-![image-20250308140251136](http://sthda9dn6.hd-bkt.clouddn.com/Fp0jO35q6BMqKyzIsrb0NXRI8o6P)
+![image-20250308140251136](http://verification.longcoding.top/Fp0jO35q6BMqKyzIsrb0NXRI8o6P)
 
 - 先删除Redis，再更新MySQL，最后写回Redis ❌不推荐
 
-![image-20250308140614242](http://sthda9dn6.hd-bkt.clouddn.com/FmEB4Dj9_pgrOuyHLfHhGqK04wHb)
+![image-20250308140614242](http://verification.longcoding.top/FmEB4Dj9_pgrOuyHLfHhGqK04wHb)
 
 - 先更新MySQL，再删除Redis，等请求重新缓存(惰性) ✔️推荐
 - 缓存双删除策略。更新MySQL之前，删除一次Redis；更新完MySQL后，再进行一次延迟删除 ✔️推荐
 
-![image-20250308140849778](http://sthda9dn6.hd-bkt.clouddn.com/FsUaIXIOz9NnJkJ0Lf1fUebBQpHI)
+![image-20250308140849778](http://verification.longcoding.top/FsUaIXIOz9NnJkJ0Lf1fUebBQpHI)
 
 数据库没问题，但是缓存有问题，等待一段实践
 
 - 使用Binlog异步更新缓存，监听数据库的binlog变化，通过异步方式更新Redis缓存 ✔️推荐
+
+
+
+#### **WebSocket**
+
+```java
+@Component
+@ServerEndpoint("/websocket")
+public class MyWebSocketEndpoint {
+
+    // 会话对象  server:client == 1:n
+    private static Map<String, Session> sessionMap = new HashMap<>();
+
+
+    @OnOpen
+    public void onOpen(Session session) {
+        System.out.println("onOpen: " + session.getId());
+        sessionMap.put(session.getId(), session);
+        sendMsg("Hi, can I help you?", session.getId());
+    }
+
+    @OnMessage
+    public void onMessage(String message, Session session) {
+        System.out.println("receive Message: " + message);
+        sendMsg("Yse! I am thinking ... this question!", session.getId());
+    }
+
+    @OnClose
+    public void OnClose(Session session) {
+        sendMsg("Bye!", session.getId());
+        System.out.println("OnClose: " + session.getId());
+        sessionMap.remove(session.getId());
+    }
+
+    public void sendMsg(String msg, String sid) {
+        try {
+            sessionMap.get(sid).getBasicRemote().sendText(msg);  // 向session对象sendTest
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+```
+
+前端：
+
+```js
+var ws = new WebSocket("ws://localhost:8080/chat");
+// 初始化连接
+ws.onopen = function (e) {
+   
+}
+//接受消息
+ws.onmessage = function (ev) {
+    
+}
+// 关闭连接
+ws.onclose = function (ev) {
+    
+}
+```
 
 
 

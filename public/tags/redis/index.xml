@@ -86,7 +86,7 @@
 &lt;li&gt;去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。&lt;/li&gt;
 &lt;li&gt;内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20250307175456538&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/Fo9jCIPyRQ866mnZdasVsUwqao1j&#34;&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img alt=&#34;image-20250307175456538&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/Fo9jCIPyRQ866mnZdasVsUwqao1j&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

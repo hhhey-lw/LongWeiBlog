@@ -13,11 +13,11 @@ TocOpen: true
 
 ### 卷积注意力
 
-![image-20240322202245497](http://sthda9dn6.hd-bkt.clouddn.com/FnOSHW83hKtIFxFdU34DDsMiOeWO)
+![image-20240322202245497](http://verification.longcoding.top/FnOSHW83hKtIFxFdU34DDsMiOeWO)
 
 ### 自注意力
 
-![image-20240322202200571](http://sthda9dn6.hd-bkt.clouddn.com/FvUxt8fwO3J-k8UzUsCI30aE2lRp)
+![image-20240322202200571](http://verification.longcoding.top/FvUxt8fwO3J-k8UzUsCI30aE2lRp)
 
 
 
@@ -27,13 +27,13 @@ TocOpen: true
 
 ### Norm
 
-![image-20240305205407153](http://sthda9dn6.hd-bkt.clouddn.com/FoDS7JLx483eH0OReKVsf9Rx-4tZ)
+![image-20240305205407153](http://verification.longcoding.top/FoDS7JLx483eH0OReKVsf9Rx-4tZ)
 
 ### Loss
 
 #### Cross Entropy
 
-![image-20240302160358957](http://sthda9dn6.hd-bkt.clouddn.com/FsuefQxQF9qmKbSUd94pmTsYId_D)
+![image-20240302160358957](http://verification.longcoding.top/FsuefQxQF9qmKbSUd94pmTsYId_D)
 $$
 Loss = -\sum_{i}^{C}y_ilog(p(x_{i})), where \ y_i\ is label,p(x_i)\ is\ predict.
 $$
@@ -70,7 +70,7 @@ $$
 
 **title: Mlp-mixer: An all-mlp architecture for vision**
 
-![image-20240225170151423](http://sthda9dn6.hd-bkt.clouddn.com/FtAevG0YMxJxLG9DN6qOnG2es31d)
+![image-20240225170151423](http://verification.longcoding.top/FtAevG0YMxJxLG9DN6qOnG2es31d)
 
 ⭐ channel-mixing MLPs and token-mixing MLPs.
 
@@ -88,13 +88,13 @@ $$
 
 **Transformer Encoder**
 
-![image-20240225132511994](http://sthda9dn6.hd-bkt.clouddn.com/FgAXsy3l-nSEBfJXhn67Nz_Jt1L7)
+![image-20240225132511994](http://verification.longcoding.top/FgAXsy3l-nSEBfJXhn67Nz_Jt1L7)
 
 #### Multi-Head Self Attention
 
 ⭐每段用不一样的α权重	-- 分段融合Token间信息
 
-![image-20240225132601290](http://sthda9dn6.hd-bkt.clouddn.com/FqV9TaOPJDjIH5kYOBwekkDb0dij)
+![image-20240225132601290](http://verification.longcoding.top/FqV9TaOPJDjIH5kYOBwekkDb0dij)
 
 ​																			多组注意力权重α	
 
@@ -108,7 +108,7 @@ Token分段，**并行**计算每段的权重α，多头注意力允许模型共
 
 #### Feed-Forward Networks
 
-![image-20240225132646417](http://sthda9dn6.hd-bkt.clouddn.com/Fot0kgN6kpYxL54KGT8Da7q5Hop5)
+![image-20240225132646417](http://verification.longcoding.top/Fot0kgN6kpYxL54KGT8Da7q5Hop5)
 
 ---
 
@@ -124,13 +124,13 @@ Token分段，**并行**计算每段的权重α，多头注意力允许模型共
 
 输出像素 - ***融合局部空间通道信息***
 
-![image-20240225152209315](http://sthda9dn6.hd-bkt.clouddn.com/FkxXubfhrgsNmxeSyeqJNaWrc7MD)
+![image-20240225152209315](http://verification.longcoding.top/FkxXubfhrgsNmxeSyeqJNaWrc7MD)
 
 ##### 瓶颈结构 - Resnet
 
 *减少参数数量*
 
-![image-20240225153933503](http://sthda9dn6.hd-bkt.clouddn.com/Fl4Kxgo2Uto06i5ryGwqd-ysRBzl)
+![image-20240225153933503](http://verification.longcoding.top/Fl4Kxgo2Uto06i5ryGwqd-ysRBzl)
 
 逐点卷积降维 -> 标准卷积 -> 逐点卷积升维
 
@@ -142,7 +142,7 @@ Token分段，**并行**计算每段的权重α，多头注意力允许模型共
 
 #### 深度可分离卷积 
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FlJe8jAYtAczXqy0z33klj5f98un" alt="image-20240225152858171" style="zoom: 67%;" />
+<img src="http://verification.longcoding.top/FlJe8jAYtAczXqy0z33klj5f98un" alt="image-20240225152858171" style="zoom: 67%;" />
 
 ##### 倒残差结构 - MobileNet
 
@@ -150,7 +150,7 @@ Token分段，**并行**计算每段的权重α，多头注意力允许模型共
 
 ReLU 激活函数可能会崩溃掉某些通道信息。然而，如果我们有很多通道，那么信息可能仍然保留在其他通道中。
 
-![image-20240225153953959](http://sthda9dn6.hd-bkt.clouddn.com/Fmekv5cjEbjueu69KLEm1BGSlMxx)
+![image-20240225153953959](http://verification.longcoding.top/Fmekv5cjEbjueu69KLEm1BGSlMxx)
 
 逐点卷积升维 -> 分组卷积 -> 逐点卷积降维
 
@@ -162,7 +162,7 @@ ReLU 激活函数可能会崩溃掉某些通道信息。然而，如果我们有
 
 作用等同于1×1逐点卷积，实现线性映射
 
-![image-20240302162505751](http://sthda9dn6.hd-bkt.clouddn.com/FsU1Nb68qTla5JLPt_0rFcCu9Nde)
+![image-20240302162505751](http://verification.longcoding.top/FsU1Nb68qTla5JLPt_0rFcCu9Nde)
 
 ---
 
@@ -170,7 +170,7 @@ ReLU 激活函数可能会崩溃掉某些通道信息。然而，如果我们有
 
 #### **Vision Transformer  - Patching**
 
-![image-20240228154217975](http://sthda9dn6.hd-bkt.clouddn.com/FkhYXnoGjPmZQJUTZmMYH5LL2nkR)
+![image-20240228154217975](http://verification.longcoding.top/FkhYXnoGjPmZQJUTZmMYH5LL2nkR)
 
 
 
@@ -196,7 +196,7 @@ ReLU 激活函数可能会崩溃掉某些通道信息。然而，如果我们有
 
 ⭐***使用“渐进”收缩策略通过补丁嵌入层来控制特征图的尺度***
 
-![image-20240225184934745](http://sthda9dn6.hd-bkt.clouddn.com/Fjjr1PN1UtKYdxfkoNa9eh9809-n)
+![image-20240225184934745](http://verification.longcoding.top/Fjjr1PN1UtKYdxfkoNa9eh9809-n)
 
 CNNs: 特征图变化 通道×2，宽高÷2
 
@@ -206,7 +206,7 @@ PVT： **渐进式缩小特征图，减少token数量**
 
 **PVT框架：**
 
-![image-20240225171800485](http://sthda9dn6.hd-bkt.clouddn.com/FrwHWazw4RiA8kWOATUOPRVswECR)
+![image-20240225171800485](http://verification.longcoding.top/FrwHWazw4RiA8kWOATUOPRVswECR)
 
 #### ①特征图 - patch_embed -> token 
 
@@ -224,7 +224,7 @@ token数量⬇，token维度⬆(信息更加丰富)
 
 ***多次Patch Embed***
 
-![image-20240225200016420](http://sthda9dn6.hd-bkt.clouddn.com/Fp9wgM_-rLhSBJjmjKyAcHnR7zz1)
+![image-20240225200016420](http://verification.longcoding.top/Fp9wgM_-rLhSBJjmjKyAcHnR7zz1)
 
 #### ②Transformer Encoder 对 token 进行信息提取
 
@@ -246,7 +246,7 @@ token数量⬇，token维度⬆(信息更加丰富)
 
    ⭐图示操作：
 
-   ![image-20240225203343221](http://sthda9dn6.hd-bkt.clouddn.com/FqREIlEPMZW522A1Gjxl0GAtrJ9T)
+   ![image-20240225203343221](http://verification.longcoding.top/FqREIlEPMZW522A1Gjxl0GAtrJ9T)
 
 利用conv局部性，将相邻的Token进行合并  | 或者利用Pool进行窗口内Token合并 （图示稍微有点问题）
 
@@ -274,7 +274,7 @@ token数量⬇，token维度⬆(信息更加丰富)
 
 ⭐***删除位置嵌入***：为每个 Transformer 块引入卷积投影，并结合卷积令牌嵌入，使我们能够通过网络对局部空间关系进行建模。使其具有适应需要可变输入分辨率的各种视觉任务的潜在优势。
 
-![image-20240302163300436](http://sthda9dn6.hd-bkt.clouddn.com/FqdZxOPLt2Q9DlNwdq6zs_HQhsua)
+![image-20240302163300436](http://verification.longcoding.top/FqdZxOPLt2Q9DlNwdq6zs_HQhsua)
 
 <center style="color:red; font-weight:bold">总体结构</center>
 
@@ -290,9 +290,9 @@ token数量⬇，token维度⬆(信息更加丰富)
 
 局部空间上下文的附加建模，相比于普通卷积(更复杂的设计和额外的计算成本)，DWConv性价比更高
 
-![image-20240302163105692](http://sthda9dn6.hd-bkt.clouddn.com/FhQ69Wd9aB-0xJc7uDwGWY-qwUyF)
+![image-20240302163105692](http://verification.longcoding.top/FhQ69Wd9aB-0xJc7uDwGWY-qwUyF)
 
-![image-20240302164030978](http://sthda9dn6.hd-bkt.clouddn.com/FibUPTe0nYY7H6QlyJfbS7CvQ0eE)
+![image-20240302164030978](http://verification.longcoding.top/FibUPTe0nYY7H6QlyJfbS7CvQ0eE)
 
 (b): 可参考MobileViT，先利用卷积局部融合信息，再执行窗口级注意力
 
@@ -312,21 +312,21 @@ token数量⬇，token维度⬆(信息更加丰富)
 
 
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FmN0xG01T4x4Y27g5c4tg3nXwhGd" alt="image-20240225204225011" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/FmN0xG01T4x4Y27g5c4tg3nXwhGd" alt="image-20240225204225011" style="zoom: 50%;" />
 
 **总体结构**
 
-![image-20240225204557231](http://sthda9dn6.hd-bkt.clouddn.com/FpE8eoIGeSlVVpOocedgqOdzFvTV)
+![image-20240225204557231](http://verification.longcoding.top/FpE8eoIGeSlVVpOocedgqOdzFvTV)
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FhDDLF9n1Le2IL6nNmro4rNYLTSH" alt="image-20240226205609760" style="zoom:150%;" />
+<img src="http://verification.longcoding.top/FhDDLF9n1Le2IL6nNmro4rNYLTSH" alt="image-20240226205609760" style="zoom:150%;" />
 
 #### **窗口级的Token特征融合操作：**  Swin Transformer Block ***数量为偶数***
 
-![image-20240225204802120](http://sthda9dn6.hd-bkt.clouddn.com/Fn2jWuRCwgxVt6Dm9BtU9sqNfTQ-)
+![image-20240225204802120](http://verification.longcoding.top/Fn2jWuRCwgxVt6Dm9BtU9sqNfTQ-)
 
 ①窗口内的Token信息融合
 
-![image-20240225205738527](http://sthda9dn6.hd-bkt.clouddn.com/Fq74fqjzzBgW1jlDAYHVnwLxQifM)
+![image-20240225205738527](http://verification.longcoding.top/Fq74fqjzzBgW1jlDAYHVnwLxQifM)
 
 MHSA限制在窗口内进行 -- 降低计算复杂度
 
@@ -334,7 +334,7 @@ MHSA限制在窗口内进行 -- 降低计算复杂度
 
 ②窗口间的Token信息融合 -- 滑动窗口策略   -- ***间接看到全局信息***
 
-![image-20240225205812927](http://sthda9dn6.hd-bkt.clouddn.com/FjEkls_Q1fpBDtvOJvkU88qncmol)
+![image-20240225205812927](http://verification.longcoding.top/FjEkls_Q1fpBDtvOJvkU88qncmol)
 
 蓝线表示窗口内Token信息融合，红线表示窗口间信息融合
 
@@ -348,15 +348,15 @@ MHSA限制在窗口内进行 -- 降低计算复杂度
 
 ⭐使用window-mask将本该不进行自注意计算的部分遮挡掉，在计算注意力α时，在其中softmax中，将mask的值设为-100，则e^{-100} / Σ e^{i} 为 0
 
-![image-20240225210202551](http://sthda9dn6.hd-bkt.clouddn.com/FpRl8MBwStuLwnJYHpNakirjVXVQ)
+![image-20240225210202551](http://verification.longcoding.top/FpRl8MBwStuLwnJYHpNakirjVXVQ)
 
 **滑动窗口Mask示例**：
 
 给窗口编号，再使用torch.roll 滑动 （ window_size // 2 ） 个像素
 
-![image-20240225221427333](http://sthda9dn6.hd-bkt.clouddn.com/FgW3lliU9HHOlKEYfsHDbb8A-Q3m)
+![image-20240225221427333](http://verification.longcoding.top/FgW3lliU9HHOlKEYfsHDbb8A-Q3m)
 
-![image-20240225221521648](http://sthda9dn6.hd-bkt.clouddn.com/FpqReJtE0zLxy4zWTCJlDWyE__JF)
+![image-20240225221521648](http://verification.longcoding.top/FpqReJtE0zLxy4zWTCJlDWyE__JF)
 $$
 \text{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}, \quad \text{for } i = 1, 2, \ldots, K
 \\\\e^{-100} ≈ 0
@@ -365,7 +365,7 @@ $$
 
 因为计算Window-MHSA是并行的，没有位置顺序信息
 
-![image-20240226153825736](http://sthda9dn6.hd-bkt.clouddn.com/Fo59Iv0WwBb25FVMkzB18MmkMV1a)
+![image-20240226153825736](http://verification.longcoding.top/Fo59Iv0WwBb25FVMkzB18MmkMV1a)
 
 ⭐注意力权重 加上 相对位置偏置
 
@@ -373,11 +373,11 @@ $$
 
 ① relative position bias table 自学习的位置标量偏置   -- ***压缩***
 
-![image-20240226194023098](http://sthda9dn6.hd-bkt.clouddn.com/FuHY7p9-lMc5O29iTZr19onxVO_E)
+![image-20240226194023098](http://verification.longcoding.top/FuHY7p9-lMc5O29iTZr19onxVO_E)
 
 ② relative position bias index 索引 -- 不同位置的token使用相同的相对位置偏置  -- ***复用***
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Ft2SFewfCYeEHkRainY6cQ_eHsqF" alt="image-20240226154244883" style="zoom:150%;" />
+<img src="http://verification.longcoding.top/Ft2SFewfCYeEHkRainY6cQ_eHsqF" alt="image-20240226154244883" style="zoom:150%;" />
 
 给定窗口大小，index是固定值，table是可学习的位置信息
 
@@ -385,7 +385,7 @@ $$
 
 **一维情况：**
 
-![image-20240311185939016](http://sthda9dn6.hd-bkt.clouddn.com/FrxIjS072CTEfEEtO1CTijuQYqfR)
+![image-20240311185939016](http://verification.longcoding.top/FrxIjS072CTEfEEtO1CTijuQYqfR)
 
 #### Patch Mergeing
 
@@ -393,7 +393,7 @@ $$
 
 ***整幅特征图分4部分***，合并不同部分，相同位置的Token
 
-![image-20240226204417422](http://sthda9dn6.hd-bkt.clouddn.com/FmU-T2BI5P7e_QDQSMr5rpxG2BJV)
+![image-20240226204417422](http://verification.longcoding.top/FmU-T2BI5P7e_QDQSMr5rpxG2BJV)
 
 
 
@@ -406,13 +406,13 @@ $$
 
 在资源受限设备上运行ViT  -- 混合CNN和Transformer
 
-![image-20240226210140021](http://sthda9dn6.hd-bkt.clouddn.com/Fhk5JL8evAwVfTIvVzpjespYt8s8)
+![image-20240226210140021](http://verification.longcoding.top/Fhk5JL8evAwVfTIvVzpjespYt8s8)
 
 #### **MV2**: MobileNetv2 中的倒残差块
 
 ![img](https://img-blog.csdnimg.cn/20200808185634409.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDc5MTk2NA==,size_16,color_FFFFFF,t_70#pic_center)
 
-![image-20240225153953959](http://sthda9dn6.hd-bkt.clouddn.com/Fmekv5cjEbjueu69KLEm1BGSlMxx)
+![image-20240225153953959](http://verification.longcoding.top/Fmekv5cjEbjueu69KLEm1BGSlMxx)
 
 ⬇2： 下采样2倍，*控制stride步幅*
 
@@ -420,7 +420,7 @@ $$
 
 #### MobileViT Block:	-- 间接融合
 
-![image-20240227134923752](http://sthda9dn6.hd-bkt.clouddn.com/FncNXSZCGXtVjc31M1xOgRrv_Nq8)
+![image-20240227134923752](http://verification.longcoding.top/FncNXSZCGXtVjc31M1xOgRrv_Nq8)
 
 用二维卷积局部融合(重叠区域)，输出的特征图中每个像素都会看到 MobileViT 块中的所有其他像素
 
@@ -432,7 +432,7 @@ $$
 
 unfold和fold 将特征图转为Token集合，改排序，不等于patch embed(用conv2d)
 
-![image-20240227132301148](http://sthda9dn6.hd-bkt.clouddn.com/FuB3CUj71RHP1dp_kgoFbZ2Yc_uS)
+![image-20240227132301148](http://verification.longcoding.top/FuB3CUj71RHP1dp_kgoFbZ2Yc_uS)
 
 
 
@@ -448,17 +448,17 @@ unfold和fold 将特征图转为Token集合，改排序，不等于patch embed(�
 
 互换分支的CLS Token 实现分支间的***信息通信***
 
-![image-20240312172116507](http://sthda9dn6.hd-bkt.clouddn.com/FpC5Sbn44GfUYKFOORg9d0UPr1w3)
+![image-20240312172116507](http://verification.longcoding.top/FpC5Sbn44GfUYKFOORg9d0UPr1w3)
 
 <center><strong>总体结构</strong></center>
 
-![image-20240312171834443](http://sthda9dn6.hd-bkt.clouddn.com/FvC8hI53tjmjzBJtp-Lii-S4lkd6)
+![image-20240312171834443](http://verification.longcoding.top/FvC8hI53tjmjzBJtp-Lii-S4lkd6)
 
 <center><strong>交互示例</strong></center>
 
 
 
-![image-20240312171813246](http://sthda9dn6.hd-bkt.clouddn.com/FmVtDZkNRE5yceuAnPJFuPN8e_DB)
+![image-20240312171813246](http://verification.longcoding.top/FmVtDZkNRE5yceuAnPJFuPN8e_DB)
 
 <center><strong>详细</strong></center>
 
@@ -474,7 +474,7 @@ unfold和fold 将特征图转为Token集合，改排序，不等于patch embed(�
 
 ⭐纯Transformer版本的知识蒸馏
 
-![image-20240312173214037](http://sthda9dn6.hd-bkt.clouddn.com/FqQ1hrAcTHTOYf6gxkooTt2jj392)
+![image-20240312173214037](http://verification.longcoding.top/FqQ1hrAcTHTOYf6gxkooTt2jj392)
 
 引入distillation token来进行知识蒸馏，执行的目标不同。一个与label计算loss，一个与Teacher label计算蒸馏损失。反向传播优化时，梯度不一样
 
@@ -486,11 +486,11 @@ unfold和fold 将特征图转为Token集合，改排序，不等于patch embed(�
 
 *Tokens-to-Token ViT: Training Vision Transformers from Scratch on ImageNet*
 
-![image-20240312173843585](http://sthda9dn6.hd-bkt.clouddn.com/FqrxRABlUwr5j8yBxdNqffperhUQ)
+![image-20240312173843585](http://verification.longcoding.top/FqrxRABlUwr5j8yBxdNqffperhUQ)
 
 重叠嵌入，信息更全面。融合Token，删除冗余
 
-![image-20240312174043432](http://sthda9dn6.hd-bkt.clouddn.com/FhT_2GHxKkccQD7nx-J0ifbPje42)
+![image-20240312174043432](http://verification.longcoding.top/FhT_2GHxKkccQD7nx-J0ifbPje42)
 
 **soft split**	重叠融合(图示是堆叠在通道维度)
 
@@ -504,11 +504,11 @@ unfold和fold 将特征图转为Token集合，改排序，不等于patch embed(�
 
 一种***动态的、查询感知***的稀疏注意力机制。 关键思想是在粗糙区域级别过滤掉大部分不相关的键值对，以便只保留一小部分路由区域，再进行细粒度的注意力计算
 
-![image-20240301191315274](http://sthda9dn6.hd-bkt.clouddn.com/FqphQW9sBOWdsYM5K23Js4ABMqBn)
+![image-20240301191315274](http://verification.longcoding.top/FqphQW9sBOWdsYM5K23Js4ABMqBn)
 
 <center style="text-align: center; color: red; font-weight:bold; font-style: italic;">注意力区域对比</center>
 
-![image-20240301191932243](http://sthda9dn6.hd-bkt.clouddn.com/Fr7X_B0UmTaRcimmADCRS7AyjdMP)
+![image-20240301191932243](http://verification.longcoding.top/Fr7X_B0UmTaRcimmADCRS7AyjdMP)
 
 ***路由方式建立跨窗口信息交互***
 
@@ -516,11 +516,11 @@ unfold和fold 将特征图转为Token集合，改排序，不等于patch embed(�
 
 将窗口串起来
 
-![image-20240301200645397](http://sthda9dn6.hd-bkt.clouddn.com/Fog2UcCBq77K5bq4HidyEd7IgOPL)
+![image-20240301200645397](http://verification.longcoding.top/Fog2UcCBq77K5bq4HidyEd7IgOPL)
 
 <center style="font-weight:bold;">Bi-Routing Self-Attention</center>
 
-![image-20240301200800664](http://sthda9dn6.hd-bkt.clouddn.com/Fnmim8oa-8E_9-fsS4jkIwu179yw)
+![image-20240301200800664](http://verification.longcoding.top/Fnmim8oa-8E_9-fsS4jkIwu179yw)
 
 <center style="font-weight:bold;">总体结构</center>
 
@@ -544,7 +544,7 @@ SMT1D 生硬的训练ECG 中等效果，但计算量小！
 
 层级式ViT结构
 
-![image-20240303133748562](http://sthda9dn6.hd-bkt.clouddn.com/Fpi4l9OC8rr6sYJgVEqg8wnec5K9)
+![image-20240303133748562](http://verification.longcoding.top/Fpi4l9OC8rr6sYJgVEqg8wnec5K9)
 
 <center style="color:red;font-weight:bolder">总体结构</center>
 
@@ -552,17 +552,17 @@ SMT1D 生硬的训练ECG 中等效果，但计算量小！
 
 结构取名为“进化混合网络” Evolutionary Hybrid Network   - 局部到全局建模的过渡
 
-![image-20240303134117897](http://sthda9dn6.hd-bkt.clouddn.com/FigGiO0USgz8OWE2GbwXO5orEBkZ)
+![image-20240303134117897](http://verification.longcoding.top/FigGiO0USgz8OWE2GbwXO5orEBkZ)
 
 <center>两种融合模块的堆叠方式</center>
 
-![image-20240303134540985](http://sthda9dn6.hd-bkt.clouddn.com/FmdyssfRaan-uO72Lwhc0a6v88p4)
+![image-20240303134540985](http://verification.longcoding.top/FmdyssfRaan-uO72Lwhc0a6v88p4)
 
 <center>性能对比</center>
 
 #### **SAM Block**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FgCueOCwQ5F2ocnGXAVByb3o2tNe" alt="image-20240303140344518" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/FgCueOCwQ5F2ocnGXAVByb3o2tNe" alt="image-20240303140344518" style="zoom:80%;" />
 
 <center style="font-weight:bold">scale-aware modulation</center>
 
@@ -572,7 +572,7 @@ SMT1D 生硬的训练ECG 中等效果，但计算量小！
 
 例：
 
-![image-20240122210304883](http://sthda9dn6.hd-bkt.clouddn.com/Flq2xKkSZenIrc2ABt5Gv69elnqw)
+![image-20240122210304883](http://verification.longcoding.top/Flq2xKkSZenIrc2ABt5Gv69elnqw)
 
 ##### Scale-Aware Aggregation
 
@@ -584,7 +584,7 @@ SMT1D 生硬的训练ECG 中等效果，但计算量小！
 
 深度可分离卷积作为注意力权重
 
-![image-20240304162401167](http://sthda9dn6.hd-bkt.clouddn.com/Fh5KT2e8KIgnUqcKnZD68LoSSOs1)
+![image-20240304162401167](http://verification.longcoding.top/Fh5KT2e8KIgnUqcKnZD68LoSSOs1)
 
 ① 每个不同的卷积特征图都学习以自适应方式关注不同的粒度特征
 
@@ -594,7 +594,7 @@ SMT1D 生硬的训练ECG 中等效果，但计算量小！
 
 ⭐⭐表明 MHMC 在浅层阶段有能力比单头更好地捕获局部细节，同时随着网络变得更深，保持目标对象的详细和语义信息。
 
-![image-20240304162626670](http://sthda9dn6.hd-bkt.clouddn.com/FtuuA1YnU3SydJySQnIAt-yX-Sb7)
+![image-20240304162626670](http://verification.longcoding.top/FtuuA1YnU3SydJySQnIAt-yX-Sb7)
 
 增强了语义相关的低频信号，精确地聚焦于目标对象最重要的部分。
 
@@ -610,7 +610,7 @@ Conv2Former: A Simple Transformer-Style ConvNet for Visual Recognition
 
 **创新点：** ***用卷积操作 模拟近似 注意力***        -- 更低的计算代价 略低的性能下降
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FjW8Ed448bu6nK5V0hXEDEVu-Fq5" alt="image-20240304161241745"  />
+<img src="http://verification.longcoding.top/FjW8Ed448bu6nK5V0hXEDEVu-Fq5" alt="image-20240304161241745"  />
 
 Hadamard product == 矩阵按元素相乘
 
@@ -638,9 +638,9 @@ Hadamard product == 矩阵按元素相乘
 
 多尺度版本的ConvNeXt
 
-![image-20240312174928461](http://sthda9dn6.hd-bkt.clouddn.com/FqfEQ6hpiJHI6yV2ogfNVTAnbvg3)
+![image-20240312174928461](http://verification.longcoding.top/FqfEQ6hpiJHI6yV2ogfNVTAnbvg3)
 
-![image-20240325140844728](http://sthda9dn6.hd-bkt.clouddn.com/Fmr63KEienUBwDnp9mGtqxNAsLIv)
+![image-20240325140844728](http://verification.longcoding.top/Fmr63KEienUBwDnp9mGtqxNAsLIv)
 
 
 
@@ -658,9 +658,9 @@ PVT 和类似的模型往往会在这种空间缩减中合并太多的标记，�
 
 - 观察到PVT和ViT在同一个Encoder中token尺度是固定的，**创新**结合二者。用Conv将Token Map局部融合成多幅Token Map，使每个汇聚的Token代表着不同区域，不仅观察到小物体，也能看到大物体。
 
-![image-20240313161903398](http://sthda9dn6.hd-bkt.clouddn.com/Fth6gbMaJV5G2qw0uRtYFF3cVj77)
+![image-20240313161903398](http://verification.longcoding.top/Fth6gbMaJV5G2qw0uRtYFF3cVj77)
 
-![image-20240313162357016](http://sthda9dn6.hd-bkt.clouddn.com/FlZAcCzy0SNuCFHoqhKnWdYHfXaC)
+![image-20240313162357016](http://verification.longcoding.top/FlZAcCzy0SNuCFHoqhKnWdYHfXaC)
 
 ViT：小区域
 
@@ -670,7 +670,7 @@ Shunted : 结合大小区域
 
 ***灵感源于：***
 
-![image-20240326140819772](http://sthda9dn6.hd-bkt.clouddn.com/Fuij0WgDP8IcHH-rXm7rBRa7Dy5j)
+![image-20240326140819772](http://verification.longcoding.top/Fuij0WgDP8IcHH-rXm7rBRa7Dy5j)
 
 
 
@@ -680,7 +680,7 @@ Shunted : 结合大小区域
 
 原始特征图x，卷积局部融合得到x1， x2  (HW均变小)
 
-![image-20240313174204874](http://sthda9dn6.hd-bkt.clouddn.com/FhB7ab-atBNtYX_zeps5UDUp_KAR)
+![image-20240313174204874](http://verification.longcoding.top/FhB7ab-atBNtYX_zeps5UDUp_KAR)
 
 
 
@@ -692,11 +692,11 @@ Shunted : 结合大小区域
 
 细粒度 - pixel token ||   粗粒度 - patch token
 
-![image-20240326135013259](http://sthda9dn6.hd-bkt.clouddn.com/FtVG0Dqdg-6XoGJicvSS5jgbPNat)
+![image-20240326135013259](http://verification.longcoding.top/FtVG0Dqdg-6XoGJicvSS5jgbPNat)
 
 ------
 
-![image-20240326135047116](http://sthda9dn6.hd-bkt.clouddn.com/FtQtlRrQlGM_sZOnZQUjT6fBoGsa)
+![image-20240326135047116](http://verification.longcoding.top/FtQtlRrQlGM_sZOnZQUjT6fBoGsa)
 
 
 
@@ -726,21 +726,21 @@ Shunted : 结合大小区域
 
 
 
-![image-20240409161629944](http://sthda9dn6.hd-bkt.clouddn.com/FunVLb7pAngFwe2RiyqD5vSibE3s)
+![image-20240409161629944](http://verification.longcoding.top/FunVLb7pAngFwe2RiyqD5vSibE3s)
 
 
 
 思路：
 
-![image-20240331194258110](http://sthda9dn6.hd-bkt.clouddn.com/FuIsOdj1FMA7u4kTKkWBAWXrD-ZK)
+![image-20240331194258110](http://verification.longcoding.top/FuIsOdj1FMA7u4kTKkWBAWXrD-ZK)
 
 **Global query tokens generation**
 
-![image-20240331195205866](http://sthda9dn6.hd-bkt.clouddn.com/FnCbz5Zdq9vU9QRatpsRbFB4F9bY)
+![image-20240331195205866](http://verification.longcoding.top/FnCbz5Zdq9vU9QRatpsRbFB4F9bY)
 
 *MBConv  - FeatureExtract*
 
-![image-20240331195153985](http://sthda9dn6.hd-bkt.clouddn.com/FjmXZSAhkp6pqMlH5A5qiiMeU8uR)
+![image-20240331195153985](http://verification.longcoding.top/FjmXZSAhkp6pqMlH5A5qiiMeU8uR)
 
 *代码分析*
 
@@ -774,7 +774,7 @@ Key-Global: [batch,    repeat  ,  num_heads, num_tokens, dim_head]
 
 ***动机：***
 
-	*观察到注意力后期，仅部分核心Token起着主要作用*![image-20240407143751781](http://sthda9dn6.hd-bkt.clouddn.com/Fq2bA5CegUx5LXr1CkJytYjIeE4d)
+	*观察到注意力后期，仅部分核心Token起着主要作用*![image-20240407143751781](http://verification.longcoding.top/Fq2bA5CegUx5LXr1CkJytYjIeE4d)
 
 对Token进行瘦身 - 与利用CLS Token进行级联删除不用的策略
 
@@ -784,7 +784,7 @@ Key-Global: [batch,    repeat  ,  num_heads, num_tokens, dim_head]
 
 #### *Semantic Token Generation Module* 
 
-![image-20240407144042256](http://sthda9dn6.hd-bkt.clouddn.com/FhpDcInvrdHl8gH37PsLXN3uJi9D)
+![image-20240407144042256](http://verification.longcoding.top/FhpDcInvrdHl8gH37PsLXN3uJi9D)
 
 1️⃣ Base Module 学习浅层特征
 
@@ -807,7 +807,7 @@ $$
 
 #### Recovery Module
 
-![image-20240407152546112](http://sthda9dn6.hd-bkt.clouddn.com/FqBQgFoYYG9vvEes2GR4G-Si_7Z5)
+![image-20240407152546112](http://verification.longcoding.top/FqBQgFoYYG9vvEes2GR4G-Si_7Z5)
 $$
 \overline{X} = MHA(X, S, S) + P,\ \ \  X = FFN(\overline{X}) + \overline{X}
 $$
@@ -819,7 +819,7 @@ $$
 
 ***First layer** attention maps*
 
-![image-20240407152443412](http://sthda9dn6.hd-bkt.clouddn.com/FkN9c3orO53DPnvDVGwSRlyAfN83)
+![image-20240407152443412](http://verification.longcoding.top/FkN9c3orO53DPnvDVGwSRlyAfN83)
 
 
 
@@ -849,7 +849,7 @@ $$
 
 图示：
 
-![image-20240519135320979](http://sthda9dn6.hd-bkt.clouddn.com/FoJmJfRIWja8Xu5PJmwDkNgeF-cS)
+![image-20240519135320979](http://verification.longcoding.top/FoJmJfRIWja8Xu5PJmwDkNgeF-cS)
 
 
 
@@ -905,7 +905,7 @@ HiLoAttention():
 
 *CNN、Transformer 、CNN&Transformer*
 
-![image-20240519144138963](http://sthda9dn6.hd-bkt.clouddn.com/FsfgalSTq8ikfSlxajfdHEyFyUmm)
+![image-20240519144138963](http://verification.longcoding.top/FsfgalSTq8ikfSlxajfdHEyFyUmm)
 
 在每个阶段，产生层次表示  -- 金字塔结构
 
@@ -941,15 +941,15 @@ HiLoAttention():
 
 ***architecture***
 
-![image-20240519150910428](http://sthda9dn6.hd-bkt.clouddn.com/Fi7B2qNZZFd0EFxrcoi4XMUo0xml)
+![image-20240519150910428](http://verification.longcoding.top/Fi7B2qNZZFd0EFxrcoi4XMUo0xml)
 
 ***Convolution Module***
 
-![image-20240519151021832](http://sthda9dn6.hd-bkt.clouddn.com/FjFaP8sJXM7MWq8AwsLqC7KikXzs)
+![image-20240519151021832](http://verification.longcoding.top/FjFaP8sJXM7MWq8AwsLqC7KikXzs)
 
 ***Feed Forward Module***
 
-![image-20240519151158840](http://sthda9dn6.hd-bkt.clouddn.com/FoHe296JIl9aIexdJPHWj9LMbPaa)
+![image-20240519151158840](http://verification.longcoding.top/FoHe296JIl9aIexdJPHWj9LMbPaa)
 
 
 
@@ -967,13 +967,13 @@ HiLoAttention():
 
 **architecture**
 
-![image-20240519170648016](http://sthda9dn6.hd-bkt.clouddn.com/FnK4-FRpE1SQT5uahwaQRzAHKrnQ)
+![image-20240519170648016](http://verification.longcoding.top/FnK4-FRpE1SQT5uahwaQRzAHKrnQ)
 
 
 
 ***Dual-Attention***
 
-![image-20240519170423224](http://sthda9dn6.hd-bkt.clouddn.com/FtBXyfSHE5-sQI43qg32GVo5bIdU)
+![image-20240519170423224](http://verification.longcoding.top/FtBXyfSHE5-sQI43qg32GVo5bIdU)
 
 
 
@@ -1007,11 +1007,11 @@ HiLoAttention():
 
 ***architecture***
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FoygIQupOSId30hyZGiwdI5Bt7WN" alt="image-20240520212934048" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FoygIQupOSId30hyZGiwdI5Bt7WN" alt="image-20240520212934048" style="zoom:50%;" />
 
 ***Interaction***
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FvRSZ6UvKI7Xij11Qo2_LkUchwJN" alt="image-20240520213014827" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FvRSZ6UvKI7Xij11Qo2_LkUchwJN" alt="image-20240520213014827" style="zoom:50%;" />
 
 ***pseudo code***
 
@@ -1057,11 +1057,11 @@ do Global2Local-CrossAttn()
 
 ***paradigm compare*** 
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpMbxFOAMejEr5a3FMFIxQXs_jUw" alt="image-20240520214548775" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/FpMbxFOAMejEr5a3FMFIxQXs_jUw" alt="image-20240520214548775" style="zoom: 50%;" />
 
 ***architecture***
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FnB9u1SBK2GizG6jFdRDBDPs4WUE" alt="image-20240520214838670" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/FnB9u1SBK2GizG6jFdRDBDPs4WUE" alt="image-20240520214838670" style="zoom: 50%;" />
 
 - （c）用于根据输入图像对局部空间上下文进行建模的空间先验模块， Adapter: Spatial feature token set;  ViT: origin feature map;
 - （d）用于将空间先验引入ViT的空间特征注入器
@@ -1099,7 +1099,7 @@ q = FC(X_spm).view(...), k, v = FC(X_vit).view(...)		#
 
 ***visualize***
 
-![image-20240520220239886](http://sthda9dn6.hd-bkt.clouddn.com/FoC2Xg4Iols0Pwb9d1syiS3OfIaV)
+![image-20240520220239886](http://verification.longcoding.top/FoC2Xg4Iols0Pwb9d1syiS3OfIaV)
 
 傅里叶变换特征图的傅里叶频谱和相对对数幅度（超过 100 张图像的平均值） => 表明 ViT-Adapter 比 ViT 捕获更多的高频信号
 
@@ -1141,11 +1141,11 @@ q = FC(X_spm).view(...), k, v = FC(X_vit).view(...)		#
 
 ***architecture***
 
-![image-20240520204419726](http://sthda9dn6.hd-bkt.clouddn.com/FlbAMay416VfhuR5JSOSHwG_kP5A)
+![image-20240520204419726](http://verification.longcoding.top/FlbAMay416VfhuR5JSOSHwG_kP5A)
 
 ***Inception Mixer***
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fgt2Cic3gVjrTj4X7s62QDHUu_MC" alt="image-20240520204536925" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/Fgt2Cic3gVjrTj4X7s62QDHUu_MC" alt="image-20240520204536925" style="zoom: 50%;" />
 
 ***pseudo code***
 
@@ -1162,7 +1162,7 @@ Y = X + ITM(LN(X))  # ITM : Inception Mixer
 H = Y + FFN(LN(Y))
 ```
 
-![image-20240520212116579](http://sthda9dn6.hd-bkt.clouddn.com/FqIKu2Ff8rUUc8ZQNB23iVFbqKZz)
+![image-20240520212116579](http://verification.longcoding.top/FqIKu2Ff8rUUc8ZQNB23iVFbqKZz)
 
 局部|高频  & 全局|低频  - *傅里叶谱*
 
@@ -1205,13 +1205,13 @@ H = Y + FFN(LN(Y))
 
 ***architecture***
 
-![image-20240522150100876](http://sthda9dn6.hd-bkt.clouddn.com/FkRHFQGJNejEx0DdLHpKMHXN3eLc)
+![image-20240522150100876](http://verification.longcoding.top/FkRHFQGJNejEx0DdLHpKMHXN3eLc)
 
 *left figure: focus attn; right figure: aggregated attn(add QKV-attn、LKV-attn、QLV-attn)*
 
 共享同一个Softmax（作用可能是这里进行多注意力的制约交互）
 
-![image-20240522150532379](http://sthda9dn6.hd-bkt.clouddn.com/FsUwpLygfpNSLAeQCf2PLkLrVu39)
+![image-20240522150532379](http://verification.longcoding.top/FsUwpLygfpNSLAeQCf2PLkLrVu39)
 
 ConvGLU: 卷积 GLU (ConvGLU) 中的每个标记都拥有一个独特的门控信号，基于其最接近的细粒度特征。 这解决了SE机制中全局平均池化过于粗粒度的缺点。 它还满足了一些没有位置编码设计、需要深度卷积提供位置信息的ViT模型的需求。
 
@@ -1231,7 +1231,7 @@ ConvGLU: 卷积 GLU (ConvGLU) 中的每个标记都拥有一个独特的门控�
 
 - 发现现有 Transformer 模型的速度通常受到内存低效操作的限制，尤其是 MHSA 中的张量整形和逐元素函数;
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FkiJ7g1kMAPGc7GWQkZqrTREti7U" alt="image-20240522153808010" style="zoom:33%;" />
+<img src="http://verification.longcoding.top/FkiJ7g1kMAPGc7GWQkZqrTREti7U" alt="image-20240522153808010" style="zoom:33%;" />
 
 - 虽然Transformer性能很好，但是代价很高，不适合实时应用;  =>优化;
 
@@ -1248,11 +1248,11 @@ ConvGLU: 卷积 GLU (ConvGLU) 中的每个标记都拥有一个独特的门控�
 
 ***architecture***
 
-![image-20240522153524595](http://sthda9dn6.hd-bkt.clouddn.com/Ftia_79d9H41exw3LGQYJvCamsia)
+![image-20240522153524595](http://verification.longcoding.top/Ftia_79d9H41exw3LGQYJvCamsia)
 
 Token Interaction：DWConv，增强局部交互能力，引入局部结构信息的归纳偏差来增强模型能力
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fo0DOWw0j9KpBjKC-gRlWZW8H9cl" alt="image-20240522154554278" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/Fo0DOWw0j9KpBjKC-gRlWZW8H9cl" alt="image-20240522154554278" style="zoom: 50%;" />
 
 三明治结构中，局部建模和全局Attn, 即[Token Interaction, FFN]\[Cascaded Group Attention][Token Interaction, FFN]堆叠不是1:1:1, 而是N:1:N, Why? because Attention 计算量太大了，能少用就少用。
 
@@ -1298,7 +1298,7 @@ FC(out)
 
 ***基本算子结构对比***
 
-![image-20240528221243289](http://sthda9dn6.hd-bkt.clouddn.com/Fu2XvX690FwPXpQZ0l9eZ5DOI43X)
+![image-20240528221243289](http://verification.longcoding.top/Fu2XvX690FwPXpQZ0l9eZ5DOI43X)
 
 - Multi-head self attention: 线性映射qkv，MHSA, 投影回来 
 - Feed Forward Network: Linear-Linear
@@ -1311,7 +1311,7 @@ FC(out)
 
 ***Meta Former Block vs Inverted Residual Block***
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Ftf8991YMhE8E1dDCjokAWEUw-ye" alt="image-20240528221642558" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/Ftf8991YMhE8E1dDCjokAWEUw-ye" alt="image-20240528221642558" style="zoom:80%;" />
 
 *更加细致的抽象*
 
@@ -1319,7 +1319,7 @@ FC(out)
 
 iRMB（Inverted Residual Mobile Block）
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fj5ta7GvLAfjt_JHMaKg6_KuZHDB" alt="image-20240528222426166" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/Fj5ta7GvLAfjt_JHMaKg6_KuZHDB" alt="image-20240528222426166" style="zoom:80%;" />
 
 - ！！！ 由于 MHSA 更适合对更深层的语义特征进行建模，因此我们仅在之前的工作之后的 stage-3/4 中打开它 。
 
@@ -1339,7 +1339,7 @@ iRMB（Inverted Residual Mobile Block）
 
 深度设计，灵活的设计
 
-![image-20240528223053135](http://sthda9dn6.hd-bkt.clouddn.com/Fv_WL-G6w_PP05QeqNpgeOc-c1JJ)
+![image-20240528223053135](http://verification.longcoding.top/Fv_WL-G6w_PP05QeqNpgeOc-c1JJ)
 
 
 
@@ -1355,7 +1355,7 @@ iRMB（Inverted Residual Mobile Block）
 
 *观察：*
 
-![image-20240528223844857](http://sthda9dn6.hd-bkt.clouddn.com/FjqUdZKlfKBiJWVASpVgKoNtx0wC)
+![image-20240528223844857](http://verification.longcoding.top/FjqUdZKlfKBiJWVASpVgKoNtx0wC)
 
 图 1：左：DeiT-Tiny 模型 [55] 第一层中给定查询块（蓝色）处三个头的注意力图的可视化。 右图：焦点注意力机制的说明性描述。 使用三个粒度级别来组成蓝色查询的注意区域。
 
@@ -1370,7 +1370,7 @@ iRMB（Inverted Residual Mobile Block）
 
 图示：
 
-![image-20240528224313848](http://sthda9dn6.hd-bkt.clouddn.com/FrKhAz5jYoJiqpydMNgq0CFRnxMx)
+![image-20240528224313848](http://verification.longcoding.top/FrKhAz5jYoJiqpydMNgq0CFRnxMx)
 
 伪代码：
 
@@ -1396,7 +1396,7 @@ K, V: 窗口内Token + 周边细粒度Token + Pool-Token
 
 ***architecture***
 
-![image-20240605130022083](http://sthda9dn6.hd-bkt.clouddn.com/FvngC2ntWdTKgytYSOXDYCsygesS)
+![image-20240605130022083](http://verification.longcoding.top/FvngC2ntWdTKgytYSOXDYCsygesS)
 
 ***局部+全局 感知并行***
 
@@ -1420,9 +1420,9 @@ K, V: 窗口内Token + 周边细粒度Token + Pool-Token
 
 
 
-![image-20240605130403587](http://sthda9dn6.hd-bkt.clouddn.com/FiTVfK_KWLbyKsq0yo5jubrdfdG4)
+![image-20240605130403587](http://verification.longcoding.top/FiTVfK_KWLbyKsq0yo5jubrdfdG4)
 
-![image-20240605130304047](http://sthda9dn6.hd-bkt.clouddn.com/FmSqE-XJ1S2ZfKrcJZZXlGMcur9G)
+![image-20240605130304047](http://verification.longcoding.top/FmSqE-XJ1S2ZfKrcJZZXlGMcur9G)
 
  ⭐*探索Meta Block的潜力！*
 
@@ -1447,7 +1447,7 @@ X = X + ChannelMixer(Norm(X))
 
 *框架：*
 
-![image-20240615215037327](http://sthda9dn6.hd-bkt.clouddn.com/Fl1JTUYTHYcZ5PRbJ8UAvXP1yVX7)
+![image-20240615215037327](http://verification.longcoding.top/Fl1JTUYTHYcZ5PRbJ8UAvXP1yVX7)
 
 
 
@@ -1461,7 +1461,7 @@ X = X + ChannelMixer(Norm(X))
 
 *Attention illustration*
 
-![image-20240615215710510](http://sthda9dn6.hd-bkt.clouddn.com/FkuWg8D5hT-sd7m1rdxGy107-_9i)
+![image-20240615215710510](http://verification.longcoding.top/FkuWg8D5hT-sd7m1rdxGy107-_9i)
 
 
 
@@ -1477,7 +1477,7 @@ Incorporating Convolution Designs into Visual Transformers
 
 *局部增强*
 
-![image-20240615220916238](http://sthda9dn6.hd-bkt.clouddn.com/Fncxayeuy-8OlJnF1hBWzhhIv0qc)
+![image-20240615220916238](http://verification.longcoding.top/Fncxayeuy-8OlJnF1hBWzhhIv0qc)
 
 就是Inverted Resiual Block [Conv1×1 => Depth-wise Conv3×3 => Conv1×1] 对Token进行局部信息增强
 
@@ -1485,7 +1485,7 @@ Incorporating Convolution Designs into Visual Transformers
 
 框架：
 
-![image-20240615220738212](http://sthda9dn6.hd-bkt.clouddn.com/FqP4aLNN1H0Jj6H1inWZMvEmGu4F)
+![image-20240615220738212](http://verification.longcoding.top/FqP4aLNN1H0Jj6H1inWZMvEmGu4F)
 
  ⭐利用了每个Stage中的Class Token，这样可以有层级式信息，而且梯度会通过这个CLS Token直接传递给前面部分
 
@@ -1503,11 +1503,11 @@ Incorporating Convolution Designs into Visual Transformers
 
 *图示：*
 
-![image-20240615222535371](http://sthda9dn6.hd-bkt.clouddn.com/FjbHr1d3ayVnC5teXJNmdLblG20F)
+![image-20240615222535371](http://verification.longcoding.top/FjbHr1d3ayVnC5teXJNmdLblG20F)
 
 *框架：*
 
-![image-20240615222639804](http://sthda9dn6.hd-bkt.clouddn.com/Fn68cq_jiYWOH4cLXysQRSE6IvcK)
+![image-20240615222639804](http://verification.longcoding.top/Fn68cq_jiYWOH4cLXysQRSE6IvcK)
 
 ⭐想法很超前⭐
 
@@ -1543,15 +1543,15 @@ Incorporating Convolution Designs into Visual Transformers
 
 框架：
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FtFR_n6He8LUzeHkKJx5IMK3Wl0J" alt="image-20240615223821379" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FtFR_n6He8LUzeHkKJx5IMK3Wl0J" alt="image-20240615223821379" style="zoom:50%;" />
 
 重参数化
 
-![image-20240615223858785](http://sthda9dn6.hd-bkt.clouddn.com/FiHZZIOCH78aewOlnWnLO870aBK_)
+![image-20240615223858785](http://verification.longcoding.top/FiHZZIOCH78aewOlnWnLO870aBK_)
 
 块设计
 
-![image-20240615223925194](http://sthda9dn6.hd-bkt.clouddn.com/FtTs3Fhk7zQo9sF39QP_2bGZBpA3)
+![image-20240615223925194](http://verification.longcoding.top/FtTs3Fhk7zQo9sF39QP_2bGZBpA3)
 
 
 
@@ -1567,7 +1567,7 @@ Incorporating Convolution Designs into Visual Transformers
 
 *架构：*
 
-![image-20240629144615355](http://sthda9dn6.hd-bkt.clouddn.com/FjJJYomTo8RtBXmfq16fKLAj9ctR)
+![image-20240629144615355](http://verification.longcoding.top/FjJJYomTo8RtBXmfq16fKLAj9ctR)
 
 
 
@@ -1584,7 +1584,7 @@ Xout = FFN(Norm(Z)) + Z
 
 *图示：* （选举 => 精英 => 分发）
 
-![image-20240629144951121](http://sthda9dn6.hd-bkt.clouddn.com/FkrkSeWMk4-k739dM3W3yi01hR0n)
+![image-20240629144951121](http://verification.longcoding.top/FkrkSeWMk4-k739dM3W3yi01hR0n)
 
 
 
@@ -1613,7 +1613,7 @@ Xout = FFN(Norm(Z)) + Z
 
 *操作图示：*
 
-![image-20240724224557015](http://sthda9dn6.hd-bkt.clouddn.com/FolrkGJLWnzivRqfddrBq1TSfTlI)
+![image-20240724224557015](http://verification.longcoding.top/FolrkGJLWnzivRqfddrBq1TSfTlI)
 
 *卷积分组减少计算量 （⭐优化组间通信⭐）*
 
@@ -1621,7 +1621,7 @@ Xout = FFN(Norm(Z)) + Z
 
 *ShuffleNet Basic Block*
 
-![image-20240724225221695](http://sthda9dn6.hd-bkt.clouddn.com/Fo1ppHwmaWzXwWANAYAwgCfNXOHp)
+![image-20240724225221695](http://verification.longcoding.top/Fo1ppHwmaWzXwWANAYAwgCfNXOHp)
 
 - (a) ResNet bottleneck unit  <= DWConv
 - (b) 优化PWConv（Group Conv），并且Channel Shuffle，执行Group communication  # 无下采样，输入输出shape一致
@@ -1631,7 +1631,7 @@ Xout = FFN(Norm(Z)) + Z
 
 ***⭐V2⭐***
 
-![image-20240724225722883](http://sthda9dn6.hd-bkt.clouddn.com/FrZI_fxrG99O7f0vTaVrizYYINM_)
+![image-20240724225722883](http://verification.longcoding.top/FrZI_fxrG99O7f0vTaVrizYYINM_)
 
 => 分析各个类型操作占据的计算成本
 
@@ -1648,7 +1648,7 @@ Xout = FFN(Norm(Z)) + Z
 
 
 
-![image-20240724225839060](http://sthda9dn6.hd-bkt.clouddn.com/FvT25s2RGhiwTZ-RPHmuZC4Dhruj)
+![image-20240724225839060](http://verification.longcoding.top/FvT25s2RGhiwTZ-RPHmuZC4Dhruj)
 
 - (a) basic shuffle net block                                            -v1
 - (b) basic shuffle net block with downsample           -v1
@@ -1674,7 +1674,7 @@ out = channel-shuffle(out)
 
 特征复用示意图：
 
-![image-20240724230720785](http://sthda9dn6.hd-bkt.clouddn.com/Fsem9hHIfSDd3ZUCLtLpAcSsXSJG)
+![image-20240724230720785](http://verification.longcoding.top/Fsem9hHIfSDd3ZUCLtLpAcSsXSJG)
 $$
 l1-norm = \sum_{i=1}^n{|v_i|}
 $$
@@ -1682,7 +1682,7 @@ $$
 
 
 
-![image-20240724232423791](http://sthda9dn6.hd-bkt.clouddn.com/FoTY1l17-ftZvTy0nfHDeXZRY9UC)
+![image-20240724232423791](http://verification.longcoding.top/FoTY1l17-ftZvTy0nfHDeXZRY9UC)
 
 准确率参数贡献✔️
 
@@ -1696,11 +1696,11 @@ $$
 
 *结构分析*
 
-![image-20240731130434746](http://sthda9dn6.hd-bkt.clouddn.com/FiH0elp2VtvBSademhh9cg0eolrI)
+![image-20240731130434746](http://verification.longcoding.top/FiH0elp2VtvBSademhh9cg0eolrI)
 
 *内存分析*：
 
-![image-20240731130540271](http://sthda9dn6.hd-bkt.clouddn.com/FqrL08v9UgFtTqoEzS_trX3wGNmY)
+![image-20240731130540271](http://verification.longcoding.top/FqrL08v9UgFtTqoEzS_trX3wGNmY)
 
 => 权衡：性能和计算内存成本
 
@@ -1714,13 +1714,13 @@ Test： 单分支结构，速度快，内存少
 
 ⭐⭐⭐重参化：
 
-![image-20240731130753331](http://sthda9dn6.hd-bkt.clouddn.com/Fpiu9hRAD351LiYHeyGyEYg4sha5)
+![image-20240731130753331](http://verification.longcoding.top/Fpiu9hRAD351LiYHeyGyEYg4sha5)
 
 
 
 细节：
 
-![image-20240731130825585](http://sthda9dn6.hd-bkt.clouddn.com/FiJzUgq9bxVrRGkByjxjskR35OYx)
+![image-20240731130825585](http://verification.longcoding.top/FiJzUgq9bxVrRGkByjxjskR35OYx)
 
 *举例第一个卷积后的元素*
 
@@ -1738,13 +1738,13 @@ Test： 单分支结构，速度快，内存少
 
 Attn图示：
 
-![image-20240731131233068](http://sthda9dn6.hd-bkt.clouddn.com/FvHo1e4tfg4ziUIju2Msp1Ux6Qti)
+![image-20240731131233068](http://verification.longcoding.top/FvHo1e4tfg4ziUIju2Msp1Ux6Qti)
 
 
 
 做法：
 
-![image-20240731131548727](http://sthda9dn6.hd-bkt.clouddn.com/FjurzDrzk4C77otBf4LWSMnEgUog)
+![image-20240731131548727](http://verification.longcoding.top/FjurzDrzk4C77otBf4LWSMnEgUog)
 
 
 
@@ -1784,19 +1784,19 @@ CF-ViT: A General Coarse-to-Fine Method for Vision Transformer
 
 对于分类任务 - 不需要那么精细的patch
 
-![image-20241004170321655](http://sthda9dn6.hd-bkt.clouddn.com/FoZyVNbgSQsWG1p28qGiRf7c-loT)
+![image-20241004170321655](http://verification.longcoding.top/FoZyVNbgSQsWG1p28qGiRf7c-loT)
 
 两步策略：
 
 1. 粗粒度patch=>ViT => 预测得分  =若得分小于设定的置信度>  将重要区域细分 =ViT>  最终预测
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FhJ_wk_2ZOeZLagZZW7msuY1b66v" alt="image-20241004170409259" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/FhJ_wk_2ZOeZLagZZW7msuY1b66v" alt="image-20241004170409259" style="zoom:80%;" />
 
 特征复用
 
-![image-20241004170546367](http://sthda9dn6.hd-bkt.clouddn.com/Fn3U6o2Ni3GopzqhH5qWum_Jo_ZU)
+![image-20241004170546367](http://verification.longcoding.top/Fn3U6o2Ni3GopzqhH5qWum_Jo_ZU)
 
-![image-20241004170631330](http://sthda9dn6.hd-bkt.clouddn.com/FnmEgoeSS3CkxfwyL9-khIdQjvGy)
+![image-20241004170631330](http://verification.longcoding.top/FnmEgoeSS3CkxfwyL9-khIdQjvGy)
 
 - 不重要区域 => 大尺度粗略的Patch (可能有不相关的背景干扰)
 - 重要区域 => 小尺度精细的patch(更多边缘细节) <= 第一阶段粗略的Patch充当区域嵌入
@@ -1823,7 +1823,7 @@ loss = CE(pf, y) + KL(pc,pf)
 
 
 
-![image-20241030221038768](http://sthda9dn6.hd-bkt.clouddn.com/Fh-0bK5pCvO9nwnDPE66C7E48tBA)
+![image-20241030221038768](http://verification.longcoding.top/Fh-0bK5pCvO9nwnDPE66C7E48tBA)
 
 
 
@@ -1831,9 +1831,9 @@ loss = CE(pf, y) + KL(pc,pf)
 
 ### Twins： [Local-Global]
 
-![image-20241030221335460](http://sthda9dn6.hd-bkt.clouddn.com/FklHw-wittRqd1h7QHkLjfv1Fwsr)
+![image-20241030221335460](http://verification.longcoding.top/FklHw-wittRqd1h7QHkLjfv1Fwsr)
 
-![image-20241030221352090](http://sthda9dn6.hd-bkt.clouddn.com/Fioskn0DS9unnSI_QH7XFEGCI8NU)
+![image-20241030221352090](http://verification.longcoding.top/Fioskn0DS9unnSI_QH7XFEGCI8NU)
 
 **[LSA-FFN] => [GSA-FFN]**
 
@@ -1849,17 +1849,17 @@ loss = CE(pf, y) + KL(pc,pf)
 
 *架构*
 
-![image-20241031135433480](http://sthda9dn6.hd-bkt.clouddn.com/FqdiIwZSD3Up8P0uBI5_AV7ID9D5)
+![image-20241031135433480](http://verification.longcoding.top/FqdiIwZSD3Up8P0uBI5_AV7ID9D5)
 
 
 
 有趣点 - Shuffle-Net ?
 
-![image-20241031135458522](http://sthda9dn6.hd-bkt.clouddn.com/FtlfxgTIAtbStShpTV0CnDCiMdEp)
+![image-20241031135458522](http://verification.longcoding.top/FtlfxgTIAtbStShpTV0CnDCiMdEp)
 
 *局部信使  - 传递信息*
 
-![image-20241031135530570](http://sthda9dn6.hd-bkt.clouddn.com/Fvf8qMc7fN5gMwHRFjgDPdqdErf-)
+![image-20241031135530570](http://verification.longcoding.top/Fvf8qMc7fN5gMwHRFjgDPdqdErf-)
 
 
 
@@ -1873,11 +1873,11 @@ IEEE TRANSACTIONS ON MULTIMEDIA  --  sci-1
 
 **overview**
 
-![image-20250114142903267](http://sthda9dn6.hd-bkt.clouddn.com/FmD-ZzTnzr2Ny-LKfnETdutV7-m-)
+![image-20250114142903267](http://verification.longcoding.top/FmD-ZzTnzr2Ny-LKfnETdutV7-m-)
 
 **novel**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpooTWGTcnjOMuxGQEca7uOENTEA" alt="image-20250114142955809" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FpooTWGTcnjOMuxGQEca7uOENTEA" alt="image-20250114142955809" style="zoom:50%;" />
 
 不同注意力头部，进行细微的调整
 
@@ -1891,7 +1891,7 @@ Pattern Recognition
 
 **Architecture**
 
-![image-20250114143121321](http://sthda9dn6.hd-bkt.clouddn.com/FrEEw1jUQwiFTRiDgQJOzw44QFCS)
+![image-20250114143121321](http://verification.longcoding.top/FrEEw1jUQwiFTRiDgQJOzw44QFCS)
 
 **novel**
 
@@ -1899,7 +1899,7 @@ Pattern Recognition
 $$
 𝐐 = 𝑋𝐖_𝑄,𝐊_𝑖 = 𝑃_𝑖𝐖^𝐾_𝑖, 𝐕_𝑖 = 𝑃_𝑖𝐖^V_𝑖
 $$
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fq-ekXRQDlou_UreRE9QSa9y5EKF" alt="image-20250114143427612" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/Fq-ekXRQDlou_UreRE9QSa9y5EKF" alt="image-20250114143427612" style="zoom:50%;" />
 
 1 Query不变， KV通过多个不同内核大小的DWConv生成多尺度 KV  (粗粒度)
 
@@ -1913,7 +1913,7 @@ $$
 
 **overview**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FhFdzS6Z8nVzWT82oLR7UAlApYD2" alt="image-20250114144650219" style="zoom:75%;" />
+<img src="http://verification.longcoding.top/FhFdzS6Z8nVzWT82oLR7UAlApYD2" alt="image-20250114144650219" style="zoom:75%;" />
 
 Stem:
 
@@ -1944,11 +1944,11 @@ x = x + (DWConv->BN->Conv1x1->GELU->Conv1x1)  # ConvFFN
 
 Revisiting the Integration of Convolution and Attention for Vision Backbone
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fv-JSCo9PonEt4vbgrq5feHboST-" alt="image-20250114145624850" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/Fv-JSCo9PonEt4vbgrq5feHboST-" alt="image-20250114145624850" style="zoom:50%;" />
 
 **novel**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpTEjuhn2eD2qyORam83GulxtlE0" alt="image-20250114145649376" style="zoom:67%;" />
+<img src="http://verification.longcoding.top/FpTEjuhn2eD2qyORam83GulxtlE0" alt="image-20250114145649376" style="zoom:67%;" />
 
 ```python
 Conv-part: [Conv1x1->DWConv5x5->Conv1x1] => X_conv  # ConvFFN ?
@@ -1969,7 +1969,7 @@ Y = X_conv + X_attn
 
 **overview**
 
-![image-20250114151317648](http://sthda9dn6.hd-bkt.clouddn.com/FufS6_Sh-LFlJAX5QtwplhqOm8fO)
+![image-20250114151317648](http://verification.longcoding.top/FufS6_Sh-LFlJAX5QtwplhqOm8fO)
 
 ```python
 Token-Mixer:
@@ -1984,7 +1984,7 @@ nn.Conv2d(in_channels, out_channels, kernel_size=(3, 5), padding=(1, 2), bias=bi
 
 **InceptionNeXt**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FsqkSUIBCPQceHnvyJZJPh9x8TZa" alt="image-20250114151447542" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FsqkSUIBCPQceHnvyJZJPh9x8TZa" alt="image-20250114151447542" style="zoom:50%;" />
 
 ```python
 Block: [Token-Mixer -> Norm -> FFN]
@@ -2000,11 +2000,11 @@ Block: [Token-Mixer -> Norm -> FFN]
 
 Vision Transformer with Deformable Attention
 
-![image-20250310222653412](http://sthda9dn6.hd-bkt.clouddn.com/Fv-02WqjoM1YnWKUPahuPk8sz-Vw)
+![image-20250310222653412](http://verification.longcoding.top/Fv-02WqjoM1YnWKUPahuPk8sz-Vw)
 
-全部采样点如下：![image-20250310222724290](http://sthda9dn6.hd-bkt.clouddn.com/FgkRkH4sKEbNXMmkZmMeO-EbnyH8)
+全部采样点如下：![image-20250310222724290](http://verification.longcoding.top/FgkRkH4sKEbNXMmkZmMeO-EbnyH8)
 
-高得分key采样点如下![image-20250310222715496](http://sthda9dn6.hd-bkt.clouddn.com/FlmkdM49E6tgVoh2flXCrN89Cnl2)
+高得分key采样点如下![image-20250310222715496](http://verification.longcoding.top/FlmkdM49E6tgVoh2flXCrN89Cnl2)
 
 ```py
 # 1. 生成 query

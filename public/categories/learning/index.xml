@@ -183,15 +183,15 @@
       <guid>http://longcoding.top/posts/learning/paper_reading1/</guid>
       <description>&lt;h2 id=&#34;图示&#34;&gt;图示&lt;/h2&gt;
 &lt;h3 id=&#34;卷积注意力&#34;&gt;卷积注意力&lt;/h3&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20240322202245497&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FnOSHW83hKtIFxFdU34DDsMiOeWO&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322202245497&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FnOSHW83hKtIFxFdU34DDsMiOeWO&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;自注意力&#34;&gt;自注意力&lt;/h3&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20240322202200571&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FvUxt8fwO3J-k8UzUsCI30aE2lRp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322202200571&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FvUxt8fwO3J-k8UzUsCI30aE2lRp&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;学习&#34;&gt;学习&lt;/h2&gt;
 &lt;h3 id=&#34;norm&#34;&gt;Norm&lt;/h3&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20240305205407153&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FoDS7JLx483eH0OReKVsf9Rx-4tZ&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240305205407153&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FoDS7JLx483eH0OReKVsf9Rx-4tZ&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;loss&#34;&gt;Loss&lt;/h3&gt;
 &lt;h4 id=&#34;cross-entropy&#34;&gt;Cross Entropy&lt;/h4&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20240302160358957&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FsuefQxQF9qmKbSUd94pmTsYId_D&#34;&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240302160358957&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FsuefQxQF9qmKbSUd94pmTsYId_D&#34;&gt;
 $$
 Loss = -\sum_{i}^{C}y_ilog(p(x_{i})), where \ y_i\ is label,p(x_i)\ is\ predict.
 $$&lt;/p&gt;
@@ -227,9 +227,9 @@ $$&lt;/p&gt;
 &lt;p&gt;⭐⭐⭐网络可以保留其卓越的定位能力，直到最后一层   =&amp;gt; 深层特征的定位能力&lt;/p&gt;
 &lt;p&gt;❗❗❗尽管接受了图像级标签的训练，CNN 仍具有出色的对象定位能力&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;缺陷&lt;/strong&gt;：卷积特征图→全局平均池化→softmax层  // 特定网络结构&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20240322134603157&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FizSzlSfuX9fZOO_3HduKDclEzcI&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322134603157&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FizSzlSfuX9fZOO_3HduKDclEzcI&#34;&gt;&lt;/p&gt;
 &lt;center style=&#34;color: red; font-weight: bold;&#34;&gt;做法图示&lt;/center&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20240322134441902&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FiBRel9zde6IJ3STCIWgQtDspaZx&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322134441902&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FiBRel9zde6IJ3STCIWgQtDspaZx&#34;&gt;&lt;/p&gt;
 &lt;center style=&#34;color: red; font-weight: bold;&#34;&gt;数学公式&lt;/center&gt;
 &lt;p&gt;在卷积特征图上执行全局平均池化，并将它们用作全连接层的特征，产生所需的输出分类;&lt;/p&gt;
 &lt;p&gt;❗❗❗将输出层的权重投影回卷积特征图来识别图像区域的重要性&lt;/p&gt;
@@ -237,10 +237,10 @@ $$&lt;/p&gt;
 &lt;h3 id=&#34;grad-cam----iccv-2017&#34;&gt;Grad-CAM  - ICCV 2017&lt;/h3&gt;
 &lt;p&gt;适用CNN模型&lt;/p&gt;
 &lt;p&gt;但论文提到在CNN+LSTM的也能定位有区别的图像区域&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20240322141249072&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FjU70VichK5n125Mrm0J9kJnVy43&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20240322141305661&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FpssA7XV30OJ4BKmn1aDL-1GNYSa&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322141249072&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FjU70VichK5n125Mrm0J9kJnVy43&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322141305661&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FpssA7XV30OJ4BKmn1aDL-1GNYSa&#34;&gt;&lt;/p&gt;
 &lt;p&gt;α 捕获&lt;strong&gt;特征图&lt;/strong&gt; k 对于目标&lt;strong&gt;类&lt;/strong&gt; c 的&lt;strong&gt;重要性&lt;/strong&gt;  // 与CAM的分类线性层权重作用一致&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20240322141314248&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FoLeKuhJnfw8veLYf18fRWRhEy09&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20240322141314248&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FoLeKuhJnfw8veLYf18fRWRhEy09&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;ReLU&lt;/strong&gt;的作用，只对对感兴趣的类别有积极影响的特征感兴趣。负像素可能属于图像中的其他类别&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;上述操作 =&amp;gt; 具有&lt;strong&gt;类别区分性&lt;/strong&gt;并且可以很好地定位相关图像区域&lt;/em&gt;   - 最后特征图比较小!&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;				  但缺乏显示细粒度重要性的能力 （能区分猫狗，但对为什么识别为猫，不够精确）

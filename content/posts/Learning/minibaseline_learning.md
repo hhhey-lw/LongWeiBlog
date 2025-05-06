@@ -185,7 +185,7 @@ X:(1,3,H,W) => Model => P:(K,K,5+C)  Y:(K,K,5+C)
 2. 收集所需要的Cell => 分别计算Loss
 ```
 
-![image-20241102213134197](http://sthda9dn6.hd-bkt.clouddn.com/Fkz-1AneHRs4XMsndjM2zkbfmd8K)
+![image-20241102213134197](http://verification.longcoding.top/Fkz-1AneHRs4XMsndjM2zkbfmd8K)
 
 
 

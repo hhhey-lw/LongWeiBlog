@@ -104,7 +104,7 @@
 &lt;li&gt;执行引擎(命令解释器)：将字节码文件翻译成机器码，并交给CPU执行；&lt;/li&gt;
 &lt;li&gt;本地方法接口：过程中会调用不同语言提供的接口，比如驱动和..，调用本地方法接口，例如操作系统级别的功能或者高性能库。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FtrSjvLjXEixufKxk9avjPMmQNpg&#34; alt=&#34;image-20250314162756632&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;http://verification.longcoding.top/FtrSjvLjXEixufKxk9avjPMmQNpg&#34; alt=&#34;image-20250314162756632&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;h3 id=&#34;522-编译执行和解释执行&#34;&gt;522. 编译执行和解释执行&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;编译执行&lt;/strong&gt;&lt;/em&gt;：先将源代码编译为机器代码，再在CPU上运行。例如：C，C++；&lt;/p&gt;
 &lt;p&gt;​	啊&lt;/p&gt;
@@ -158,7 +158,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20250314165936676&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FirLgeEVeLb4N108rU7mpuX1BdPY&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;image-20250314165936676&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/FirLgeEVeLb4N108rU7mpuX1BdPY&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;总结java程序与线程在jvm内存中的流程&#34;&gt;总结：Java程序与线程在JVM内存中的流程&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;程序启动&lt;/strong&gt;：JVM初始化内存区域，加载&lt;strong&gt;类信息&lt;/strong&gt;到&lt;strong&gt;方法区&lt;/strong&gt;。&lt;/li&gt;
@@ -178,7 +178,7 @@
       <link>http://longcoding.top/posts/jobs/juc/</link>
       <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate>
       <guid>http://longcoding.top/posts/jobs/juc/</guid>
-      <description>&lt;h3 id=&#34;1-如何创建多线程&#34;&gt;1 如何创建多线程&lt;/h3&gt;
+      <description>&lt;h3 id=&#34;1-如何创建线程&#34;&gt;1 如何创建线程&lt;/h3&gt;
 &lt;p&gt;1） 实现&lt;strong&gt;Runnable&lt;/strong&gt;接口&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;实现run()方法&lt;/li&gt;
@@ -188,7 +188,7 @@
 &lt;ul&gt;
 &lt;li&gt;重写run()方法&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;3）Callable接口&amp;amp;&amp;amp;FutureTask&lt;/p&gt;
+&lt;p&gt;3）&lt;strong&gt;Callable接口&lt;/strong&gt;&amp;amp;&amp;amp;FutureTask&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动&lt;/li&gt;
 &lt;/ul&gt;
@@ -237,7 +237,7 @@
       <guid>http://longcoding.top/posts/jobs/mysql/</guid>
       <description>&lt;h3 id=&#34;617-mysql-数据排序-实现&#34;&gt;617 MySQL 数据排序 实现？&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;Order By 命中索引(包括索引字段)，使用索引排序(有序)，效率最高效&lt;/li&gt;
+&lt;li&gt;Order By 命中索引(包括索引字段)，使用索引排序(&lt;strong&gt;⭐有序⭐&lt;/strong&gt;)，效率最高效&lt;/li&gt;
 &lt;li&gt;否则使用文件排序，文件少=&amp;gt; 内存排序 sort_buffer&lt;/li&gt;
 &lt;li&gt;文件大=&amp;gt;外部排序，归并排序&lt;/li&gt;
 &lt;/ol&gt;
@@ -258,7 +258,7 @@
 &lt;li&gt;利用&lt;strong&gt;执行器&lt;/strong&gt;，调用引擎层查询数据，返回结果集&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;具体：Select * from user where id = 1;&lt;/p&gt;
-&lt;img src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FssKKPCKzeVJv4TEPdMldct1M8z4&#34; alt=&#34;image-20250305222939319&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;http://verification.longcoding.top/FssKKPCKzeVJv4TEPdMldct1M8z4&#34; alt=&#34;image-20250305222939319&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;SQL =&amp;gt; Server层&lt;strong&gt;连接器&lt;/strong&gt;，权限校验，账号是否有资格获取。无=&amp;gt; Access denied for user。  连接成功后，空闲一段时间会断开&lt;/p&gt;
@@ -346,7 +346,7 @@
 &lt;li&gt;去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。&lt;/li&gt;
 &lt;li&gt;内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;image-20250307175456538&#34; loading=&#34;lazy&#34; src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/Fo9jCIPyRQ866mnZdasVsUwqao1j&#34;&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img alt=&#34;image-20250307175456538&#34; loading=&#34;lazy&#34; src=&#34;http://verification.longcoding.top/Fo9jCIPyRQ866mnZdasVsUwqao1j&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Spring笔记</title>

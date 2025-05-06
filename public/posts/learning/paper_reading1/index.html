@@ -172,7 +172,7 @@ title: Mlp-mixer: An all-mlp architecture for vision">
   "keywords": [
     "DL"
   ],
-  "articleBody": "图示 卷积注意力 自注意力 学习 Norm Loss Cross Entropy $$ Loss = -\\sum_{i}^{C}y_ilog(p(x_{i})), where \\ y_i\\ is label,p(x_i)\\ is\\ predict. $$\nBCE Loss $$ Loss = −\\sum_{i}^{c}(y_ilog(p(x_i)+(1−y_i)log(1−p(x_i)) \\ where \\ y_i \\in [0, 1] \\\npos_partition = -log(p(x_i))\\ neg_partition = -log(1-p(x_i)) $$\nFocal Loss $$ Loss = -α_t(1-p_t)^γlog(p_t)\\\n# Multi-Label:\\ 1.\\ pos_loss = α(1-p(x_i))^γ\\ \\ -log(p_t)\\ 2.\\ neg_loss = (1-α)p(x_i)^γ\\ \\ -log(1-p_t) $$\n论文 Mlp-mixer - NIPS 2021 title: Mlp-mixer: An all-mlp architecture for vision\n⭐ channel-mixing MLPs and token-mixing MLPs.\n① 融合Patches间的特征信息\n② 融合Patches内的特征信息\n❌ 易过拟合\n**Transformer ** - NIPS 2017 Transformer Encoder\nMulti-Head Self Attention ⭐每段用不一样的α权重\t– 分段融合Token间信息\n​\t多组注意力权重α\nToken分段，并行计算每段的权重α，多头注意力允许模型共同关注来自不同位置的不同表示子空间的信息。\n⭐⭐⭐ 并行多个头，增强表示能力，融合不同子空间(低纬空间)\nToken间信息融合，比例是相似度权重\nFeed-Forward Networks 卷积 深度可分离卷积计算成本比标准卷积小 8 到 9 倍，而精度仅略有降低 - MobileNetV2\n✨使用共享内核在局部区域内进行信息交互\n标准卷积 输入特征图和模板卷积核\n输出像素 - 融合局部空间通道信息\n瓶颈结构 - Resnet 减少参数数量\n逐点卷积降维 -\u003e 标准卷积 -\u003e 逐点卷积升维\n​\t残差连接\n压缩 - 卷积 - 扩张\n深度可分离卷积 倒残差结构 - MobileNet 扩充通道的原因，是为了能够提取到更多的信息\nReLU 激活函数可能会崩溃掉某些通道信息。然而，如果我们有很多通道，那么信息可能仍然保留在其他通道中。\n逐点卷积升维 -\u003e 分组卷积 -\u003e 逐点卷积降维\n​\t残差连接\n扩张- 卷积 - 压缩\nLinear 作用等同于1×1逐点卷积，实现线性映射\nViT - CVPR 2020/10 Vision Transformer - Patching 化为互不重叠的区域，输出通道数为Token的长度。⭐ 将image拆分为16×16×3的patch\n经过Conv2D提取Token，# Token中每元素均有局部宽高及通道信息\n所有标记之间的盲目相似性比较\nPVT - ICCV 2021 Pyramid Vision Transformer A Versatile Backbone for Dense Prediction without Convolutions\n创新点：在ViT（patch embed大小固定）基础上，仿照CNN网络的特征图变化\n⭐使用“渐进”收缩策略通过补丁嵌入层来控制特征图的尺度\nCNNs: 特征图变化 通道×2，宽高÷2\nViT: patch embed不变\nPVT： 渐进式缩小特征图，减少token数量\nPVT框架：\n①特征图 - patch_embed -\u003e token token map -\u003e token -\u003e token map\n​\t⭐proj = Conv2d(in_channel, dim_token[i], kernel_size[i], stride[i])\ndim_token = [64, 128, 256, 512]\nkernel_size = [4, 2, 2, 2]\nstride= [4, 2, 2, 2]\t@ 渐进式缩小特征图\t– 融合局部token的感觉\ntoken数量⬇，token维度⬆(信息更加丰富)\n多次Patch Embed\n②Transformer Encoder 对 token 进行信息提取 MHSA处进行调整：引入Spacial Reduction操作\nSpacial Reduction：将token折叠回特征图，使用Conv2d对特征图进行局部信息融合的处理，再保持通道维度不变的情况下，缩小宽高空间大小，再拆分成token，减少token数量。\n对Token Key和Value的部分进行SR处理，shape=(*num_token, dim_token)\nQuery shape=(num_token, dim_token)\nα = softmax(Q@SR(K).T / √d) shape=(num_token, *num_token)\nα@V\tshape=(num_token, dim_token)\n⭐图示操作：\n利用conv局部性，将相邻的Token进行合并 | 或者利用Pool进行窗口内Token合并 （图示稍微有点问题）\n计算量降低sr_ratio平方倍 – Conv2D中的stride\n③将token折叠回特征图\nCvT - ICCV 2021 CvT: Introducing Convolutions to Vision Transformers\n很像PVT - 前置论文Bottle neck Transformer @ 在resnet末尾将后三层Conv3×3替换为MHSA （Conv结构中引入Attension全局建模）\n目的：\n①将卷积神经网络 (CNN) 的理想特性引入 ViT 架构（即移位、尺度和失真不变性），同时保持 Transformer 的优点（即动态注意力、全局上下文和更好的泛化）\n②将具有图像域特定归纳偏差的卷积引入 Transformer 来实现两全其美\n③空间维度下采样，通道增加。Token数量少了，但每个Token变长了，增强了携带信息的表示的丰富性\n⭐删除位置嵌入：为每个 Transformer 块引入卷积投影，并结合卷积令牌嵌入，使我们能够通过网络对局部空间关系进行建模。使其具有适应需要可变输入分辨率的各种视觉任务的潜在优势。\n总体结构\rConvolutional Token Embedding 重叠式的嵌入，使用标准Conv2D\n并且在每个Stage最后，将Token集合折叠回Token Map\nConvolutional Projection – Conv生成QKV 而非通常的nn.Linear 利用 分组卷积 将K与V的Token Map下采样，性能换效率\n局部空间上下文的附加建模，相比于普通卷积(更复杂的设计和额外的计算成本)，DWConv性价比更高\n(b): 可参考MobileViT，先利用卷积局部融合信息，再执行窗口级注意力\nSwin - ICCV 2021 Swin transformer: Hierarchical vision transformer using shifted windows\n层级式ViT\n创新点：\n①patch embed尺寸逐步增大，检测小目标更好\n总体结构\n窗口级的Token特征融合操作： Swin Transformer Block 数量为偶数 ①窗口内的Token信息融合\nMHSA限制在窗口内进行 – 降低计算复杂度\n②窗口间的Token信息融合 – 滑动窗口策略 – 间接看到全局信息\n蓝线表示窗口内Token信息融合，红线表示窗口间信息融合\n❗❗❗⭐⭐⭐MHSA依然限制在窗口内进行\n❗为了规整统一窗口大小，便于批量计算\n进行一次循环位移，使窗口大小统一\n⭐使用window-mask将本该不进行自注意计算的部分遮挡掉，在计算注意力α时，在其中softmax中，将mask的值设为-100，则e^{-100} / Σ e^{i} 为 0\n滑动窗口Mask示例：\n给窗口编号，再使用torch.roll 滑动 （ window_size // 2 ） 个像素\n$$ \\text{softmax}(z)i = \\frac{e^{z_i}}{\\sum{j=1}^{K} e^{z_j}}, \\quad \\text{for } i = 1, 2, \\ldots, K \\\\e^{-100} ≈ 0 $$\n相对位置编码： 因为计算Window-MHSA是并行的，没有位置顺序信息\n⭐注意力权重 加上 相对位置偏置\n✨相对位置信息 – 压缩\u0026复用\n① relative position bias table 自学习的位置标量偏置 – 压缩\n② relative position bias index 索引 – 不同位置的token使用相同的相对位置偏置 – 复用\n给定窗口大小，index是固定值，table是可学习的位置信息\n一维情况：\nPatch Mergeing 目的： 宽高减半，通道翻倍\n整幅特征图分4部分，合并不同部分，相同位置的Token\nMobilevit - CVPR 2021 title: Mobilevit: light-weight, general-purpose, and mobile-friendly vision transformer\n在资源受限设备上运行ViT – 混合CNN和Transformer\nMV2: MobileNetv2 中的倒残差块 ⬇2： 下采样2倍，控制stride步幅\nMobileViT Block:\t– 间接融合 用二维卷积局部融合(重叠区域)，输出的特征图中每个像素都会看到 MobileViT 块中的所有其他像素\n红色像素使用变压器关注蓝色像素\n由于蓝色像素已经使用卷积对有关相邻像素的信息进行了编码，因此红色像素可以对图像中所有像素的信息进行编码\nunfold和fold 将特征图转为Token集合，改排序，不等于patch embed(用conv2d)\n原论文 最后的通道维度融合，使用的Conv3x3卷积。 # 模块对称。\nCrossViT - ICCV 2021 CrossViT: Cross-Attention Multi-Scale Vision Transformer for Image Classification\n双分支 - 多尺度patch嵌入\n互换分支的CLS Token 实现分支间的信息通信\n总体结构\r交互示例\r详细\rDeiT - CVPR 2021 Training data-efficient image transformers \u0026 distillation through attention\n⭐纯Transformer版本的知识蒸馏\n引入distillation token来进行知识蒸馏，执行的目标不同。一个与label计算loss，一个与Teacher label计算蒸馏损失。反向传播优化时，梯度不一样\nT2T - ICCV 2021 Tokens-to-Token ViT: Training Vision Transformers from Scratch on ImageNet\n重叠嵌入，信息更全面。融合Token，删除冗余\nsoft split\t重叠融合(图示是堆叠在通道维度)\nBiFormer - CVPR 2023 BiFormer: Vision Transformer with Bi-Level Routing Attention\n一种动态的、查询感知的稀疏注意力机制。 关键思想是在粗糙区域级别过滤掉大部分不相关的键值对，以便只保留一小部分路由区域，再进行细粒度的注意力计算\n注意力区域对比\r路由方式建立跨窗口信息交互\n通过化为window，各Token均值为代表整window的Token，计算区域相似性关系图，借此为窗口间链接通信\n将窗口串起来\nBi-Routing Self-Attention\r总体结构\rDWConv 3×3 作用：\n​\t在开始时使用 3×3 深度卷积来隐式编码相对位置信息。\nSMT - ICCV 2023 Scale-Aware Modulation Meet Transformer\n“模拟随着网络变得更深而从捕获局部依赖关系到全局依赖关系的转变“（串行渐变结构） =联想到=\u003e 浅层网络捕获形态特征，深层部分捕获高级节律特征\nSMT1D 生硬的训练ECG 中等效果，但计算量小！\n层级式ViT结构\n总体结构\rEvolutionary Hybrid Network 结构取名为“进化混合网络” Evolutionary Hybrid Network - 局部到全局建模的过渡\n两种融合模块的堆叠方式\r性能对比\rSAM Block scale-aware modulation\rMulti-Head Mixed Convolution 将通道分割为多个头(组)，每个头使用不同大小的卷积核（目的：捕捉多个尺度的各种空间特征。增强网络的建模能力“局部远程依赖”）\n例：\nScale-Aware Aggregation 倒残差结构 - 融合通道\n在MHMC结构中，多头由于卷积核大小不同，更大的卷积核看到的感受野更大。 将多头各个卷积依次打包成组，进行组间通道融合，每组既有小感受野的信息，又有大感受野信息，多样 multi-scale\n可视化模块效果 – 画的卷积调制权重 深度可分离卷积作为注意力权重\n① 每个不同的卷积特征图都学习以自适应方式关注不同的粒度特征\n②多头更准确地描绘前景和目标对象\n③网络变深，多头仍然可以呈现目标物体的整体形状。与细节相关的信息在单头卷积下会丢失\n⭐⭐表明 MHMC 在浅层阶段有能力比单头更好地捕获局部细节，同时随着网络变得更深，保持目标对象的详细和语义信息。\n增强了语义相关的低频信号，精确地聚焦于目标对象最重要的部分。\n更好的捕获和表示视觉识别任务的基本特征的能力。\nConv2Former - CVPR 2022 Conv2Former: A Simple Transformer-Style ConvNet for Visual Recognition\n创新点： 用卷积操作 模拟近似 注意力 – 更低的计算代价 略低的性能下降\nHadamard product == 矩阵按元素相乘\n使得每个空间位置(h,w)能够与以(h,w)为中心的k×k正方形区域内的所有像素相关。通道之间的信息交互可以通过线性层来实现。\n※重点： ConvNeXt中表明，卷积核不是越大越好，超过7x7，计算代价远远大于性能收益\n⭐本文实验提出，将卷积特征作为权重，能比传统方式更有效地利用大内核\nConvNeXt - CVPR 2022 ConvNeXt 将CNN搭建成SwinT的风格，性能超越SwinT\nInceptionNext 多尺度版本的ConvNeXt\nShunted SA - CVPR 2022 Shunted Self-Attention via Multi-Scale Token Aggregation\nPVT 和类似的模型往往会在这种空间缩减中合并太多的标记，使得小物体的细粒度信息与背景混合并损害模型的性能；\n同时保留粗粒度和细粒度的细节，同时保持对图像标记的全局依赖性建模；\n观察到PVT和ViT在同一个Encoder中token尺度是固定的，创新结合二者。用Conv将Token Map局部融合成多幅Token Map，使每个汇聚的Token代表着不同区域，不仅观察到小物体，也能看到大物体。 ViT：小区域\nPVT： 大区域\nShunted : 结合大小区域\n灵感源于：\n做法：\n​\t不同头的长度不同，以捕获不同粒度的信息。\n原始特征图x，卷积局部融合得到x1， x2 (HW均变小)\n❗注意：Q的线性映射维度不变，而不同尺度的KV通过线性映射时维度缩减率为SR特征图的数量（QKV维度一致）\n两种做法\n细粒度 - pixel token || 粗粒度 - patch token\nGC-ViT - ICML 2023 Global Context Vision Transformers\n与SwinT的区别：\n不通过滑动窗口实现全局信息建模 =\u003e 直接生成全局信息Token，使用这组携带全局信息的TokenSet来实现全局信息建模 SwinT 层数堆不够的话，全局信息建模不强 与SwinT的共同点：\n都属于window-wise attention\n位置编码都采用相对位置偏置bias\n基本单元：局部窗口内计算 + 全局信息建模；（窗口内 + 窗口间）\n思路：\nGlobal query tokens generation\nMBConv - FeatureExtract\n代码分析\n1X: [batch, num_token, dim_token] 2x-window: [batch*num_windows, num_token//num_windows, dim_token] 3x-window-head:[batch*num_windows, num_heads, num_token//num_windows, dim_token//num_heads] 4 5 6Query: [batch × num_window, num_heads, num_tokens, dim_head] 7Key-Global: [batch, repeat , num_heads, num_tokens, dim_head] 图示最后的复制，是让每个窗口内的token与全局token表示进行信息融合 （复制窗口维度的大小）\nfunny: 公司{多部门} =\u003e [部门内部成员进行讨论] =\u003e [部门之间领导进行讨论]\nToken Sparsification - CVPR 2023 Making Vision Transformers Efficient from A Token Sparsification View\n动机：\n*观察到注意力后期，仅部分核心Token起着主要作用*![image-20240407143751781](http://sthda9dn6.hd-bkt.clouddn.com/Fq2bA5CegUx5LXr1CkJytYjIeE4d)\r对Token进行瘦身 - 与利用CLS Token进行级联删除不用的策略\n方法：\tSparse Token Vision Transformer\nSemantic Token Generation Module 1️⃣ Base Module 学习浅层特征\n2️⃣ 进行Spatial Pooling聚合区域，生产空间簇中心TokenSet\n**Conv( GELU( LayerNorm( DWConv( X ))))** *- 深度可分离*\r创新：**Intra and inter-window** spatial pooling\r目的：聚合窗口信息(代表) + 疏远窗口间信息(不可被替代)\r3️⃣ 融合生成Semantic Token Set\t- Global Initial Center G 是可学习的参数 $$ \\overline{S^{1}} = MHA(P, X, X) + P,\\ \\ \\ S^{1} = FFN(\\overline{S^{1}}) + \\overline{S^{1}} \\\\ \\overline{S^{2}} = MHA(S^{1} + G, Concat(S^{1}, X), Concat(S^{1}, X)) + P,\\ \\ \\ S^{2} = FFN(\\overline{S^{2}}) + \\overline{S^{2}} \\ S^{2} = Semantic\\ \\ Token $$\nRecovery Module $$ \\overline{X} = MHA(X, S, S) + P,\\ \\ \\ X = FFN(\\overline{X}) + \\overline{X} $$ 融合操作的逆过程\n从语义级TokenSet中恢复空间信息\nFirst layer attention maps\nHiLo Attention - NeurIPS 2022 Fast Vision Transformers with HiLo Attention\n图像中的高频捕获局部精细细节，低频关注全局结构，而多头自注意力层忽略了不同频率的特征。 因此，我们建议通过将头部分为两组来解开注意力层中的高频/低频模式，其中一组通过每个局部窗口内的自注意力对高频进行编码，另一组通过在每个局部窗口内执行全局注意力来对低频进行编码，输入特征图中每个窗口和每个查询位置的平均池化低频键和值。\n创新点：\n将自注意力分为高频和低频 高频捕捉局部精细细节（轮廓、边缘） 低频捕获整体结构or趋势 high部分是window级别的attn low部分是space reduce(经过pool)的粗糙级别的attn 图示：\n伪代码：\n1HiLoAttention(): 2 def high(x): 3 # window-partition 4 [batch, num_token, dim_token] =\u003e [batch, num_window, window_size, dim_token] 5 # multi-head 6 [batch, num_window, window_size, dim_token] =\u003e [batch, num_window, num_head, window_size, dim_head] 7 8 # do attention 9 # reshape to restore 10 11 def low(x): 12 B, L, C = x.shape 13 x_ = x.transpose(-2, -1)\t# [batch, channel, length] 14 x_ = self.sr_cnn(x_) # [batch, channel, _length] reduce length || avgpool or dwconv 15 16 q = self.q(x).reshape() =\u003e [batch, num_head, num_token, dim_head] 17 k, v = self.kv(x).reshape()[...] =\u003e [batch, num_head, *num_token, dim_head] 18 19 # do attention 20 # reshape to restore 21 22 def forward(x): 23 x1 = high(x) 24 x2 = low(x) 25 26 x = torch.cat([x1, x2], dim=-1) 27 x = self.proj(x) CMT - CVPR 2022 CMT: Convolutional Neural Networks Meet Vision Transformers\n注重点：与之前基于 CNN 和基于 Transformer 的模型相比，在准确性和效率方面获得了更好的权衡。\n⭐ 由于 patch 大小固定，Transformer 很难显式地提取低分辨率和多尺度特征 =\u003e 图像是二维的（即具有宽度和高度），并且在图像中的每个像素位置都与其周围的像素有关。这种空间局部信息非常重要，例如，边缘检测、纹理分析等都依赖于这种局部关系。=\u003e Patchfiy 后削弱了pixel之间的关系，只补充了Patch间的位置信息。\nCNN、Transformer 、CNN\u0026Transformer\n在每个阶段，产生层次表示 – 金字塔结构\n定制的Stem Block内部混合CNN和MHSA ❤️ [DWConv(Skip-con) + SR-MHSA(Skip-con) + IRFFN(Skip-Conv)] Conformer - 2020 Conformer: Convolution-augmented Transformer for Speech Recognition\n集成了 CNN 和 Transformer 组件以进行端到端识别的架构\n分析：\n虽然 Transformer 擅长对远程全局上下文进行建模，但它们提取细粒度局部特征模式的能力较差； 卷积神经网络（CNN）利用局部信息，在本地窗口上学习共享的基于位置的内核，能够捕获边缘和形状等特征。使用本地连接的限制之一是需要更多的层或参数来捕获全局信息。 ⭐ 将卷积与自注意力有机结合起来。 我们假设全局和局部交互对于参数效率都很重要。 为了实现这一目标，我们提出了一种自注意力和卷积的新颖组合，将实现两全其美\narchitecture\nConvolution Module\nFeed Forward Module\nPathFormer - ICLR 2024 PATHFORMER: MULTI-SCALE TRANSFORMERS WITH ADAPTIVE PATHWAYS FOR TIME SERIES FORECASTING\narchitecture\nDual-Attention\nMobile-Former - CVPR 2022 Mobile-Former: Bridging MobileNet and Transformer\n动机：\n如何设计高效的网络来有效地编码本地处理和全局交互？\n最近工作：串联组合卷积和视觉变换器的好处，无论是在开始时使用卷积还是将卷积交织到每个变换器块中\n视觉变换器（ViT）[10,34]展示了全局处理的优势，并实现了比 CNN 显着的性能提升，如何在计算资源或者参数量有限的情况下充分挖掘结合两者的优势，=\u003e parameters efficient\n贡献：\n并行设计 + 双路桥接； 利用了 MobileNet 在本地处理和 Transformer 在全局交互方面的优势；实现局部和全局特征的双向融合 全局Token只有初始化为0的很少的Token，利用Cross Attention 进行交互 ⭐大概就是在MobileNet为主干的基础上添加ViT全局Token的信息注入 architecture\nInteraction\npseudo code\n1q = FC(token).view(), k, v = x.view()\t# shape =\u003e batch, num_token, dim_token; 2do Local2Global-CrossAttn() 3 4token =\u003e MHSA() 5 6x = MobileNetBlock() 7 8q = x.view(), k, v = FC(token).view() 9do Global2Local-CrossAttn() ViT Adapter - ICLR 2023 VISION TRANSFORMER ADAPTER FOR DENSE PREDICTIONS\n动机\n在不改变原有ViT的基础上(利用大规模预训练参数)，添加辅助器帮助Transformer学习弱项；【使用现成的预训练 ViT 适应密集的预测任务】\nViT 单尺度和低分辨率表示的弱点 =\u003e 注入一些多尺度特征(CNN)给单尺度的ViT\n…表明卷积可以帮助 Transformer 更好地捕获局部空间信息，对与补丁嵌入层并行的图像的局部空间上下文进行建模，以免改变 ViT 的原始架构。\n贡献\nViT Adapter: [Spatial Prior Module, Spatial Feature Injector, Multi-Scale Feature Extractor] paradigm compare\narchitecture\n（c）用于根据输入图像对局部空间上下文进行建模的空间先验模块， Adapter: Spatial feature token set; ViT: origin feature map; （d）用于将空间先验引入ViT的空间特征注入器 （e）用于从单个图像重新组织多尺度特征的多尺度特征提取器 -ViT 的尺度特征 采用稀疏注意力来降低计算成本\npseudo code\n1# Spatial prior module 2X_vit = ResnetBlock(x) 3x1 = PointConv(Conv(X_vit))\t# down-sample: HW/8^2 and project channel to D dimension 4x2 = PointConv(Conv(x2))\t# down-sample: HW/16^2\tto D dimension 5x3 = PointConv(Conv(x3))\t# down-sample: HW/32^2\tto D dimension 6X_vit = torch.cat([x1, x2, x3], dim=num_token) 7 8# injector // spatial feature to ViT 9q = FC(X_vit).view(...), k, v = FC(X_spm).view(...)\t# spm: spatial prior module 10do Cross-Attn() 11 12# Multi-Scale Feature Extractor 13q = FC(X_spm).view(...), k, v = FC(X_vit).view(...)\t# analyze：\n⭐ 研究表明，ViT 呈现出学习低频全局信号的特征(整体、模糊和粗糙)，而 CNN 则倾向于提取高频信息（例如局部边缘和纹理） visualize\n傅里叶变换特征图的傅里叶频谱和相对对数幅度（超过 100 张图像的平均值） =\u003e 表明 ViT-Adapter 比 ViT 捕获更多的高频信号\n我们还可视化了图5（b）（c）中的stride-8特征图，这表明ViT的特征是模糊和粗糙的\nInception Transformer - NeurIPS 2022 Inception Transformer\n动机：\nTransformer 具有很强的建立远程依赖关系的能力，但无法捕获主要传达局部信息的高频；\nViT 及其变体非常有能力捕获视觉数据中的低频，主要包括场景或对象的全局形状和结构，但对于学习高频（主要包括局部边缘和纹理）不是很强大(CNNs很擅长，它们通过感受野内的局部卷积覆盖更多的局部信息，从而有效地提取高频表示)；\n最近的研究[21-25]考虑到CNN和ViT的互补优势，将它们集成起来。 一些方法[21,22,24,25]以串行方式堆叠卷积层和注意力层，以将局部信息注入全局上下文中。 不幸的是，这种串行方式仅在一层中对一种类型的依赖关系（全局或局部）进行建模，并且在局部性建模期间丢弃全局信息，反之亦然。❤️ 每个模块都不够全面=\u003e模型要么只有局部感知能力，要么只有全局建模能力 =\u003e 在ECG中，有些疾病不仅仅是局部或全局的病理特征，而且是节律异常伴随着波形形态异常；从这一角度出发，我们希望能够充分的利用Transformer的全局依赖感知能力和CNN的强大的局部感知能力，交互融合有力结合两者优势； 【就像在人类视觉系统中一样，高频分量的细节有助于较低层捕获视觉基本特征，并逐渐收集局部信息以对输入有全局的理解】\n层级式网络，多尺度分辨率特征图，每部分均能全局+局部感知；并且设计频率斜坡结构 =\u003e 底层更注重高频信息(细节信息，局部模式、纹理边缘)；高层更注重低频信息(整体轮廓，全局)\n创新点：\nTransformer中的Multi-Head Self-Attention =\u003e Inception Mixer ; 按channel分两组：1. 低频组；2. 高频组； 低频组 池化稀疏注意力，但仅最低两块用； 高频组 [MaxPool, DWConv]； 频率斜坡结构: 高频组\u003e低频组 =\u003e 高频组\u003c低频组 底层在捕获高频细节方面发挥更多作用，而顶层在建模低频全局信息方面发挥更多作用 architecture\nInception Mixer\npseudo code\n1# x : [batch, channel, width, hight] 2x_h, x_l = torch.chunk(x, chunks=2, dim=1) 3x_h1, x_h2 = torch.chunk(x_h, chunks=2, dim=1) 4 5y_h1 = FC(MaxPool(x_h1)) 6y_h2 = DWConv(FC(x_h2)) 7y_l = MSA(AvePooling (X_l)) 8 9Y = X + ITM(LN(X)) # ITM : Inception Mixer 10H = Y + FFN(LN(Y)) 局部|高频 \u0026 全局|低频 - 傅里叶谱\nTransNeXt - CVPR 2024 TransNeXt: Robust Foveal Visual Perception for Vision Transformers\nanalysis\n目前的稀疏Attention： Local Attention[限制计算量，n×固定窗口计算量]: window-level attention, =\u003e cross-window attn information exchange 需要堆叠很深才能实现全局感知 patially downsamples【降低计算的Token数量】: pool or dwconv =\u003e 信息丢失问题； 【细粒度(丢失)=\u003e 粗粒度】 motivation\n⭐ 观察：生物视觉对视觉焦点周围的特征具有较高的敏锐度，而对远处的特征具有较低的敏锐度。 结合window-level attn \u0026 spatial downsample attn，临近的token执行pixel-level attn，稍远的区域执行pool-level attn, 实现视觉仿生聚焦attn contribution\nfocus attn 【局部细粒度，全局粗粒度】\nfocus attn 升级 aggregated attention 【QKV 注意力、LKV 注意力和 QLV 注意力统一】\nQLV 与传统的 QKV 注意力机制不同，它破坏了键和值之间的一对一对应关系，从而为当前查询学习更多隐含的相对位置信息。 LKV：增强表达能力，通过引入可学习的键和值，模型可以学习到更多有用的特征，增强了对复杂关系的建模能力 length-scaled cosine attention 【双路注意力concat经过同一个softmax】\nconvolutional GLU替换MLP\narchitecture\nleft figure: focus attn; right figure: aggregated attn(add QKV-attn、LKV-attn、QLV-attn)\n共享同一个Softmax（作用可能是这里进行多注意力的制约交互）\nConvGLU: 卷积 GLU (ConvGLU) 中的每个标记都拥有一个独特的门控信号，基于其最接近的细粒度特征。 这解决了SE机制中全局平均池化过于粗粒度的缺点。 它还满足了一些没有位置编码设计、需要深度卷积提供位置信息的ViT模型的需求。\nEfficientViT - CVPR 2023 EfficientViT Memory Efficient Vision Transformer with Cascaded Group Attention\n权衡性能和代价\nmotivation\n发现现有 Transformer 模型的速度通常受到内存低效操作的限制，尤其是 MHSA 中的张量整形和逐元素函数; 虽然Transformer性能很好，但是代价很高，不适合实时应用; =\u003e优化;\n发现注意力图在头部之间具有高度相似性，导致计算冗余。// 显式分解每个头的计算可以缓解这个问题，同时提高计算效率\ncontribution\n设计了一种具有三明治布局的新构建块，即在高效 FFN 层之间使用单个内存绑定的 MHSA，从而提高内存效率，同时增强通道通信; 提出了一个级联的组注意力模块，为注意力头提供完整特征的不同分割，这不仅节省了计算成本，而且提高了注意力多样性。 architecture\nToken Interaction：DWConv，增强局部交互能力，引入局部结构信息的归纳偏差来增强模型能力\n三明治结构中，局部建模和全局Attn, 即[Token Interaction, FFN][Cascaded Group Attention][Token Interaction, FFN]堆叠不是1:1:1, 而是N:1:N, Why? because Attention 计算量太大了，能少用就少用。\nCascaded Group Attention pseudo code\n1feature_group = x.chunk(len(self.qkv_group), dim=1) # split head 2feature = feature_group[0]\t# first head 3 4feature_out = [] 5for i, qkv in enumerate(self.qkv_group): 6 if i \u003e 0: 7 feature = feature + feature_group[i] # Cascaded Group 8 Q, K, V = qkv(feature).view().permute() # shape: B, H, N, C/H 9 Q = DWConv[i](Q) # enhance Query Token Set 10\tout = (Q@K.transpose(-2, -1) × scale)@V 11 feature_out.append(out) 12out = torch.cat(feature_out, 1) 13FC(out) 不同于传统Attn，这里先分头再线性映射，头的信息会越来越丰富。 并且实现中(Cascaded Group Attention in Window-level Attention )\nEMO - ICCV 2023 Rethinking Mobile Block for Efficient Attention-based Models\n目标：轻量级 CNN 设计高效的混合模型，并在权衡精度、参数和 FLOP 的情况下获得比基于 CNN 的模型更好的性能\n出发点：我们能否为仅使用基本算子的基于注意力的模型构建一个轻量级的类似 IRB 的基础设施？\n基本算子结构对比\nMulti-head self attention: 线性映射qkv，MHSA, 投影回来\nFeed Forward Network: Linear-Linear\nInverted Residual Block: Conv1x1-DWConv-Conv1x1\n=\u003e 综合考量 提出基本算子Meta Mobile Block\nMeta Former Block vs Inverted Residual Block\n更加细致的抽象\niRMB（Inverted Residual Mobile Block）\n！！！ 由于 MHSA 更适合对更深层的语义特征进行建模，因此我们仅在之前的工作之后的 stage-3/4 中打开它 。\nConv:\nBN+SiLU与DWConv结合； W-MHSA(window-level attention 更加高效):\nLN+GeLU与EW-MHSA结合。\n解释EW-MHSA\n因为iRMB，会先升维，导致MHSA计算量变高， Q,K维度不变，而V的维度变长了，拿attn-score加权求和时应用的是扩展V 深度设计，灵活的设计\nFocal Attention - NeurIPS 2021 Focal Attention for Long-Range Interactions in Vision Transformers\n观察：\n图 1：左：DeiT-Tiny 模型 [55] 第一层中给定查询块（蓝色）处三个头的注意力图的可视化。 右图：焦点注意力机制的说明性描述。 使用三个粒度级别来组成蓝色查询的注意区域。\n创新点：\nClose =\u003e Far Fine =\u003e Coarse 图示：\n伪代码：\n11. 使用torch.roll 再按窗口划分 =\u003e 收集细粒度周边Token, 再使用mask掩码掉多余不需要的Token 22. 先分窗口，执行窗口内Pool，生成超粗粒度Token 3 4Q: 窗口内Token 5K, V: 窗口内Token + 周边细粒度Token + Pool-Token CloFormer - CVPR 2023 Rethinking Local Perception in Lightweight Vision Transformer\narchitecture\n局部+全局 感知并行\n局部感知，类似于CNN中的卷积注意力用在自注意力分支中\nFFN 内追加局部感知增强模块\nMetaFormer - 2023 我们并不试图引入新颖的令牌混合器，而只是将令牌混合器指定为最基本或常用的运算符来探测 MetaFormer 的能力\n⭐探索Meta Block的潜力！\n1X = X + TokenMixer(Norm(X)) 2X = X + ChannelMixer(Norm(X)) MaxViT - ECCV 2022 MaxViT: Multi-Axis Vision Transformer\n动机：解决Self-Attention平方复杂度问题\n框架：\n1️⃣ MobileNetV2中的倒残差块 =\u003e 提供增强局部感知 \u0026 隐式编码位置信息\n2️⃣ Block-Attention =\u003e window-level attention ❌ 限制感受野 ⭐ 降低计算量\n3️⃣ Grid-Attention =\u003e 感受野遍及全局的扩张卷积做法 1. 分窗口 2. 收集每个窗口相同次序的Token成组. 3. 组内计算注意力\nAttention illustration\nCiT - ICCV 2021 Incorporating Convolution Designs into Visual Transformers\n局部增强\n就是Inverted Resiual Block [Conv1×1 =\u003e Depth-wise Conv3×3 =\u003e Conv1×1] 对Token进行局部信息增强\n框架：\n⭐利用了每个Stage中的Class Token，这样可以有层级式信息，而且梯度会通过这个CLS Token直接传递给前面部分\nBi-Interaction Light-ViT Lightweight Vision Transformer with Bidirectional Interaction\n图示：\n框架：\n⭐想法很超前⭐\n局部与全局的相互调制\nUniRepLKNet UniRepLKNet: A Universal Perception Large-Kernel ConvNet for Audio, Video, Point Cloud, Time-Series and Image Recognition\n⭐超大卷积核 Conv winwinwin\n当我们向小内核 ConvNet 添加 3×3 卷积时，我们期望它同时产生三种效果\n使感受野更大， 增加空间模式的抽象层次（例如，从角度和纹理到物体的形状） 通过使其更深，引入更多可学习的参数和非线性来提高模型的一般表示能力 相比之下，我们认为大内核架构中的这三种影响应该是解耦的，因为模型应该利用大内核的强大优势——能够看到广泛而不深入的能力\n由于在扩大 ERF(感受野) 方面，增加内核大小比堆叠更多层更有效，因此可以使用少量大内核层构建足够的 ERF，从而可以节省计算预算以用于其他高效结构 在增加空间模式的抽象层次或总体上增加深度方面更有效。\n框架：\n重参数化\n块设计\nEdgeViTs - ECCV 2022 EdgeViTs: Competing Light-weight CNNs on Mobile Devices with Vision Transformers\n架构：\n# 类似MobileViT\n1X = LocalAgg(Norm(X)) + X # 2Y = FFN(Norm(X)) + X 3Z = LocalProp(GlobalSparseAttn(Norm(Y))) + Y 4Xout = FFN(Norm(Z)) + Z 图示： （选举 =\u003e 精英 =\u003e 分发）\nShuffleNet - CVPR 2018 出发点：构建高效模型\n⭐V1⭐\n缺点发现：\n1=\u003e Conv1x1 _ Norm+ReLU # Point-wise 2=\u003e DWConv3x3 _ Norm # Depth-wise 3=\u003e Conv1x1 _ Norm+ReLU # Point-wise 4 5# 为了高效 =\u003e 只是将Conv3x3 =\u003e Conv1x1 6# =\u003e 但是Conv1x1占据了93.4%的乘法-加法 7 8# =\u003e 目标，优化PWConv 操作图示：\n卷积分组减少计算量 （⭐优化组间通信⭐）\nShuffleNet Basic Block\n(a) ResNet bottleneck unit \u003c= DWConv (b) 优化PWConv（Group Conv），并且Channel Shuffle，执行Group communication # 无下采样，输入输出shape一致 (c) 恒等映射占据一半的Channel，另一半精修过的Feature Map ⭐V2⭐\n=\u003e 分析各个类型操作占据的计算成本\n除了FLOPS指标，吞吐量和速度更为直接直观，符合真实贴切\n(使用FLOP作为计算复杂性的唯一度量是不够的，并且可能导致次优设计)\n(具有相同FLOP的操作可能具有不同的运行时间)\n访存时间 \u003c= 并行度 \u003c= (a) basic shuffle net block -v1 (b) basic shuffle net block with downsample -v1 (c) v2 (d) v2 with downsample 1# shape equivalence 2x.shape = (B, 64, H, W) 3x1, x2 = channel-split(x) # =\u003e (B, 32, H, W), (B, 32, H, W) 4# x1 作为恒等映射，残差连接？ 特征复用？ 5out = concat(x1, block(x2)) 6out = channel-shuffle(out) 7 8# with downsample 9x.shape = (B, 64, H, W) 10x1, x2 = x, x # =\u003e (B, 64, H, W), (B, 64, H, W) 11out = concat(branch1(x1), branch2(x2)) 12out = channel-shuffle(out) 特征复用示意图：\n$$ l1-norm = \\sum_{i=1}^n{|v_i|} $$ 相邻层更高效\n准确率参数贡献✔️\nRepVGG - ReParams - CVPR 2021 结构分析\n内存分析：\n=\u003e 权衡：性能和计算内存成本\nTrain：多分支结构，性能好\nTest： 单分支结构，速度快，内存少\n⭐⭐⭐重参化：\n细节：\n举例第一个卷积后的元素\nAgent Attention - ECCV 2024 Attn图示：\n做法：\ncode：\n1q, k, v = qkv[0], qkv[1], qkv[2] 2 3agent_token = pool(q) 4 5agent_attn = softmax(agent_token * scale @ k.T + position_bias) 6agent_v = agent_attn @ v 7 8q_attn = self.softmax((q * self.scale) @ agent_tokens.T + agent_bias) 9x = q_attn @ agent_v 10 11x = x + self.dwc(v) 12 13 14# 复杂度 15o(N * K) + o(N * K) 享受 =\u003e 高表达性和低计算复杂度的优势\nCF-ViT CF-ViT: A General Coarse-to-Fine Method for Vision Transformer\n对于分类任务 - 不需要那么精细的patch\n两步策略：\n粗粒度patch=\u003eViT =\u003e 预测得分 =若得分小于设定的置信度\u003e 将重要区域细分 =ViT\u003e 最终预测 特征复用\n不重要区域 =\u003e 大尺度粗略的Patch (可能有不相关的背景干扰) 重要区域 =\u003e 小尺度精细的patch(更多边缘细节) \u003c= 第一阶段粗略的Patch充当区域嵌入 利用ViT中[CLS] Token与其他Token的Attn累计区域的重要性\nGlobal-Attn = αAttn_l + (1-α)Attn_l+1\nTraining\nloss = CE(pf, y) + KL(pc,pf)\n训练时每次均进行Patch精细推理。使用精细模型指导粗略Patch推理\nConformer: ResNet + ViT 并行结构 =\u003e 同时保留局部和全局特征 (保持CNN和ViT架构的优势)\nTwins： [Local-Global] [LSA-FFN] =\u003e [GSA-FFN]\nwindow-self-attention =\u003e global-self-attention\nMSG-Transformer 架构\n有趣点 - Shuffle-Net ?\n局部信使 - 传递信息\nDilateFormer IEEE TRANSACTIONS ON MULTIMEDIA – sci-1\noverview\nnovel\n不同注意力头部，进行细微的调整\nScopeViT Pattern Recognition\nArchitecture\nnovel\n串行交叉：[多尺度, 多份KV]+[dilated Attention] $$ 𝐐 = 𝑋𝐖_𝑄,𝐊_𝑖 = 𝑃_𝑖𝐖^𝐾_𝑖, 𝐕_𝑖 = 𝑃_𝑖𝐖^V_𝑖 $$ 1 Query不变， KV通过多个不同内核大小的DWConv生成多尺度 KV (粗粒度)\n2 Stride Attention (细粒度)\nFastViT - ICCV overview\nStem:\n1reparams-conv 前三阶段：\n1x = x + BN(DWConv(X)) # re-params 2x = x + (DWConv-\u003eBN-\u003eConv1x1-\u003eGELU-\u003eConv1x1) # ConvFFN 最后阶段：\n1x = x + DWConv(X) # CPE convolution position embedding 2x = x + BN(Attention(X)) # Attention 3x = x + (DWConv-\u003eBN-\u003eConv1x1-\u003eGELU-\u003eConv1x1) # ConvFFN Integration of CNN + Attention Revisiting the Integration of Convolution and Attention for Vision Backbone\nnovel\n1Conv-part: [Conv1x1-\u003eDWConv5x5-\u003eConv1x1] =\u003e X_conv # ConvFFN ? 2Attn-part: 31. [聚簇] Clustering：X -\u003e pooling -\u003e cluster 42. [提炼] cluster@X.T -\u003e score@X -\u003e cluster$ {这里用点积相似度举例} 53. [全局] cluster$ -\u003e MHSA -\u003e cluster$ 64. [分发] cluster$ -\u003e cluster@score.T =\u003e X_attn 7 8Y = X_conv + X_attn RepNeXt overview\n1Token-Mixer: 2 1. nn.Identity() 3 2. DWConv3x3 + (DWConv1x3 + DWConv3x1) 4 3. DWConv7x7 + DWConv3x5 + DWConv5x3 + (DWConv1x5 -\u003e DWConv5x1) + (DWConv1x7 -\u003e DWConv7x1) 5 4. (DWConv1x11 -\u003e DWConv11x1) 6 7nn.Conv2d(in_channels, out_channels, kernel_size=(3, 5), padding=(1, 2), bias=bias, stride=stride) 8# Fusion =\u003e 重参数化融合 InceptionNeXt\n1Block: [Token-Mixer -\u003e Norm -\u003e FFN] 2025/1/14 Tidying up\nViT with Deformable Attn Vision Transformer with Deformable Attention\n全部采样点如下：\n高得分key采样点如下\n1# 1. 生成 query 2q = Conv1x1(X) 3offset = ConvKxK(q).conv1x1()=\u003e // 将通道映射为2，并且为了提高采样点的多样性，将通道分组，每组获取不一样的信息。 4reference = 规整的网格 5pos = reference + offset // 固定点 + 偏移 6x_sampled = F.grid_sample(X, pos) 7 8k = Conv1x1(x_sampled) 9v = Conv1x1(x_sampled) 10 11MHSA(q, k, v) ⭐⭐⭐\nPVT下采样技术导致严重的信息丢失❗，而Swin-T的shiftwindow注意力导致感受野的增长要慢得多❗，这限制了对大型物体建模的潜力。Deformable DETR已经通过在每个尺度上设置Nk = 4的较低数量的键来减少这种开销，并且作为检测头工作良好，但是由于不可接受的信息丢失，在骨干网络中关注如此少的键是不好❗\n这不就是步幅Attention，添加了可变嘛\n",
+  "articleBody": "图示 卷积注意力 自注意力 学习 Norm Loss Cross Entropy $$ Loss = -\\sum_{i}^{C}y_ilog(p(x_{i})), where \\ y_i\\ is label,p(x_i)\\ is\\ predict. $$\nBCE Loss $$ Loss = −\\sum_{i}^{c}(y_ilog(p(x_i)+(1−y_i)log(1−p(x_i)) \\ where \\ y_i \\in [0, 1] \\\npos_partition = -log(p(x_i))\\ neg_partition = -log(1-p(x_i)) $$\nFocal Loss $$ Loss = -α_t(1-p_t)^γlog(p_t)\\\n# Multi-Label:\\ 1.\\ pos_loss = α(1-p(x_i))^γ\\ \\ -log(p_t)\\ 2.\\ neg_loss = (1-α)p(x_i)^γ\\ \\ -log(1-p_t) $$\n论文 Mlp-mixer - NIPS 2021 title: Mlp-mixer: An all-mlp architecture for vision\n⭐ channel-mixing MLPs and token-mixing MLPs.\n① 融合Patches间的特征信息\n② 融合Patches内的特征信息\n❌ 易过拟合\n**Transformer ** - NIPS 2017 Transformer Encoder\nMulti-Head Self Attention ⭐每段用不一样的α权重\t– 分段融合Token间信息\n​\t多组注意力权重α\nToken分段，并行计算每段的权重α，多头注意力允许模型共同关注来自不同位置的不同表示子空间的信息。\n⭐⭐⭐ 并行多个头，增强表示能力，融合不同子空间(低纬空间)\nToken间信息融合，比例是相似度权重\nFeed-Forward Networks 卷积 深度可分离卷积计算成本比标准卷积小 8 到 9 倍，而精度仅略有降低 - MobileNetV2\n✨使用共享内核在局部区域内进行信息交互\n标准卷积 输入特征图和模板卷积核\n输出像素 - 融合局部空间通道信息\n瓶颈结构 - Resnet 减少参数数量\n逐点卷积降维 -\u003e 标准卷积 -\u003e 逐点卷积升维\n​\t残差连接\n压缩 - 卷积 - 扩张\n深度可分离卷积 倒残差结构 - MobileNet 扩充通道的原因，是为了能够提取到更多的信息\nReLU 激活函数可能会崩溃掉某些通道信息。然而，如果我们有很多通道，那么信息可能仍然保留在其他通道中。\n逐点卷积升维 -\u003e 分组卷积 -\u003e 逐点卷积降维\n​\t残差连接\n扩张- 卷积 - 压缩\nLinear 作用等同于1×1逐点卷积，实现线性映射\nViT - CVPR 2020/10 Vision Transformer - Patching 化为互不重叠的区域，输出通道数为Token的长度。⭐ 将image拆分为16×16×3的patch\n经过Conv2D提取Token，# Token中每元素均有局部宽高及通道信息\n所有标记之间的盲目相似性比较\nPVT - ICCV 2021 Pyramid Vision Transformer A Versatile Backbone for Dense Prediction without Convolutions\n创新点：在ViT（patch embed大小固定）基础上，仿照CNN网络的特征图变化\n⭐使用“渐进”收缩策略通过补丁嵌入层来控制特征图的尺度\nCNNs: 特征图变化 通道×2，宽高÷2\nViT: patch embed不变\nPVT： 渐进式缩小特征图，减少token数量\nPVT框架：\n①特征图 - patch_embed -\u003e token token map -\u003e token -\u003e token map\n​\t⭐proj = Conv2d(in_channel, dim_token[i], kernel_size[i], stride[i])\ndim_token = [64, 128, 256, 512]\nkernel_size = [4, 2, 2, 2]\nstride= [4, 2, 2, 2]\t@ 渐进式缩小特征图\t– 融合局部token的感觉\ntoken数量⬇，token维度⬆(信息更加丰富)\n多次Patch Embed\n②Transformer Encoder 对 token 进行信息提取 MHSA处进行调整：引入Spacial Reduction操作\nSpacial Reduction：将token折叠回特征图，使用Conv2d对特征图进行局部信息融合的处理，再保持通道维度不变的情况下，缩小宽高空间大小，再拆分成token，减少token数量。\n对Token Key和Value的部分进行SR处理，shape=(*num_token, dim_token)\nQuery shape=(num_token, dim_token)\nα = softmax(Q@SR(K).T / √d) shape=(num_token, *num_token)\nα@V\tshape=(num_token, dim_token)\n⭐图示操作：\n利用conv局部性，将相邻的Token进行合并 | 或者利用Pool进行窗口内Token合并 （图示稍微有点问题）\n计算量降低sr_ratio平方倍 – Conv2D中的stride\n③将token折叠回特征图\nCvT - ICCV 2021 CvT: Introducing Convolutions to Vision Transformers\n很像PVT - 前置论文Bottle neck Transformer @ 在resnet末尾将后三层Conv3×3替换为MHSA （Conv结构中引入Attension全局建模）\n目的：\n①将卷积神经网络 (CNN) 的理想特性引入 ViT 架构（即移位、尺度和失真不变性），同时保持 Transformer 的优点（即动态注意力、全局上下文和更好的泛化）\n②将具有图像域特定归纳偏差的卷积引入 Transformer 来实现两全其美\n③空间维度下采样，通道增加。Token数量少了，但每个Token变长了，增强了携带信息的表示的丰富性\n⭐删除位置嵌入：为每个 Transformer 块引入卷积投影，并结合卷积令牌嵌入，使我们能够通过网络对局部空间关系进行建模。使其具有适应需要可变输入分辨率的各种视觉任务的潜在优势。\n总体结构\rConvolutional Token Embedding 重叠式的嵌入，使用标准Conv2D\n并且在每个Stage最后，将Token集合折叠回Token Map\nConvolutional Projection – Conv生成QKV 而非通常的nn.Linear 利用 分组卷积 将K与V的Token Map下采样，性能换效率\n局部空间上下文的附加建模，相比于普通卷积(更复杂的设计和额外的计算成本)，DWConv性价比更高\n(b): 可参考MobileViT，先利用卷积局部融合信息，再执行窗口级注意力\nSwin - ICCV 2021 Swin transformer: Hierarchical vision transformer using shifted windows\n层级式ViT\n创新点：\n①patch embed尺寸逐步增大，检测小目标更好\n总体结构\n窗口级的Token特征融合操作： Swin Transformer Block 数量为偶数 ①窗口内的Token信息融合\nMHSA限制在窗口内进行 – 降低计算复杂度\n②窗口间的Token信息融合 – 滑动窗口策略 – 间接看到全局信息\n蓝线表示窗口内Token信息融合，红线表示窗口间信息融合\n❗❗❗⭐⭐⭐MHSA依然限制在窗口内进行\n❗为了规整统一窗口大小，便于批量计算\n进行一次循环位移，使窗口大小统一\n⭐使用window-mask将本该不进行自注意计算的部分遮挡掉，在计算注意力α时，在其中softmax中，将mask的值设为-100，则e^{-100} / Σ e^{i} 为 0\n滑动窗口Mask示例：\n给窗口编号，再使用torch.roll 滑动 （ window_size // 2 ） 个像素\n$$ \\text{softmax}(z)i = \\frac{e^{z_i}}{\\sum{j=1}^{K} e^{z_j}}, \\quad \\text{for } i = 1, 2, \\ldots, K \\\\e^{-100} ≈ 0 $$\n相对位置编码： 因为计算Window-MHSA是并行的，没有位置顺序信息\n⭐注意力权重 加上 相对位置偏置\n✨相对位置信息 – 压缩\u0026复用\n① relative position bias table 自学习的位置标量偏置 – 压缩\n② relative position bias index 索引 – 不同位置的token使用相同的相对位置偏置 – 复用\n给定窗口大小，index是固定值，table是可学习的位置信息\n一维情况：\nPatch Mergeing 目的： 宽高减半，通道翻倍\n整幅特征图分4部分，合并不同部分，相同位置的Token\nMobilevit - CVPR 2021 title: Mobilevit: light-weight, general-purpose, and mobile-friendly vision transformer\n在资源受限设备上运行ViT – 混合CNN和Transformer\nMV2: MobileNetv2 中的倒残差块 ⬇2： 下采样2倍，控制stride步幅\nMobileViT Block:\t– 间接融合 用二维卷积局部融合(重叠区域)，输出的特征图中每个像素都会看到 MobileViT 块中的所有其他像素\n红色像素使用变压器关注蓝色像素\n由于蓝色像素已经使用卷积对有关相邻像素的信息进行了编码，因此红色像素可以对图像中所有像素的信息进行编码\nunfold和fold 将特征图转为Token集合，改排序，不等于patch embed(用conv2d)\n原论文 最后的通道维度融合，使用的Conv3x3卷积。 # 模块对称。\nCrossViT - ICCV 2021 CrossViT: Cross-Attention Multi-Scale Vision Transformer for Image Classification\n双分支 - 多尺度patch嵌入\n互换分支的CLS Token 实现分支间的信息通信\n总体结构\r交互示例\r详细\rDeiT - CVPR 2021 Training data-efficient image transformers \u0026 distillation through attention\n⭐纯Transformer版本的知识蒸馏\n引入distillation token来进行知识蒸馏，执行的目标不同。一个与label计算loss，一个与Teacher label计算蒸馏损失。反向传播优化时，梯度不一样\nT2T - ICCV 2021 Tokens-to-Token ViT: Training Vision Transformers from Scratch on ImageNet\n重叠嵌入，信息更全面。融合Token，删除冗余\nsoft split\t重叠融合(图示是堆叠在通道维度)\nBiFormer - CVPR 2023 BiFormer: Vision Transformer with Bi-Level Routing Attention\n一种动态的、查询感知的稀疏注意力机制。 关键思想是在粗糙区域级别过滤掉大部分不相关的键值对，以便只保留一小部分路由区域，再进行细粒度的注意力计算\n注意力区域对比\r路由方式建立跨窗口信息交互\n通过化为window，各Token均值为代表整window的Token，计算区域相似性关系图，借此为窗口间链接通信\n将窗口串起来\nBi-Routing Self-Attention\r总体结构\rDWConv 3×3 作用：\n​\t在开始时使用 3×3 深度卷积来隐式编码相对位置信息。\nSMT - ICCV 2023 Scale-Aware Modulation Meet Transformer\n“模拟随着网络变得更深而从捕获局部依赖关系到全局依赖关系的转变“（串行渐变结构） =联想到=\u003e 浅层网络捕获形态特征，深层部分捕获高级节律特征\nSMT1D 生硬的训练ECG 中等效果，但计算量小！\n层级式ViT结构\n总体结构\rEvolutionary Hybrid Network 结构取名为“进化混合网络” Evolutionary Hybrid Network - 局部到全局建模的过渡\n两种融合模块的堆叠方式\r性能对比\rSAM Block scale-aware modulation\rMulti-Head Mixed Convolution 将通道分割为多个头(组)，每个头使用不同大小的卷积核（目的：捕捉多个尺度的各种空间特征。增强网络的建模能力“局部远程依赖”）\n例：\nScale-Aware Aggregation 倒残差结构 - 融合通道\n在MHMC结构中，多头由于卷积核大小不同，更大的卷积核看到的感受野更大。 将多头各个卷积依次打包成组，进行组间通道融合，每组既有小感受野的信息，又有大感受野信息，多样 multi-scale\n可视化模块效果 – 画的卷积调制权重 深度可分离卷积作为注意力权重\n① 每个不同的卷积特征图都学习以自适应方式关注不同的粒度特征\n②多头更准确地描绘前景和目标对象\n③网络变深，多头仍然可以呈现目标物体的整体形状。与细节相关的信息在单头卷积下会丢失\n⭐⭐表明 MHMC 在浅层阶段有能力比单头更好地捕获局部细节，同时随着网络变得更深，保持目标对象的详细和语义信息。\n增强了语义相关的低频信号，精确地聚焦于目标对象最重要的部分。\n更好的捕获和表示视觉识别任务的基本特征的能力。\nConv2Former - CVPR 2022 Conv2Former: A Simple Transformer-Style ConvNet for Visual Recognition\n创新点： 用卷积操作 模拟近似 注意力 – 更低的计算代价 略低的性能下降\nHadamard product == 矩阵按元素相乘\n使得每个空间位置(h,w)能够与以(h,w)为中心的k×k正方形区域内的所有像素相关。通道之间的信息交互可以通过线性层来实现。\n※重点： ConvNeXt中表明，卷积核不是越大越好，超过7x7，计算代价远远大于性能收益\n⭐本文实验提出，将卷积特征作为权重，能比传统方式更有效地利用大内核\nConvNeXt - CVPR 2022 ConvNeXt 将CNN搭建成SwinT的风格，性能超越SwinT\nInceptionNext 多尺度版本的ConvNeXt\nShunted SA - CVPR 2022 Shunted Self-Attention via Multi-Scale Token Aggregation\nPVT 和类似的模型往往会在这种空间缩减中合并太多的标记，使得小物体的细粒度信息与背景混合并损害模型的性能；\n同时保留粗粒度和细粒度的细节，同时保持对图像标记的全局依赖性建模；\n观察到PVT和ViT在同一个Encoder中token尺度是固定的，创新结合二者。用Conv将Token Map局部融合成多幅Token Map，使每个汇聚的Token代表着不同区域，不仅观察到小物体，也能看到大物体。 ViT：小区域\nPVT： 大区域\nShunted : 结合大小区域\n灵感源于：\n做法：\n​\t不同头的长度不同，以捕获不同粒度的信息。\n原始特征图x，卷积局部融合得到x1， x2 (HW均变小)\n❗注意：Q的线性映射维度不变，而不同尺度的KV通过线性映射时维度缩减率为SR特征图的数量（QKV维度一致）\n两种做法\n细粒度 - pixel token || 粗粒度 - patch token\nGC-ViT - ICML 2023 Global Context Vision Transformers\n与SwinT的区别：\n不通过滑动窗口实现全局信息建模 =\u003e 直接生成全局信息Token，使用这组携带全局信息的TokenSet来实现全局信息建模 SwinT 层数堆不够的话，全局信息建模不强 与SwinT的共同点：\n都属于window-wise attention\n位置编码都采用相对位置偏置bias\n基本单元：局部窗口内计算 + 全局信息建模；（窗口内 + 窗口间）\n思路：\nGlobal query tokens generation\nMBConv - FeatureExtract\n代码分析\n1X: [batch, num_token, dim_token] 2x-window: [batch*num_windows, num_token//num_windows, dim_token] 3x-window-head:[batch*num_windows, num_heads, num_token//num_windows, dim_token//num_heads] 4 5 6Query: [batch × num_window, num_heads, num_tokens, dim_head] 7Key-Global: [batch, repeat , num_heads, num_tokens, dim_head] 图示最后的复制，是让每个窗口内的token与全局token表示进行信息融合 （复制窗口维度的大小）\nfunny: 公司{多部门} =\u003e [部门内部成员进行讨论] =\u003e [部门之间领导进行讨论]\nToken Sparsification - CVPR 2023 Making Vision Transformers Efficient from A Token Sparsification View\n动机：\n*观察到注意力后期，仅部分核心Token起着主要作用*![image-20240407143751781](http://verification.longcoding.top/Fq2bA5CegUx5LXr1CkJytYjIeE4d)\r对Token进行瘦身 - 与利用CLS Token进行级联删除不用的策略\n方法：\tSparse Token Vision Transformer\nSemantic Token Generation Module 1️⃣ Base Module 学习浅层特征\n2️⃣ 进行Spatial Pooling聚合区域，生产空间簇中心TokenSet\n**Conv( GELU( LayerNorm( DWConv( X ))))** *- 深度可分离*\r创新：**Intra and inter-window** spatial pooling\r目的：聚合窗口信息(代表) + 疏远窗口间信息(不可被替代)\r3️⃣ 融合生成Semantic Token Set\t- Global Initial Center G 是可学习的参数 $$ \\overline{S^{1}} = MHA(P, X, X) + P,\\ \\ \\ S^{1} = FFN(\\overline{S^{1}}) + \\overline{S^{1}} \\\\ \\overline{S^{2}} = MHA(S^{1} + G, Concat(S^{1}, X), Concat(S^{1}, X)) + P,\\ \\ \\ S^{2} = FFN(\\overline{S^{2}}) + \\overline{S^{2}} \\ S^{2} = Semantic\\ \\ Token $$\nRecovery Module $$ \\overline{X} = MHA(X, S, S) + P,\\ \\ \\ X = FFN(\\overline{X}) + \\overline{X} $$ 融合操作的逆过程\n从语义级TokenSet中恢复空间信息\nFirst layer attention maps\nHiLo Attention - NeurIPS 2022 Fast Vision Transformers with HiLo Attention\n图像中的高频捕获局部精细细节，低频关注全局结构，而多头自注意力层忽略了不同频率的特征。 因此，我们建议通过将头部分为两组来解开注意力层中的高频/低频模式，其中一组通过每个局部窗口内的自注意力对高频进行编码，另一组通过在每个局部窗口内执行全局注意力来对低频进行编码，输入特征图中每个窗口和每个查询位置的平均池化低频键和值。\n创新点：\n将自注意力分为高频和低频 高频捕捉局部精细细节（轮廓、边缘） 低频捕获整体结构or趋势 high部分是window级别的attn low部分是space reduce(经过pool)的粗糙级别的attn 图示：\n伪代码：\n1HiLoAttention(): 2 def high(x): 3 # window-partition 4 [batch, num_token, dim_token] =\u003e [batch, num_window, window_size, dim_token] 5 # multi-head 6 [batch, num_window, window_size, dim_token] =\u003e [batch, num_window, num_head, window_size, dim_head] 7 8 # do attention 9 # reshape to restore 10 11 def low(x): 12 B, L, C = x.shape 13 x_ = x.transpose(-2, -1)\t# [batch, channel, length] 14 x_ = self.sr_cnn(x_) # [batch, channel, _length] reduce length || avgpool or dwconv 15 16 q = self.q(x).reshape() =\u003e [batch, num_head, num_token, dim_head] 17 k, v = self.kv(x).reshape()[...] =\u003e [batch, num_head, *num_token, dim_head] 18 19 # do attention 20 # reshape to restore 21 22 def forward(x): 23 x1 = high(x) 24 x2 = low(x) 25 26 x = torch.cat([x1, x2], dim=-1) 27 x = self.proj(x) CMT - CVPR 2022 CMT: Convolutional Neural Networks Meet Vision Transformers\n注重点：与之前基于 CNN 和基于 Transformer 的模型相比，在准确性和效率方面获得了更好的权衡。\n⭐ 由于 patch 大小固定，Transformer 很难显式地提取低分辨率和多尺度特征 =\u003e 图像是二维的（即具有宽度和高度），并且在图像中的每个像素位置都与其周围的像素有关。这种空间局部信息非常重要，例如，边缘检测、纹理分析等都依赖于这种局部关系。=\u003e Patchfiy 后削弱了pixel之间的关系，只补充了Patch间的位置信息。\nCNN、Transformer 、CNN\u0026Transformer\n在每个阶段，产生层次表示 – 金字塔结构\n定制的Stem Block内部混合CNN和MHSA ❤️ [DWConv(Skip-con) + SR-MHSA(Skip-con) + IRFFN(Skip-Conv)] Conformer - 2020 Conformer: Convolution-augmented Transformer for Speech Recognition\n集成了 CNN 和 Transformer 组件以进行端到端识别的架构\n分析：\n虽然 Transformer 擅长对远程全局上下文进行建模，但它们提取细粒度局部特征模式的能力较差； 卷积神经网络（CNN）利用局部信息，在本地窗口上学习共享的基于位置的内核，能够捕获边缘和形状等特征。使用本地连接的限制之一是需要更多的层或参数来捕获全局信息。 ⭐ 将卷积与自注意力有机结合起来。 我们假设全局和局部交互对于参数效率都很重要。 为了实现这一目标，我们提出了一种自注意力和卷积的新颖组合，将实现两全其美\narchitecture\nConvolution Module\nFeed Forward Module\nPathFormer - ICLR 2024 PATHFORMER: MULTI-SCALE TRANSFORMERS WITH ADAPTIVE PATHWAYS FOR TIME SERIES FORECASTING\narchitecture\nDual-Attention\nMobile-Former - CVPR 2022 Mobile-Former: Bridging MobileNet and Transformer\n动机：\n如何设计高效的网络来有效地编码本地处理和全局交互？\n最近工作：串联组合卷积和视觉变换器的好处，无论是在开始时使用卷积还是将卷积交织到每个变换器块中\n视觉变换器（ViT）[10,34]展示了全局处理的优势，并实现了比 CNN 显着的性能提升，如何在计算资源或者参数量有限的情况下充分挖掘结合两者的优势，=\u003e parameters efficient\n贡献：\n并行设计 + 双路桥接； 利用了 MobileNet 在本地处理和 Transformer 在全局交互方面的优势；实现局部和全局特征的双向融合 全局Token只有初始化为0的很少的Token，利用Cross Attention 进行交互 ⭐大概就是在MobileNet为主干的基础上添加ViT全局Token的信息注入 architecture\nInteraction\npseudo code\n1q = FC(token).view(), k, v = x.view()\t# shape =\u003e batch, num_token, dim_token; 2do Local2Global-CrossAttn() 3 4token =\u003e MHSA() 5 6x = MobileNetBlock() 7 8q = x.view(), k, v = FC(token).view() 9do Global2Local-CrossAttn() ViT Adapter - ICLR 2023 VISION TRANSFORMER ADAPTER FOR DENSE PREDICTIONS\n动机\n在不改变原有ViT的基础上(利用大规模预训练参数)，添加辅助器帮助Transformer学习弱项；【使用现成的预训练 ViT 适应密集的预测任务】\nViT 单尺度和低分辨率表示的弱点 =\u003e 注入一些多尺度特征(CNN)给单尺度的ViT\n…表明卷积可以帮助 Transformer 更好地捕获局部空间信息，对与补丁嵌入层并行的图像的局部空间上下文进行建模，以免改变 ViT 的原始架构。\n贡献\nViT Adapter: [Spatial Prior Module, Spatial Feature Injector, Multi-Scale Feature Extractor] paradigm compare\narchitecture\n（c）用于根据输入图像对局部空间上下文进行建模的空间先验模块， Adapter: Spatial feature token set; ViT: origin feature map; （d）用于将空间先验引入ViT的空间特征注入器 （e）用于从单个图像重新组织多尺度特征的多尺度特征提取器 -ViT 的尺度特征 采用稀疏注意力来降低计算成本\npseudo code\n1# Spatial prior module 2X_vit = ResnetBlock(x) 3x1 = PointConv(Conv(X_vit))\t# down-sample: HW/8^2 and project channel to D dimension 4x2 = PointConv(Conv(x2))\t# down-sample: HW/16^2\tto D dimension 5x3 = PointConv(Conv(x3))\t# down-sample: HW/32^2\tto D dimension 6X_vit = torch.cat([x1, x2, x3], dim=num_token) 7 8# injector // spatial feature to ViT 9q = FC(X_vit).view(...), k, v = FC(X_spm).view(...)\t# spm: spatial prior module 10do Cross-Attn() 11 12# Multi-Scale Feature Extractor 13q = FC(X_spm).view(...), k, v = FC(X_vit).view(...)\t# analyze：\n⭐ 研究表明，ViT 呈现出学习低频全局信号的特征(整体、模糊和粗糙)，而 CNN 则倾向于提取高频信息（例如局部边缘和纹理） visualize\n傅里叶变换特征图的傅里叶频谱和相对对数幅度（超过 100 张图像的平均值） =\u003e 表明 ViT-Adapter 比 ViT 捕获更多的高频信号\n我们还可视化了图5（b）（c）中的stride-8特征图，这表明ViT的特征是模糊和粗糙的\nInception Transformer - NeurIPS 2022 Inception Transformer\n动机：\nTransformer 具有很强的建立远程依赖关系的能力，但无法捕获主要传达局部信息的高频；\nViT 及其变体非常有能力捕获视觉数据中的低频，主要包括场景或对象的全局形状和结构，但对于学习高频（主要包括局部边缘和纹理）不是很强大(CNNs很擅长，它们通过感受野内的局部卷积覆盖更多的局部信息，从而有效地提取高频表示)；\n最近的研究[21-25]考虑到CNN和ViT的互补优势，将它们集成起来。 一些方法[21,22,24,25]以串行方式堆叠卷积层和注意力层，以将局部信息注入全局上下文中。 不幸的是，这种串行方式仅在一层中对一种类型的依赖关系（全局或局部）进行建模，并且在局部性建模期间丢弃全局信息，反之亦然。❤️ 每个模块都不够全面=\u003e模型要么只有局部感知能力，要么只有全局建模能力 =\u003e 在ECG中，有些疾病不仅仅是局部或全局的病理特征，而且是节律异常伴随着波形形态异常；从这一角度出发，我们希望能够充分的利用Transformer的全局依赖感知能力和CNN的强大的局部感知能力，交互融合有力结合两者优势； 【就像在人类视觉系统中一样，高频分量的细节有助于较低层捕获视觉基本特征，并逐渐收集局部信息以对输入有全局的理解】\n层级式网络，多尺度分辨率特征图，每部分均能全局+局部感知；并且设计频率斜坡结构 =\u003e 底层更注重高频信息(细节信息，局部模式、纹理边缘)；高层更注重低频信息(整体轮廓，全局)\n创新点：\nTransformer中的Multi-Head Self-Attention =\u003e Inception Mixer ; 按channel分两组：1. 低频组；2. 高频组； 低频组 池化稀疏注意力，但仅最低两块用； 高频组 [MaxPool, DWConv]； 频率斜坡结构: 高频组\u003e低频组 =\u003e 高频组\u003c低频组 底层在捕获高频细节方面发挥更多作用，而顶层在建模低频全局信息方面发挥更多作用 architecture\nInception Mixer\npseudo code\n1# x : [batch, channel, width, hight] 2x_h, x_l = torch.chunk(x, chunks=2, dim=1) 3x_h1, x_h2 = torch.chunk(x_h, chunks=2, dim=1) 4 5y_h1 = FC(MaxPool(x_h1)) 6y_h2 = DWConv(FC(x_h2)) 7y_l = MSA(AvePooling (X_l)) 8 9Y = X + ITM(LN(X)) # ITM : Inception Mixer 10H = Y + FFN(LN(Y)) 局部|高频 \u0026 全局|低频 - 傅里叶谱\nTransNeXt - CVPR 2024 TransNeXt: Robust Foveal Visual Perception for Vision Transformers\nanalysis\n目前的稀疏Attention： Local Attention[限制计算量，n×固定窗口计算量]: window-level attention, =\u003e cross-window attn information exchange 需要堆叠很深才能实现全局感知 patially downsamples【降低计算的Token数量】: pool or dwconv =\u003e 信息丢失问题； 【细粒度(丢失)=\u003e 粗粒度】 motivation\n⭐ 观察：生物视觉对视觉焦点周围的特征具有较高的敏锐度，而对远处的特征具有较低的敏锐度。 结合window-level attn \u0026 spatial downsample attn，临近的token执行pixel-level attn，稍远的区域执行pool-level attn, 实现视觉仿生聚焦attn contribution\nfocus attn 【局部细粒度，全局粗粒度】\nfocus attn 升级 aggregated attention 【QKV 注意力、LKV 注意力和 QLV 注意力统一】\nQLV 与传统的 QKV 注意力机制不同，它破坏了键和值之间的一对一对应关系，从而为当前查询学习更多隐含的相对位置信息。 LKV：增强表达能力，通过引入可学习的键和值，模型可以学习到更多有用的特征，增强了对复杂关系的建模能力 length-scaled cosine attention 【双路注意力concat经过同一个softmax】\nconvolutional GLU替换MLP\narchitecture\nleft figure: focus attn; right figure: aggregated attn(add QKV-attn、LKV-attn、QLV-attn)\n共享同一个Softmax（作用可能是这里进行多注意力的制约交互）\nConvGLU: 卷积 GLU (ConvGLU) 中的每个标记都拥有一个独特的门控信号，基于其最接近的细粒度特征。 这解决了SE机制中全局平均池化过于粗粒度的缺点。 它还满足了一些没有位置编码设计、需要深度卷积提供位置信息的ViT模型的需求。\nEfficientViT - CVPR 2023 EfficientViT Memory Efficient Vision Transformer with Cascaded Group Attention\n权衡性能和代价\nmotivation\n发现现有 Transformer 模型的速度通常受到内存低效操作的限制，尤其是 MHSA 中的张量整形和逐元素函数; 虽然Transformer性能很好，但是代价很高，不适合实时应用; =\u003e优化;\n发现注意力图在头部之间具有高度相似性，导致计算冗余。// 显式分解每个头的计算可以缓解这个问题，同时提高计算效率\ncontribution\n设计了一种具有三明治布局的新构建块，即在高效 FFN 层之间使用单个内存绑定的 MHSA，从而提高内存效率，同时增强通道通信; 提出了一个级联的组注意力模块，为注意力头提供完整特征的不同分割，这不仅节省了计算成本，而且提高了注意力多样性。 architecture\nToken Interaction：DWConv，增强局部交互能力，引入局部结构信息的归纳偏差来增强模型能力\n三明治结构中，局部建模和全局Attn, 即[Token Interaction, FFN][Cascaded Group Attention][Token Interaction, FFN]堆叠不是1:1:1, 而是N:1:N, Why? because Attention 计算量太大了，能少用就少用。\nCascaded Group Attention pseudo code\n1feature_group = x.chunk(len(self.qkv_group), dim=1) # split head 2feature = feature_group[0]\t# first head 3 4feature_out = [] 5for i, qkv in enumerate(self.qkv_group): 6 if i \u003e 0: 7 feature = feature + feature_group[i] # Cascaded Group 8 Q, K, V = qkv(feature).view().permute() # shape: B, H, N, C/H 9 Q = DWConv[i](Q) # enhance Query Token Set 10\tout = (Q@K.transpose(-2, -1) × scale)@V 11 feature_out.append(out) 12out = torch.cat(feature_out, 1) 13FC(out) 不同于传统Attn，这里先分头再线性映射，头的信息会越来越丰富。 并且实现中(Cascaded Group Attention in Window-level Attention )\nEMO - ICCV 2023 Rethinking Mobile Block for Efficient Attention-based Models\n目标：轻量级 CNN 设计高效的混合模型，并在权衡精度、参数和 FLOP 的情况下获得比基于 CNN 的模型更好的性能\n出发点：我们能否为仅使用基本算子的基于注意力的模型构建一个轻量级的类似 IRB 的基础设施？\n基本算子结构对比\nMulti-head self attention: 线性映射qkv，MHSA, 投影回来\nFeed Forward Network: Linear-Linear\nInverted Residual Block: Conv1x1-DWConv-Conv1x1\n=\u003e 综合考量 提出基本算子Meta Mobile Block\nMeta Former Block vs Inverted Residual Block\n更加细致的抽象\niRMB（Inverted Residual Mobile Block）\n！！！ 由于 MHSA 更适合对更深层的语义特征进行建模，因此我们仅在之前的工作之后的 stage-3/4 中打开它 。\nConv:\nBN+SiLU与DWConv结合； W-MHSA(window-level attention 更加高效):\nLN+GeLU与EW-MHSA结合。\n解释EW-MHSA\n因为iRMB，会先升维，导致MHSA计算量变高， Q,K维度不变，而V的维度变长了，拿attn-score加权求和时应用的是扩展V 深度设计，灵活的设计\nFocal Attention - NeurIPS 2021 Focal Attention for Long-Range Interactions in Vision Transformers\n观察：\n图 1：左：DeiT-Tiny 模型 [55] 第一层中给定查询块（蓝色）处三个头的注意力图的可视化。 右图：焦点注意力机制的说明性描述。 使用三个粒度级别来组成蓝色查询的注意区域。\n创新点：\nClose =\u003e Far Fine =\u003e Coarse 图示：\n伪代码：\n11. 使用torch.roll 再按窗口划分 =\u003e 收集细粒度周边Token, 再使用mask掩码掉多余不需要的Token 22. 先分窗口，执行窗口内Pool，生成超粗粒度Token 3 4Q: 窗口内Token 5K, V: 窗口内Token + 周边细粒度Token + Pool-Token CloFormer - CVPR 2023 Rethinking Local Perception in Lightweight Vision Transformer\narchitecture\n局部+全局 感知并行\n局部感知，类似于CNN中的卷积注意力用在自注意力分支中\nFFN 内追加局部感知增强模块\nMetaFormer - 2023 我们并不试图引入新颖的令牌混合器，而只是将令牌混合器指定为最基本或常用的运算符来探测 MetaFormer 的能力\n⭐探索Meta Block的潜力！\n1X = X + TokenMixer(Norm(X)) 2X = X + ChannelMixer(Norm(X)) MaxViT - ECCV 2022 MaxViT: Multi-Axis Vision Transformer\n动机：解决Self-Attention平方复杂度问题\n框架：\n1️⃣ MobileNetV2中的倒残差块 =\u003e 提供增强局部感知 \u0026 隐式编码位置信息\n2️⃣ Block-Attention =\u003e window-level attention ❌ 限制感受野 ⭐ 降低计算量\n3️⃣ Grid-Attention =\u003e 感受野遍及全局的扩张卷积做法 1. 分窗口 2. 收集每个窗口相同次序的Token成组. 3. 组内计算注意力\nAttention illustration\nCiT - ICCV 2021 Incorporating Convolution Designs into Visual Transformers\n局部增强\n就是Inverted Resiual Block [Conv1×1 =\u003e Depth-wise Conv3×3 =\u003e Conv1×1] 对Token进行局部信息增强\n框架：\n⭐利用了每个Stage中的Class Token，这样可以有层级式信息，而且梯度会通过这个CLS Token直接传递给前面部分\nBi-Interaction Light-ViT Lightweight Vision Transformer with Bidirectional Interaction\n图示：\n框架：\n⭐想法很超前⭐\n局部与全局的相互调制\nUniRepLKNet UniRepLKNet: A Universal Perception Large-Kernel ConvNet for Audio, Video, Point Cloud, Time-Series and Image Recognition\n⭐超大卷积核 Conv winwinwin\n当我们向小内核 ConvNet 添加 3×3 卷积时，我们期望它同时产生三种效果\n使感受野更大， 增加空间模式的抽象层次（例如，从角度和纹理到物体的形状） 通过使其更深，引入更多可学习的参数和非线性来提高模型的一般表示能力 相比之下，我们认为大内核架构中的这三种影响应该是解耦的，因为模型应该利用大内核的强大优势——能够看到广泛而不深入的能力\n由于在扩大 ERF(感受野) 方面，增加内核大小比堆叠更多层更有效，因此可以使用少量大内核层构建足够的 ERF，从而可以节省计算预算以用于其他高效结构 在增加空间模式的抽象层次或总体上增加深度方面更有效。\n框架：\n重参数化\n块设计\nEdgeViTs - ECCV 2022 EdgeViTs: Competing Light-weight CNNs on Mobile Devices with Vision Transformers\n架构：\n# 类似MobileViT\n1X = LocalAgg(Norm(X)) + X # 2Y = FFN(Norm(X)) + X 3Z = LocalProp(GlobalSparseAttn(Norm(Y))) + Y 4Xout = FFN(Norm(Z)) + Z 图示： （选举 =\u003e 精英 =\u003e 分发）\nShuffleNet - CVPR 2018 出发点：构建高效模型\n⭐V1⭐\n缺点发现：\n1=\u003e Conv1x1 _ Norm+ReLU # Point-wise 2=\u003e DWConv3x3 _ Norm # Depth-wise 3=\u003e Conv1x1 _ Norm+ReLU # Point-wise 4 5# 为了高效 =\u003e 只是将Conv3x3 =\u003e Conv1x1 6# =\u003e 但是Conv1x1占据了93.4%的乘法-加法 7 8# =\u003e 目标，优化PWConv 操作图示：\n卷积分组减少计算量 （⭐优化组间通信⭐）\nShuffleNet Basic Block\n(a) ResNet bottleneck unit \u003c= DWConv (b) 优化PWConv（Group Conv），并且Channel Shuffle，执行Group communication # 无下采样，输入输出shape一致 (c) 恒等映射占据一半的Channel，另一半精修过的Feature Map ⭐V2⭐\n=\u003e 分析各个类型操作占据的计算成本\n除了FLOPS指标，吞吐量和速度更为直接直观，符合真实贴切\n(使用FLOP作为计算复杂性的唯一度量是不够的，并且可能导致次优设计)\n(具有相同FLOP的操作可能具有不同的运行时间)\n访存时间 \u003c= 并行度 \u003c= (a) basic shuffle net block -v1 (b) basic shuffle net block with downsample -v1 (c) v2 (d) v2 with downsample 1# shape equivalence 2x.shape = (B, 64, H, W) 3x1, x2 = channel-split(x) # =\u003e (B, 32, H, W), (B, 32, H, W) 4# x1 作为恒等映射，残差连接？ 特征复用？ 5out = concat(x1, block(x2)) 6out = channel-shuffle(out) 7 8# with downsample 9x.shape = (B, 64, H, W) 10x1, x2 = x, x # =\u003e (B, 64, H, W), (B, 64, H, W) 11out = concat(branch1(x1), branch2(x2)) 12out = channel-shuffle(out) 特征复用示意图：\n$$ l1-norm = \\sum_{i=1}^n{|v_i|} $$ 相邻层更高效\n准确率参数贡献✔️\nRepVGG - ReParams - CVPR 2021 结构分析\n内存分析：\n=\u003e 权衡：性能和计算内存成本\nTrain：多分支结构，性能好\nTest： 单分支结构，速度快，内存少\n⭐⭐⭐重参化：\n细节：\n举例第一个卷积后的元素\nAgent Attention - ECCV 2024 Attn图示：\n做法：\ncode：\n1q, k, v = qkv[0], qkv[1], qkv[2] 2 3agent_token = pool(q) 4 5agent_attn = softmax(agent_token * scale @ k.T + position_bias) 6agent_v = agent_attn @ v 7 8q_attn = self.softmax((q * self.scale) @ agent_tokens.T + agent_bias) 9x = q_attn @ agent_v 10 11x = x + self.dwc(v) 12 13 14# 复杂度 15o(N * K) + o(N * K) 享受 =\u003e 高表达性和低计算复杂度的优势\nCF-ViT CF-ViT: A General Coarse-to-Fine Method for Vision Transformer\n对于分类任务 - 不需要那么精细的patch\n两步策略：\n粗粒度patch=\u003eViT =\u003e 预测得分 =若得分小于设定的置信度\u003e 将重要区域细分 =ViT\u003e 最终预测 特征复用\n不重要区域 =\u003e 大尺度粗略的Patch (可能有不相关的背景干扰) 重要区域 =\u003e 小尺度精细的patch(更多边缘细节) \u003c= 第一阶段粗略的Patch充当区域嵌入 利用ViT中[CLS] Token与其他Token的Attn累计区域的重要性\nGlobal-Attn = αAttn_l + (1-α)Attn_l+1\nTraining\nloss = CE(pf, y) + KL(pc,pf)\n训练时每次均进行Patch精细推理。使用精细模型指导粗略Patch推理\nConformer: ResNet + ViT 并行结构 =\u003e 同时保留局部和全局特征 (保持CNN和ViT架构的优势)\nTwins： [Local-Global] [LSA-FFN] =\u003e [GSA-FFN]\nwindow-self-attention =\u003e global-self-attention\nMSG-Transformer 架构\n有趣点 - Shuffle-Net ?\n局部信使 - 传递信息\nDilateFormer IEEE TRANSACTIONS ON MULTIMEDIA – sci-1\noverview\nnovel\n不同注意力头部，进行细微的调整\nScopeViT Pattern Recognition\nArchitecture\nnovel\n串行交叉：[多尺度, 多份KV]+[dilated Attention] $$ 𝐐 = 𝑋𝐖_𝑄,𝐊_𝑖 = 𝑃_𝑖𝐖^𝐾_𝑖, 𝐕_𝑖 = 𝑃_𝑖𝐖^V_𝑖 $$ 1 Query不变， KV通过多个不同内核大小的DWConv生成多尺度 KV (粗粒度)\n2 Stride Attention (细粒度)\nFastViT - ICCV overview\nStem:\n1reparams-conv 前三阶段：\n1x = x + BN(DWConv(X)) # re-params 2x = x + (DWConv-\u003eBN-\u003eConv1x1-\u003eGELU-\u003eConv1x1) # ConvFFN 最后阶段：\n1x = x + DWConv(X) # CPE convolution position embedding 2x = x + BN(Attention(X)) # Attention 3x = x + (DWConv-\u003eBN-\u003eConv1x1-\u003eGELU-\u003eConv1x1) # ConvFFN Integration of CNN + Attention Revisiting the Integration of Convolution and Attention for Vision Backbone\nnovel\n1Conv-part: [Conv1x1-\u003eDWConv5x5-\u003eConv1x1] =\u003e X_conv # ConvFFN ? 2Attn-part: 31. [聚簇] Clustering：X -\u003e pooling -\u003e cluster 42. [提炼] cluster@X.T -\u003e score@X -\u003e cluster$ {这里用点积相似度举例} 53. [全局] cluster$ -\u003e MHSA -\u003e cluster$ 64. [分发] cluster$ -\u003e cluster@score.T =\u003e X_attn 7 8Y = X_conv + X_attn RepNeXt overview\n1Token-Mixer: 2 1. nn.Identity() 3 2. DWConv3x3 + (DWConv1x3 + DWConv3x1) 4 3. DWConv7x7 + DWConv3x5 + DWConv5x3 + (DWConv1x5 -\u003e DWConv5x1) + (DWConv1x7 -\u003e DWConv7x1) 5 4. (DWConv1x11 -\u003e DWConv11x1) 6 7nn.Conv2d(in_channels, out_channels, kernel_size=(3, 5), padding=(1, 2), bias=bias, stride=stride) 8# Fusion =\u003e 重参数化融合 InceptionNeXt\n1Block: [Token-Mixer -\u003e Norm -\u003e FFN] 2025/1/14 Tidying up\nViT with Deformable Attn Vision Transformer with Deformable Attention\n全部采样点如下：\n高得分key采样点如下\n1# 1. 生成 query 2q = Conv1x1(X) 3offset = ConvKxK(q).conv1x1()=\u003e // 将通道映射为2，并且为了提高采样点的多样性，将通道分组，每组获取不一样的信息。 4reference = 规整的网格 5pos = reference + offset // 固定点 + 偏移 6x_sampled = F.grid_sample(X, pos) 7 8k = Conv1x1(x_sampled) 9v = Conv1x1(x_sampled) 10 11MHSA(q, k, v) ⭐⭐⭐\nPVT下采样技术导致严重的信息丢失❗，而Swin-T的shiftwindow注意力导致感受野的增长要慢得多❗，这限制了对大型物体建模的潜力。Deformable DETR已经通过在每个尺度上设置Nk = 4的较低数量的键来减少这种开销，并且作为检测头工作良好，但是由于不可接受的信息丢失，在骨干网络中关注如此少的键是不好❗\n这不就是步幅Attention，添加了可变嘛\n",
   "wordCount" : "2517",
   "inLanguage": "en",
   "image": "http://longcoding.top/papermod-cover.png","datePublished": "2024-04-19T00:00:00Z",
@@ -503,15 +503,15 @@ title: Mlp-mixer: An all-mlp architecture for vision">
 
   <div class="post-content"><h2 id="图示">图示<a hidden class="anchor" aria-hidden="true" href="#图示">#</a></h2>
 <h3 id="卷积注意力">卷积注意力<a hidden class="anchor" aria-hidden="true" href="#卷积注意力">#</a></h3>
-<p><img alt="image-20240322202245497" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FnOSHW83hKtIFxFdU34DDsMiOeWO"></p>
+<p><img alt="image-20240322202245497" loading="lazy" src="http://verification.longcoding.top/FnOSHW83hKtIFxFdU34DDsMiOeWO"></p>
 <h3 id="自注意力">自注意力<a hidden class="anchor" aria-hidden="true" href="#自注意力">#</a></h3>
-<p><img alt="image-20240322202200571" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FvUxt8fwO3J-k8UzUsCI30aE2lRp"></p>
+<p><img alt="image-20240322202200571" loading="lazy" src="http://verification.longcoding.top/FvUxt8fwO3J-k8UzUsCI30aE2lRp"></p>
 <h2 id="学习">学习<a hidden class="anchor" aria-hidden="true" href="#学习">#</a></h2>
 <h3 id="norm">Norm<a hidden class="anchor" aria-hidden="true" href="#norm">#</a></h3>
-<p><img alt="image-20240305205407153" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FoDS7JLx483eH0OReKVsf9Rx-4tZ"></p>
+<p><img alt="image-20240305205407153" loading="lazy" src="http://verification.longcoding.top/FoDS7JLx483eH0OReKVsf9Rx-4tZ"></p>
 <h3 id="loss">Loss<a hidden class="anchor" aria-hidden="true" href="#loss">#</a></h3>
 <h4 id="cross-entropy">Cross Entropy<a hidden class="anchor" aria-hidden="true" href="#cross-entropy">#</a></h4>
-<p><img alt="image-20240302160358957" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FsuefQxQF9qmKbSUd94pmTsYId_D">
+<p><img alt="image-20240302160358957" loading="lazy" src="http://verification.longcoding.top/FsuefQxQF9qmKbSUd94pmTsYId_D">
 $$
 Loss = -\sum_{i}^{C}y_ilog(p(x_{i})), where \ y_i\ is label,p(x_i)\ is\ predict.
 $$</p>
@@ -533,7 +533,7 @@ $$</p>
 <h2 id="论文">论文<a hidden class="anchor" aria-hidden="true" href="#论文">#</a></h2>
 <h3 id="mlp-mixer---nips-2021">Mlp-mixer - <em>NIPS 2021</em><a hidden class="anchor" aria-hidden="true" href="#mlp-mixer---nips-2021">#</a></h3>
 <p><strong>title: Mlp-mixer: An all-mlp architecture for vision</strong></p>
-<p><img alt="image-20240225170151423" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FtAevG0YMxJxLG9DN6qOnG2es31d"></p>
+<p><img alt="image-20240225170151423" loading="lazy" src="http://verification.longcoding.top/FtAevG0YMxJxLG9DN6qOnG2es31d"></p>
 <p>⭐ channel-mixing MLPs and token-mixing MLPs.</p>
 <p>① 融合Patches<strong>间</strong>的特征信息</p>
 <p>② 融合Patches<strong>内</strong>的特征信息</p>
@@ -541,16 +541,16 @@ $$</p>
 <hr>
 <h3 id="transformer----nips-2017">**Transformer ** - NIPS 2017<a hidden class="anchor" aria-hidden="true" href="#transformer----nips-2017">#</a></h3>
 <p><strong>Transformer Encoder</strong></p>
-<p><img alt="image-20240225132511994" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FgAXsy3l-nSEBfJXhn67Nz_Jt1L7"></p>
+<p><img alt="image-20240225132511994" loading="lazy" src="http://verification.longcoding.top/FgAXsy3l-nSEBfJXhn67Nz_Jt1L7"></p>
 <h4 id="multi-head-self-attention">Multi-Head Self Attention<a hidden class="anchor" aria-hidden="true" href="#multi-head-self-attention">#</a></h4>
 <p>⭐每段用不一样的α权重	&ndash; 分段融合Token间信息</p>
-<p><img alt="image-20240225132601290" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqV9TaOPJDjIH5kYOBwekkDb0dij"></p>
+<p><img alt="image-20240225132601290" loading="lazy" src="http://verification.longcoding.top/FqV9TaOPJDjIH5kYOBwekkDb0dij"></p>
 <p>​																			多组注意力权重α</p>
 <p>Token分段，<strong>并行</strong>计算每段的权重α，多头注意力允许模型共同关注来自<strong>不同位置</strong>的<strong>不同表示子空间</strong>的信息。</p>
 <p>⭐⭐⭐ 并行多个头，增强表示能力，融合不同子空间(低纬空间)</p>
 <p><em><strong>Token间信息融合，比例是相似度权重</strong></em></p>
 <h4 id="feed-forward-networks">Feed-Forward Networks<a hidden class="anchor" aria-hidden="true" href="#feed-forward-networks">#</a></h4>
-<p><img alt="image-20240225132646417" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fot0kgN6kpYxL54KGT8Da7q5Hop5"></p>
+<p><img alt="image-20240225132646417" loading="lazy" src="http://verification.longcoding.top/Fot0kgN6kpYxL54KGT8Da7q5Hop5"></p>
 <hr>
 <h3 id="卷积">卷积<a hidden class="anchor" aria-hidden="true" href="#卷积">#</a></h3>
 <p>深度可分离卷积计算成本比标准卷积小 8 到 9 倍，而精度仅略有降低  <em>- MobileNetV2</em></p>
@@ -558,29 +558,29 @@ $$</p>
 <h4 id="标准卷积">标准卷积<a hidden class="anchor" aria-hidden="true" href="#标准卷积">#</a></h4>
 <p>输入特征图和模板卷积核</p>
 <p>输出像素 - <em><strong>融合局部空间通道信息</strong></em></p>
-<p><img alt="image-20240225152209315" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FkxXubfhrgsNmxeSyeqJNaWrc7MD"></p>
+<p><img alt="image-20240225152209315" loading="lazy" src="http://verification.longcoding.top/FkxXubfhrgsNmxeSyeqJNaWrc7MD"></p>
 <h5 id="瓶颈结构---resnet">瓶颈结构 - Resnet<a hidden class="anchor" aria-hidden="true" href="#瓶颈结构---resnet">#</a></h5>
 <p><em>减少参数数量</em></p>
-<p><img alt="image-20240225153933503" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fl4Kxgo2Uto06i5ryGwqd-ysRBzl"></p>
+<p><img alt="image-20240225153933503" loading="lazy" src="http://verification.longcoding.top/Fl4Kxgo2Uto06i5ryGwqd-ysRBzl"></p>
 <p>逐点卷积降维 -&gt; 标准卷积 -&gt; 逐点卷积升维</p>
 <p>​							残差连接</p>
 <p>压缩 - 卷积 - 扩张</p>
 <h4 id="深度可分离卷积">深度可分离卷积<a hidden class="anchor" aria-hidden="true" href="#深度可分离卷积">#</a></h4>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FlJe8jAYtAczXqy0z33klj5f98un" alt="image-20240225152858171" style="zoom: 67%;" />
+<img src="http://verification.longcoding.top/FlJe8jAYtAczXqy0z33klj5f98un" alt="image-20240225152858171" style="zoom: 67%;" />
 <h5 id="倒残差结构---mobilenet">倒残差结构 - MobileNet<a hidden class="anchor" aria-hidden="true" href="#倒残差结构---mobilenet">#</a></h5>
 <p>扩充通道的原因，是为了能够提取到更多的信息</p>
 <p>ReLU 激活函数可能会崩溃掉某些通道信息。然而，如果我们有很多通道，那么信息可能仍然保留在其他通道中。</p>
-<p><img alt="image-20240225153953959" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fmekv5cjEbjueu69KLEm1BGSlMxx"></p>
+<p><img alt="image-20240225153953959" loading="lazy" src="http://verification.longcoding.top/Fmekv5cjEbjueu69KLEm1BGSlMxx"></p>
 <p>逐点卷积升维 -&gt; 分组卷积 -&gt; 逐点卷积降维</p>
 <p>​							残差连接</p>
 <p>扩张- 卷积 - 压缩</p>
 <h4 id="linear">Linear<a hidden class="anchor" aria-hidden="true" href="#linear">#</a></h4>
 <p>作用等同于1×1逐点卷积，实现线性映射</p>
-<p><img alt="image-20240302162505751" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FsU1Nb68qTla5JLPt_0rFcCu9Nde"></p>
+<p><img alt="image-20240302162505751" loading="lazy" src="http://verification.longcoding.top/FsU1Nb68qTla5JLPt_0rFcCu9Nde"></p>
 <hr>
 <h3 id="vit---cvpr-202010">ViT - CVPR <em>2020/10</em><a hidden class="anchor" aria-hidden="true" href="#vit---cvpr-202010">#</a></h3>
 <h4 id="vision-transformer----patching"><strong>Vision Transformer  - Patching</strong><a hidden class="anchor" aria-hidden="true" href="#vision-transformer----patching">#</a></h4>
-<p><img alt="image-20240228154217975" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FkhYXnoGjPmZQJUTZmMYH5LL2nkR"></p>
+<p><img alt="image-20240228154217975" loading="lazy" src="http://verification.longcoding.top/FkhYXnoGjPmZQJUTZmMYH5LL2nkR"></p>
 <p>化为互<strong>不重叠</strong>的区域，输出通道数为Token的长度。⭐ 将image拆分为16×16×3的patch</p>
 <p><strong>经过Conv2D提取Token</strong>，# Token中每元素均有局部宽高及通道信息</p>
 <p>所有标记之间的盲目相似性比较</p>
@@ -589,12 +589,12 @@ $$</p>
 <p><strong>Pyramid Vision Transformer A Versatile Backbone for Dense Prediction without Convolutions</strong></p>
 <p>创新点：在ViT（patch embed大小固定）基础上，仿照CNN网络的特征图变化</p>
 <p>⭐<em><strong>使用“渐进”收缩策略通过补丁嵌入层来控制特征图的尺度</strong></em></p>
-<p><img alt="image-20240225184934745" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fjjr1PN1UtKYdxfkoNa9eh9809-n"></p>
+<p><img alt="image-20240225184934745" loading="lazy" src="http://verification.longcoding.top/Fjjr1PN1UtKYdxfkoNa9eh9809-n"></p>
 <p>CNNs: 特征图变化 通道×2，宽高÷2</p>
 <p>ViT: patch embed不变</p>
 <p>PVT： <strong>渐进式缩小特征图，减少token数量</strong></p>
 <p><strong>PVT框架：</strong></p>
-<p><img alt="image-20240225171800485" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FrwHWazw4RiA8kWOATUOPRVswECR"></p>
+<p><img alt="image-20240225171800485" loading="lazy" src="http://verification.longcoding.top/FrwHWazw4RiA8kWOATUOPRVswECR"></p>
 <h4 id="特征图---patch_embed---token">①特征图 - patch_embed -&gt; token<a hidden class="anchor" aria-hidden="true" href="#特征图---patch_embed---token">#</a></h4>
 <p><em><strong>token map -&gt; token -&gt; token map</strong></em></p>
 <p>​		⭐proj = Conv2d(in_channel, dim_token[i], kernel_size[i], stride[i])</p>
@@ -603,7 +603,7 @@ $$</p>
 <p>stride= [4, 2, 2, 2]	@ <strong>渐进式缩小特征图</strong>	&ndash; 融合局部token的感觉</p>
 <p>token数量⬇，token维度⬆(信息更加丰富)</p>
 <p><em><strong>多次Patch Embed</strong></em></p>
-<p><img alt="image-20240225200016420" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fp9wgM_-rLhSBJjmjKyAcHnR7zz1"></p>
+<p><img alt="image-20240225200016420" loading="lazy" src="http://verification.longcoding.top/Fp9wgM_-rLhSBJjmjKyAcHnR7zz1"></p>
 <h4 id="transformer-encoder-对-token-进行信息提取">②Transformer Encoder 对 token 进行信息提取<a hidden class="anchor" aria-hidden="true" href="#transformer-encoder-对-token-进行信息提取">#</a></h4>
 <ul>
 <li>
@@ -616,7 +616,7 @@ $$</p>
 <p>α = softmax(Q@SR(K).T / √d)            shape=(num_token, *num_token)</p>
 <p>α@V												      shape=(num_token, dim_token)</p>
 <p>⭐图示操作：</p>
-<p><img alt="image-20240225203343221" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqREIlEPMZW522A1Gjxl0GAtrJ9T"></p>
+<p><img alt="image-20240225203343221" loading="lazy" src="http://verification.longcoding.top/FqREIlEPMZW522A1Gjxl0GAtrJ9T"></p>
 </li>
 </ul>
 <p>利用conv局部性，将相邻的Token进行合并  | 或者利用Pool进行窗口内Token合并 （图示稍微有点问题）</p>
@@ -631,7 +631,7 @@ $$</p>
 <p>②将具有图像域特定归纳偏差的卷积引入 Transformer 来实现两全其美</p>
 <p>③空间维度下采样，通道增加。Token数量少了，但每个Token变长了，增强了携带信息的表示的丰富性</p>
 <p>⭐<em><strong>删除位置嵌入</strong></em>：为每个 Transformer 块引入卷积投影，并结合卷积令牌嵌入，使我们能够通过网络对局部空间关系进行建模。使其具有适应需要可变输入分辨率的各种视觉任务的潜在优势。</p>
-<p><img alt="image-20240302163300436" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqdZxOPLt2Q9DlNwdq6zs_HQhsua"></p>
+<p><img alt="image-20240302163300436" loading="lazy" src="http://verification.longcoding.top/FqdZxOPLt2Q9DlNwdq6zs_HQhsua"></p>
 <center style="color:red; font-weight:bold">总体结构</center>
 <h4 id="convolutional-token-embedding">Convolutional Token Embedding<a hidden class="anchor" aria-hidden="true" href="#convolutional-token-embedding">#</a></h4>
 <p>重叠式的嵌入，使用标准Conv2D</p>
@@ -639,8 +639,8 @@ $$</p>
 <h4 id="convolutional-projection--conv生成qkv-而非通常的nnlinear">Convolutional Projection &ndash; Conv生成QKV 而非通常的nn.Linear<a hidden class="anchor" aria-hidden="true" href="#convolutional-projection--conv生成qkv-而非通常的nnlinear">#</a></h4>
 <p>利用 <strong>分组卷积</strong> 将K与V的Token Map下采样，性能换效率</p>
 <p>局部空间上下文的附加建模，相比于普通卷积(更复杂的设计和额外的计算成本)，DWConv性价比更高</p>
-<p><img alt="image-20240302163105692" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FhQ69Wd9aB-0xJc7uDwGWY-qwUyF"></p>
-<p><img alt="image-20240302164030978" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FibUPTe0nYY7H6QlyJfbS7CvQ0eE"></p>
+<p><img alt="image-20240302163105692" loading="lazy" src="http://verification.longcoding.top/FhQ69Wd9aB-0xJc7uDwGWY-qwUyF"></p>
+<p><img alt="image-20240302164030978" loading="lazy" src="http://verification.longcoding.top/FibUPTe0nYY7H6QlyJfbS7CvQ0eE"></p>
 <p>(b): 可参考MobileViT，先利用卷积局部融合信息，再执行窗口级注意力</p>
 <hr>
 <h3 id="swin---iccv-2021"><em><strong>Swin - ICCV 2021</strong></em><a hidden class="anchor" aria-hidden="true" href="#swin---iccv-2021">#</a></h3>
@@ -648,101 +648,101 @@ $$</p>
 <p>层级式ViT</p>
 <p>创新点：</p>
 <p>①patch embed尺寸逐步增大，检测小目标更好</p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FmN0xG01T4x4Y27g5c4tg3nXwhGd" alt="image-20240225204225011" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/FmN0xG01T4x4Y27g5c4tg3nXwhGd" alt="image-20240225204225011" style="zoom: 50%;" />
 <p><strong>总体结构</strong></p>
-<p><img alt="image-20240225204557231" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FpE8eoIGeSlVVpOocedgqOdzFvTV"></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FhDDLF9n1Le2IL6nNmro4rNYLTSH" alt="image-20240226205609760" style="zoom:150%;" />
+<p><img alt="image-20240225204557231" loading="lazy" src="http://verification.longcoding.top/FpE8eoIGeSlVVpOocedgqOdzFvTV"></p>
+<img src="http://verification.longcoding.top/FhDDLF9n1Le2IL6nNmro4rNYLTSH" alt="image-20240226205609760" style="zoom:150%;" />
 <h4 id="窗口级的token特征融合操作--swin-transformer-block-数量为偶数"><strong>窗口级的Token特征融合操作：</strong>  Swin Transformer Block <em><strong>数量为偶数</strong></em><a hidden class="anchor" aria-hidden="true" href="#窗口级的token特征融合操作--swin-transformer-block-数量为偶数">#</a></h4>
-<p><img alt="image-20240225204802120" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fn2jWuRCwgxVt6Dm9BtU9sqNfTQ-"></p>
+<p><img alt="image-20240225204802120" loading="lazy" src="http://verification.longcoding.top/Fn2jWuRCwgxVt6Dm9BtU9sqNfTQ-"></p>
 <p>①窗口内的Token信息融合</p>
-<p><img alt="image-20240225205738527" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fq74fqjzzBgW1jlDAYHVnwLxQifM"></p>
+<p><img alt="image-20240225205738527" loading="lazy" src="http://verification.longcoding.top/Fq74fqjzzBgW1jlDAYHVnwLxQifM"></p>
 <p>MHSA限制在窗口内进行 &ndash; 降低计算复杂度</p>
 <p>②窗口间的Token信息融合 &ndash; 滑动窗口策略   &ndash; <em><strong>间接看到全局信息</strong></em></p>
-<p><img alt="image-20240225205812927" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FjEkls_Q1fpBDtvOJvkU88qncmol"></p>
+<p><img alt="image-20240225205812927" loading="lazy" src="http://verification.longcoding.top/FjEkls_Q1fpBDtvOJvkU88qncmol"></p>
 <p>蓝线表示窗口内Token信息融合，红线表示窗口间信息融合</p>
 <p>❗❗❗⭐⭐⭐MHSA依然限制在窗口内进行</p>
 <p>❗<strong>为了规整统一窗口大小，便于批量计算</strong></p>
 <p>进行一次循环位移，使窗口大小统一</p>
 <p>⭐使用window-mask将本该不进行自注意计算的部分遮挡掉，在计算注意力α时，在其中softmax中，将mask的值设为-100，则e^{-100} / Σ e^{i} 为 0</p>
-<p><img alt="image-20240225210202551" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FpRl8MBwStuLwnJYHpNakirjVXVQ"></p>
+<p><img alt="image-20240225210202551" loading="lazy" src="http://verification.longcoding.top/FpRl8MBwStuLwnJYHpNakirjVXVQ"></p>
 <p><strong>滑动窗口Mask示例</strong>：</p>
 <p>给窗口编号，再使用torch.roll 滑动 （ window_size // 2 ） 个像素</p>
-<p><img alt="image-20240225221427333" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FgW3lliU9HHOlKEYfsHDbb8A-Q3m"></p>
-<p><img alt="image-20240225221521648" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FpqReJtE0zLxy4zWTCJlDWyE__JF">
+<p><img alt="image-20240225221427333" loading="lazy" src="http://verification.longcoding.top/FgW3lliU9HHOlKEYfsHDbb8A-Q3m"></p>
+<p><img alt="image-20240225221521648" loading="lazy" src="http://verification.longcoding.top/FpqReJtE0zLxy4zWTCJlDWyE__JF">
 $$
 \text{softmax}(z)<em>i = \frac{e^{z_i}}{\sum</em>{j=1}^{K} e^{z_j}}, \quad \text{for } i = 1, 2, \ldots, K
 \\e^{-100} ≈ 0
 $$</p>
 <h4 id="相对位置编码"><strong>相对位置编码：</strong><a hidden class="anchor" aria-hidden="true" href="#相对位置编码">#</a></h4>
 <p>因为计算Window-MHSA是并行的，没有位置顺序信息</p>
-<p><img alt="image-20240226153825736" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fo59Iv0WwBb25FVMkzB18MmkMV1a"></p>
+<p><img alt="image-20240226153825736" loading="lazy" src="http://verification.longcoding.top/Fo59Iv0WwBb25FVMkzB18MmkMV1a"></p>
 <p>⭐注意力权重 加上 相对位置偏置</p>
 <p><em><strong>✨相对位置信息</strong></em>  &ndash;  <em><strong>压缩&amp;复用</strong></em></p>
 <p>① relative position bias table 自学习的位置标量偏置   &ndash; <em><strong>压缩</strong></em></p>
-<p><img alt="image-20240226194023098" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FuHY7p9-lMc5O29iTZr19onxVO_E"></p>
+<p><img alt="image-20240226194023098" loading="lazy" src="http://verification.longcoding.top/FuHY7p9-lMc5O29iTZr19onxVO_E"></p>
 <p>② relative position bias index 索引 &ndash; 不同位置的token使用相同的相对位置偏置  &ndash; <em><strong>复用</strong></em></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Ft2SFewfCYeEHkRainY6cQ_eHsqF" alt="image-20240226154244883" style="zoom:150%;" />
+<img src="http://verification.longcoding.top/Ft2SFewfCYeEHkRainY6cQ_eHsqF" alt="image-20240226154244883" style="zoom:150%;" />
 <p>给定窗口大小，index是固定值，table是可学习的位置信息</p>
 <p><strong>一维情况：</strong></p>
-<p><img alt="image-20240311185939016" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FrxIjS072CTEfEEtO1CTijuQYqfR"></p>
+<p><img alt="image-20240311185939016" loading="lazy" src="http://verification.longcoding.top/FrxIjS072CTEfEEtO1CTijuQYqfR"></p>
 <h4 id="patch-mergeing">Patch Mergeing<a hidden class="anchor" aria-hidden="true" href="#patch-mergeing">#</a></h4>
 <p>目的： 宽高减半，通道翻倍</p>
 <p><em><strong>整幅特征图分4部分</strong></em>，合并不同部分，相同位置的Token</p>
-<p><img alt="image-20240226204417422" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FmU-T2BI5P7e_QDQSMr5rpxG2BJV"></p>
+<p><img alt="image-20240226204417422" loading="lazy" src="http://verification.longcoding.top/FmU-T2BI5P7e_QDQSMr5rpxG2BJV"></p>
 <hr>
 <h3 id="mobilevit---cvpr-2021">Mobilevit - <em><strong>CVPR 2021</strong></em><a hidden class="anchor" aria-hidden="true" href="#mobilevit---cvpr-2021">#</a></h3>
 <p><em><strong>title: Mobilevit: light-weight, general-purpose, and mobile-friendly vision transformer</strong></em></p>
 <p>在资源受限设备上运行ViT  &ndash; 混合CNN和Transformer</p>
-<p><img alt="image-20240226210140021" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fhk5JL8evAwVfTIvVzpjespYt8s8"></p>
+<p><img alt="image-20240226210140021" loading="lazy" src="http://verification.longcoding.top/Fhk5JL8evAwVfTIvVzpjespYt8s8"></p>
 <h4 id="mv2-mobilenetv2-中的倒残差块"><strong>MV2</strong>: MobileNetv2 中的倒残差块<a hidden class="anchor" aria-hidden="true" href="#mv2-mobilenetv2-中的倒残差块">#</a></h4>
 <p><img alt="img" loading="lazy" src="https://img-blog.csdnimg.cn/20200808185634409.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDc5MTk2NA==,size_16,color_FFFFFF,t_70#pic_center"></p>
-<p><img alt="image-20240225153953959" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fmekv5cjEbjueu69KLEm1BGSlMxx"></p>
+<p><img alt="image-20240225153953959" loading="lazy" src="http://verification.longcoding.top/Fmekv5cjEbjueu69KLEm1BGSlMxx"></p>
 <p>⬇2： 下采样2倍，<em>控制stride步幅</em></p>
 <h4 id="mobilevit-block-间接融合">MobileViT Block:	&ndash; 间接融合<a hidden class="anchor" aria-hidden="true" href="#mobilevit-block-间接融合">#</a></h4>
-<p><img alt="image-20240227134923752" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FncNXSZCGXtVjc31M1xOgRrv_Nq8"></p>
+<p><img alt="image-20240227134923752" loading="lazy" src="http://verification.longcoding.top/FncNXSZCGXtVjc31M1xOgRrv_Nq8"></p>
 <p>用二维卷积局部融合(重叠区域)，输出的特征图中每个像素都会看到 MobileViT 块中的所有其他像素</p>
 <p>红色像素使用变压器关注蓝色像素</p>
 <p>由于蓝色像素已经使用卷积对有关相邻像素的信息进行了编码，因此红色像素可以对图像中所有像素的信息进行编码</p>
 <p>unfold和fold 将特征图转为Token集合，改排序，不等于patch embed(用conv2d)</p>
-<p><img alt="image-20240227132301148" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FuB3CUj71RHP1dp_kgoFbZ2Yc_uS"></p>
+<p><img alt="image-20240227132301148" loading="lazy" src="http://verification.longcoding.top/FuB3CUj71RHP1dp_kgoFbZ2Yc_uS"></p>
 <p>原论文 最后的通道维度融合，使用的Conv3x3卷积。    # 模块对称。</p>
 <hr>
 <h3 id="crossvit----iccv-2021">CrossViT  - ICCV 2021<a hidden class="anchor" aria-hidden="true" href="#crossvit----iccv-2021">#</a></h3>
 <p><em><strong>CrossViT: Cross-Attention Multi-Scale Vision Transformer for Image Classification</strong></em></p>
 <p>双分支 - <em><strong>多尺度patch嵌入</strong></em></p>
 <p>互换分支的CLS Token 实现分支间的<em><strong>信息通信</strong></em></p>
-<p><img alt="image-20240312172116507" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FpC5Sbn44GfUYKFOORg9d0UPr1w3"></p>
+<p><img alt="image-20240312172116507" loading="lazy" src="http://verification.longcoding.top/FpC5Sbn44GfUYKFOORg9d0UPr1w3"></p>
 <center><strong>总体结构</strong></center>
-<p><img alt="image-20240312171834443" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FvC8hI53tjmjzBJtp-Lii-S4lkd6"></p>
+<p><img alt="image-20240312171834443" loading="lazy" src="http://verification.longcoding.top/FvC8hI53tjmjzBJtp-Lii-S4lkd6"></p>
 <center><strong>交互示例</strong></center>
-<p><img alt="image-20240312171813246" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FmVtDZkNRE5yceuAnPJFuPN8e_DB"></p>
+<p><img alt="image-20240312171813246" loading="lazy" src="http://verification.longcoding.top/FmVtDZkNRE5yceuAnPJFuPN8e_DB"></p>
 <center><strong>详细</strong></center>
 <hr>
 <h3 id="deit----cvpr-2021">DeiT  - CVPR 2021<a hidden class="anchor" aria-hidden="true" href="#deit----cvpr-2021">#</a></h3>
 <p><em>Training data-efficient image transformers &amp; distillation through attention</em></p>
 <p>⭐纯Transformer版本的知识蒸馏</p>
-<p><img alt="image-20240312173214037" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqQ1hrAcTHTOYf6gxkooTt2jj392"></p>
+<p><img alt="image-20240312173214037" loading="lazy" src="http://verification.longcoding.top/FqQ1hrAcTHTOYf6gxkooTt2jj392"></p>
 <p>引入distillation token来进行知识蒸馏，执行的目标不同。一个与label计算loss，一个与Teacher label计算蒸馏损失。反向传播优化时，梯度不一样</p>
 <hr>
 <h3 id="t2t----iccv-2021">T2T  - ICCV 2021<a hidden class="anchor" aria-hidden="true" href="#t2t----iccv-2021">#</a></h3>
 <p><em>Tokens-to-Token ViT: Training Vision Transformers from Scratch on ImageNet</em></p>
-<p><img alt="image-20240312173843585" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqrxRABlUwr5j8yBxdNqffperhUQ"></p>
+<p><img alt="image-20240312173843585" loading="lazy" src="http://verification.longcoding.top/FqrxRABlUwr5j8yBxdNqffperhUQ"></p>
 <p>重叠嵌入，信息更全面。融合Token，删除冗余</p>
-<p><img alt="image-20240312174043432" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FhT_2GHxKkccQD7nx-J0ifbPje42"></p>
+<p><img alt="image-20240312174043432" loading="lazy" src="http://verification.longcoding.top/FhT_2GHxKkccQD7nx-J0ifbPje42"></p>
 <p><strong>soft split</strong>	重叠融合(图示是堆叠在通道维度)</p>
 <hr>
 <h3 id="biformer----cvpr-2023">BiFormer  - CVPR 2023<a hidden class="anchor" aria-hidden="true" href="#biformer----cvpr-2023">#</a></h3>
 <p><em><strong>BiFormer: Vision Transformer with Bi-Level Routing Attention</strong></em></p>
 <p>一种<em><strong>动态的、查询感知</strong></em>的稀疏注意力机制。 关键思想是在粗糙区域级别过滤掉大部分不相关的键值对，以便只保留一小部分路由区域，再进行细粒度的注意力计算</p>
-<p><img alt="image-20240301191315274" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqphQW9sBOWdsYM5K23Js4ABMqBn"></p>
+<p><img alt="image-20240301191315274" loading="lazy" src="http://verification.longcoding.top/FqphQW9sBOWdsYM5K23Js4ABMqBn"></p>
 <center style="text-align: center; color: red; font-weight:bold; font-style: italic;">注意力区域对比</center>
-<p><img alt="image-20240301191932243" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fr7X_B0UmTaRcimmADCRS7AyjdMP"></p>
+<p><img alt="image-20240301191932243" loading="lazy" src="http://verification.longcoding.top/Fr7X_B0UmTaRcimmADCRS7AyjdMP"></p>
 <p><em><strong>路由方式建立跨窗口信息交互</strong></em></p>
 <p>通过化为window，各Token均值为代表整window的Token，计算区域相似性关系图，借此为窗口间链接通信</p>
 <p>将窗口串起来</p>
-<p><img alt="image-20240301200645397" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fog2UcCBq77K5bq4HidyEd7IgOPL"></p>
+<p><img alt="image-20240301200645397" loading="lazy" src="http://verification.longcoding.top/Fog2UcCBq77K5bq4HidyEd7IgOPL"></p>
 <center style="font-weight:bold;">Bi-Routing Self-Attention</center>
-<p><img alt="image-20240301200800664" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fnmim8oa-8E_9-fsS4jkIwu179yw"></p>
+<p><img alt="image-20240301200800664" loading="lazy" src="http://verification.longcoding.top/Fnmim8oa-8E_9-fsS4jkIwu179yw"></p>
 <center style="font-weight:bold;">总体结构</center>
 <p>DWConv 3×3 作用：</p>
 <p>​	在开始时使用 3×3 深度卷积来<em><strong>隐式编码相对位置信息</strong></em>。</p>
@@ -752,39 +752,39 @@ $$</p>
 <p>“模拟随着网络变得更深而从捕获<strong>局部</strong>依赖关系到<strong>全局</strong>依赖关系的转变“（串行渐变结构） =联想到=&gt;  浅层网络捕获<strong>形态</strong>特征，深层部分捕获高级<strong>节律</strong>特征</p>
 <p>SMT1D 生硬的训练ECG 中等效果，但计算量小！</p>
 <p>层级式ViT结构</p>
-<p><img alt="image-20240303133748562" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fpi4l9OC8rr6sYJgVEqg8wnec5K9"></p>
+<p><img alt="image-20240303133748562" loading="lazy" src="http://verification.longcoding.top/Fpi4l9OC8rr6sYJgVEqg8wnec5K9"></p>
 <center style="color:red;font-weight:bolder">总体结构</center>
 <h4 id="evolutionary-hybrid-network">Evolutionary Hybrid Network<a hidden class="anchor" aria-hidden="true" href="#evolutionary-hybrid-network">#</a></h4>
 <p>结构取名为“进化混合网络” Evolutionary Hybrid Network   - 局部到全局建模的过渡</p>
-<p><img alt="image-20240303134117897" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FigGiO0USgz8OWE2GbwXO5orEBkZ"></p>
+<p><img alt="image-20240303134117897" loading="lazy" src="http://verification.longcoding.top/FigGiO0USgz8OWE2GbwXO5orEBkZ"></p>
 <center>两种融合模块的堆叠方式</center>
-<p><img alt="image-20240303134540985" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FmdyssfRaan-uO72Lwhc0a6v88p4"></p>
+<p><img alt="image-20240303134540985" loading="lazy" src="http://verification.longcoding.top/FmdyssfRaan-uO72Lwhc0a6v88p4"></p>
 <center>性能对比</center>
 <h4 id="sam-block"><strong>SAM Block</strong><a hidden class="anchor" aria-hidden="true" href="#sam-block">#</a></h4>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FgCueOCwQ5F2ocnGXAVByb3o2tNe" alt="image-20240303140344518" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/FgCueOCwQ5F2ocnGXAVByb3o2tNe" alt="image-20240303140344518" style="zoom:80%;" />
 <center style="font-weight:bold">scale-aware modulation</center>
 <h5 id="multi-head-mixed-convolution">Multi-Head Mixed Convolution<a hidden class="anchor" aria-hidden="true" href="#multi-head-mixed-convolution">#</a></h5>
 <p>将通道分割为多个头(组)，每个头使用不同大小的卷积核（目的：捕捉多个尺度的各种空间特征。增强网络的建模能力“局部远程依赖”）</p>
 <p>例：</p>
-<p><img alt="image-20240122210304883" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Flq2xKkSZenIrc2ABt5Gv69elnqw"></p>
+<p><img alt="image-20240122210304883" loading="lazy" src="http://verification.longcoding.top/Flq2xKkSZenIrc2ABt5Gv69elnqw"></p>
 <h5 id="scale-aware-aggregation">Scale-Aware Aggregation<a hidden class="anchor" aria-hidden="true" href="#scale-aware-aggregation">#</a></h5>
 <p>倒残差结构 - 融合通道</p>
 <p>在MHMC结构中，多头由于卷积核大小不同，更大的卷积核看到的感受野更大。 将多头各个卷积依次打包成组，进行组间通道融合，每组既有小感受野的信息，又有大感受野信息，多样 multi-scale</p>
 <h4 id="可视化模块效果---画的卷积调制权重">可视化模块效果  &ndash; 画的卷积调制权重<a hidden class="anchor" aria-hidden="true" href="#可视化模块效果---画的卷积调制权重">#</a></h4>
 <p>深度可分离卷积作为注意力权重</p>
-<p><img alt="image-20240304162401167" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fh5KT2e8KIgnUqcKnZD68LoSSOs1"></p>
+<p><img alt="image-20240304162401167" loading="lazy" src="http://verification.longcoding.top/Fh5KT2e8KIgnUqcKnZD68LoSSOs1"></p>
 <p>① 每个不同的卷积特征图都学习以自适应方式关注不同的粒度特征</p>
 <p>②多头更准确地描绘前景和目标对象</p>
 <p>③网络变深，多头仍然可以呈现目标物体的整体形状。与细节相关的信息在单头卷积下会丢失</p>
 <p>⭐⭐表明 MHMC 在浅层阶段有能力比单头更好地捕获局部细节，同时随着网络变得更深，保持目标对象的详细和语义信息。</p>
-<p><img alt="image-20240304162626670" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FtuuA1YnU3SydJySQnIAt-yX-Sb7"></p>
+<p><img alt="image-20240304162626670" loading="lazy" src="http://verification.longcoding.top/FtuuA1YnU3SydJySQnIAt-yX-Sb7"></p>
 <p>增强了语义相关的低频信号，精确地聚焦于目标对象最重要的部分。</p>
 <p>更好的捕获和表示视觉识别任务的基本特征的能力。</p>
 <hr>
 <h3 id="conv2former---cvpr-2022">Conv2Former - CVPR 2022<a hidden class="anchor" aria-hidden="true" href="#conv2former---cvpr-2022">#</a></h3>
 <p>Conv2Former: A Simple Transformer-Style ConvNet for Visual Recognition</p>
 <p><strong>创新点：</strong> <em><strong>用卷积操作 模拟近似 注意力</strong></em>        &ndash; 更低的计算代价 略低的性能下降</p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FjW8Ed448bu6nK5V0hXEDEVu-Fq5" alt="image-20240304161241745"  />
+<img src="http://verification.longcoding.top/FjW8Ed448bu6nK5V0hXEDEVu-Fq5" alt="image-20240304161241745"  />
 <p>Hadamard product == 矩阵按元素相乘</p>
 <p>使得每个空间位置(h,w)能够与以(h,w)为中心的k×k正方形区域内的所有像素相关。通道之间的信息交互可以通过线性层来实现。</p>
 <p>※重点： ConvNeXt中表明，卷积核不是越大越好，超过7x7，计算代价远远大于性能收益</p>
@@ -795,8 +795,8 @@ $$</p>
 <p>将CNN搭建成SwinT的风格，性能超越SwinT</p>
 <h4 id="inceptionnext"><strong>InceptionNext</strong><a hidden class="anchor" aria-hidden="true" href="#inceptionnext">#</a></h4>
 <p>多尺度版本的ConvNeXt</p>
-<p><img alt="image-20240312174928461" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqfEQ6hpiJHI6yV2ogfNVTAnbvg3"></p>
-<p><img alt="image-20240325140844728" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fmr63KEienUBwDnp9mGtqxNAsLIv"></p>
+<p><img alt="image-20240312174928461" loading="lazy" src="http://verification.longcoding.top/FqfEQ6hpiJHI6yV2ogfNVTAnbvg3"></p>
+<p><img alt="image-20240325140844728" loading="lazy" src="http://verification.longcoding.top/Fmr63KEienUBwDnp9mGtqxNAsLIv"></p>
 <hr>
 <h3 id="shunted-sa----cvpr-2022">Shunted SA  - CVPR 2022<a hidden class="anchor" aria-hidden="true" href="#shunted-sa----cvpr-2022">#</a></h3>
 <p><em><strong>Shunted Self-Attention</strong> via Multi-Scale Token Aggregation</em></p>
@@ -805,23 +805,23 @@ $$</p>
 <ul>
 <li>观察到PVT和ViT在同一个Encoder中token尺度是固定的，<strong>创新</strong>结合二者。用Conv将Token Map局部融合成多幅Token Map，使每个汇聚的Token代表着不同区域，不仅观察到小物体，也能看到大物体。</li>
 </ul>
-<p><img alt="image-20240313161903398" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fth6gbMaJV5G2qw0uRtYFF3cVj77"></p>
-<p><img alt="image-20240313162357016" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FlZAcCzy0SNuCFHoqhKnWdYHfXaC"></p>
+<p><img alt="image-20240313161903398" loading="lazy" src="http://verification.longcoding.top/Fth6gbMaJV5G2qw0uRtYFF3cVj77"></p>
+<p><img alt="image-20240313162357016" loading="lazy" src="http://verification.longcoding.top/FlZAcCzy0SNuCFHoqhKnWdYHfXaC"></p>
 <p>ViT：小区域</p>
 <p>PVT： 大区域</p>
 <p>Shunted : 结合大小区域</p>
 <p><em><strong>灵感源于：</strong></em></p>
-<p><img alt="image-20240326140819772" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fuij0WgDP8IcHH-rXm7rBRa7Dy5j"></p>
+<p><img alt="image-20240326140819772" loading="lazy" src="http://verification.longcoding.top/Fuij0WgDP8IcHH-rXm7rBRa7Dy5j"></p>
 <p><strong>做法：</strong></p>
 <p>​	不同头的长度不同，以捕获不同粒度的信息。</p>
 <p>原始特征图x，卷积局部融合得到x1， x2  (HW均变小)</p>
-<p><img alt="image-20240313174204874" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FhB7ab-atBNtYX_zeps5UDUp_KAR"></p>
+<p><img alt="image-20240313174204874" loading="lazy" src="http://verification.longcoding.top/FhB7ab-atBNtYX_zeps5UDUp_KAR"></p>
 <p>❗注意：Q的线性映射维度不变，而不同尺度的KV通过线性映射时维度<strong>缩减率</strong>为SR特征图的数量（QKV维度一致）</p>
 <p><strong>两种做法</strong></p>
 <p>细粒度 - pixel token ||   粗粒度 - patch token</p>
-<p><img alt="image-20240326135013259" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FtVG0Dqdg-6XoGJicvSS5jgbPNat"></p>
+<p><img alt="image-20240326135013259" loading="lazy" src="http://verification.longcoding.top/FtVG0Dqdg-6XoGJicvSS5jgbPNat"></p>
 <hr>
-<p><img alt="image-20240326135047116" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FtQtlRrQlGM_sZOnZQUjT6fBoGsa"></p>
+<p><img alt="image-20240326135047116" loading="lazy" src="http://verification.longcoding.top/FtQtlRrQlGM_sZOnZQUjT6fBoGsa"></p>
 <hr>
 <h3 id="gc-vit----icml-2023"><strong>GC-ViT  - ICML 2023</strong><a hidden class="anchor" aria-hidden="true" href="#gc-vit----icml-2023">#</a></h3>
 <p><strong>Global Context Vision Transformers</strong></p>
@@ -842,13 +842,13 @@ $$</p>
 <p>基本单元：局部窗口内计算 + 全局信息建模；（窗口内 + 窗口间）</p>
 </li>
 </ul>
-<p><img alt="image-20240409161629944" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FunVLb7pAngFwe2RiyqD5vSibE3s"></p>
+<p><img alt="image-20240409161629944" loading="lazy" src="http://verification.longcoding.top/FunVLb7pAngFwe2RiyqD5vSibE3s"></p>
 <p>思路：</p>
-<p><img alt="image-20240331194258110" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FuIsOdj1FMA7u4kTKkWBAWXrD-ZK"></p>
+<p><img alt="image-20240331194258110" loading="lazy" src="http://verification.longcoding.top/FuIsOdj1FMA7u4kTKkWBAWXrD-ZK"></p>
 <p><strong>Global query tokens generation</strong></p>
-<p><img alt="image-20240331195205866" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FnCbz5Zdq9vU9QRatpsRbFB4F9bY"></p>
+<p><img alt="image-20240331195205866" loading="lazy" src="http://verification.longcoding.top/FnCbz5Zdq9vU9QRatpsRbFB4F9bY"></p>
 <p><em>MBConv  - FeatureExtract</em></p>
-<p><img alt="image-20240331195153985" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FjmXZSAhkp6pqMlH5A5qiiMeU8uR"></p>
+<p><img alt="image-20240331195153985" loading="lazy" src="http://verification.longcoding.top/FjmXZSAhkp6pqMlH5A5qiiMeU8uR"></p>
 <p><em>代码分析</em></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">X</span><span class="p">:</span>            <span class="p">[</span><span class="n">batch</span><span class="p">,</span> <span class="n">num_token</span><span class="p">,</span> <span class="n">dim_token</span><span class="p">]</span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">x</span><span class="o">-</span><span class="n">window</span><span class="p">:</span>     <span class="p">[</span><span class="n">batch</span><span class="o">*</span><span class="n">num_windows</span><span class="p">,</span> <span class="n">num_token</span><span class="o">//</span><span class="n">num_windows</span><span class="p">,</span> <span class="n">dim_token</span><span class="p">]</span>
@@ -863,12 +863,12 @@ $$</p>
 <h3 id="token-sparsification----cvpr-2023">Token Sparsification  - CVPR 2023<a hidden class="anchor" aria-hidden="true" href="#token-sparsification----cvpr-2023">#</a></h3>
 <p><strong>Making Vision Transformers Efficient from A Token Sparsification View</strong></p>
 <p><em><strong>动机：</strong></em></p>
-<pre><code>*观察到注意力后期，仅部分核心Token起着主要作用*![image-20240407143751781](http://sthda9dn6.hd-bkt.clouddn.com/Fq2bA5CegUx5LXr1CkJytYjIeE4d)
+<pre><code>*观察到注意力后期，仅部分核心Token起着主要作用*![image-20240407143751781](http://verification.longcoding.top/Fq2bA5CegUx5LXr1CkJytYjIeE4d)
 </code></pre>
 <p>对Token进行瘦身 - 与利用CLS Token进行级联删除不用的策略</p>
 <p><em><strong>方法：</strong></em>	<em><strong>Sparse Token Vision Transformer</strong></em></p>
 <h4 id="semantic-token-generation-module"><em>Semantic Token Generation Module</em><a hidden class="anchor" aria-hidden="true" href="#semantic-token-generation-module">#</a></h4>
-<p><img alt="image-20240407144042256" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FhpDcInvrdHl8gH37PsLXN3uJi9D"></p>
+<p><img alt="image-20240407144042256" loading="lazy" src="http://verification.longcoding.top/FhpDcInvrdHl8gH37PsLXN3uJi9D"></p>
 <p>1️⃣ Base Module 学习浅层特征</p>
 <p>2️⃣ 进行<strong>Spatial Pooling</strong>聚合区域，生产空间簇中心TokenSet</p>
 <pre><code>  **Conv( GELU( LayerNorm( DWConv( X ))))**  *- 深度可分离*
@@ -886,14 +886,14 @@ $$
 S^{2} = Semantic\ \ Token
 $$</p>
 <h4 id="recovery-module">Recovery Module<a hidden class="anchor" aria-hidden="true" href="#recovery-module">#</a></h4>
-<p><img alt="image-20240407152546112" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqBQgFoYYG9vvEes2GR4G-Si_7Z5">
+<p><img alt="image-20240407152546112" loading="lazy" src="http://verification.longcoding.top/FqBQgFoYYG9vvEes2GR4G-Si_7Z5">
 $$
 \overline{X} = MHA(X, S, S) + P,\ \ \  X = FFN(\overline{X}) + \overline{X}
 $$
 融合操作的逆过程</p>
 <p>从语义级TokenSet中恢复空间信息</p>
 <p><em><strong>First layer</strong> attention maps</em></p>
-<p><img alt="image-20240407152443412" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FkN9c3orO53DPnvDVGwSRlyAfN83"></p>
+<p><img alt="image-20240407152443412" loading="lazy" src="http://verification.longcoding.top/FkN9c3orO53DPnvDVGwSRlyAfN83"></p>
 <hr>
 <h3 id="hilo-attention----neurips-2022">HiLo Attention  - NeurIPS 2022<a hidden class="anchor" aria-hidden="true" href="#hilo-attention----neurips-2022">#</a></h3>
 <p><em><strong>Fast Vision Transformers with HiLo Attention</strong></em></p>
@@ -910,7 +910,7 @@ $$
 <li>low部分是space reduce(经过pool)的粗糙级别的attn</li>
 </ul>
 <p>图示：</p>
-<p><img alt="image-20240519135320979" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FoJmJfRIWja8Xu5PJmwDkNgeF-cS"></p>
+<p><img alt="image-20240519135320979" loading="lazy" src="http://verification.longcoding.top/FoJmJfRIWja8Xu5PJmwDkNgeF-cS"></p>
 <p>伪代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">HiLoAttention</span><span class="p">():</span>
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="k">def</span> <span class="nf">high</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -945,7 +945,7 @@ $$
 <p>注重点：与之前基于 CNN 和基于 Transformer 的模型相比，在准确性和效率方面获得了更好的权衡。</p>
 <p>⭐ 由于 patch 大小固定，Transformer 很难显式地提取低分辨率和多尺度特征  =&gt; 图像是二维的（即具有宽度和高度），并且在图像中的每个像素位置都与其周围的像素有关。这种空间局部信息非常重要，例如，边缘检测、纹理分析等都依赖于这种局部关系。=&gt; Patchfiy 后削弱了pixel之间的关系，只补充了Patch间的位置信息。</p>
 <p><em>CNN、Transformer 、CNN&amp;Transformer</em></p>
-<p><img alt="image-20240519144138963" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FsfgalSTq8ikfSlxajfdHEyFyUmm"></p>
+<p><img alt="image-20240519144138963" loading="lazy" src="http://verification.longcoding.top/FsfgalSTq8ikfSlxajfdHEyFyUmm"></p>
 <p>在每个阶段，产生层次表示  &ndash; 金字塔结构</p>
 <ul>
 <li>定制的Stem</li>
@@ -962,18 +962,18 @@ $$
 </ul>
 <p>⭐ 将卷积与自注意力<strong>有机结合</strong>起来。 我们假设全局和局部交互对于参数效率都很重要。 为了实现这一目标，我们提出了一种自注意力和卷积的新颖组合，将实现两全其美</p>
 <p><em><strong>architecture</strong></em></p>
-<p><img alt="image-20240519150910428" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fi7B2qNZZFd0EFxrcoi4XMUo0xml"></p>
+<p><img alt="image-20240519150910428" loading="lazy" src="http://verification.longcoding.top/Fi7B2qNZZFd0EFxrcoi4XMUo0xml"></p>
 <p><em><strong>Convolution Module</strong></em></p>
-<p><img alt="image-20240519151021832" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FjFaP8sJXM7MWq8AwsLqC7KikXzs"></p>
+<p><img alt="image-20240519151021832" loading="lazy" src="http://verification.longcoding.top/FjFaP8sJXM7MWq8AwsLqC7KikXzs"></p>
 <p><em><strong>Feed Forward Module</strong></em></p>
-<p><img alt="image-20240519151158840" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FoHe296JIl9aIexdJPHWj9LMbPaa"></p>
+<p><img alt="image-20240519151158840" loading="lazy" src="http://verification.longcoding.top/FoHe296JIl9aIexdJPHWj9LMbPaa"></p>
 <hr>
 <h3 id="pathformer----iclr-2024">PathFormer  - ICLR 2024<a hidden class="anchor" aria-hidden="true" href="#pathformer----iclr-2024">#</a></h3>
 <p><em>PATHFORMER: MULTI-SCALE TRANSFORMERS WITH ADAPTIVE PATHWAYS FOR TIME SERIES FORECASTING</em></p>
 <p><strong>architecture</strong></p>
-<p><img alt="image-20240519170648016" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FnK4-FRpE1SQT5uahwaQRzAHKrnQ"></p>
+<p><img alt="image-20240519170648016" loading="lazy" src="http://verification.longcoding.top/FnK4-FRpE1SQT5uahwaQRzAHKrnQ"></p>
 <p><em><strong>Dual-Attention</strong></em></p>
-<p><img alt="image-20240519170423224" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FtBXyfSHE5-sQI43qg32GVo5bIdU"></p>
+<p><img alt="image-20240519170423224" loading="lazy" src="http://verification.longcoding.top/FtBXyfSHE5-sQI43qg32GVo5bIdU"></p>
 <hr>
 <h3 id="mobile-former-----cvpr-2022">Mobile-Former  -  CVPR 2022<a hidden class="anchor" aria-hidden="true" href="#mobile-former-----cvpr-2022">#</a></h3>
 <p><em><strong>Mobile-Former: Bridging MobileNet and Transformer</strong></em></p>
@@ -999,9 +999,9 @@ $$
 </li>
 </ul>
 <p><em><strong>architecture</strong></em></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FoygIQupOSId30hyZGiwdI5Bt7WN" alt="image-20240520212934048" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FoygIQupOSId30hyZGiwdI5Bt7WN" alt="image-20240520212934048" style="zoom:50%;" />
 <p><em><strong>Interaction</strong></em></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FvRSZ6UvKI7Xij11Qo2_LkUchwJN" alt="image-20240520213014827" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FvRSZ6UvKI7Xij11Qo2_LkUchwJN" alt="image-20240520213014827" style="zoom:50%;" />
 <p><em><strong>pseudo code</strong></em></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">FC</span><span class="p">(</span><span class="n">token</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(),</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>	<span class="c1"># shape =&gt; batch, num_token, dim_token;</span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">do</span> <span class="n">Local2Global</span><span class="o">-</span><span class="n">CrossAttn</span><span class="p">()</span>
@@ -1030,9 +1030,9 @@ $$
 <li>ViT Adapter: [Spatial Prior Module,  Spatial Feature Injector,  Multi-Scale Feature Extractor]</li>
 </ul>
 <p><em><strong>paradigm compare</strong></em></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpMbxFOAMejEr5a3FMFIxQXs_jUw" alt="image-20240520214548775" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/FpMbxFOAMejEr5a3FMFIxQXs_jUw" alt="image-20240520214548775" style="zoom: 50%;" />
 <p><em><strong>architecture</strong></em></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FnB9u1SBK2GizG6jFdRDBDPs4WUE" alt="image-20240520214838670" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/FnB9u1SBK2GizG6jFdRDBDPs4WUE" alt="image-20240520214838670" style="zoom: 50%;" />
 <ul>
 <li>（c）用于根据输入图像对局部空间上下文进行建模的空间先验模块， Adapter: Spatial feature token set;  ViT: origin feature map;</li>
 <li>（d）用于将空间先验引入ViT的空间特征注入器</li>
@@ -1058,7 +1058,7 @@ $$
 <li>⭐ 研究表明，ViT 呈现出学习低频全局信号的特征(整体、模糊和粗糙)，而 CNN 则倾向于提取高频信息（例如局部边缘和纹理）</li>
 </ul>
 <p><em><strong>visualize</strong></em></p>
-<p><img alt="image-20240520220239886" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FoC2Xg4Iols0Pwb9d1syiS3OfIaV"></p>
+<p><img alt="image-20240520220239886" loading="lazy" src="http://verification.longcoding.top/FoC2Xg4Iols0Pwb9d1syiS3OfIaV"></p>
 <p>傅里叶变换特征图的傅里叶频谱和相对对数幅度（超过 100 张图像的平均值） =&gt; 表明 ViT-Adapter 比 ViT 捕获更多的高频信号</p>
 <p>我们还<em><strong>可视化</strong></em>了图5（b）（c）中的stride-8<em><strong>特征图</strong></em>，这表明ViT的特征是模糊和粗糙的</p>
 <hr>
@@ -1098,9 +1098,9 @@ $$
 </li>
 </ul>
 <p><em><strong>architecture</strong></em></p>
-<p><img alt="image-20240520204419726" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FlbAMay416VfhuR5JSOSHwG_kP5A"></p>
+<p><img alt="image-20240520204419726" loading="lazy" src="http://verification.longcoding.top/FlbAMay416VfhuR5JSOSHwG_kP5A"></p>
 <p><em><strong>Inception Mixer</strong></em></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fgt2Cic3gVjrTj4X7s62QDHUu_MC" alt="image-20240520204536925" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/Fgt2Cic3gVjrTj4X7s62QDHUu_MC" alt="image-20240520204536925" style="zoom: 50%;" />
 <p><em><strong>pseudo code</strong></em></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># x : [batch, channel, width, hight]</span>
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="n">x_h</span><span class="p">,</span> <span class="n">x_l</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1112,7 +1112,7 @@ $$
 </span></span><span class="line"><span class="ln"> 8</span><span class="cl">
 </span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="n">Y</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="n">ITM</span><span class="p">(</span><span class="n">LN</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>  <span class="c1"># ITM : Inception Mixer</span>
 </span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="n">H</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">+</span> <span class="n">FFN</span><span class="p">(</span><span class="n">LN</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span>
-</span></span></code></pre></div><p><img alt="image-20240520212116579" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqIKu2Ff8rUUc8ZQNB23iVFbqKZz"></p>
+</span></span></code></pre></div><p><img alt="image-20240520212116579" loading="lazy" src="http://verification.longcoding.top/FqIKu2Ff8rUUc8ZQNB23iVFbqKZz"></p>
 <p>局部|高频  &amp; 全局|低频  - <em>傅里叶谱</em></p>
 <hr>
 <h3 id="transnext----cvpr-2024">TransNeXt  - CVPR 2024<a hidden class="anchor" aria-hidden="true" href="#transnext----cvpr-2024">#</a></h3>
@@ -1151,10 +1151,10 @@ $$
 </li>
 </ul>
 <p><em><strong>architecture</strong></em></p>
-<p><img alt="image-20240522150100876" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FkRHFQGJNejEx0DdLHpKMHXN3eLc"></p>
+<p><img alt="image-20240522150100876" loading="lazy" src="http://verification.longcoding.top/FkRHFQGJNejEx0DdLHpKMHXN3eLc"></p>
 <p><em>left figure: focus attn; right figure: aggregated attn(add QKV-attn、LKV-attn、QLV-attn)</em></p>
 <p>共享同一个Softmax（作用可能是这里进行多注意力的制约交互）</p>
-<p><img alt="image-20240522150532379" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FsUwpLygfpNSLAeQCf2PLkLrVu39"></p>
+<p><img alt="image-20240522150532379" loading="lazy" src="http://verification.longcoding.top/FsUwpLygfpNSLAeQCf2PLkLrVu39"></p>
 <p>ConvGLU: 卷积 GLU (ConvGLU) 中的每个标记都拥有一个独特的门控信号，基于其最接近的细粒度特征。 这解决了SE机制中全局平均池化过于粗粒度的缺点。 它还满足了一些没有位置编码设计、需要深度卷积提供位置信息的ViT模型的需求。</p>
 <hr>
 <h3 id="efficientvit----cvpr-2023">EfficientViT  - CVPR 2023<a hidden class="anchor" aria-hidden="true" href="#efficientvit----cvpr-2023">#</a></h3>
@@ -1164,7 +1164,7 @@ $$
 <ul>
 <li>发现现有 Transformer 模型的速度通常受到内存低效操作的限制，尤其是 MHSA 中的张量整形和逐元素函数;</li>
 </ul>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FkiJ7g1kMAPGc7GWQkZqrTREti7U" alt="image-20240522153808010" style="zoom:33%;" />
+<img src="http://verification.longcoding.top/FkiJ7g1kMAPGc7GWQkZqrTREti7U" alt="image-20240522153808010" style="zoom:33%;" />
 <ul>
 <li>
 <p>虽然Transformer性能很好，但是代价很高，不适合实时应用;  =&gt;优化;</p>
@@ -1179,9 +1179,9 @@ $$
 <li>提出了一个级联的组注意力模块，为注意力头提供完整特征的不同分割，这不仅节省了计算成本，而且提高了注意力多样性。</li>
 </ul>
 <p><em><strong>architecture</strong></em></p>
-<p><img alt="image-20240522153524595" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Ftia_79d9H41exw3LGQYJvCamsia"></p>
+<p><img alt="image-20240522153524595" loading="lazy" src="http://verification.longcoding.top/Ftia_79d9H41exw3LGQYJvCamsia"></p>
 <p>Token Interaction：DWConv，增强局部交互能力，引入局部结构信息的归纳偏差来增强模型能力</p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fo0DOWw0j9KpBjKC-gRlWZW8H9cl" alt="image-20240522154554278" style="zoom: 50%;" />
+<img src="http://verification.longcoding.top/Fo0DOWw0j9KpBjKC-gRlWZW8H9cl" alt="image-20240522154554278" style="zoom: 50%;" />
 <p>三明治结构中，局部建模和全局Attn, 即[Token Interaction, FFN][Cascaded Group Attention][Token Interaction, FFN]堆叠不是1:1:1, 而是N:1:N, Why? because Attention 计算量太大了，能少用就少用。</p>
 <p><em>Cascaded Group Attention pseudo code</em></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">feature_group</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qkv_group</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># split head</span>
@@ -1204,7 +1204,7 @@ $$
 <p>目标：轻量级 CNN 设计高效的混合模型，并在权衡精度、参数和 FLOP 的情况下获得比基于 CNN 的模型更好的性能</p>
 <p>出发点：我们能否为仅使用基本算子的基于注意力的模型构建一个轻量级的类似 IRB 的基础设施？</p>
 <p><em><strong>基本算子结构对比</strong></em></p>
-<p><img alt="image-20240528221243289" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fu2XvX690FwPXpQZ0l9eZ5DOI43X"></p>
+<p><img alt="image-20240528221243289" loading="lazy" src="http://verification.longcoding.top/Fu2XvX690FwPXpQZ0l9eZ5DOI43X"></p>
 <ul>
 <li>
 <p>Multi-head self attention: 线性映射qkv，MHSA, 投影回来</p>
@@ -1218,10 +1218,10 @@ $$
 </ul>
 <p>=&gt; 综合考量 提出基本算子Meta Mobile Block</p>
 <p><em><strong>Meta Former Block vs Inverted Residual Block</strong></em></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Ftf8991YMhE8E1dDCjokAWEUw-ye" alt="image-20240528221642558" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/Ftf8991YMhE8E1dDCjokAWEUw-ye" alt="image-20240528221642558" style="zoom:80%;" />
 <p><em>更加细致的抽象</em></p>
 <p>iRMB（Inverted Residual Mobile Block）</p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fj5ta7GvLAfjt_JHMaKg6_KuZHDB" alt="image-20240528222426166" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/Fj5ta7GvLAfjt_JHMaKg6_KuZHDB" alt="image-20240528222426166" style="zoom:80%;" />
 <ul>
 <li>
 <p>！！！ 由于 MHSA 更适合对更深层的语义特征进行建模，因此我们仅在之前的工作之后的 stage-3/4 中打开它 。</p>
@@ -1248,12 +1248,12 @@ $$
 </li>
 </ul>
 <p>深度设计，灵活的设计</p>
-<p><img alt="image-20240528223053135" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fv_WL-G6w_PP05QeqNpgeOc-c1JJ"></p>
+<p><img alt="image-20240528223053135" loading="lazy" src="http://verification.longcoding.top/Fv_WL-G6w_PP05QeqNpgeOc-c1JJ"></p>
 <hr>
 <h3 id="focal-attention----neurips-2021">Focal Attention  - NeurIPS 2021<a hidden class="anchor" aria-hidden="true" href="#focal-attention----neurips-2021">#</a></h3>
 <p><em><strong>Focal Attention for Long-Range Interactions in Vision Transformers</strong></em></p>
 <p><em>观察：</em></p>
-<p><img alt="image-20240528223844857" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FjqUdZKlfKBiJWVASpVgKoNtx0wC"></p>
+<p><img alt="image-20240528223844857" loading="lazy" src="http://verification.longcoding.top/FjqUdZKlfKBiJWVASpVgKoNtx0wC"></p>
 <p>图 1：左：DeiT-Tiny 模型 [55] 第一层中给定查询块（蓝色）处三个头的注意力图的可视化。 右图：焦点注意力机制的说明性描述。 使用三个粒度级别来组成蓝色查询的注意区域。</p>
 <p>创新点：</p>
 <ul>
@@ -1261,7 +1261,7 @@ $$
 <li>Fine   =&gt;  Coarse</li>
 </ul>
 <p>图示：</p>
-<p><img alt="image-20240528224313848" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FrKhAz5jYoJiqpydMNgq0CFRnxMx"></p>
+<p><img alt="image-20240528224313848" loading="lazy" src="http://verification.longcoding.top/FrKhAz5jYoJiqpydMNgq0CFRnxMx"></p>
 <p>伪代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="mf">1.</span> <span class="n">使用torch</span><span class="o">.</span><span class="n">roll</span> <span class="n">再按窗口划分</span> <span class="o">=&gt;</span> <span class="n">收集细粒度周边Token</span><span class="p">,</span> <span class="n">再使用mask掩码掉多余不需要的Token</span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="mf">2.</span> <span class="n">先分窗口</span><span class="err">，</span><span class="n">执行窗口内Pool</span><span class="err">，</span><span class="n">生成超粗粒度Token</span>
@@ -1272,15 +1272,15 @@ $$
 <h3 id="cloformer----cvpr-2023">CloFormer  - CVPR 2023<a hidden class="anchor" aria-hidden="true" href="#cloformer----cvpr-2023">#</a></h3>
 <p><em>Rethinking Local Perception in Lightweight Vision Transformer</em></p>
 <p><em><strong>architecture</strong></em></p>
-<p><img alt="image-20240605130022083" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FvngC2ntWdTKgytYSOXDYCsygesS"></p>
+<p><img alt="image-20240605130022083" loading="lazy" src="http://verification.longcoding.top/FvngC2ntWdTKgytYSOXDYCsygesS"></p>
 <p><em><strong>局部+全局 感知并行</strong></em></p>
 <p><em>局部感知，类似于CNN中的卷积注意力用在自注意力分支中</em></p>
 <p><em><strong>FFN 内追加局部感知增强模块</strong></em></p>
 <hr>
 <h3 id="metaformer----2023">MetaFormer  - 2023<a hidden class="anchor" aria-hidden="true" href="#metaformer----2023">#</a></h3>
 <p>我们并不试图引入新颖的令牌混合器，而只是将令牌混合器指定为最基本或常用的运算符来探测 MetaFormer 的能力</p>
-<p><img alt="image-20240605130403587" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FiTVfK_KWLbyKsq0yo5jubrdfdG4"></p>
-<p><img alt="image-20240605130304047" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FmSqE-XJ1S2ZfKrcJZZXlGMcur9G"></p>
+<p><img alt="image-20240605130403587" loading="lazy" src="http://verification.longcoding.top/FiTVfK_KWLbyKsq0yo5jubrdfdG4"></p>
+<p><img alt="image-20240605130304047" loading="lazy" src="http://verification.longcoding.top/FmSqE-XJ1S2ZfKrcJZZXlGMcur9G"></p>
 <p>⭐<em>探索Meta Block的潜力！</em></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="n">TokenMixer</span><span class="p">(</span><span class="n">Norm</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="n">ChannelMixer</span><span class="p">(</span><span class="n">Norm</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
@@ -1289,28 +1289,28 @@ $$
 <p><em>MaxViT: Multi-Axis Vision Transformer</em></p>
 <p>动机：解决Self-Attention平方复杂度问题</p>
 <p><em>框架：</em></p>
-<p><img alt="image-20240615215037327" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fl1JTUYTHYcZ5PRbJ8UAvXP1yVX7"></p>
+<p><img alt="image-20240615215037327" loading="lazy" src="http://verification.longcoding.top/Fl1JTUYTHYcZ5PRbJ8UAvXP1yVX7"></p>
 <p>1️⃣ MobileNetV2中的倒残差块 =&gt; 提供增强局部感知 &amp; 隐式编码位置信息</p>
 <p>2️⃣ Block-Attention =&gt; window-level attention ❌ 限制感受野 ⭐ 降低计算量</p>
 <p>3️⃣ Grid-Attention =&gt; 感受野遍及全局的扩张卷积做法 1. 分窗口 2. 收集每个窗口相同次序的Token成组. 3. 组内计算注意力</p>
 <p><em>Attention illustration</em></p>
-<p><img alt="image-20240615215710510" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FkuWg8D5hT-sd7m1rdxGy107-_9i"></p>
+<p><img alt="image-20240615215710510" loading="lazy" src="http://verification.longcoding.top/FkuWg8D5hT-sd7m1rdxGy107-_9i"></p>
 <hr>
 <h3 id="cit----iccv-2021">CiT -  ICCV 2021<a hidden class="anchor" aria-hidden="true" href="#cit----iccv-2021">#</a></h3>
 <p>Incorporating Convolution Designs into Visual Transformers</p>
 <p><em>局部增强</em></p>
-<p><img alt="image-20240615220916238" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fncxayeuy-8OlJnF1hBWzhhIv0qc"></p>
+<p><img alt="image-20240615220916238" loading="lazy" src="http://verification.longcoding.top/Fncxayeuy-8OlJnF1hBWzhhIv0qc"></p>
 <p>就是Inverted Resiual Block [Conv1×1 =&gt; Depth-wise Conv3×3 =&gt; Conv1×1] 对Token进行局部信息增强</p>
 <p>框架：</p>
-<p><img alt="image-20240615220738212" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqP4aLNN1H0Jj6H1inWZMvEmGu4F"></p>
+<p><img alt="image-20240615220738212" loading="lazy" src="http://verification.longcoding.top/FqP4aLNN1H0Jj6H1inWZMvEmGu4F"></p>
 <p>⭐利用了每个Stage中的Class Token，这样可以有层级式信息，而且梯度会通过这个CLS Token直接传递给前面部分</p>
 <hr>
 <h3 id="bi-interaction-light-vit">Bi-Interaction Light-ViT<a hidden class="anchor" aria-hidden="true" href="#bi-interaction-light-vit">#</a></h3>
 <p><em>Lightweight Vision Transformer with Bidirectional Interaction</em></p>
 <p><em>图示：</em></p>
-<p><img alt="image-20240615222535371" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FjbHr1d3ayVnC5teXJNmdLblG20F"></p>
+<p><img alt="image-20240615222535371" loading="lazy" src="http://verification.longcoding.top/FjbHr1d3ayVnC5teXJNmdLblG20F"></p>
 <p><em>框架：</em></p>
-<p><img alt="image-20240615222639804" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fn68cq_jiYWOH4cLXysQRSE6IvcK"></p>
+<p><img alt="image-20240615222639804" loading="lazy" src="http://verification.longcoding.top/Fn68cq_jiYWOH4cLXysQRSE6IvcK"></p>
 <p>⭐想法很超前⭐</p>
 <p>局部与全局的相互调制</p>
 <hr>
@@ -1326,23 +1326,23 @@ $$
 <p>相比之下，我们认为大内核架构中的这三种影响应该是解耦的，因为模型应该利用大内核的强大优势——能够看到广泛而不深入的能力</p>
 <p>由于在扩大 ERF(感受野) 方面，增加内核大小比堆叠更多层更有效，因此可以使用少量大内核层构建足够的 ERF，从而可以节省计算预算以用于其他高效结构 在增加空间模式的抽象层次或总体上增加深度方面更有效。</p>
 <p>框架：</p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FtFR_n6He8LUzeHkKJx5IMK3Wl0J" alt="image-20240615223821379" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FtFR_n6He8LUzeHkKJx5IMK3Wl0J" alt="image-20240615223821379" style="zoom:50%;" />
 <p>重参数化</p>
-<p><img alt="image-20240615223858785" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FiHZZIOCH78aewOlnWnLO870aBK_"></p>
+<p><img alt="image-20240615223858785" loading="lazy" src="http://verification.longcoding.top/FiHZZIOCH78aewOlnWnLO870aBK_"></p>
 <p>块设计</p>
-<p><img alt="image-20240615223925194" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FtTs3Fhk7zQo9sF39QP_2bGZBpA3"></p>
+<p><img alt="image-20240615223925194" loading="lazy" src="http://verification.longcoding.top/FtTs3Fhk7zQo9sF39QP_2bGZBpA3"></p>
 <hr>
 <h3 id="edgevits----eccv-2022">EdgeViTs  - ECCV 2022<a hidden class="anchor" aria-hidden="true" href="#edgevits----eccv-2022">#</a></h3>
 <p><em>EdgeViTs: Competing Light-weight CNNs on Mobile Devices with Vision Transformers</em></p>
 <p><em>架构：</em></p>
-<p><img alt="image-20240629144615355" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FjJJYomTo8RtBXmfq16fKLAj9ctR"></p>
+<p><img alt="image-20240629144615355" loading="lazy" src="http://verification.longcoding.top/FjJJYomTo8RtBXmfq16fKLAj9ctR"></p>
 <p><strong>#</strong> <em>类似MobileViT</em></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">LocalAgg</span><span class="p">(</span><span class="n">Norm</span><span class="p">(</span><span class="n">X</span><span class="p">))</span> <span class="o">+</span> <span class="n">X</span>  <span class="c1"># </span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">Y</span> <span class="o">=</span> <span class="n">FFN</span><span class="p">(</span><span class="n">Norm</span><span class="p">(</span><span class="n">X</span><span class="p">))</span> <span class="o">+</span> <span class="n">X</span>
 </span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="n">Z</span> <span class="o">=</span> <span class="n">LocalProp</span><span class="p">(</span><span class="n">GlobalSparseAttn</span><span class="p">(</span><span class="n">Norm</span><span class="p">(</span><span class="n">Y</span><span class="p">)))</span> <span class="o">+</span> <span class="n">Y</span>
 </span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="n">Xout</span> <span class="o">=</span> <span class="n">FFN</span><span class="p">(</span><span class="n">Norm</span><span class="p">(</span><span class="n">Z</span><span class="p">))</span> <span class="o">+</span> <span class="n">Z</span>
 </span></span></code></pre></div><p><em>图示：</em> （选举 =&gt; 精英 =&gt; 分发）</p>
-<p><img alt="image-20240629144951121" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FkrkSeWMk4-k739dM3W3yi01hR0n"></p>
+<p><img alt="image-20240629144951121" loading="lazy" src="http://verification.longcoding.top/FkrkSeWMk4-k739dM3W3yi01hR0n"></p>
 <hr>
 <h3 id="shufflenet----cvpr-2018">ShuffleNet  - CVPR 2018<a hidden class="anchor" aria-hidden="true" href="#shufflenet----cvpr-2018">#</a></h3>
 <p>出发点：构建高效模型</p>
@@ -1357,17 +1357,17 @@ $$
 </span></span><span class="line"><span class="ln">7</span><span class="cl">
 </span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="c1"># =&gt; 目标，优化PWConv</span>
 </span></span></code></pre></div><p><em>操作图示：</em></p>
-<p><img alt="image-20240724224557015" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FolrkGJLWnzivRqfddrBq1TSfTlI"></p>
+<p><img alt="image-20240724224557015" loading="lazy" src="http://verification.longcoding.top/FolrkGJLWnzivRqfddrBq1TSfTlI"></p>
 <p><em>卷积分组减少计算量 （⭐优化组间通信⭐）</em></p>
 <p><em>ShuffleNet Basic Block</em></p>
-<p><img alt="image-20240724225221695" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fo1ppHwmaWzXwWANAYAwgCfNXOHp"></p>
+<p><img alt="image-20240724225221695" loading="lazy" src="http://verification.longcoding.top/Fo1ppHwmaWzXwWANAYAwgCfNXOHp"></p>
 <ul>
 <li>(a) ResNet bottleneck unit  &lt;= DWConv</li>
 <li>(b) 优化PWConv（Group Conv），并且Channel Shuffle，执行Group communication  # 无下采样，输入输出shape一致</li>
 <li>(c)  恒等映射占据一半的Channel，另一半精修过的Feature Map</li>
 </ul>
 <p><em><strong>⭐V2⭐</strong></em></p>
-<p><img alt="image-20240724225722883" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FrZI_fxrG99O7f0vTaVrizYYINM_"></p>
+<p><img alt="image-20240724225722883" loading="lazy" src="http://verification.longcoding.top/FrZI_fxrG99O7f0vTaVrizYYINM_"></p>
 <p>=&gt; 分析各个类型操作占据的计算成本</p>
 <p>除了FLOPS指标，吞吐量和速度更为直接直观，符合真实贴切</p>
 <p>(使用FLOP作为计算复杂性的唯一度量是不够的，并且可能导致次优设计)</p>
@@ -1376,7 +1376,7 @@ $$
 <li>访存时间 &lt;=</li>
 <li>并行度    &lt;=</li>
 </ol>
-<p><img alt="image-20240724225839060" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FvT25s2RGhiwTZ-RPHmuZC4Dhruj"></p>
+<p><img alt="image-20240724225839060" loading="lazy" src="http://verification.longcoding.top/FvT25s2RGhiwTZ-RPHmuZC4Dhruj"></p>
 <ul>
 <li>(a) basic shuffle net block                                            -v1</li>
 <li>(b) basic shuffle net block with downsample           -v1</li>
@@ -1396,33 +1396,33 @@ $$
 </span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="n">concat</span><span class="p">(</span><span class="n">branch1</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span> <span class="n">branch2</span><span class="p">(</span><span class="n">x2</span><span class="p">))</span>
 </span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="n">channel</span><span class="o">-</span><span class="n">shuffle</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 </span></span></code></pre></div><p>特征复用示意图：</p>
-<p><img alt="image-20240724230720785" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fsem9hHIfSDd3ZUCLtLpAcSsXSJG">
+<p><img alt="image-20240724230720785" loading="lazy" src="http://verification.longcoding.top/Fsem9hHIfSDd3ZUCLtLpAcSsXSJG">
 $$
 l1-norm = \sum_{i=1}^n{|v_i|}
 $$
 <em>相邻层更高效</em></p>
-<p><img alt="image-20240724232423791" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FoTY1l17-ftZvTy0nfHDeXZRY9UC"></p>
+<p><img alt="image-20240724232423791" loading="lazy" src="http://verification.longcoding.top/FoTY1l17-ftZvTy0nfHDeXZRY9UC"></p>
 <p>准确率参数贡献✔️</p>
 <hr>
 <h3 id="repvgg---reparams---cvpr-2021">RepVGG - ReParams - CVPR 2021<a hidden class="anchor" aria-hidden="true" href="#repvgg---reparams---cvpr-2021">#</a></h3>
 <p><em>结构分析</em></p>
-<p><img alt="image-20240731130434746" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FiH0elp2VtvBSademhh9cg0eolrI"></p>
+<p><img alt="image-20240731130434746" loading="lazy" src="http://verification.longcoding.top/FiH0elp2VtvBSademhh9cg0eolrI"></p>
 <p><em>内存分析</em>：</p>
-<p><img alt="image-20240731130540271" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqrL08v9UgFtTqoEzS_trX3wGNmY"></p>
+<p><img alt="image-20240731130540271" loading="lazy" src="http://verification.longcoding.top/FqrL08v9UgFtTqoEzS_trX3wGNmY"></p>
 <p>=&gt; 权衡：性能和计算内存成本</p>
 <p>Train：多分支结构，性能好</p>
 <p>Test： 单分支结构，速度快，内存少</p>
 <p>⭐⭐⭐重参化：</p>
-<p><img alt="image-20240731130753331" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fpiu9hRAD351LiYHeyGyEYg4sha5"></p>
+<p><img alt="image-20240731130753331" loading="lazy" src="http://verification.longcoding.top/Fpiu9hRAD351LiYHeyGyEYg4sha5"></p>
 <p>细节：</p>
-<p><img alt="image-20240731130825585" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FiJzUgq9bxVrRGkByjxjskR35OYx"></p>
+<p><img alt="image-20240731130825585" loading="lazy" src="http://verification.longcoding.top/FiJzUgq9bxVrRGkByjxjskR35OYx"></p>
 <p><em>举例第一个卷积后的元素</em></p>
 <hr>
 <h3 id="agent-attention---eccv-2024">Agent Attention - ECCV 2024<a hidden class="anchor" aria-hidden="true" href="#agent-attention---eccv-2024">#</a></h3>
 <p>Attn图示：</p>
-<p><img alt="image-20240731131233068" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FvHo1e4tfg4ziUIju2Msp1Ux6Qti"></p>
+<p><img alt="image-20240731131233068" loading="lazy" src="http://verification.longcoding.top/FvHo1e4tfg4ziUIju2Msp1Ux6Qti"></p>
 <p>做法：</p>
-<p><img alt="image-20240731131548727" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FjurzDrzk4C77otBf4LWSMnEgUog"></p>
+<p><img alt="image-20240731131548727" loading="lazy" src="http://verification.longcoding.top/FjurzDrzk4C77otBf4LWSMnEgUog"></p>
 <p>code：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">q</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">qkv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qkv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">qkv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">
@@ -1444,15 +1444,15 @@ $$
 <h3 id="cf-vit">CF-ViT<a hidden class="anchor" aria-hidden="true" href="#cf-vit">#</a></h3>
 <p>CF-ViT: A General Coarse-to-Fine Method for Vision Transformer</p>
 <p>对于分类任务 - 不需要那么精细的patch</p>
-<p><img alt="image-20241004170321655" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FoZyVNbgSQsWG1p28qGiRf7c-loT"></p>
+<p><img alt="image-20241004170321655" loading="lazy" src="http://verification.longcoding.top/FoZyVNbgSQsWG1p28qGiRf7c-loT"></p>
 <p>两步策略：</p>
 <ol>
 <li>粗粒度patch=&gt;ViT =&gt; 预测得分  =若得分小于设定的置信度&gt;  将重要区域细分 =ViT&gt;  最终预测</li>
 </ol>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FhJ_wk_2ZOeZLagZZW7msuY1b66v" alt="image-20241004170409259" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/FhJ_wk_2ZOeZLagZZW7msuY1b66v" alt="image-20241004170409259" style="zoom:80%;" />
 <p>特征复用</p>
-<p><img alt="image-20241004170546367" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fn3U6o2Ni3GopzqhH5qWum_Jo_ZU"></p>
-<p><img alt="image-20241004170631330" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FnmEgoeSS3CkxfwyL9-khIdQjvGy"></p>
+<p><img alt="image-20241004170546367" loading="lazy" src="http://verification.longcoding.top/Fn3U6o2Ni3GopzqhH5qWum_Jo_ZU"></p>
+<p><img alt="image-20241004170631330" loading="lazy" src="http://verification.longcoding.top/FnmEgoeSS3CkxfwyL9-khIdQjvGy"></p>
 <ul>
 <li>不重要区域 =&gt; 大尺度粗略的Patch (可能有不相关的背景干扰)</li>
 <li>重要区域 =&gt; 小尺度精细的patch(更多边缘细节) &lt;= 第一阶段粗略的Patch充当区域嵌入</li>
@@ -1465,46 +1465,46 @@ $$
 <hr>
 <h3 id="conformer-resnet--vit">Conformer: ResNet + ViT<a hidden class="anchor" aria-hidden="true" href="#conformer-resnet--vit">#</a></h3>
 <p>并行结构 =&gt; 同时保留局部和全局特征 (保持CNN和ViT架构的优势)</p>
-<p><img alt="image-20241030221038768" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fh-0bK5pCvO9nwnDPE66C7E48tBA"></p>
+<p><img alt="image-20241030221038768" loading="lazy" src="http://verification.longcoding.top/Fh-0bK5pCvO9nwnDPE66C7E48tBA"></p>
 <hr>
 <h3 id="twins-local-global">Twins： [Local-Global]<a hidden class="anchor" aria-hidden="true" href="#twins-local-global">#</a></h3>
-<p><img alt="image-20241030221335460" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FklHw-wittRqd1h7QHkLjfv1Fwsr"></p>
-<p><img alt="image-20241030221352090" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fioskn0DS9unnSI_QH7XFEGCI8NU"></p>
+<p><img alt="image-20241030221335460" loading="lazy" src="http://verification.longcoding.top/FklHw-wittRqd1h7QHkLjfv1Fwsr"></p>
+<p><img alt="image-20241030221352090" loading="lazy" src="http://verification.longcoding.top/Fioskn0DS9unnSI_QH7XFEGCI8NU"></p>
 <p><strong>[LSA-FFN] =&gt; [GSA-FFN]</strong></p>
 <p><em>window-self-attention =&gt; global-self-attention</em></p>
 <hr>
 <h3 id="msg-transformer">MSG-Transformer<a hidden class="anchor" aria-hidden="true" href="#msg-transformer">#</a></h3>
 <p><em>架构</em></p>
-<p><img alt="image-20241031135433480" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FqdiIwZSD3Up8P0uBI5_AV7ID9D5"></p>
+<p><img alt="image-20241031135433480" loading="lazy" src="http://verification.longcoding.top/FqdiIwZSD3Up8P0uBI5_AV7ID9D5"></p>
 <p>有趣点 - Shuffle-Net ?</p>
-<p><img alt="image-20241031135458522" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FtlfxgTIAtbStShpTV0CnDCiMdEp"></p>
+<p><img alt="image-20241031135458522" loading="lazy" src="http://verification.longcoding.top/FtlfxgTIAtbStShpTV0CnDCiMdEp"></p>
 <p><em>局部信使  - 传递信息</em></p>
-<p><img alt="image-20241031135530570" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fvf8qMc7fN5gMwHRFjgDPdqdErf-"></p>
+<p><img alt="image-20241031135530570" loading="lazy" src="http://verification.longcoding.top/Fvf8qMc7fN5gMwHRFjgDPdqdErf-"></p>
 <hr>
 <h3 id="dilateformer">DilateFormer<a hidden class="anchor" aria-hidden="true" href="#dilateformer">#</a></h3>
 <p>IEEE TRANSACTIONS ON MULTIMEDIA  &ndash;  sci-1</p>
 <p><strong>overview</strong></p>
-<p><img alt="image-20250114142903267" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FmD-ZzTnzr2Ny-LKfnETdutV7-m-"></p>
+<p><img alt="image-20250114142903267" loading="lazy" src="http://verification.longcoding.top/FmD-ZzTnzr2Ny-LKfnETdutV7-m-"></p>
 <p><strong>novel</strong></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpooTWGTcnjOMuxGQEca7uOENTEA" alt="image-20250114142955809" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FpooTWGTcnjOMuxGQEca7uOENTEA" alt="image-20250114142955809" style="zoom:50%;" />
 <p>不同注意力头部，进行细微的调整</p>
 <hr>
 <h3 id="scopevit">ScopeViT<a hidden class="anchor" aria-hidden="true" href="#scopevit">#</a></h3>
 <p>Pattern Recognition</p>
 <p><strong>Architecture</strong></p>
-<p><img alt="image-20250114143121321" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FrEEw1jUQwiFTRiDgQJOzw44QFCS"></p>
+<p><img alt="image-20250114143121321" loading="lazy" src="http://verification.longcoding.top/FrEEw1jUQwiFTRiDgQJOzw44QFCS"></p>
 <p><strong>novel</strong></p>
 <p>串行交叉：[多尺度, 多份KV]+[dilated Attention]
 $$
 𝐐 = 𝑋𝐖_𝑄,𝐊_𝑖 = 𝑃_𝑖𝐖^𝐾_𝑖, 𝐕_𝑖 = 𝑃_𝑖𝐖^V_𝑖
 $$
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fq-ekXRQDlou_UreRE9QSa9y5EKF" alt="image-20250114143427612" style="zoom:50%;" /></p>
+<img src="http://verification.longcoding.top/Fq-ekXRQDlou_UreRE9QSa9y5EKF" alt="image-20250114143427612" style="zoom:50%;" /></p>
 <p>1 Query不变， KV通过多个不同内核大小的DWConv生成多尺度 KV  (粗粒度)</p>
 <p>2 Stride Attention (细粒度)</p>
 <hr>
 <h3 id="fastvit---iccv">FastViT - ICCV<a hidden class="anchor" aria-hidden="true" href="#fastvit---iccv">#</a></h3>
 <p><strong>overview</strong></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FhFdzS6Z8nVzWT82oLR7UAlApYD2" alt="image-20250114144650219" style="zoom:75%;" />
+<img src="http://verification.longcoding.top/FhFdzS6Z8nVzWT82oLR7UAlApYD2" alt="image-20250114144650219" style="zoom:75%;" />
 <p>Stem:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">reparams</span><span class="o">-</span><span class="n">conv</span>
 </span></span></code></pre></div><p>前三阶段：</p>
@@ -1517,9 +1517,9 @@ $$
 </span></span></code></pre></div><hr>
 <h3 id="integration-of-cnn--attention">Integration of CNN + Attention<a hidden class="anchor" aria-hidden="true" href="#integration-of-cnn--attention">#</a></h3>
 <p>Revisiting the Integration of Convolution and Attention for Vision Backbone</p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fv-JSCo9PonEt4vbgrq5feHboST-" alt="image-20250114145624850" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/Fv-JSCo9PonEt4vbgrq5feHboST-" alt="image-20250114145624850" style="zoom:50%;" />
 <p><strong>novel</strong></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpTEjuhn2eD2qyORam83GulxtlE0" alt="image-20250114145649376" style="zoom:67%;" />
+<img src="http://verification.longcoding.top/FpTEjuhn2eD2qyORam83GulxtlE0" alt="image-20250114145649376" style="zoom:67%;" />
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">Conv</span><span class="o">-</span><span class="n">part</span><span class="p">:</span> <span class="p">[</span><span class="n">Conv1x1</span><span class="o">-&gt;</span><span class="n">DWConv5x5</span><span class="o">-&gt;</span><span class="n">Conv1x1</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="n">X_conv</span>  <span class="c1"># ConvFFN ?</span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">Attn</span><span class="o">-</span><span class="n">part</span><span class="p">:</span> 
 </span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="mf">1.</span> <span class="p">[</span><span class="n">聚簇</span><span class="p">]</span> <span class="n">Clustering</span><span class="err">：</span><span class="n">X</span> <span class="o">-&gt;</span> <span class="n">pooling</span> <span class="o">-&gt;</span> <span class="n">cluster</span>
@@ -1531,7 +1531,7 @@ $$
 </span></span></code></pre></div><hr>
 <h3 id="repnext">RepNeXt<a hidden class="anchor" aria-hidden="true" href="#repnext">#</a></h3>
 <p><strong>overview</strong></p>
-<p><img alt="image-20250114151317648" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FufS6_Sh-LFlJAX5QtwplhqOm8fO"></p>
+<p><img alt="image-20250114151317648" loading="lazy" src="http://verification.longcoding.top/FufS6_Sh-LFlJAX5QtwplhqOm8fO"></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">Token</span><span class="o">-</span><span class="n">Mixer</span><span class="p">:</span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="mf">1.</span> <span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()</span>
 </span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="mf">2.</span> <span class="n">DWConv3x3</span> <span class="o">+</span> <span class="p">(</span><span class="n">DWConv1x3</span> <span class="o">+</span> <span class="n">DWConv3x1</span><span class="p">)</span>
@@ -1541,15 +1541,15 @@ $$
 </span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">)</span> 
 </span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="c1"># Fusion  =&gt; 重参数化融合</span>
 </span></span></code></pre></div><p><strong>InceptionNeXt</strong></p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FsqkSUIBCPQceHnvyJZJPh9x8TZa" alt="image-20250114151447542" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FsqkSUIBCPQceHnvyJZJPh9x8TZa" alt="image-20250114151447542" style="zoom:50%;" />
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">Block</span><span class="p">:</span> <span class="p">[</span><span class="n">Token</span><span class="o">-</span><span class="n">Mixer</span> <span class="o">-&gt;</span> <span class="n">Norm</span> <span class="o">-&gt;</span> <span class="n">FFN</span><span class="p">]</span>
 </span></span></code></pre></div><p>2025/1/14 <strong>Tidying up</strong></p>
 <hr>
 <h3 id="vit-with-deformable-attn">ViT with Deformable Attn<a hidden class="anchor" aria-hidden="true" href="#vit-with-deformable-attn">#</a></h3>
 <p>Vision Transformer with Deformable Attention</p>
-<p><img alt="image-20250310222653412" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/Fv-02WqjoM1YnWKUPahuPk8sz-Vw"></p>
-<p>全部采样点如下：<img alt="image-20250310222724290" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FgkRkH4sKEbNXMmkZmMeO-EbnyH8"></p>
-<p>高得分key采样点如下<img alt="image-20250310222715496" loading="lazy" src="http://sthda9dn6.hd-bkt.clouddn.com/FlmkdM49E6tgVoh2flXCrN89Cnl2"></p>
+<p><img alt="image-20250310222653412" loading="lazy" src="http://verification.longcoding.top/Fv-02WqjoM1YnWKUPahuPk8sz-Vw"></p>
+<p>全部采样点如下：<img alt="image-20250310222724290" loading="lazy" src="http://verification.longcoding.top/FgkRkH4sKEbNXMmkZmMeO-EbnyH8"></p>
+<p>高得分key采样点如下<img alt="image-20250310222715496" loading="lazy" src="http://verification.longcoding.top/FlmkdM49E6tgVoh2flXCrN89Cnl2"></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># 1. 生成 query</span>
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">Conv1x1</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="n">offset</span> <span class="o">=</span> <span class="n">ConvKxK</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="o">.</span><span class="n">conv1x1</span><span class="p">()</span><span class="o">=&gt;</span> <span class="o">//</span> <span class="n">将通道映射为2</span><span class="err">，</span><span class="n">并且为了提高采样点的多样性</span><span class="err">，</span><span class="n">将通道分组</span><span class="err">，</span><span class="n">每组获取不一样的信息</span><span class="err">。</span>

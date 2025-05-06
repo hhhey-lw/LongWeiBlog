@@ -204,7 +204,7 @@ hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突
     </h2>
   </header>
   <div class="entry-content">
-    <p>1 如何创建多线程 1） 实现Runnable接口
+    <p>1 如何创建线程 1） 实现Runnable接口
 实现run()方法 1new Thread(MyRunnable()).start(); 2）继承Thread类
 重写run()方法 3）Callable接口&amp;&amp;FutureTask
 实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动 1FutrueTask&lt;ReturnType&gt; task = new FutrueTask&lt;&gt;(MyCallable()); 2Thread(task).start 3 4ResultType res = task.get(); // 这里阻塞 4）使用线程池
@@ -214,7 +214,7 @@ XXXThreadPool.submit(task…)
 1FixedThreadPool: 固定池中线程数量 =&gt; 适合1.执行较长任务；2.控制并发度 2 3CachedThreadPool：池中线程数量不固定，根据需要动态创建线程，空的被回收，少了多创建； 4⭐适用于任务执行时间短且任务数量不确定的场景； 5 6ScheduledThreadPool：适用于需要定时执行或周期性执行任务的场景。 1// 定时任务线程池 2ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5); 3// For 延迟任务 4scheduledThreadPool.schedule(() -&gt; { 5 // 任务逻辑 6}, 10, TimeUnit.SECONDS); // 延迟10秒执行 7 8// For周期执行任务 9scheduledThreadPool.scheduleAtFixedRate(() -&gt; { 10 // 任务逻辑 11}, 0, 1, TimeUnit.SECONDS); // 每隔1秒执行一次 Thread.sleep(0) &lt;= 主动让出CPU控制权
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-05 00:00:00 +0000 UTC'>March 5, 2025</span>&nbsp;·&nbsp;9 min&nbsp;·&nbsp;1858 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-05 00:00:00 +0000 UTC'>March 5, 2025</span>&nbsp;·&nbsp;11 min&nbsp;·&nbsp;2162 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 并发面试题笔记" href="http://longcoding.top/posts/jobs/juc/"></a>
 </article>
 
@@ -224,7 +224,7 @@ XXXThreadPool.submit(task…)
     </h2>
   </header>
   <div class="entry-content">
-    <p>617 MySQL 数据排序 实现？ Order By 命中索引(包括索引字段)，使用索引排序(有序)，效率最高效 否则使用文件排序，文件少=&gt; 内存排序 sort_buffer 文件大=&gt;外部排序，归并排序 内部排序细节：
+    <p>617 MySQL 数据排序 实现？ Order By 命中索引(包括索引字段)，使用索引排序(⭐有序⭐)，效率最高效 否则使用文件排序，文件少=&gt; 内存排序 sort_buffer 文件大=&gt;外部排序，归并排序 内部排序细节：
 双路排序(待排序的列数据太大了)：使用row_id(回查表) &#43; sort_field
 ​	排好序后，使用row_id将完整的记录取出来
 单路排序(待排序数据大小能接受)
@@ -239,7 +239,7 @@ SQL =&gt; Server层连接器，权限校验，账号是否有资格获取。无=
 语法分析：SQL : Select类型✔️ user表✔️ id列 ✔️拆分成词，再组装为解析树。 语义分析：语法是否有误 =&gt; you have an error in your SQL syntax (字段、表|存在？) 分析解析树语法正确性 优化器(查询优化)=&gt;
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-04 00:00:00 +0000 UTC'>March 4, 2025</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;994 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-04 00:00:00 +0000 UTC'>March 4, 2025</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;1103 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to MySQL面试题笔记" href="http://longcoding.top/posts/jobs/mysql/"></a>
 </article>
 
@@ -273,7 +273,7 @@ Redis中，主节点会和从节点保持长连接，以确保数据的持续同
 特性
 实现数据分布式存储，对数据进行分片，将不同数据储存在不同节点中 去中心化思想，无中心节点，访问任意一个即可。访问正确则响应数据，否则响应对应的节点信息，客户端再次访问。 内置高可用性：分为N组，每组提供不同的数据缓存服务，每组中又有一个主节点和K个从节点(主提供读写，从提高读，并进行数据同步功能) ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1592 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1601 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to Redis面试题笔记" href="http://longcoding.top/posts/jobs/redis/"></a>
 </article>
 

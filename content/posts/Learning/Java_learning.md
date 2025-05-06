@@ -337,11 +337,11 @@ class Pair {
 }
 ```
 
-![image-20240415172031269](http://sthda9dn6.hd-bkt.clouddn.com/Fmw2-h00HMxs2uUZTveY1PTAqy-n)
+![image-20240415172031269](http://verification.longcoding.top/Fmw2-h00HMxs2uUZTveY1PTAqy-n)
 
 生成中间的桥接方法，进行连接，维护多态性。
 
-![image-20241122125640349](http://sthda9dn6.hd-bkt.clouddn.com/FvPTfqXKkhldWbQH1j_oVNE67cz8)
+![image-20241122125640349](http://verification.longcoding.top/FvPTfqXKkhldWbQH1j_oVNE67cz8)
 
 
 
@@ -484,7 +484,7 @@ System.out.println(result);
 
 
 
-![image-20250109195552849](http://sthda9dn6.hd-bkt.clouddn.com/FmUwuBD8Gl3L03PtKFZK7pUFjpPO)
+![image-20250109195552849](http://verification.longcoding.top/FmUwuBD8Gl3L03PtKFZK7pUFjpPO)
 
 
 
@@ -1915,7 +1915,7 @@ stateless:false # 带状态
 
 **死信交换机**
 
-![image-20250113195557165](http://sthda9dn6.hd-bkt.clouddn.com/Fpey0H8HmDHLDSYiTZer2GyQEx8P)
+![image-20250113195557165](http://verification.longcoding.top/Fpey0H8HmDHLDSYiTZer2GyQEx8P)
 
 定义交换机和队列
 

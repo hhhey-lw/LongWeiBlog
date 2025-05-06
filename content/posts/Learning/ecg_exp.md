@@ -23,7 +23,7 @@ TocOpen: true
 
 - 双核残差块  - 横轴与竖轴+面 三种扫描方式
 
-![image-20231008222054322](http://sthda9dn6.hd-bkt.clouddn.com/Fs6z6MvcLx6Jgu0ZSJQQhP_ELsED)
+![image-20231008222054322](http://verification.longcoding.top/Fs6z6MvcLx6Jgu0ZSJQQhP_ELsED)
 
 **k * n**(区域扫描)内核朝向中心压缩ECG以更直接地捕获**导联间**特征，而**1 * n**(横轴扫描)内核沿着时间维度压缩ECG并且因此更关注**导联内**特征
 
@@ -31,17 +31,17 @@ TocOpen: true
 
 **流程图示**
 
-![image-20240327154037056](http://sthda9dn6.hd-bkt.clouddn.com/Foik_oJeDo9NKImyPhkZ5ga6ZRKr)
+![image-20240327154037056](http://verification.longcoding.top/Foik_oJeDo9NKImyPhkZ5ga6ZRKr)
 
 
 
 **模型结构**
 
-![image-20240327153836525](http://sthda9dn6.hd-bkt.clouddn.com/FpbYbRq6Dec9rkOSDKeD_5zMzfa5)
+![image-20240327153836525](http://verification.longcoding.top/FpbYbRq6Dec9rkOSDKeD_5zMzfa5)
 
 **Block**
 
-![image-20240327153914172](http://sthda9dn6.hd-bkt.clouddn.com/Fv2Ky4pSh8O5sTf5Pm79Ea8BR_P6)
+![image-20240327153914172](http://verification.longcoding.top/Fv2Ky4pSh8O5sTf5Pm79Ea8BR_P6)
 
 
 
@@ -69,11 +69,11 @@ TocOpen: true
 
 **Input:**   检测R峰分段 
 
-![image-20240327125618915](http://sthda9dn6.hd-bkt.clouddn.com/Fp0qMCKJehhYdZfSTcGFtSLKaqda)
+![image-20240327125618915](http://verification.longcoding.top/Fp0qMCKJehhYdZfSTcGFtSLKaqda)
 
 <center style="color:red; font-weight:bolder;">模型框架</center>
 
-![image-20240327125748959](http://sthda9dn6.hd-bkt.clouddn.com/FqS1JmYorR7xtQKst3yYNvfUfIL9)
+![image-20240327125748959](http://verification.longcoding.top/FqS1JmYorR7xtQKst3yYNvfUfIL9)
 
 <center style="color:blue; font-weight:bolder;">CNN Block</center>
 
@@ -81,7 +81,7 @@ TocOpen: true
 
 
 
-![image-20240327125829274](http://sthda9dn6.hd-bkt.clouddn.com/FvrU_l1mGaRqSGPnXmOWVgwqjJOY)
+![image-20240327125829274](http://verification.longcoding.top/FvrU_l1mGaRqSGPnXmOWVgwqjJOY)
 
 <center style="color:blue; font-weight:bolder;">light-Conv Attention</center>
 
@@ -109,7 +109,7 @@ TocOpen: true
 
 - 提供对心电数据的不同视角
 
-![image-20231105144220615](http://sthda9dn6.hd-bkt.clouddn.com/FplCmRZMAWQfKug99yBNAV0UkgsD)
+![image-20231105144220615](http://verification.longcoding.top/FplCmRZMAWQfKug99yBNAV0UkgsD)
 
 ***将ECG信号视为二维图片(单通道灰度图)***
 
@@ -117,11 +117,11 @@ TocOpen: true
 
 
 
-![image-20231105144204757](http://sthda9dn6.hd-bkt.clouddn.com/Fv-5ITe8vMDvLK5lMcRr9eHFI6ud)
+![image-20231105144204757](http://verification.longcoding.top/Fv-5ITe8vMDvLK5lMcRr9eHFI6ud)
 
 <center style="color:red; font-weight:bolder;">模型框架</center>
 
-![image-20240327131154616](http://sthda9dn6.hd-bkt.clouddn.com/FoGGVWKihGHZdOPfwlYf0_epkxS8)
+![image-20240327131154616](http://verification.longcoding.top/FoGGVWKihGHZdOPfwlYf0_epkxS8)
 
 <center style="color:blue; font-weight:bolder;">CNN Block</center>
 
@@ -145,7 +145,7 @@ TocOpen: true
 
 - 将导联按照连接观测角度分组
 
-![image-20240327133550908](http://sthda9dn6.hd-bkt.clouddn.com/FnFnzWHtAv0k7IkwX0718iPNFNXB)
+![image-20240327133550908](http://verification.longcoding.top/FnFnzWHtAv0k7IkwX0718iPNFNXB)
 
 分视图的融合网络为教室网络(参数大)  =蒸馏> 单视图的学生网络
 
@@ -153,15 +153,15 @@ TocOpen: true
 
 <strong style='color:blue'>模型结构</strong>
 
-![image-20240327133617466](http://sthda9dn6.hd-bkt.clouddn.com/FiNsKiKuzti5awPUyu6-R0BO2KLw)
+![image-20240327133617466](http://verification.longcoding.top/FiNsKiKuzti5awPUyu6-R0BO2KLw)
 
 <strong>CNN Layers</strong>
 
-![image-20240327133758012](http://sthda9dn6.hd-bkt.clouddn.com/FpbH-DAtQ65hSmDoDZh15ExizCWE)
+![image-20240327133758012](http://verification.longcoding.top/FpbH-DAtQ65hSmDoDZh15ExizCWE)
 
 **Fusion Layer**
 
-![image-20240327133955260](http://sthda9dn6.hd-bkt.clouddn.com/Fgwlt20ID1AFUrT32X5VPdh7OeNO)
+![image-20240327133955260](http://verification.longcoding.top/Fgwlt20ID1AFUrT32X5VPdh7OeNO)
 
 如果是多视图，那么就不要最后的FC将最后特征映射为类别数；
 
@@ -171,13 +171,13 @@ TocOpen: true
 
 **Multi-scale Conv Block**
 
-![image-20240327134133763](http://sthda9dn6.hd-bkt.clouddn.com/FhCurIVUjpxA5WlCZTtlMvGbdqb2)
+![image-20240327134133763](http://verification.longcoding.top/FhCurIVUjpxA5WlCZTtlMvGbdqb2)
 
 网络的多尺度表示在更细粒度的级别上得到增强  - 采用Res2Block 
 
 **Coordinate Attention 1D**
 
-![image-20240327134033425](http://sthda9dn6.hd-bkt.clouddn.com/FsmP-vtRKCIdIuhC7CdcWzXi-2bB)
+![image-20240327134033425](http://verification.longcoding.top/FsmP-vtRKCIdIuhC7CdcWzXi-2bB)
 
 既建立了特征通道间的关系，对各通道的重要性进行重新加权，又获得了特征空间中的空间信息
 
@@ -199,7 +199,7 @@ MVKT-ECG: Efficient single-lead ECG classification for multi-label arrhythmia by
 
 ​	# 多导联信息如何蒸馏到单导联中
 
-![image-20240327140327574](http://sthda9dn6.hd-bkt.clouddn.com/Fi_18gQrmh7c-7go8uidNED7nf-Z)
+![image-20240327140327574](http://verification.longcoding.top/Fi_18gQrmh7c-7go8uidNED7nf-Z)
 
 不同导联是检测心脏状况的不同视角，提供对目标疾病的多种观测点和多种外貌
 
@@ -225,7 +225,7 @@ MVKT-ECG: Efficient single-lead ECG classification for multi-label arrhythmia by
 
 #### 多标签知识蒸馏的优化
 
-![image-20240327140614683](http://sthda9dn6.hd-bkt.clouddn.com/Fksp0kSQPFuG0pYKkHTJBL-MIpNg)
+![image-20240327140614683](http://verification.longcoding.top/Fksp0kSQPFuG0pYKkHTJBL-MIpNg)
 
 仿照CE-Loss 和 BCE-Loss
 
@@ -243,13 +243,13 @@ MVKT-ECG: Efficient single-lead ECG classification for multi-label arrhythmia by
 
 **节拍 视为 实例**
 
-![image-20240327143559281](http://sthda9dn6.hd-bkt.clouddn.com/Fuo85Dhw-HA8ouH_YRBCHOZYwf8r)
+![image-20240327143559281](http://verification.longcoding.top/Fuo85Dhw-HA8ouH_YRBCHOZYwf8r)
 
 
 
 **双模态：一维信号 + 二维图片**
 
-![image-20240327143524604](http://sthda9dn6.hd-bkt.clouddn.com/FjcNYGoZN1YBN3HSxnZNdM80SWYj)
+![image-20240327143524604](http://verification.longcoding.top/FjcNYGoZN1YBN3HSxnZNdM80SWYj)
 
 
 
@@ -257,15 +257,15 @@ MVKT-ECG: Efficient single-lead ECG classification for multi-label arrhythmia by
 
 *传统：*
 
-![image-20240327145248469](http://sthda9dn6.hd-bkt.clouddn.com/FkVnwJp6tOwwxZ--DXo1l15fn3fh)
+![image-20240327145248469](http://verification.longcoding.top/FkVnwJp6tOwwxZ--DXo1l15fn3fh)
 
 *新方法*
 
-![image-20240327145025906](http://sthda9dn6.hd-bkt.clouddn.com/Fnddrqbhd0IT3RH11Xg5-YMHi-i4)
+![image-20240327145025906](http://verification.longcoding.top/Fnddrqbhd0IT3RH11Xg5-YMHi-i4)
 
 ​	通过使用最大池化操作从每个模态的实例特征中选择**顶部激活实例特征(代表)**。然后**计算顶部激活实例特征和所有剩余实例特征之间的相关性分数**以获得特征向量，其中包含来自两种模态的信息。最后，将**特征向量和顶部激活实例特征向量融合**，得到每个模态的bag特征。每种模态的袋子特征通过线性层拼接在一起，得到最终的袋子特征。
 
-![image-20240327145455889](http://sthda9dn6.hd-bkt.clouddn.com/Fu86vYzeaSrjlTNJqPk50rE85aSx)
+![image-20240327145455889](http://verification.longcoding.top/Fu86vYzeaSrjlTNJqPk50rE85aSx)
 
 
 
@@ -287,21 +287,21 @@ MVKT-ECG: Efficient single-lead ECG classification for multi-label arrhythmia by
 
 *分段*  - 用具有重叠的滑动窗口
 
-![image-20240327145737234](http://sthda9dn6.hd-bkt.clouddn.com/FtU7Qr5ZWM0JAUX-n-CnwiucWtMS)
+![image-20240327145737234](http://verification.longcoding.top/FtU7Qr5ZWM0JAUX-n-CnwiucWtMS)
 
 **Multi-scale sample layer**
 
-![image-20240327145938698](http://sthda9dn6.hd-bkt.clouddn.com/Fo4R_1qJXLkbb6f0lzXD8I-jCS5l)
+![image-20240327145938698](http://verification.longcoding.top/Fo4R_1qJXLkbb6f0lzXD8I-jCS5l)
 
 多尺度采样模块  名称不错
 
 **SE-Resnet Block**
 
-![image-20240327150034480](http://sthda9dn6.hd-bkt.clouddn.com/FrD7qjLSBvjRtVPqSWHmC5H6Ww-u)
+![image-20240327150034480](http://verification.longcoding.top/FrD7qjLSBvjRtVPqSWHmC5H6Ww-u)
 
 **CPC**
 
-![image-20240327150132721](http://sthda9dn6.hd-bkt.clouddn.com/Fo6jhylOIAAM38mCNeFx0PDKHeGw)
+![image-20240327150132721](http://verification.longcoding.top/Fo6jhylOIAAM38mCNeFx0PDKHeGw)
 
 GAP(全局平均池化)定位的是整体区域，而GMP(全局最大池化)定位的是目标区域中最重要的部分。
 
@@ -319,19 +319,19 @@ GAP(全局平均池化)定位的是整体区域，而GMP(全局最大池化)定�
 
 **模型结构**
 
-![image-20240327151553655](http://sthda9dn6.hd-bkt.clouddn.com/Fh6H-Ok8KNDg1MrXuFwXNjNKiGCn)
+![image-20240327151553655](http://verification.longcoding.top/Fh6H-Ok8KNDg1MrXuFwXNjNKiGCn)
 
 RR表示计算两个分支中CLS token之间的相关系数  => RR-Loss 迫使两个分支朝着最终预测同向而行
 
 **CNN Blocks**
 
-![image-20240327151939118](http://sthda9dn6.hd-bkt.clouddn.com/FiVVTyUs1OP57irjiUK72gGSW7up)
+![image-20240327151939118](http://verification.longcoding.top/FiVVTyUs1OP57irjiUK72gGSW7up)
 
 ⃝+ is element-wise addition
 
 **MSEL**
 
-![image-20240327152059740](http://sthda9dn6.hd-bkt.clouddn.com/FsosvYLsW72QYBTqMRjVFW8yWn5h)
+![image-20240327152059740](http://verification.longcoding.top/FsosvYLsW72QYBTqMRjVFW8yWn5h)
 
 一般采用ViT中的嵌入, Conv1D实现
 
@@ -341,7 +341,7 @@ RR表示计算两个分支中CLS token之间的相关系数  => RR-Loss 迫使�
 
 **Token Select**
 
-![image-20240327152029903](http://sthda9dn6.hd-bkt.clouddn.com/FqJlAwMplpETb2U_cCp7-0xQH603)
+![image-20240327152029903](http://verification.longcoding.top/FqJlAwMplpETb2U_cCp7-0xQH603)
 
 删掉冗余的Token,或许可以在论文中可视化一下自注意力图,直观的描述冗余
 
@@ -355,7 +355,7 @@ RR表示计算两个分支中CLS token之间的相关系数  => RR-Loss 迫使�
 
 ECGNet: Deep Network for Arrhythmia Classification
 
-![image-20240327152958835](http://sthda9dn6.hd-bkt.clouddn.com/FriRBcj2_DfxlrlMWU-kg8yaPsjA)
+![image-20240327152958835](http://verification.longcoding.top/FriRBcj2_DfxlrlMWU-kg8yaPsjA)
 
 Inception Block + Conv Block × N
 
@@ -369,7 +369,7 @@ Inception Block + Conv Block × N
 
 Multi-module Recurrent Convolutional Neural Network with Transformer Encoder for ECG Arrhythmia Classification
 
-![image-20240327153623587](http://sthda9dn6.hd-bkt.clouddn.com/Fkj6LwIApmG5o4N4065tHkp1O6Ar)
+![image-20240327153623587](http://verification.longcoding.top/Fkj6LwIApmG5o4N4065tHkp1O6Ar)
 
 
 
@@ -381,13 +381,13 @@ Multi-module Recurrent Convolutional Neural Network with Transformer Encoder for
 
 *Biomedical Signal Processing and Control*  二区
 
-![image-20240227141810637](http://sthda9dn6.hd-bkt.clouddn.com/FjwE0iqlQ1pMIPOd3hGbi57kzJb7)
+![image-20240227141810637](http://verification.longcoding.top/FjwE0iqlQ1pMIPOd3hGbi57kzJb7)
 
 
 
 ***Segmentation:***
 
-![image-20240227143633528](http://sthda9dn6.hd-bkt.clouddn.com/Fru1F4NH2dxJMIbnipQdone8UfHs)
+![image-20240227143633528](http://verification.longcoding.top/Fru1F4NH2dxJMIbnipQdone8UfHs)
 
 [batch, 1, L]  => [batch, num_seg, len_seg]
 
@@ -409,9 +409,9 @@ LSTM 输入数据格式 Batch, num_seq, len_seq
 
 ***图例：***
 
-![image-20240228141118686](http://sthda9dn6.hd-bkt.clouddn.com/FuGAi3WkezRO-whsi4IhnZ2AhOYm)
+![image-20240228141118686](http://verification.longcoding.top/FuGAi3WkezRO-whsi4IhnZ2AhOYm)
 
-![image-20240228141137134](http://sthda9dn6.hd-bkt.clouddn.com/Fi2DDId0llMuv6ZCQELc4_3px43v)
+![image-20240228141137134](http://verification.longcoding.top/Fi2DDId0llMuv6ZCQELc4_3px43v)
 
 类似MLP-Mixer，用RNN建模信息融合，隐状态传递时序信息
 
@@ -439,7 +439,7 @@ LSTM 输入数据格式 Batch, num_seq, len_seq
 
 3级注意力：（节拍级、节律级和频率级）领域知识特征
 
-![image-20240320125118402](http://sthda9dn6.hd-bkt.clouddn.com/FhMwwXFFzXiQK-fdxywD7iQOxcpz)
+![image-20240320125118402](http://verification.longcoding.top/FhMwwXFFzXiQK-fdxywD7iQOxcpz)
 
 
 
@@ -471,7 +471,7 @@ LSTM 输入数据格式 Batch, num_seq, len_seq
 
 ​	一阶差分： 用来提取信号的变化趋势和特征
 
-​	![image-20240320134815892](http://sthda9dn6.hd-bkt.clouddn.com/FmyxGSZaakCzhtV7kNZZN0i7B-tw)
+​	![image-20240320134815892](http://verification.longcoding.top/FmyxGSZaakCzhtV7kNZZN0i7B-tw)
 
 <div style='color:red; font-weight:bolder'>Rhythm Level</div>
 
@@ -493,7 +493,7 @@ LSTM 输入数据格式 Batch, num_seq, len_seq
 
 **模型框架：**
 
-![image-20240320130936524](http://sthda9dn6.hd-bkt.clouddn.com/Fvm0o2A8wCetOmgRDCYiUNPBrwsA)
+![image-20240320130936524](http://verification.longcoding.top/Fvm0o2A8wCetOmgRDCYiUNPBrwsA)
 
 
 
@@ -519,13 +519,13 @@ bandpass_list = [wander, ECG_preprocessed]
 highpass_list = [noise]
 ```
 
-![image-20240320133906384](http://sthda9dn6.hd-bkt.clouddn.com/FrR37eonOewex5q0nXqAJYTg6D4g)
+![image-20240320133906384](http://verification.longcoding.top/FrR37eonOewex5q0nXqAJYTg6D4g)
 
 
 
 **Sliding Window Segmentation**:  固定窗口，重叠分段（不用先定位R峰再分段）
 
-![image-20240320134653351](http://sthda9dn6.hd-bkt.clouddn.com/FmCb242aCoG5ncSbExr9MPjd-J_1)
+![image-20240320134653351](http://verification.longcoding.top/FmCb242aCoG5ncSbExr9MPjd-J_1)
 
 计算一阶差商、标准差、功率谱密度估计作为**统计特征**
 
@@ -537,7 +537,7 @@ L： 经过Conv提取段内信息后的数据
 
 H：经过RNN融合段间信息后的数据
 
-![image-20240320141812190](http://sthda9dn6.hd-bkt.clouddn.com/FmGKfSedPYpDJXu9LswZJS-62TJW)
+![image-20240320141812190](http://verification.longcoding.top/FmGKfSedPYpDJXu9LswZJS-62TJW)
 
 $$
 V^{T} ∈ R^{1×D_{α}}
@@ -579,7 +579,7 @@ $$
 
 **对比学习CPC框架结构**
 
-![image-20240416131704929](http://sthda9dn6.hd-bkt.clouddn.com/FofvehMrA5uriBI78cbBS5YbIShM)
+![image-20240416131704929](http://verification.longcoding.top/FofvehMrA5uriBI78cbBS5YbIShM)
 
 为什么用MLP不用CNN，因为**ECG**采样频率为**100Hz**比**音频**典型采用频率**10 kHz**粗糙，使用MLP进行非线性映射
 
@@ -589,7 +589,7 @@ $$
 
 **数据集：**
 
-![image-20240416131354561](http://sthda9dn6.hd-bkt.clouddn.com/FmyaN3BQaErrvtRqbXV81LJKpu8_)
+![image-20240416131354561](http://verification.longcoding.top/FmyaN3BQaErrvtRqbXV81LJKpu8_)
 
 
 
@@ -603,7 +603,7 @@ $$
 
 
 
-![image-20240416132013141](http://sthda9dn6.hd-bkt.clouddn.com/FkrtZdqFeWsbHP7LvJmmgjWfRd6x)
+![image-20240416132013141](http://verification.longcoding.top/FkrtZdqFeWsbHP7LvJmmgjWfRd6x)
 
 ***预训练的表示与下游分类任务高度相关***
 
@@ -613,7 +613,7 @@ $$
 
 ***自监督预训练提高了下游分类器的稳健性***
 
-![image-20240416134716985](http://sthda9dn6.hd-bkt.clouddn.com/Fja8j4BZTAsa91EHE0sUcc3tte6N)
+![image-20240416134716985](http://verification.longcoding.top/Fja8j4BZTAsa91EHE0sUcc3tte6N)
 
 表明在大数据集上预训练，在下游任务中，需要更少的标签数据就可以达到有监督训练的效果
 
@@ -638,7 +638,7 @@ Multi-scale Progressive Gated Transformer for Physiological Signal Classificatio
 
 框架：
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FgyMITh5kc3J10LomW2rU9tqJxxD" alt="image-20240615220014092" style="zoom: 67%;" />
+<img src="http://verification.longcoding.top/FgyMITh5kc3J10LomW2rU9tqJxxD" alt="image-20240615220014092" style="zoom: 67%;" />
 
 
 
@@ -659,11 +659,11 @@ Multi-scale Progressive Gated Transformer for Physiological Signal Classificatio
 
 对比：时间-空间-患者
 
-![image-20240731153848210](http://sthda9dn6.hd-bkt.clouddn.com/FiAKTZPKBclwcqZ5m86_plzRT0wL)
+![image-20240731153848210](http://verification.longcoding.top/FiAKTZPKBclwcqZ5m86_plzRT0wL)
 
 
 
-![image-20240731153914807](http://sthda9dn6.hd-bkt.clouddn.com/FrZOif0kPis9FnlpxevBwTlrGRXA)
+![image-20240731153914807](http://verification.longcoding.top/FrZOif0kPis9FnlpxevBwTlrGRXA)
 
 Figure：（左）对比多段编码、（中）对比多导联编码和（右）对比多段多导联编码中的K个实例的小批量的相似性矩阵。将基于所有应用的变换运算符TA和TB对生成附加矩阵。沿着边缘沿着示出了示例性变换的ECG实例。为了识别阳性对，我们将每个实例与其患者ID相关联。通过设计，对角元素（绿色）对应于同一患者，有助于等式2.类似地，实例1和实例50（黄色）属于同一患者，有助于等式（1）。3.蓝色区域对应于阴性示例，因为它们涉及来自不同患者的实例。
 
@@ -747,9 +747,9 @@ ncombinations += 1
 loss = loss/(loss_terms*ncombinations)  # loss/(4*6) 每个视图4份loss，总共算6对
 ```
 
-![image-20240731205058921](http://sthda9dn6.hd-bkt.clouddn.com/FjYJ_QqmCMk7qjA-ylYR4ZJlLNsj)
+![image-20240731205058921](http://verification.longcoding.top/FjYJ_QqmCMk7qjA-ylYR4ZJlLNsj)
 
-![image-20240731204919944](http://sthda9dn6.hd-bkt.clouddn.com/FqAMVPcFHZsfJvQDYfgwW3l1h1g8)
+![image-20240731204919944](http://verification.longcoding.top/FqAMVPcFHZsfJvQDYfgwW3l1h1g8)
 
 
 
@@ -771,13 +771,13 @@ loss = loss/(loss_terms*ncombinations)  # loss/(4*6) 每个视图4份loss，总�
 
 3种嵌入方式，***时间-空间-时空***
 
-![image-20240731152623466](http://sthda9dn6.hd-bkt.clouddn.com/FlMb8O9N6mflZp08gDh4JC6fnKTd)
+![image-20240731152623466](http://verification.longcoding.top/FlMb8O9N6mflZp08gDh4JC6fnKTd)
 
 
 
 模型：
 
-![image-20240731152710546](http://sthda9dn6.hd-bkt.clouddn.com/FmsW4LnhaLoqEoKTePQMa4II-s4q)
+![image-20240731152710546](http://verification.longcoding.top/FmsW4LnhaLoqEoKTePQMa4II-s4q)
 
 position embeddings： 使用同一组位置-共享
 
@@ -914,7 +914,7 @@ MHSABlock = getattr(model, 'block3')   # 1, 512, 125
 
 
 
-![image-20240307212600434](http://sthda9dn6.hd-bkt.clouddn.com/FsNnhqajz8TUXNFuHkjNO7x2TQ6r)
+![image-20240307212600434](http://verification.longcoding.top/FsNnhqajz8TUXNFuHkjNO7x2TQ6r)
 
 <center style="font-weight:bolder; color:rgb(4A,4A,4A);">模型框架</center>
 
@@ -924,11 +924,11 @@ MHSABlock = getattr(model, 'block3')   # 1, 512, 125
 
 标准一维卷积，多尺度提取特征，提取ECG形态信息。***全面***提取（携带冗余信息）  # shape: 12, 1000  => 128，1000
 
-![image-20240307212809248](http://sthda9dn6.hd-bkt.clouddn.com/Fu16qcDleveylB7vzaWnL5xUGg9d)
+![image-20240307212809248](http://verification.longcoding.top/Fu16qcDleveylB7vzaWnL5xUGg9d)
 
 **Block：**
 
-![image-20240307213204707](http://sthda9dn6.hd-bkt.clouddn.com/Fq3DUteSU_WSdplw7JfmABvNFYbc)
+![image-20240307213204707](http://verification.longcoding.top/Fq3DUteSU_WSdplw7JfmABvNFYbc)
 
 **Patch Fusion:**
 
@@ -938,7 +938,7 @@ MHSABlock = getattr(model, 'block3')   # 1, 512, 125
 
 *图示：* ①Token间  ②Token内
 
-![image-20240312132746778](http://sthda9dn6.hd-bkt.clouddn.com/FixTAltVtt8JDqNcAB9Cd44Tk2mV)
+![image-20240312132746778](http://verification.longcoding.top/FixTAltVtt8JDqNcAB9Cd44Tk2mV)
 
 #### 自注意力
 
@@ -1068,13 +1068,13 @@ F1 Scores: [0.9028, 0.9587, 0.9412, 0.9444, 0.7861, 0.7308, 0.8046, 0.7895, 0.78
 
 #### 注意力可视化
 
-![image-20240321214200346](http://sthda9dn6.hd-bkt.clouddn.com/Fr9n4nyTsCBn5iEaSrXymPMghq5e)
+![image-20240321214200346](http://verification.longcoding.top/Fr9n4nyTsCBn5iEaSrXymPMghq5e)
 
-![image-20240321214221728](http://sthda9dn6.hd-bkt.clouddn.com/Fq7kGrJi1Zr4ArjVKTra1OBKCO4v)
+![image-20240321214221728](http://verification.longcoding.top/Fq7kGrJi1Zr4ArjVKTra1OBKCO4v)
 
-![image-20240321214245731](http://sthda9dn6.hd-bkt.clouddn.com/Fpzwlg1dLDAUDaNWNS6nednn_qPs)![image-20240323153412375](http://sthda9dn6.hd-bkt.clouddn.com/FlC1-fpMQR9PBZW4hZwHUEUYlkFw)
+![image-20240321214245731](http://verification.longcoding.top/Fpzwlg1dLDAUDaNWNS6nednn_qPs)![image-20240323153412375](http://verification.longcoding.top/FlC1-fpMQR9PBZW4hZwHUEUYlkFw)
 
-![image-20240323153505140](http://sthda9dn6.hd-bkt.clouddn.com/FqxORjFqQpnvQPjU5bw4pHZZTWkG)
+![image-20240323153505140](http://verification.longcoding.top/FqxORjFqQpnvQPjU5bw4pHZZTWkG)
 
 
 
@@ -1084,7 +1084,7 @@ F1 Scores: [0.9028, 0.9587, 0.9412, 0.9444, 0.7861, 0.7308, 0.8046, 0.7895, 0.78
 
 **在多头部分嵌入多尺度**。8头自注意力， 1/2头执行像素级自注意力，1/4头执行下采样2倍的块级自注意力，1/4头执行下采样4倍的域级自注意力
 
-![image-20240321215459046](http://sthda9dn6.hd-bkt.clouddn.com/FjM0Qp7pfXVvJTZ7EzvwhckVNV67)
+![image-20240321215459046](http://verification.longcoding.top/FjM0Qp7pfXVvJTZ7EzvwhckVNV67)
 
 **在计算自注意力时，实现多尺度**
 
@@ -1096,13 +1096,13 @@ F1 Scores: [0.9065, 0.9283, 0.8511, 0.9296, 0.7865, 0.6531, 0.8193, 0.8421, 0.83
 
 ❗**PAC**
 
-![image-20240323152854941](http://sthda9dn6.hd-bkt.clouddn.com/FpEiiDzmrebCmlBWg6NzE0mvsE0h)
+![image-20240323152854941](http://verification.longcoding.top/FpEiiDzmrebCmlBWg6NzE0mvsE0h)
 
-![image-20240321221939637](http://sthda9dn6.hd-bkt.clouddn.com/FvS0TbuQv2iuecYcp_3YCOdaReWG)
+![image-20240321221939637](http://verification.longcoding.top/FvS0TbuQv2iuecYcp_3YCOdaReWG)
 
-![image-20240321221958275](http://sthda9dn6.hd-bkt.clouddn.com/FhOpvWHbC-0OYZbH2e3HeJfOe_0H)
+![image-20240321221958275](http://verification.longcoding.top/FhOpvWHbC-0OYZbH2e3HeJfOe_0H)
 
-![image-20240321222022287](http://sthda9dn6.hd-bkt.clouddn.com/Frz6qYKV9L3zNIT00capxCx2KJIN)
+![image-20240321222022287](http://verification.longcoding.top/Frz6qYKV9L3zNIT00capxCx2KJIN)
 
 
 
@@ -1281,7 +1281,7 @@ Adamw + CosineAnnealingLR
 
 ### time domain
 
-![image-20240422221233452](http://sthda9dn6.hd-bkt.clouddn.com/Fh5jqjyTnEuzDskq6BThKTGZmZD6)
+![image-20240422221233452](http://verification.longcoding.top/Fh5jqjyTnEuzDskq6BThKTGZmZD6)
 
 |        | I-AVB  | AF     | LBBB   | LBBB   | NORM   | PAC    | STD    | PVC    | STE    | 平均       | 描述                |
 | :----: | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ---------- | ------------------- |
@@ -1291,7 +1291,7 @@ Adamw + CosineAnnealingLR
 
 ### frequency domain
 
-![image-20240422221515722](http://sthda9dn6.hd-bkt.clouddn.com/FhOazUABP1FEUBFSsm73IMKpRG1U)
+![image-20240422221515722](http://verification.longcoding.top/FhOazUABP1FEUBFSsm73IMKpRG1U)
 
 ```python
 # [batch_size, num_leads, data_length]  =STFT=> [batch_size, num_leads, W, H]
@@ -1307,7 +1307,7 @@ Adamw + CosineAnnealingLR
 
 ### two-stream: time and frequency domain
 
-![image-20240422214551861](http://sthda9dn6.hd-bkt.clouddn.com/FqxAImdtxGqN53vY_GDxfwBhxXMO)
+![image-20240422214551861](http://verification.longcoding.top/FqxAImdtxGqN53vY_GDxfwBhxXMO)
 
 |        | I-AVB  | AF     | LBBB   | LBBB   | NORM   | PAC    | STD    | PVC    | STE    | 平均       | 描述                                |
 | :----: | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ---------- | ----------------------------------- |
@@ -1321,19 +1321,19 @@ Adamw + CosineAnnealingLR
 
 1️⃣
 
-![image-20240511210910969](http://sthda9dn6.hd-bkt.clouddn.com/FkLWFrtOPtNHBGo55bV9mAsYVCbv)
+![image-20240511210910969](http://verification.longcoding.top/FkLWFrtOPtNHBGo55bV9mAsYVCbv)
 
 ***Inception depthwise convlution***
 
 2️⃣ 
 
-![image-20240511211011416](http://sthda9dn6.hd-bkt.clouddn.com/Fjr6plVqNa0GART9yPBiBdJMP-c7)
+![image-20240511211011416](http://verification.longcoding.top/Fjr6plVqNa0GART9yPBiBdJMP-c7)
 
 ***Self-Attention 内部实现粗细粒度***
 
 3️⃣ 
 
-![image-20240511211237019](http://sthda9dn6.hd-bkt.clouddn.com/FiKUcUVgiO_MBNzz1xtBXICK4OCN)
+![image-20240511211237019](http://verification.longcoding.top/FiKUcUVgiO_MBNzz1xtBXICK4OCN)
 
 ***特征图  => 金字塔结构***  （中间CNN和Transformer融合，交叉堆叠）
 
@@ -1362,7 +1362,7 @@ Acc: ['0.9738', '0.9767', '0.9985', '0.9476', '0.9185', '0.9374', '0.9403', '0.9
 
 训练集包含 6,877 个（女性：3178 个;男性：3699 个）12 导联心电图记录，持续时间从 6 秒到 60 秒不等。
 
-![image-20240511213646105](http://sthda9dn6.hd-bkt.clouddn.com/FhIixT4TQjVJ9B1r2ZEnuln2pA5b)
+![image-20240511213646105](http://verification.longcoding.top/FhIixT4TQjVJ9B1r2ZEnuln2pA5b)
 
 论文中是 1-8 训练；9 验证；10 测试；
 
@@ -1372,7 +1372,7 @@ Acc: ['0.9738', '0.9767', '0.9985', '0.9476', '0.9185', '0.9374', '0.9403', '0.9
 
 包含来自 18885 名 10 秒长度患者的 21837 个临床 12 导联心电图
 
-![image-20240511214058996](http://sthda9dn6.hd-bkt.clouddn.com/FiBLlDeJjXN_q5PJnTh5NOaZXFEL)
+![image-20240511214058996](http://verification.longcoding.top/FiBLlDeJjXN_q5PJnTh5NOaZXFEL)
 
 ⭐ 特定患者的所有记录都分配给同一折。折 9 和 10 中的记录至少经过一次人工评估，因此具有特别高的标签质量。因此，我们建议使用 1-8 折 作为训练集，折叠 9 作为验证集，折叠 10 作为测试集。
 
@@ -1382,11 +1382,11 @@ Acc: ['0.9738', '0.9767', '0.9985', '0.9476', '0.9185', '0.9374', '0.9403', '0.9
 
 包含 10,646 名患者的 12 导联心电图，采样率为 500 Hz，11 种常见心律
 
-![image-20240513120253717](http://sthda9dn6.hd-bkt.clouddn.com/Fgm3PAj0mAdD6TRZ_ykzlYyXSOMJ)
+![image-20240513120253717](http://verification.longcoding.top/Fgm3PAj0mAdD6TRZ_ykzlYyXSOMJ)
 
 类别分组：
 
-![image-20240513195732015](http://sthda9dn6.hd-bkt.clouddn.com/Fk_uTCl4aFYJqgBY6Be9yjLslIL_)
+![image-20240513195732015](http://verification.longcoding.top/Fk_uTCl4aFYJqgBY6Be9yjLslIL_)
 
 
 
@@ -1445,7 +1445,7 @@ multi-class:  softmax转概率，取概率最大的下标作为预测标签
 
 ### 实验结果
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FlNas9rDgTfpFaQkuM2RTtL4qJGn" alt="image-20240603201428685" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/FlNas9rDgTfpFaQkuM2RTtL4qJGn" alt="image-20240603201428685" style="zoom:80%;" />
 
 1️⃣ CNN：优势=>强大的提取局部模式的能力； => 提出局部细节，边缘，纹理模式信息。  ⭐ 高频信息
 
@@ -1461,13 +1461,13 @@ multi-class:  softmax转概率，取概率最大的下标作为预测标签
 
 - **Block基本结构**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FrM-MsmNgETP653AMr5X6U3uZeqD" alt="image-20240603173800170" style="zoom:67%;" />
+<img src="http://verification.longcoding.top/FrM-MsmNgETP653AMr5X6U3uZeqD" alt="image-20240603173800170" style="zoom:67%;" />
 
 
 
 - **InceptionNext**
 
-![image-20240603173849448](http://sthda9dn6.hd-bkt.clouddn.com/FnoK7APToyLRLSNOXXRpdQD5webA)
+![image-20240603173849448](http://verification.longcoding.top/FnoK7APToyLRLSNOXXRpdQD5webA)
 
 *DConv: 根据通道分组，每组使用不同卷积核大小的DWConv*
 
@@ -1475,7 +1475,7 @@ multi-class:  softmax转概率，取概率最大的下标作为预测标签
 
 - **InceptionMHSALinear**
 
-![image-20240603140051484](http://sthda9dn6.hd-bkt.clouddn.com/FjOQLnqM8UaLfoCO-p21jBmkb8my)
+![image-20240603140051484](http://verification.longcoding.top/FjOQLnqM8UaLfoCO-p21jBmkb8my)
 
 *Local Block 和 Global Block 线性拼接*
 
@@ -1483,7 +1483,7 @@ multi-class:  softmax转概率，取概率最大的下标作为预测标签
 
 - **InceptionFormer**
 
-![image-20240603140214408](http://sthda9dn6.hd-bkt.clouddn.com/Fo31v6MWxV47NjR4fvosmD_-NzCh)
+![image-20240603140214408](http://verification.longcoding.top/Fo31v6MWxV47NjR4fvosmD_-NzCh)
 
 *Local Block 和 Global Block 交叉堆叠进行融合*
 
@@ -1491,11 +1491,11 @@ multi-class:  softmax转概率，取概率最大的下标作为预测标签
 
 - **InceptionShuntSA**
 
-![image-20240603163710962](http://sthda9dn6.hd-bkt.clouddn.com/Fuv6HWHKdoVULmpy0H2qcFMfaK-C)
+![image-20240603163710962](http://verification.longcoding.top/Fuv6HWHKdoVULmpy0H2qcFMfaK-C)
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fk8GpNJFjqD7ISe9cjShaklzAOXx" alt="image-20240603163728815" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/Fk8GpNJFjqD7ISe9cjShaklzAOXx" alt="image-20240603163728815" style="zoom:80%;" />
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fp25ZJWBfu-R4-2-AZe_RoRAkYmg" alt="image-20240603163748074" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/Fp25ZJWBfu-R4-2-AZe_RoRAkYmg" alt="image-20240603163748074" style="zoom:80%;" />
 
 *一半注意力头执行细粒度注意力，另一半头执行粗粒度注意力*
 
@@ -1503,9 +1503,9 @@ multi-class:  softmax转概率，取概率最大的下标作为预测标签
 
 - **InceptionHiLoSA**
 
-![image-20240603172844194](http://sthda9dn6.hd-bkt.clouddn.com/Fg2w7c8N-CkizyyzMEuICS2x0JKa)
+![image-20240603172844194](http://verification.longcoding.top/Fg2w7c8N-CkizyyzMEuICS2x0JKa)
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FomolO0EP8QM7lp00ZEgOwJgKP0F" alt="image-20240603172708413" style="zoom: 67%;" />
+<img src="http://verification.longcoding.top/FomolO0EP8QM7lp00ZEgOwJgKP0F" alt="image-20240603172708413" style="zoom: 67%;" />
 
 
 
@@ -1517,7 +1517,7 @@ multi-class:  softmax转概率，取概率最大的下标作为预测标签
 
 - **SandwichNet**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FvjbaounpDcp9XcvNUi0Xcctym7X" alt="image-20240603164045740" style="zoom:80%;" />
+<img src="http://verification.longcoding.top/FvjbaounpDcp9XcvNUi0Xcctym7X" alt="image-20240603164045740" style="zoom:80%;" />
 
 
 
@@ -1525,7 +1525,7 @@ multi-class:  softmax转概率，取概率最大的下标作为预测标签
 
 - **InceptionFormer, M-DWConv 加入倒残差结构 ** ***(Inverted residual block)***
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Foj-NHXzzmFBZgXmB_JEIfmvb1Wc" alt="image-20240603202132653" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/Foj-NHXzzmFBZgXmB_JEIfmvb1Wc" alt="image-20240603202132653" style="zoom:50%;" />
 
 *在多尺度DWConv前嵌入Conv1×1 扩张通道数，后嵌入Conv1×1 进行降维。*
 
@@ -1535,7 +1535,7 @@ multi-class:  softmax转概率，取概率最大的下标作为预测标签
 
 - **SandwichProNet**
 
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/Fgs-6JEzvvush1Voc2ORJeK1KHtO" alt="image-20240611122337229" style="zoom:67%;" />
+<img src="http://verification.longcoding.top/Fgs-6JEzvvush1Voc2ORJeK1KHtO" alt="image-20240611122337229" style="zoom:67%;" />
 
 
 

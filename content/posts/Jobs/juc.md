@@ -9,7 +9,7 @@ ShowToc: true
 TocOpen: true
 ---
 
-### 1 如何创建多线程
+### 1 如何创建线程
 
 1） 实现**Runnable**接口
 
@@ -23,7 +23,7 @@ new Thread(MyRunnable()).start();
 
 - 重写run()方法
 
-3）Callable接口&&FutureTask
+3）**Callable接口**&&FutureTask
 
 - 实现Callable call()方法，使用FutureTask包装Callable对象，通过Thread启动
 
@@ -132,6 +132,12 @@ LinkedBlockingQueue: 当提交的任务多于线程数时，会将多余的暂�
 
 
 ### 3 线程安全的集合
+
+- 加锁
+- 内置锁的 线程安全的容器
+- 原子类
+- 自己独享的资源：局部变量+ThreadLocal
+- 无锁CAS
 
 ```java
 concurrentHashMap: 同步HashMap<K->V>
@@ -398,7 +404,7 @@ value.compareAndSet(oldValue, newValue) => oldvalue == value.get() ? value = new
 
 **检查第一次得到的旧值与修改时的值是否一致，判断是否被动过，没动过再改**
 
-![image-20250303211427792](http://sthda9dn6.hd-bkt.clouddn.com/FivGPltzjm8vcyR15n4BDC2-1Bq9)
+![image-20250303211427792](http://verification.longcoding.top/FivGPltzjm8vcyR15n4BDC2-1Bq9)
 
 => **线程安全的容器**：concurrentHashMap or copyonWriteArrayList❌ **不懂**
 
@@ -412,7 +418,9 @@ value.compareAndSet(oldValue, newValue) => oldvalue == value.get() ? value = new
 
 初始(资源) => 可运行(CPU队列) => 运行 => 终止
 
-​                                     阻塞&等待    
+​                                                阻塞&等待    
+
+![image-20250418231047799](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250418231047799.png)
 
 
 
@@ -422,7 +430,7 @@ value.compareAndSet(oldValue, newValue) => oldvalue == value.get() ? value = new
 
 1）**共享变量：**访问共享内存变量来交换信息；
 
-2）**同步机制：**
+2）**同步机制：**  阻塞&唤醒
 
 synchronized() => wait => notify&notifyAll  （Object中的方法）
 
@@ -529,6 +537,66 @@ shutdownNow：强制停止
 
 
 
+⭐**核心线程数、最大线程数、空闲线程最大存活时间、阻塞队列、拒绝策略**
+
+Threads: [⭐⭐⭐⏱️⏱️⏱️]
+
+Task:        [🏷️🏷️🏷️🏷️🏷️🏷️]
+
+满了拒绝
+
+
+
+### Java线程池的线程数设置
+
+CPU密集型：CPU核心数+1。 这样刚好满载，并且当有线程下线，马上有替补上场
+
+IO密集型：CPU核心*2.  满载情况，流水线形式，刚好CPU核心的线程等待IO，下一批线程补上。
+
+
+
+### Java中的线程池拒绝策略
+
+当线程满载 + 队列满载
+
+- 抛出异常
+- 交付调用者线程执行提交的任务
+- 删除最早提交的任务
+- 丢弃当前提交的任务
+- 自定义拒绝策略(根据重要性吧，排序)
+
+
+
+### 线程池内部线程异常怎么办
+
+评论
+
+- 执行方法是execute时，可以看到堆栈异常，移除异常线程并补充一个新的线程
+
+- 执行方法是submit时，可以调用Future.get, 捕捉异常，但不移除和补充线程
+
+面试鸭
+
+- 线程内部手动try-catch
+
+
+
+### 线程安全的集合
+
+Vector：动态数组
+
+HashTable：线程安全的Hash表
+
+ConcurrentHashmap
+
+CopyOnWriteArrayList
+
+BlockingQueue
+
+LinkedBlockingQueue
+
+
+
 ### 9 并发工具类
 
 - ConcurrentHashMap：线程安全的HashMap，多线程修改临界区时加锁或者其他方法，=>安全  
@@ -579,13 +647,13 @@ final boolean nonfairTryAcquire(int acquires) {
 
 - 争抢不到锁就入**AQS 等待队列**进行等待，**AQS 等待队列**是一个双向队列
 
-- 抢到锁但是条件condition不满足则入**条件队列(每个condition维护一个)**，单向链表
+- **抢到锁但是条件condition不满足**则入**条件队列(每个condition维护一个)**，单向链表
 
 是否公平锁 => 线程获取锁 是加入同步队列尾部还是直接利用CAS争夺锁
 
 
 
-![image-20250305195628416](http://sthda9dn6.hd-bkt.clouddn.com/FqPim2avU5jlSZ9MgW892NKCux-W)
+![image-20250305195628416](http://verification.longcoding.top/FqPim2avU5jlSZ9MgW892NKCux-W)
 
 `ReentrantLock` 是基于 AQS 实现的可重入独占锁，支持公平锁和非公平锁两种模式。其核心是通过 AQS 的状态管理（`state`）和等待队列来实现线程的阻塞和唤醒。非公平锁的性能通常优于公平锁，但**公平锁可以避免线程饥饿**问题。`ReentrantLock` 提供了比 `synchronized` 更灵活的锁操作，是 Java 并发编程中的重要工具
 
@@ -597,16 +665,18 @@ final boolean nonfairTryAcquire(int acquires) {
 
 当synchronized修饰在方法或者代码块上时，会对特定的对象或者类加锁，确保只有一个线程能运行加锁的代码块；
 
-- synchronized修饰方法：方法的**标志**位会增加一个ACC_SYNCHRONIZED标志，检查标志再获取锁，这部分进行同步控制
+- synchronized修饰方法：**方法的标志**位会增加一个ACC_SYNCHRONIZED标志，检查标志再获取锁，这部分进行同步控制
 - synchronized修饰代码块：会在代码块前后插入monitorenter和monitorexit字节码指令，上锁+解锁
 
 synchronized是可重入锁
 
 
 
+
+
 ### 491 Synchronized和ReentrantLock
 
-![image-20250305205348468](http://sthda9dn6.hd-bkt.clouddn.com/FmLzFQnZFDkECyV1ZTIc2ZEK_yyO)
+![image-20250305205348468](http://verification.longcoding.top/FmLzFQnZFDkECyV1ZTIc2ZEK_yyO)
 
 **Synchronized：**基于JVM实现
 
@@ -628,15 +698,36 @@ synchronized是可重入锁
 
 
 
-轻量级锁阶段：如果某个线程尝试获取一个被偏向锁锁定的对象，那么就会进入轻量级锁阶段(**多个线程交替，不同时竞争**)。此时，JVM会使用CAS操作来尝试获取锁。如果CAS成功，那么就得到锁，否则，进入重量级锁阶段。
+轻量级锁阶段：如果某个线程尝试获取一个被偏向锁锁定的对象，那么就会进入轻量级锁阶段(**多个线程交替，不同时竞争**)。此时，JVM会使用**CAS操作**来尝试获取锁。如果CAS成功，那么就得到锁，否则，进入重量级锁阶段。
 
 
 
-重量级锁阶段：当轻量级锁阶段的CAS失败(**有线程CAS失败******，同时竞争******)，升级为重量级锁。意味着拿不到锁的线程会进入阻塞状态，需要进行上下文切换，导致性能下降。
+重量级锁阶段：当轻量级锁阶段的CAS失败(**有线程CAS失败******，同时竞争******)，升级为重量级锁。意味着拿不到锁的线程会进入**阻塞状态**，需要进行上下文切换，导致性能下降。
+
+
+
+### 495 什么是Java中的锁自适应自旋
+
+思想：在锁竞争比较少的情况下，线程进入等待状态前，先执行一段自旋操作竞争锁，而不是直接进入等待状态。这样可以减少线程上下文环境切换带来的性能开销。
+
+- 自旋：竞争锁失败后，线程会自旋一段时间争抢锁。反复检查
+- 自适应：动态调整自旋的次数。基于之前的自旋结果，上次很快拿到锁，那么自旋久一点，否则自旋少一些。
+
+
+
+### 11373 Volatile 和 synchronized
+
+Volatile 修饰字段-变量：每次读写内存中的变量，保证变量的修改线程及时可见性
+
+synchronized加锁，保证原子性，同一时间仅该线程占有该共享资源。
 
 
 
 ### 496 如何优化Java中锁的使用？
+
+锁粒度(分段) or 无锁(CAS)
+
+
 
 1. **减少锁的粒度**：
    1. 减少加锁的范围，减少锁的持续时间
@@ -659,7 +750,7 @@ synchronized是可重入锁
 
 ### 499 读写锁
 
-允许多个线程同时读操作，但是写操作需要加锁(单个线程)。
+**允许多个线程同时读操作**，但是**写操作需要加锁(**单个线程)。
 
 => 读写+写写操纵是互斥操作；⭐适合读多写少的情况
 
@@ -698,11 +789,15 @@ try{
 
  java memory model
 
-用于描述线程何时从主内存中读取数据、何时把数据写回主存中
+**用于描述线程何时从主内存中读取数据、何时把数据写回主存中**
+
+**屏蔽各操作系统之间的硬件差异，描述多个线程环境中的变量如何在内存中储存和传递**
+
+![image-20250419001029125](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250419001029125.png)
 
 JMM核心目标
 
-- **可见性**：确保某个线程的修改，其他线程及时可见。 使用volatile关键字强制线程每次读写都直接从主内存中获取新值
+- **可见性**：确保某个线程的修改，其他线程及时可见。 使用**volatile**关键字强制线程每次读写都直接从主内存中获取新值
 - **有序性**：指线程执行操作的顺序，JMM允许某些指令通过指令重拍提高性能，且保证线程内的操作顺序不会被破坏，通过`happens-before`关系保证跨线程的有序性。
 - **原子性：**指操作不可分割，线程不会在执行过程中被中断。
 
@@ -724,17 +819,24 @@ Why JMM：
 
 每个线程自己**独享的独立变量副本**，避免多个线程间的变量共享和竞争，解决线程安全问题。
 
-**每个**线程维护一个`ThreadLocalMap` 用于存储线程独立的变量副本，ThreadLocalMap以ThreadLocal实例为键，不同线程通过自己ThreadLocal身份获取各自的变量副本。
+**每个**线程维护一个`ThreadLocalMap` 用于存储线程独立的变量副本，ThreadLocalMap以**ThreadLocal实例**为键，不同线程通过自己(线程独立的)ThreadLocal身份获取各自的变量副本。
 
 避免同一个ThreadLocalMap的竞争
+
+**应用场景**
+
+- 用户上下文管理
+- 数据库连接管理
+
+
 
 ### 517 Java中wait、notify和notifyALL
 
 这三个方法都是Object对象定义的方法，用于线程之间的通信，且需要在Synchronized修饰内使用
 
-- wait => 线程进入等待状态，释放锁
-- notify => 唤醒一个在等待的线程
-- notifyALL => 唤醒所有等待的线程
+- **wait** => 线程进入等待状态，释放锁
+- **notify** => 唤醒一个在等待的线程
+- **notifyALL** => 唤醒所有等待的线程
 
 
 
@@ -764,7 +866,7 @@ Why JMM：
 
 ### 6304 如何知晓子线程是否执行完毕？
 
-- ThreadObj.join() 会等待对应子线程执行完毕
+- ThreadObj.join() 会等待对应子线程执行完毕，套娃，线程A<=>线程B...
 - FutureTask+Callable   futrue.get() 拿到线程执行完成的结果
 - 回调机制：完成后，调用回调函数通知主线程，异步了
 
@@ -875,6 +977,31 @@ sout("all thread finish")
 - CountDownLatch，等待其他的线程countdown
 - semaphore，限制异步为同步顺序
 
+==
+
+- synchronized  **等待&唤醒**
+
+```java
+public void methodA() {
+    synchronized (lock) {  // 锁的是 lock
+        lock.wait();       // wait() 也是在 lock 上调用 ✅, 释放锁，并进入等待状态
+    }
+}
+
+public void methodB() {
+    synchronized (lock) {  // 锁的是 lock
+        lock.notify();     // notify() 也是在 lock 上调用 ✅
+    }
+}
+```
+
+- reentrantLock + condition
+- 信号量
+- Thread中的Join()会进行等待线程执行完毕，套娃
+- 单线程池，有序提交任务，**顺序执行**
+
+
+
 
 
 ### 488 Java阻塞队列
@@ -883,11 +1010,15 @@ sout("all thread finish")
 - LinkedBlockingQueue
 - PriorBlockingQueue praɪə(r)
 
+- delayQueue: 当队列中元素延迟时间到了，才能取出来
+
 
 
 ### 489 原子类
 
 - AtomicInterger                           əˈtɒmɪk ˈɪntɪdʒə(r)
+- AtomicLong
+- AtomicBoolean
 - AtomicStampedReference            stæmpt
 
 ```java
@@ -921,6 +1052,27 @@ Compare and swap
 - ABA问题，如果变量值 从 A=>B=>A,CAS无法检测到这种变化
 - **自旋(重复)开销**：导致CPU资源浪费，因为一直比较，直到能够修改为止
 - 单变量限制：仅支持修改单变量
+
+
+
+```java
+public class SpinLock {
+    private final AtomicBoolean lock = new AtomicBoolean(false);
+
+    public void lock() {
+        while (!lock.compareAndSet(false, true)) {
+            // 自旋等待
+        }
+    }
+
+    public void unlock() {
+        lock.set(false);
+    }
+    
+ } // 短时间自旋，避免线程上下文切换的开销
+```
+
+
 
 ABA问题：引入版本号或者时间戳，每次更新变量的同时更新版本号，从而依靠版本号判断变量是否被调整过。
 
@@ -994,13 +1146,25 @@ public class SpinLock {
 
 ```
 
-针对自旋锁=>CLH
+针对自旋锁=>CLH 基于队列的自旋锁
+
+![image-20250418235623832](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250418235623832.png)
+
+CAS之前节点的完成状态
 
 
 
-#### AQS
+AQS对CLH的改造
 
-**Abstract Queued Synchronizer** 是同步器的基础框架， 起到抽象、封装的作用，将一些排队、入队、加锁、中断方法提供出来，具体加锁时机、入队时机等需要实现类自己控制。
+![image-20250418235721056](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250418235721056.png)
+
+阻塞和通知
+
+
+
+#### ❌❌❌AQS
+
+**Abstract Queued Synchronizer** 是**同步**器**的基础框架**， **起到抽象、封装的作用**，将一些排队、入队、加锁、中断方法提供出来，具体加锁时机、入队时机等需要实现类自己控制。
 
 - **(volatile申明)state状态**，可以通过CAS无锁并发方式竞争锁
 
@@ -1078,6 +1242,74 @@ unlock: sync.release(1)
 
 
 AQS和CAS两者可以经常一起使用，例如在ReentrantLock中，CAS用于实现锁的获取和释放操作，而AQS则管理锁的状态和等待队列。
+
+
+
+== 
+
+美团技术团队
+
+```java
+// **************************Synchronized的使用方式**************************
+// 1.用于代码块
+synchronized (this) {}
+// 2.用于对象
+synchronized (object) {}
+// 3.用于方法
+public synchronized void test () {}
+// 4.可重入
+for (int i = 0; i < 100; i++) {
+	synchronized (this) {}
+}
+
+// **************************ReentrantLock的使用方式**************************
+public void test () throw Exception {
+	// 1.初始化选择公平锁、非公平锁
+	ReentrantLock lock = new ReentrantLock(true);
+	// 2.可用于代码块
+	lock.lock();
+	try {
+		try {
+			// 3.支持多种加锁方式，比较灵活; 具有可重入特性
+			if(lock.tryLock(100, TimeUnit.MILLISECONDS)){ }
+		} finally {
+			// 4.手动释放锁
+			lock.unlock()
+		}
+	} finally {
+		lock.unlock();
+	}
+}
+```
+
+
+
+非公平锁
+
+```java
+// 非公平锁
+static final class NonfairSync extends Sync {
+	...
+	final void lock() {
+		if (compareAndSetState(0, 1))
+			setExclusiveOwnerThread(Thread.currentThread());
+		else
+			acquire(1);
+		}
+  ...
+}
+```
+
+- 若通过CAS设置变量State（同步状态）成功，也就是获取锁成功，则将当前线程设置为独占线程。
+- 若通过CAS设置变量State（同步状态）失败，也就是获取锁失败，则进入Acquire方法进行后续处理。
+
+某个线程获取锁失败的后续流程是什么呢？有以下两种可能：
+
+(1) 将当前线程获锁结果设置为失败，获取锁流程结束。这种设计会极大降低系统的并发度，并不满足我们实际的需求。所以就需要下面这种流程，也就是AQS框架的处理流程。
+
+(2) 存在某种排队等候机制，线程继续等待，仍然保留获取锁的可能，获取锁流程仍在继续。
+
+![image-20250418234428064](C:\Users\韦龙\AppData\Roaming\Typora\typora-user-images\image-20250418234428064.png)
 
 
 

@@ -168,6 +168,29 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Spring笔记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. 什么是循环依赖 两个及以上的类之间相互依赖。模块A依赖于模块B，模块B依赖于模块A，导致依赖链的循环，无法确定加载/初始化顺序。
+=&gt; 多个Bean循环引用导致Spring容器无法正常初始化它们。
+延迟某些Bean的初始化时间，使用@Lazy进行懒加载，只有当实际使用了该对象才创建。
+2. Spring如何解决循环依赖 提前暴露未完全创建的Bean
+三级缓存解决：
+一级缓存(Single Objects Map)：用于初始化单例Bean； (成品) 二级缓存(Early Singleton Objects Map): 用于存储尚未完全初始化，但实例化的Bean，用于提取暴露对象，避免循环依赖问题；(半成品，成员变量未初始化) 三级缓存(Singleton Factories Map): 用于存储对象工厂，可以通过工厂创建早期Bean **解决步骤：**例如AB两个相互依赖，三级缓存策略
+创建A，查询一级缓存看看有没有完全体B，没有则看看二级缓存有没有半成品B，都没有则创建A的Bean，调用ceateBean方法(实例化，属性注入，初始化)； 之后，A往三级缓存加入一个A的getObject方法 到了属性注入，因为A依赖B，那么需要创建B。同样的路线，B查询到二级缓存都没发现A，调用createBean创建B实例。到了B的属性注入，发现三级缓存有A工厂，调用getObject创建半成品A，放到二级缓存中，完成B的第二步属性注入。后面initializeBean完成B的创建，并放到一级缓存中。 回到A，A调用一级缓存的B完成注入。 未解决的问题：
+而如果说 A 是构造器注入，B 是 set 注入。则说明 A 需要 B 的时刻提前了，在实例化 new A(B b)的时候就需要 B。此时 A 没有往三级缓存放getObject，因此到了创建依赖 B的时候，无法获取 A的 getObject 工厂方法，只能继续 new A，造成循环依赖的死循环。
+4. Spring重要的模块组成 Core Container 核心容器：
+Spring Core：提供依赖注入DI和控制反转IOC的实现。 Spring Beans：负责管理Bean的定义和生命周期，通过IOC完成Bean的创建、依赖注入、初始化、销毁等操作； Spring Context：基于Core和Beans的高级容器，提供类似JNDI的上下文功能，包含国际化、事件传播、资源访问等功能； Spring Expression Language：用于运行时查询和操作对象的值。 AOP面向切面编程
+Spring AOP：提供面向切面编程的功能，可以在方法执行前后或抛出异常时动态插入额外的业务逻辑。 Data Access 数据访问
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-03-01 00:00:00 +0000 UTC'>March 1, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;516 words&nbsp;·&nbsp;LongWei</footer>
+  <a class="entry-link" aria-label="post link to Spring笔记" href="http://longcoding.top/posts/jobs/spring/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Java面试题笔记
     </h2>
   </header>
@@ -213,27 +236,6 @@ work flow
   </div>
   <footer class="entry-footer"><span title='2024-10-31 00:00:00 +0000 UTC'>October 31, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;562 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to DL基准模型训练伪代码" href="http://longcoding.top/posts/learning/minibaseline_learning/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">LeetCodeHot100刷题笔记
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>热题100 哈希 1. 两数之和 给定： 数组nums 和target
-要求：找出两元素之和为target的数组下标
-暴力：
-1for i in range(len(nums)): 2 for j in range(i&#43;1, len(nums)): 3 if ... 4# O(n^2) 题解：
-问题分解 =&gt; 给定x 寻找 target-x(这是复杂度的主要部分)
-用额外结构记录
-1hashtable = dict() 2for i in range(len(nums)): 3 if nums[i] in hashtable: 4 return [i, hashtable[nums[i]]] 5 else: 6 hashtable[nums[i]] = i 7# 保存遍历过的元素，参考过去 49. 字母异位词分组 输入: strs = [&#34;eat&#34;, &#34;tea&#34;, &#34;tan&#34;, &#34;ate&#34;, &#34;nat&#34;, &#34;bat&#34;]输出: [[&#34;bat&#34;],[&#34;nat&#34;,&#34;tan&#34;],[&#34;ate&#34;,&#34;eat&#34;,&#34;tea&#34;]] 思路：condition =&gt; […]
-HashTable, Key=排序后的Str, Value=List&lt;String&gt;
-1HashMap&lt;String, List&lt;String&gt;&gt; hashTable = new HashMap&lt;&gt;(); 2for(String str : strs){ 3 char[] charArray = str.toCharArray(); // 将字符串转换为字符数组 4 Arrays.sort(charArray); // 对字符数组进行排序 5 String orderStr = new String(charArray); 6 if (hashTable.containsKey(orderStr)) { 7 hashTable.get(orderStr).add(str); 8 }else { 9 hashTable.put(orderStr, new ArrayList&lt;&gt;()); 10 hashTable.get(orderStr).add(str); 11 } 12} 13 14List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;(); 15 16for (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : hashTable.entrySet()) { 17 res.add(entry.getValue()); 18} 19return res; 128. 最长连续序列 1HashSet&lt;Integer&gt; hashSet = new HashSet&lt;&gt;(); 2// 去重复，并且查询O(1) 3for (int num : nums) { 4 hashSet.add(num); 5} 6 7List&lt;Integer&gt; start_nums = new ArrayList&lt;&gt;(); 8 9// 找所有为起点的数 10for (Iterator&lt;Integer&gt; it = hashSet.iterator(); it.hasNext(); ) { 11 int num = it.next(); 12 if (!hashSet.contains(num-1)){ 13 start_nums.add(num); 14 } 15} 16 17// 遍历起点x, 遍历 x&#43;1, x&#43;2, ... 18int longest_length = 0; 19for(int start : start_nums){ 20 int current_length = 1; 21 int start_i = start; 22 while (hashSet.contains(start_i&#43;1)) { 23 current_length &#43;= 1; 24 start_i &#43;= 1; 25 } 26 if (current_length &gt; longest_length){ 27 longest_length = current_length; 28 } 29} 30return longest_length; 31} 双指针 283. 移动零 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序(原始数组位置，非不是重新排序)。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-09-18 00:00:00 +0000 UTC'>September 18, 2024</span>&nbsp;·&nbsp;35 min&nbsp;·&nbsp;7397 words&nbsp;·&nbsp;LongWei</footer>
-  <a class="entry-link" aria-label="post link to LeetCodeHot100刷题笔记" href="http://longcoding.top/posts/leetcode/leetcode_hot100/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -327,8 +329,29 @@ ReLU的作用，只对对感兴趣的类别有积极影响的特征感兴趣。�
 但缺乏显示细粒度重要性的能力 （能区分猫狗，但对为什么识别为猫，不够精确）通过点乘法融合 引导反向传播 和 Grad-CAM =&gt; 可视化
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;19 min&nbsp;·&nbsp;3878 words&nbsp;·&nbsp;LongWei</footer>
+  <footer class="entry-footer"><span title='2024-04-19 00:00:00 +0000 UTC'>April 19, 2024</span>&nbsp;·&nbsp;22 min&nbsp;·&nbsp;4530 words&nbsp;·&nbsp;LongWei</footer>
   <a class="entry-link" aria-label="post link to 深度学习论文汇总2" href="http://longcoding.top/posts/learning/paper_reading2/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>请作为面试官的角度，回答。场景 &#43; 方法 or 问题 &#43; 措施
+学习要点
+编写的Java文件是怎么运行的？ JVM - 类加载 JVM的内存是如何管理的呢？分配和回收？ JVM 内存结构 JMM相关 JVM内存分配 JVM垃圾回收 如何结合实际的机器调整JVM参数，最佳实践呢？ JVM基础 - 类字节码详解 Java代码是运行在JVM上的，而JVM能够屏蔽掉不同具体的设备差异，这提供了很好的移植性。
+.Java文件 需要编译为 .class文件字节码文件才能被JVM运行。其中.class文件就是以字节为单位，将类数据按照顺序紧凑的排列在class文件中(有格式模板)。JVM按照预设的模板解析。
+Class文件的结构：
+字节码(Class)文件信息
+常量池: 存储字面量、字段的名称和描述符号、方法的名称和描述符等…
+字面量类似于java中的常量概念，如文本字符串，final常量等; 方法表集合：对类内部的方法描述(类型，权限修饰)。包括成员变量和方法的描述；
+code内的主要属性： stack：最大操作数栈，根据这个分配栈帧 locals: 局部变量所需的存储空间 args_size: 方法参数的个数，每个实例方法都会有一个隐藏参数this attribute_info: 方法体内容 LineNumberTable: 该属性的作用是描述源码行号与字节码行号(字节码偏移量)之间的对应关系。 LocalVariableTable: 该属性的作用是描述帧栈中局部变量与源码中定义的变量之间的关系 1Classfile /E:/JavaCode/TestProj/out/production/TestProj/com/rhythm7/Main.class 2 Last modified 2018-4-7; size 362 bytes 3 MD5 checksum 4aed8540b098992663b7ba08c65312de 4 Compiled from &#34;Main.java&#34; 5public class com.rhythm7.Main 6 minor version: 0 7 major version: 52 8 flags: ACC_PUBLIC, ACC_SUPER 9 10Constant pool: 11 #1 = Methodref #4.#18 // java/lang/Object.&#34;&lt;init&gt;&#34;:()V 12 #2 = Fieldref #3.#19 // com/rhythm7/Main.m:I 13 #3 = Class #20 // com/rhythm7/Main 14 #4 = Class #21 // java/lang/Object 15 #5 = Utf8 m 16 #6 = Utf8 I 17 #7 = Utf8 &lt;init&gt; 18 #8 = Utf8 ()V 19 #9 = Utf8 Code 20 #10 = Utf8 LineNumberTable 21 #11 = Utf8 LocalVariableTable 22 #12 = Utf8 this 23 #13 = Utf8 Lcom/rhythm7/Main; 24 #14 = Utf8 inc 25 #15 = Utf8 ()I 26 #16 = Utf8 SourceFile 27 #17 = Utf8 Main.java 28 #18 = NameAndType #7:#8 // &#34;&lt;init&gt;&#34;:()V 29 #19 = NameAndType #5:#6 // m:I 30 #20 = Utf8 com/rhythm7/Main 31 #21 = Utf8 java/lang/Object 32 33{ 34 private int m; 35 descriptor: I 36 flags: ACC_PRIVATE 37 38 public com.rhythm7.Main(); 39 descriptor: ()V 40 flags: ACC_PUBLIC 41 Code: 42 stack=1, locals=1, args_size=1 43 0: aload_0 44 1: invokespecial #1 // Method java/lang/Object.&#34;&lt;init&gt;&#34;:()V 45 4: return 46 LineNumberTable: 47 line 3: 0 48 LocalVariableTable: 49 Start Length Slot Name Signature 50 0 5 0 this Lcom/rhythm7/Main; 51 52 public int inc(); 53 descriptor: ()I 54 flags: ACC_PUBLIC 55 Code: 56 stack=2, locals=1, args_size=1 57 0: aload_0 58 1: getfield #2 // Field m:I 59 4: iconst_1 60 5: iadd 61 6: ireturn 62 LineNumberTable: 63 line 8: 0 64 LocalVariableTable: 65 Start Length Slot Name Signature 66 0 7 0 this Lcom/rhythm7/Main; 67} 68SourceFile: &#34;Main.java&#34; JVM基础 - 类的加载过程 类加载过程包括：加载，验证，准备， 解析， 初始化 这几个阶段；
+...</p>
+  </div>
+  <footer class="entry-footer">4 min&nbsp;·&nbsp;772 words&nbsp;·&nbsp;👨🏻‍🎓 LongWei</footer>
+  <a class="entry-link" aria-label="post link to " href="http://longcoding.top/posts/jobs/jvm%E7%9B%B8%E5%85%B3-pdai/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

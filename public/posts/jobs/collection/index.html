@@ -504,7 +504,7 @@ hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突
 </span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w"></span><span class="n">newTabel</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">1</span><span class="o">]-&gt;[</span><span class="n">3</span><span class="o">]-&gt;[</span><span class="n">2</span><span class="o">]-&gt;[</span><span class="n">1</span><span class="o">]</span><span class="w">
 </span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">                </span><span class="err">⬆</span><span class="n">️</span><span class="w">  </span><span class="err">⬅</span><span class="n">️</span><span class="w">      </span><span class="err">⬅</span><span class="n">️</span><span class="w">
-</span></span></span></code></pre></div><img src="http://sthda9dn6.hd-bkt.clouddn.com/FmtTH6S92haO65uNpE51bzyvFmy0" alt="image-20250308200751105" style="zoom:70%;" />
+</span></span></span></code></pre></div><img src="http://verification.longcoding.top/FmtTH6S92haO65uNpE51bzyvFmy0" alt="image-20250308200751105" style="zoom:70%;" />
 <h3 id="4948-hashmap有哪些提升性能的技巧">4948 HashMap，有哪些提升性能的技巧？<a hidden class="anchor" aria-hidden="true" href="#4948-hashmap有哪些提升性能的技巧">#</a></h3>
 <ul>
 <li>
@@ -646,7 +646,7 @@ hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突
 </span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">    </span><span class="n">Ectry</span><span class="p">(){...}</span><span class="w"> </span><span class="c1">// constructor</span><span class="w">
 </span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>🏷️图示：</p>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FgiN-yE6NKTgTyTo8lwgP6bAlHwY" alt="image-20250308215346671" style="zoom:50%;" />
+<img src="http://verification.longcoding.top/FgiN-yE6NKTgTyTo8lwgP6bAlHwY" alt="image-20250308215346671" style="zoom:50%;" />
 <p>构想=&gt; 由于可以根据插入时间排序，因此可以模拟LRU(least recently used)算法，进行淘汰最不常用的节点。</p>
 <hr>
 <h3 id="461-concurrenthashmap">461 ConcurrentHashMap<a hidden class="anchor" aria-hidden="true" href="#461-concurrenthashmap">#</a></h3>
@@ -660,7 +660,7 @@ hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突
 </ul>
 </li>
 </ul>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FpkreN_HAJJZ5eBpsILirxXMj-Lx" alt="image-20250308220417373" style="zoom: 33%;" />
+<img src="http://verification.longcoding.top/FpkreN_HAJJZ5eBpsILirxXMj-Lx" alt="image-20250308220417373" style="zoom: 33%;" />
 <p>=&gt; 锁的粒度是segment；</p>
 <p>缺点：segment不能扩容，而HashMap会扩容</p>
 <ul>
@@ -670,7 +670,7 @@ hashCode计算hash值，决定键的存储位置。 而hashCode相同=&gt;冲突
 </ul>
 </li>
 </ul>
-<img src="http://sthda9dn6.hd-bkt.clouddn.com/FlB1SjHxwwX53SerODlPwBfEXLjP" alt="image-20250308220632518" style="zoom:33%;" />
+<img src="http://verification.longcoding.top/FlB1SjHxwwX53SerODlPwBfEXLjP" alt="image-20250308220632518" style="zoom:33%;" />
 <p>🏷️添加节点过程</p>
 <ul>
 <li>计算key的hash后的下标，如果没有元素 =&gt; 利用CAS添加元素；</li>

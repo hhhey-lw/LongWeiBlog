@@ -20,7 +20,7 @@
       <guid>http://longcoding.top/posts/jobs/mysql/</guid>
       <description>&lt;h3 id=&#34;617-mysql-数据排序-实现&#34;&gt;617 MySQL 数据排序 实现？&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;Order By 命中索引(包括索引字段)，使用索引排序(有序)，效率最高效&lt;/li&gt;
+&lt;li&gt;Order By 命中索引(包括索引字段)，使用索引排序(&lt;strong&gt;⭐有序⭐&lt;/strong&gt;)，效率最高效&lt;/li&gt;
 &lt;li&gt;否则使用文件排序，文件少=&amp;gt; 内存排序 sort_buffer&lt;/li&gt;
 &lt;li&gt;文件大=&amp;gt;外部排序，归并排序&lt;/li&gt;
 &lt;/ol&gt;
@@ -41,7 +41,7 @@
 &lt;li&gt;利用&lt;strong&gt;执行器&lt;/strong&gt;，调用引擎层查询数据，返回结果集&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;具体：Select * from user where id = 1;&lt;/p&gt;
-&lt;img src=&#34;http://sthda9dn6.hd-bkt.clouddn.com/FssKKPCKzeVJv4TEPdMldct1M8z4&#34; alt=&#34;image-20250305222939319&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;img src=&#34;http://verification.longcoding.top/FssKKPCKzeVJv4TEPdMldct1M8z4&#34; alt=&#34;image-20250305222939319&#34; style=&#34;zoom:50%;&#34; /&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;SQL =&amp;gt; Server层&lt;strong&gt;连接器&lt;/strong&gt;，权限校验，账号是否有资格获取。无=&amp;gt; Access denied for user。  连接成功后，空闲一段时间会断开&lt;/p&gt;
